@@ -1,17 +1,14 @@
 "use client";
-import signInWithOAuth from "@/actions/auth/signInWithOAuth";
-import useGoogleAuth from "@/actions/auth/useGoogleAuth";
-import FcGoogle from "@/components/icons/FcGoogle";
-import { useToast } from "@/hooks/useToast";
+import useFacebookAuth from "@/actions/auth/useFacebookAuth";
+import FcFacebook from "@/components/icons/FcFacebook";
 import useTranslation from "@/translation/useTranslation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+
 import React from "react";
 
-export default function LoginWithGoogle() {
+export default function LoginWithFacebook() {
   const { data: translation } = useTranslation();
 
-  const { mutate: signUp } = useGoogleAuth();
+  const { mutate: signUp } = useFacebookAuth();
   return (
     <button
       className={
@@ -22,7 +19,7 @@ export default function LoginWithGoogle() {
         signUp();
       }}
     >
-      <FcGoogle size={20} />
+      <FcFacebook size={20} />
       <span className="text-sm">{translation?.lang["Login with Google"]}</span>
     </button>
   );

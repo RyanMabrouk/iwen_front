@@ -1,64 +1,65 @@
-"use client";
+import React from "react";
 import Image from "next/image";
-import Link from "next/link";
-import SecondaryButton from "../../../../components/SecondaryButton";
-import LoginWithPassword from "./LoginWithPassword";
-import LoginWithGoogle from "./LoginWithGoogle";
-import useTranslation from "@/translation/useTranslation";
+import lock from "@/app/(auth)/icons/unlock.svg";
+import envelope from "@/app/(auth)/icons/envelope.svg";
+import eye from "@/app/(auth)/icons/eye-crossed.svg";
 
 export default function LoginForm() {
-  const { data: translation } = useTranslation();
+  const [email, setEmail] = React.useState<boolean>(false);
+  const [password, setPassword] = React.useState<boolean>(false);
+  const [showPassword, setShowPassword] = React.useState<boolean>(false);
   return (
-    <div className="mx-auto flex h-fit w-full max-w-[75rem] flex-col rounded-lg border bg-white p-10 shadow-lg">
-      <div className="relative mb-8 h-64 w-full max-lg:h-28 max-sm:hidden">
-        <Image
-          src="/bgBanner.jpg"
-          alt="Login Banner"
-          layout="fill"
-          objectFit="cover"
-          className="rounded-lg"
+    <div className="flex w-full flex-col items-end justify-between gap-1 p-2">
+      <label htmlFor="email">البريد الإلكتروني*</label>
+      <div
+        onFocus={() => setEmail(true)}
+        onBlur={() => setEmail(false)}
+        className={`${email && "border-emerald-700"} flex w-full justify-end gap-2 rounded-md border p-2 transition-all duration-300 focus:border focus:border-emerald-400`}
+      >
+        <input
+          id="email"
+          className="h-[20px] flex-1 bg-inherit outline-none"
+          type="email"
+          dir="rtl"
         />
-        <div className="absolute inset-0 flex items-center justify-center rounded-sm bg-black bg-opacity-25">
-          <h1 className="text-3xl font-bold text-white text-shadow max-sm:text-2xl">
-            {translation?.lang["Join Us and Explore!"]}
-          </h1>
+        <Image src={envelope} alt="envelope" />
+      </div>
+      <label htmlFor="password">كلمة المرور*</label>
+      <div
+        onFocus={() => setPassword(true)}
+        onBlur={() => setPassword(false)}
+        className={`${password && "border-emerald-500"} flex w-full justify-between gap-2 rounded-md border p-2`}
+      >
+        <button onClick={() => setShowPassword((e) => !e)}>
+          <Image src={eye} alt="eye" />
+        </button>
+        <div className="flex flex-1 justify-end gap-2">
+          <input
+            id="password"
+            className="h-[20px] flex-1 bg-inherit outline-none"
+            type={`${showPassword ? "text" : "password"}`}
+            dir="rtl"
+          />
+          <Image src={lock} alt="lock" />
         </div>
       </div>
-      <div className="flex flex-col gap-10 lg:flex-row">
-        <div className="flex-1">
-          <LoginWithPassword />
-          <div className="mt-6 flex w-full flex-col items-center justify-center gap-6">
-            <div className="mx-auto flex w-full items-center justify-center space-x-3">
-              <hr className="w-36 border-gray-300 max-sm:flex-1" />
-              <span className="text-sm text-gray-500">
-                {translation?.lang["or login with"]}
-              </span>
-              <hr className="w-36 border-gray-300 max-sm:flex-1" />
-            </div>
-            <LoginWithGoogle />
-          </div>
+      <div className="flex w-full items-center justify-between p-2">
+        <div className="flex gap-2">
+          <input className="bg-inherit" type="checkbox" />
+          <h1 className="text-md text-zinc-600">تذكرني</h1>
         </div>
-        <div className="hidden lg:block lg:w-px lg:bg-gray-200" />
-        <div className="flex-1 space-y-4 text-center lg:w-1/2 lg:text-left">
-          <h2 className="text-2xl font-semibold text-gray-800">
-            {translation?.lang["New Users"]}
-          </h2>
-          <p className="text-gray-600">
-            {
-              translation?.lang[
-                "Create an account to shop faster, manage multiple addresses, and much more."
-              ]
-            }
-          </p>
-          <div>
-            <Link href="/signup">
-              <SecondaryButton className="">
-                {translation?.lang["Create an account"]}
-              </SecondaryButton>
-            </Link>
-          </div>
-        </div>
+        <button
+          className={`text-md text-zinc-600 transition-all duration-200 hover:text-emerald-700`}
+        >
+          نسيت كلمة المرور
+        </button>
       </div>
+      <button
+        style={{ background: "#27A098" }}
+        className="text-md w-full rounded-md p-3 text-center font-semibold text-white"
+      >
+        تسجيل الدخول
+      </button>
     </div>
   );
 }
