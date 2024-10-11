@@ -12,8 +12,7 @@ export default async function handleForgetPassword(email: string) {
     email,
   });
 
-  console.log("handleForgetPassword");
-
-  await signInWithOPT(validatedInput.email);
-  return { success: true, message: "OTP sent successfully" };
+  const { error } = await signInWithOPT(validatedInput.email);
+  if (error) throw new Error(error);
+  return { success: true, message: "" };
 }

@@ -73,7 +73,7 @@ export default function LoginForm() {
       </div>
       <div className="flex w-full items-center justify-between p-2">
         <div className="flex gap-2">
-          <input className="bg-inherit" type="checkbox" />
+          <input className="cursor-pointer bg-inherit" type="checkbox" />
           <h1 className="text-md text-zinc-600">تذكرني</h1>
         </div>
         <Link

@@ -1,6 +1,6 @@
 import verifyOTP from "@/actions/auth/verifyOTP";
 import { useToast } from "@/hooks/useToast";
-import { useMutation, UseMutationResult } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export default function useVerifyOTP(email: string, otp: string) {
@@ -23,16 +23,16 @@ export default function useVerifyOTP(email: string, otp: string) {
               typeof errorObj === "object" &&
               "message" in errorObj
             ) {
-              toast.error(errorObj.message, "error : ");
+              toast.error(errorObj.message);
             }
           });
         } else {
           // If it's not an array, just show the error message
-          toast.error(error.message, "error : ");
+          toast.error(error.message);
         }
       } catch (e) {
         // If parsing fails, show the original error message
-        toast.error(error.message, "error : ");
+        toast.error(error.message);
       }
     },
   });

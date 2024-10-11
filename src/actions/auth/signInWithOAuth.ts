@@ -26,7 +26,7 @@ export default async function signInWithOAuth({
   if (error) {
     return {
       error: {
-        message: error.message,
+        message: "حدث خطأ في أثناء تسجيل الدخول",
         type: `${provider} provider Error`,
       },
     };

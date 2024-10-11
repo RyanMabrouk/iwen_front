@@ -9,6 +9,53 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      addresses: {
+        Row: {
+          city: string
+          country: string
+          created_at: string
+          id: string
+          name: string
+          postal_code: string
+          state: string
+          street: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          city?: string
+          country?: string
+          created_at?: string
+          id?: string
+          name?: string
+          postal_code?: string
+          state?: string
+          street?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          city?: string
+          country?: string
+          created_at?: string
+          id?: string
+          name?: string
+          postal_code?: string
+          state?: string
+          street?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "addresses_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       book_categories: {
         Row: {
           book_id: string
@@ -71,70 +118,94 @@ export type Database = {
       }
       books: {
         Row: {
-          cover_type_id: string
+          canonical: string
+          cover_type_id: string | null
           created_at: string
           description: string
           discount: number
           discount_type: Database["public"]["Enums"]["discount_type_enum"]
           editor: string
           id: string
+          images_urls: string[]
           isbn: string
-          name: string
+          meta_description: string
+          meta_image: string
+          meta_keywords: string[]
+          meta_title: string
           page_count: number
           price: number
-          price_usd: number
-          release_year: number
-          share_house: string
+          price_after_discount: number
+          price_dhs: number
+          release_year: number | null
+          share_house_id: string | null
+          slug: string
           status: Database["public"]["Enums"]["status_enum"] | null
           stock: number
+          structured_data: string
           title: string
           updated_at: string
           weight: number
-          writer_id: string
+          writer_id: string | null
         }
         Insert: {
-          cover_type_id: string
-          created_at?: string
-          description?: string
-          discount: number
-          discount_type: Database["public"]["Enums"]["discount_type_enum"]
-          editor?: string
-          id?: string
-          isbn?: string
-          name?: string
-          page_count: number
-          price: number
-          price_usd: number
-          release_year: number
-          share_house?: string
-          status?: Database["public"]["Enums"]["status_enum"] | null
-          stock: number
-          title?: string
-          updated_at?: string
-          weight: number
-          writer_id: string
-        }
-        Update: {
-          cover_type_id?: string
+          canonical?: string
+          cover_type_id?: string | null
           created_at?: string
           description?: string
           discount?: number
           discount_type?: Database["public"]["Enums"]["discount_type_enum"]
           editor?: string
           id?: string
+          images_urls?: string[]
           isbn?: string
-          name?: string
+          meta_description?: string
+          meta_image?: string
+          meta_keywords?: string[]
+          meta_title?: string
           page_count?: number
           price?: number
-          price_usd?: number
-          release_year?: number
-          share_house?: string
+          price_after_discount?: number
+          price_dhs?: number
+          release_year?: number | null
+          share_house_id?: string | null
+          slug?: string
           status?: Database["public"]["Enums"]["status_enum"] | null
           stock?: number
+          structured_data?: string
           title?: string
           updated_at?: string
           weight?: number
-          writer_id?: string
+          writer_id?: string | null
+        }
+        Update: {
+          canonical?: string
+          cover_type_id?: string | null
+          created_at?: string
+          description?: string
+          discount?: number
+          discount_type?: Database["public"]["Enums"]["discount_type_enum"]
+          editor?: string
+          id?: string
+          images_urls?: string[]
+          isbn?: string
+          meta_description?: string
+          meta_image?: string
+          meta_keywords?: string[]
+          meta_title?: string
+          page_count?: number
+          price?: number
+          price_after_discount?: number
+          price_dhs?: number
+          release_year?: number | null
+          share_house_id?: string | null
+          slug?: string
+          status?: Database["public"]["Enums"]["status_enum"] | null
+          stock?: number
+          structured_data?: string
+          title?: string
+          updated_at?: string
+          weight?: number
+          writer_id?: string | null
         }
         Relationships: [
           {
@@ -142,6 +213,13 @@ export type Database = {
             columns: ["cover_type_id"]
             isOneToOne: false
             referencedRelation: "cover_types"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "books_share_house_id_fkey"
+            columns: ["share_house_id"]
+            isOneToOne: false
+            referencedRelation: "share_houses"
             referencedColumns: ["id"]
           },
           {
@@ -225,6 +303,140 @@ export type Database = {
         }
         Relationships: []
       }
+      orders: {
+        Row: {
+          address: string
+          cancel_reason: string | null
+          city: string
+          created_at: string
+          delivery_price: number
+          email: string
+          id: string
+          name: string
+          payment_method: Database["public"]["Enums"]["payment_method_enum"]
+          phone_number: string
+          postal_code: string
+          status: Database["public"]["Enums"]["payment_status_enum"]
+          total_price: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          address: string
+          cancel_reason?: string | null
+          city: string
+          created_at?: string
+          delivery_price: number
+          email: string
+          id?: string
+          name: string
+          payment_method: Database["public"]["Enums"]["payment_method_enum"]
+          phone_number: string
+          postal_code: string
+          status: Database["public"]["Enums"]["payment_status_enum"]
+          total_price: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          address?: string
+          cancel_reason?: string | null
+          city?: string
+          created_at?: string
+          delivery_price?: number
+          email?: string
+          id?: string
+          name?: string
+          payment_method?: Database["public"]["Enums"]["payment_method_enum"]
+          phone_number?: string
+          postal_code?: string
+          status?: Database["public"]["Enums"]["payment_status_enum"]
+          total_price?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      orders_products: {
+        Row: {
+          book_id: string
+          created_at: string
+          discount: number
+          discount_type: Database["public"]["Enums"]["discount_type_enum"]
+          id: string
+          order_id: string
+          price_before_discount: number
+          quantity: number
+          updated_at: string
+        }
+        Insert: {
+          book_id: string
+          created_at?: string
+          discount: number
+          discount_type: Database["public"]["Enums"]["discount_type_enum"]
+          id?: string
+          order_id: string
+          price_before_discount: number
+          quantity: number
+          updated_at?: string
+        }
+        Update: {
+          book_id?: string
+          created_at?: string
+          discount?: number
+          discount_type?: Database["public"]["Enums"]["discount_type_enum"]
+          id?: string
+          order_id?: string
+          price_before_discount?: number
+          quantity?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_products_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "books"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_products_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      share_houses: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       subcategories: {
         Row: {
           category_id: string
@@ -298,6 +510,39 @@ export type Database = {
           },
         ]
       }
+      wishlists: {
+        Row: {
+          book_id: string
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          book_id: string
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          book_id?: string
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wishlists_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "books"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wishlists_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       writers: {
         Row: {
           created_at: string
@@ -327,9 +572,11 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      discount_type_enum: "percentage" | "unavailable"
+      discount_type_enum: "percentage" | "fixed"
+      payment_method_enum: "onDelivery" | "online" | "bank"
+      payment_status_enum: "pending" | "paid" | "canceled"
       roles_enum: "user" | "admin"
-      status_enum: "available" | "fixed"
+      status_enum: "available" | "unavailable"
     }
     CompositeTypes: {
       [_ in never]: never

@@ -1,4 +1,4 @@
-import { useMutation, UseMutationResult } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import handleLogIn from "../../actions/auth/handleLogin";
 import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ export default function useLogin() {
         password: formData.get("password") as string,
       }),
     onSuccess: () => {
-      toast.success("تم تسجيل الدخول بنجاح", "success : ");
+      toast.success("تم تسجيل الدخول بنجاح");
       router.push("/home");
     },
     onError: (error: Error) => {
@@ -27,16 +27,16 @@ export default function useLogin() {
               typeof errorObj === "object" &&
               "message" in errorObj
             ) {
-              toast.error(errorObj.message, "error : ");
+              toast.error(errorObj.message);
             }
           });
         } else {
           // If it's not an array, just show the error message
-          toast.error(error.message, "error : ");
+          toast.error(error.message);
         }
       } catch (e) {
         // If parsing fails, show the original error message
-        toast.error(error.message, "error : ");
+        toast.error(error.message);
       }
     },
   });

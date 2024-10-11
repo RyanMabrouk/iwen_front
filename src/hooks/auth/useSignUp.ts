@@ -1,4 +1,4 @@
-import { useMutation, UseMutationResult } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import handleSignUp from "../../actions/auth/handleSignUp";
 import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
@@ -22,14 +22,14 @@ export default function useSignUp() {
               typeof errorObj === "object" &&
               "message" in errorObj
             ) {
-              toast.error(errorObj.message, "error : ");
+              toast.error(errorObj.message);
             }
           });
         } else {
-          toast.error(error.message, "error : ");
+          toast.error(error.message);
         }
       } catch (e) {
-        toast.error(error.message, "error : ");
+        toast.error(error.message);
       }
     },
   });

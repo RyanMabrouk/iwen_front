@@ -1,4 +1,4 @@
-import { useMutation, UseMutationResult } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import handleForgetPassword from "../../actions/auth/handleForgetPassword";
 import { useToast } from "@/hooks/useToast";
 
@@ -20,16 +20,16 @@ export default function useSendOTP(email: string) {
               typeof errorObj === "object" &&
               "message" in errorObj
             ) {
-              toast.error(errorObj.message, "error : ");
+              toast.error(errorObj.message);
             }
           });
         } else {
           // If it's not an array, just show the error message
-          toast.error(error.message, "error : ");
+          toast.error(error.message);
         }
       } catch (e) {
         // If parsing fails, show the original error message
-        toast.error(error.message, "error : ");
+        toast.error(error.message);
       }
     },
   });

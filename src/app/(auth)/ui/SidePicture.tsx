@@ -13,7 +13,7 @@ export default function SidePicture() {
       className="relative row-span-10 flex h-full max-h-[30rem] w-full flex-col items-center justify-between overflow-hidden max-md:col-span-3 max-md:row-span-2 max-md:row-start-1 max-md:max-h-[10rem]"
       style={{ background: "#27A098" }}
     >
-      <button
+      {/* <button
         className="absolute right-0 top-0 z-10 bg-inherit p-2"
         aria-label="Close"
       >
@@ -25,7 +25,7 @@ export default function SidePicture() {
           width={24}
           height={24}
         />
-      </button>
+      </button> */}
 
       <div className="flex flex-grow items-center justify-center">
         <Image

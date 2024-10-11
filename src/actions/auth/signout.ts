@@ -6,7 +6,7 @@ export default async function signOut() {
   const { error } = await supabase.auth.signOut();
   if (error) {
     return {
-      error,
+      error: "حدث خطأ أثناء تسجيل الخروج",
     };
   } else {
     redirect("/login");

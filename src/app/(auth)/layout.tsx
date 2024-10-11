@@ -23,9 +23,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 defaultValue="0"
                 name="language"
                 id="language"
-                className="rounded border-0 bg-inherit px-10 py-1 outline-none"
+                className="cursor-pointer rounded border-0 bg-inherit px-10 py-1 outline-none"
               >
-                <option className="text-white" value="0" disabled>
+                <option
+                  className="cursor-pointer text-white"
+                  value="0"
+                  disabled
+                >
                   اللغة
                 </option>
                 <option value="1">العربية</option>
