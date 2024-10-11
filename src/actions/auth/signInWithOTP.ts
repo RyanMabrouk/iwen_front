@@ -11,6 +11,6 @@ export default async function signInWithOPT(email: string) {
       shouldCreateUser: false,
     },
   });
-  if (error) return { error: "حدث خطأ أثناء تسجيل الدخول" };
+  if (error) return { error: "حدث خطأ ما، يرجى المحاولة مرة أخرى" };
   return { error: null };
 }
