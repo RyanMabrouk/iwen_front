@@ -1,11 +1,7 @@
 "use client";
-import signInWithOAuth from "@/actions/auth/signInWithOAuth";
 import useGoogleAuth from "@/actions/auth/useGoogleAuth";
 import FcGoogle from "@/components/icons/FcGoogle";
-import { useToast } from "@/hooks/useToast";
 import useTranslation from "@/translation/useTranslation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function LoginWithGoogle() {
@@ -22,8 +18,8 @@ export default function LoginWithGoogle() {
         signUp();
       }}
     >
+      <span className="text-sm">سجل من خلال جوجل</span>
       <FcGoogle size={20} />
-      <span className="text-sm">{translation?.lang["Login with Google"]}</span>
     </button>
   );
 }

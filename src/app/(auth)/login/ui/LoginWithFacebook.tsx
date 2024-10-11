@@ -19,8 +19,8 @@ export default function LoginWithFacebook() {
         signUp();
       }}
     >
+      <span className="text-sm">سجل من خلال فايسبوك</span>
       <FcFacebook size={20} />
-      <span className="text-sm">{translation?.lang["Login with Google"]}</span>
     </button>
   );
 }

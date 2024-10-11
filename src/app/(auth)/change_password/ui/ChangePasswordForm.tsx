@@ -1,0 +1,100 @@
+"use client";
+
+import Image from "next/image";
+import lock from "@/app/(auth)/(icons)/unlock.svg";
+import eyeCrossed from "@/app/(auth)/(icons)/eye-crossed.svg";
+import eye from "@/app/(auth)/(icons)/eye.svg";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import handleChangePassword from "../actions/handleChangePasswrd";
+import { useToast } from "@/hooks/useToast";
+import useChangePassword from "../actions/useChangePassword";
+
+export default function ChangePasswordForm() {
+  const [passwordFocused, setPasswordFocused] = useState(false);
+  const [newPasswordFocused, setNewPasswordFocused] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const { mutate } = useChangePassword();
+  return (
+    <form action={mutate} className="flex flex-col items-end gap-2 py-5">
+      <h1 className="text-right text-xl font-semibold">
+        إعادة تعيين كلمة المرور
+      </h1>
+      <label htmlFor="password" className="mt-4 text-sm">
+        أدخل كلمة المرور الجديدة*
+      </label>
+      <div
+        onFocus={() => setPasswordFocused(true)}
+        onBlur={() => setPasswordFocused(false)}
+        className={`${passwordFocused && "border-emerald-500"} flex w-full justify-between gap-2 rounded-md border p-2`}
+      >
+        {showPassword ? (
+          <div
+            className="cursor-pointer"
+            onClick={() => setShowPassword((e) => !e)}
+          >
+            <Image src={eye} alt="eye" className="opacity-90" />
+          </div>
+        ) : (
+          <div
+            className="cursor-pointer"
+            onClick={() => setShowPassword((e) => !e)}
+          >
+            <Image src={eyeCrossed} className="opacity-40" alt="eye Crossed" />
+          </div>
+        )}
+        <div className="flex flex-1 justify-end gap-2">
+          <input
+            id="password"
+            name="password"
+            className="h-[20px] flex-1 bg-inherit outline-none"
+            type={`${showPassword ? "text" : "password"}`}
+            dir="rtl"
+          />
+          <Image src={lock} alt="lock" />
+        </div>
+      </div>
+      <label htmlFor="newPassword" className="text-sm">
+        أدخل كلمة المرور الجديدة*
+      </label>
+      <div
+        onFocus={() => setNewPasswordFocused(true)}
+        onBlur={() => setNewPasswordFocused(false)}
+        className={`${newPasswordFocused && "border-emerald-500"} flex w-full justify-between gap-2 rounded-md border p-2`}
+      >
+        {showNewPassword ? (
+          <div
+            className="cursor-pointer"
+            onClick={() => setShowNewPassword((e) => !e)}
+          >
+            <Image src={eye} alt="eye" className="opacity-90" />
+          </div>
+        ) : (
+          <div
+            className="cursor-pointer"
+            onClick={() => setShowNewPassword((e) => !e)}
+          >
+            <Image src={eyeCrossed} className="opacity-40" alt="eye Crossed" />
+          </div>
+        )}
+        <div className="flex flex-1 justify-end gap-2">
+          <input
+            id="password2"
+            name="password2"
+            className="h-[20px] flex-1 bg-inherit outline-none"
+            type={`${showNewPassword ? "text" : "password"}`}
+            dir="rtl"
+          />
+          <Image src={lock} alt="lock" />
+        </div>
+      </div>
+      <button
+        style={{ background: "#27A098" }}
+        className="mt-3 w-full rounded-md p-3 text-center text-xl font-semibold text-white"
+      >
+        تغيير كلمة المرور
+      </button>
+    </form>
+  );
+}

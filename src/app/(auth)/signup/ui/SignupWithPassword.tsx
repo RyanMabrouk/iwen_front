@@ -76,39 +76,14 @@ export default function SignupWithPassword() {
       };
 
       // Validate data with Zod
-      try {
-        schema.parse(data);
-        setFieldErrors({
-          email: "",
-          password: "",
-          confirm: "",
-          policies: "",
-        });
-      } catch (err) {
-        setSuccessMessage("");
-        if (err instanceof z.ZodError) {
-          const errors = {
-            email: "",
-            password: "",
-            confirm: "",
-            policies: "",
-          };
 
-          // Map each error to the corresponding field
-          err.errors.forEach((e) => {
-            errors[e.path[0] as keyof typeof errors] = e.message;
-          });
-          setFieldErrors(errors);
-        } else {
-          setFieldErrors({
-            email: "",
-            password: "",
-            confirm: "",
-            policies: "An unexpected error occurred",
-          });
-        }
-        throw err;
-      }
+      schema.parse(data);
+      setFieldErrors({
+        email: "",
+        password: "",
+        confirm: "",
+        policies: "",
+      });
 
       // Proceed with signup if validation passes
       const { email, password } = data;
