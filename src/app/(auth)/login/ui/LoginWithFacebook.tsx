@@ -1,5 +1,5 @@
 "use client";
-import useFacebookAuth from "@/actions/auth/useFacebookAuth";
+import useFacebookAuth from "@/hooks/auth/useFacebookAuth";
 import FcFacebook from "@/components/icons/FcFacebook";
 import useTranslation from "@/translation/useTranslation";
 

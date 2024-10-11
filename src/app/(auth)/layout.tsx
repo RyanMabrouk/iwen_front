@@ -4,7 +4,7 @@ import logo from "@/app/(auth)/(icons)/logo.svg";
 import cart from "@/app/(auth)/(icons)/cart.svg";
 import SidePicture from "./ui/SidePicture";
 import FormContainer from "./ui/FormContainer";
-import { PageProvider } from "./(context)/PageProvider";
+import { PageProvider } from "../../provider/PageProvider";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

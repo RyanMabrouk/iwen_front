@@ -6,9 +6,9 @@ import eyeCrossed from "@/app/(auth)/(icons)/eye-crossed.svg";
 import eye from "@/app/(auth)/(icons)/eye.svg";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import handleChangePassword from "../actions/handleChangePasswrd";
+import handleChangePassword from "../../../../actions/auth/handleChangePasswrd";
 import { useToast } from "@/hooks/useToast";
-import useChangePassword from "../actions/useChangePassword";
+import useChangePassword from "../../../../hooks/auth/useChangePassword";
 
 export default function ChangePasswordForm() {
   const [passwordFocused, setPasswordFocused] = useState(false);

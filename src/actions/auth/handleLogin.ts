@@ -2,8 +2,8 @@ import { z } from "zod";
 import login from "@/actions/auth/login";
 
 const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters long"),
+  email: z.string().email("عنوان البريد الإلكتروني غير صالح"),
+  password: z.string().min(8, "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل"),
 });
 
 type LoginInput = z.infer<typeof loginSchema>;

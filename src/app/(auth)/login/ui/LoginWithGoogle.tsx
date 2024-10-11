@@ -1,5 +1,5 @@
 "use client";
-import useGoogleAuth from "@/actions/auth/useGoogleAuth";
+import useGoogleAuth from "@/hooks/auth/useGoogleAuth";
 import FcGoogle from "@/components/icons/FcGoogle";
 import useTranslation from "@/translation/useTranslation";
 import React from "react";

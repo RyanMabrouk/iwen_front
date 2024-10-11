@@ -7,7 +7,7 @@ import envelope from "@/app/(auth)/(icons)/envelope.svg";
 import eyeCrossed from "@/app/(auth)/(icons)/eye-crossed.svg";
 import eye from "@/app/(auth)/(icons)/eye.svg";
 import profile from "@/app/(auth)/(icons)/Profile.svg";
-import useSignUp from "../actions/useSignUp";
+import useSignUp from "../../../../hooks/auth/useSignUp";
 
 export default function SignUpForm() {
   const [formState, setFormState] = useState({

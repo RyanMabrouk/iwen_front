@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import LoginWithGoogle from "../login/ui/LoginWithGoogle";
 import LoginWithFacebook from "../login/ui/LoginWithFacebook";
-import { usePage } from "../(context)/PageProvider";
+import { usePage } from "../../../provider/PageProvider";
 
 export default function FormContainer({
   children,

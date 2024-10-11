@@ -7,8 +7,8 @@ import envelope from "@/app/(auth)/(icons)/envelope.svg";
 import eyeCrossed from "@/app/(auth)/(icons)/eye-crossed.svg";
 import eye from "@/app/(auth)/(icons)/eye.svg";
 import Link from "next/link";
-import { usePage } from "../../(context)/PageProvider";
-import useLogin from "../actions/useLogin";
+import { usePage } from "../../../../provider/PageProvider";
+import useLogin from "../../../../hooks/auth/useLogin";
 
 export default function LoginForm() {
   const [emailSelected, setEmailSelected] = React.useState<boolean>(false);

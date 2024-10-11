@@ -1,3 +1,5 @@
+"use server";
+
 import { createClient } from "@/lib/supabase";
 
 export default async function verifyOTP(email: string, otp: string) {
@@ -15,7 +17,7 @@ export default async function verifyOTP(email: string, otp: string) {
     type: "email",
   });
 
-  if (error) throw new Error(`error: ${error.message}`);
+  if (error) throw new Error("(OTP) الرمز المميز غير صالح");
 
   if (session) {
     await supabase.auth.setSession({
