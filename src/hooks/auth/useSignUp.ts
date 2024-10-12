@@ -1,16 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
-import handleSignUp from "../../actions/auth/handleSignUp";
+import handleSignUp from "../../handlers/auth/handleSignUp";
 import { useToast } from "@/hooks/useToast";
-import { useRouter } from "next/navigation";
 
-export default function useSignUp() {
+export default function useSignUp(
+  setter: React.Dispatch<React.SetStateAction<boolean>>,
+) {
   const { toast } = useToast();
-  const router = useRouter();
   return useMutation({
     mutationFn: handleSignUp,
     onSuccess: () => {
       toast.success("تم إنشاء الحساب بنجاح", "success : ");
-      router.push(`/account_created`);
+      setter(true);
     },
     onError: (error: Error) => {
       try {

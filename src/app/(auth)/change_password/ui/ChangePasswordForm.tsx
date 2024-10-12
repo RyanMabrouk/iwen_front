@@ -1,13 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import lock from "@/app/(auth)/(icons)/unlock.svg";
-import eyeCrossed from "@/app/(auth)/(icons)/eye-crossed.svg";
-import eye from "@/app/(auth)/(icons)/eye.svg";
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import handleChangePassword from "../../../../actions/auth/handleChangePasswrd";
-import { useToast } from "@/hooks/useToast";
 import useChangePassword from "../../../../hooks/auth/useChangePassword";
 
 export default function ChangePasswordForm() {
@@ -34,25 +28,37 @@ export default function ChangePasswordForm() {
             className="cursor-pointer"
             onClick={() => setShowPassword((e) => !e)}
           >
-            <Image src={eye} alt="eye" className="opacity-90" />
+            <Image
+              width={25}
+              height={25}
+              src="/auth/eye.svg"
+              alt="eye"
+              className="opacity-90"
+            />
           </div>
         ) : (
           <div
             className="cursor-pointer"
             onClick={() => setShowPassword((e) => !e)}
           >
-            <Image src={eyeCrossed} className="opacity-40" alt="eye Crossed" />
+            <Image
+              width={25}
+              height={25}
+              src="/auth/eye-crossed.svg"
+              className="opacity-40"
+              alt="eye Crossed"
+            />
           </div>
         )}
-        <div className="flex flex-1 justify-end gap-2">
+        <div className="flex flex-1 items-center justify-end gap-2">
           <input
             id="password"
             name="password"
-            className="h-[20px] flex-1 bg-inherit outline-none"
+            className="h-[25px] flex-1 bg-inherit outline-none"
             type={`${showPassword ? "text" : "password"}`}
             dir="rtl"
           />
-          <Image src={lock} alt="lock" />
+          <Image width={25} height={25} src="/auth/unlock.svg" alt="lock" />
         </div>
       </div>
       <label htmlFor="newPassword" className="text-sm">
@@ -68,25 +74,37 @@ export default function ChangePasswordForm() {
             className="cursor-pointer"
             onClick={() => setShowNewPassword((e) => !e)}
           >
-            <Image src={eye} alt="eye" className="opacity-90" />
+            <Image
+              width={25}
+              height={25}
+              src="/auth/eye.svg"
+              alt="eye"
+              className="opacity-90"
+            />
           </div>
         ) : (
           <div
             className="cursor-pointer"
             onClick={() => setShowNewPassword((e) => !e)}
           >
-            <Image src={eyeCrossed} className="opacity-40" alt="eye Crossed" />
+            <Image
+              width={25}
+              height={25}
+              src="/auth/eye-crossed.svg"
+              className="opacity-40"
+              alt="eye Crossed"
+            />
           </div>
         )}
-        <div className="flex flex-1 justify-end gap-2">
+        <div className="flex flex-1 items-center justify-end gap-2">
           <input
             id="password2"
             name="password2"
-            className="h-[20px] flex-1 bg-inherit outline-none"
+            className="h-[25px] flex-1 bg-inherit outline-none"
             type={`${showNewPassword ? "text" : "password"}`}
             dir="rtl"
           />
-          <Image src={lock} alt="lock" />
+          <Image width={25} height={25} src="/auth/unlock.svg" alt="lock" />
         </div>
       </div>
       <button

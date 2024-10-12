@@ -2,15 +2,22 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
-import envelope from "@/app/(auth)/(icons)/envelope.svg";
 import useForgotPassword from "../../../../hooks/auth/useForgotPassword";
+import { useCounter } from "@/provider/auth/CounterProvider";
 
 export default function ForgotPasswordForm() {
   const [emailSelected, setEmailSelected] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const { mutate } = useForgotPassword(email);
+  const { counter: cooldown, setCounter: setCooldown } = useCounter();
+  const handleSubmit = (formData: FormData) => {
+    if (cooldown === 0) {
+      setCooldown(60);
+      mutate(formData);
+    }
+  };
   return (
-    <form action={mutate} className="flex flex-col items-end gap-3 py-5">
+    <form action={handleSubmit} className="flex flex-col items-end gap-3 py-5">
       <h1 className="text-left text-xl font-semibold">
         إعادة تعيين كلمة المرور
       </h1>
@@ -33,12 +40,20 @@ export default function ForgotPasswordForm() {
           type="email"
           dir="rtl"
         />
-        <Image src={envelope} className="" alt="envelope" height={30} />
+        <Image
+          width={30}
+          height={30}
+          src="/auth/envelope.svg"
+          className=""
+          alt="envelope"
+        />
       </div>
       <button
         type="submit"
         style={{ background: "#27A098" }}
-        className="text-md w-full rounded-md p-3 text-center font-semibold text-white"
+        className={`text-md w-full rounded-md p-3 text-center font-semibold text-white ${
+          cooldown > 0 ? "cursor-not-allowed opacity-50" : ""
+        }`}
       >
         مواصلة
       </button>

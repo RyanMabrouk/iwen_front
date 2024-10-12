@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import useSendOTP from "../../../../../hooks/auth/useSendOTP";
 import useVerifyOTP from "../../../../../hooks/auth/useVerifyOTP";
+import { useCounter } from "@/provider/auth/CounterProvider";
 
 export default function Token() {
   const [verificationCode, setVerificationCode] = useState([
@@ -14,6 +15,7 @@ export default function Token() {
     "",
     "",
   ]);
+  const { counter: cooldown, setCounter: setCooldown } = useCounter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email") ?? "";
   const { mutate: send } = useSendOTP(email);
@@ -75,6 +77,18 @@ export default function Token() {
     }
   };
 
+  const handleResendOTP = () => {
+    if (cooldown === 0) {
+      send();
+      const newCooldown = 60;
+      setCooldown(newCooldown);
+      localStorage.setItem(
+        "otpCooldownEnd",
+        (Date.now() + newCooldown * 1000).toString(),
+      );
+    }
+  };
+
   return (
     <div className="flex flex-col items-end gap-3 max-md:gap-5 max-md:p-3">
       <h1 className="text-xl font-semibold max-md:text-base">
@@ -109,10 +123,13 @@ export default function Token() {
       </div>
       <p className="flex items-center gap-2 max-md:mt-10">
         <button
-          onClick={() => send()}
-          className="cursor-pointer text-nowrap text-xl font-semibold max-lg:text-base"
+          onClick={handleResendOTP}
+          disabled={cooldown > 0}
+          className={`cursor-pointer text-nowrap text-xl font-semibold max-lg:text-base ${
+            cooldown > 0 ? "cursor-not-allowed opacity-50" : ""
+          }`}
         >
-          إعادة الإرسال الآن
+          {cooldown > 0 ? `إعادة الإرسال (${cooldown})` : "إعادة الإرسال الآن"}
         </button>
         <span className="text-nowrap">لم تتلق الرمز ؟</span>
       </p>

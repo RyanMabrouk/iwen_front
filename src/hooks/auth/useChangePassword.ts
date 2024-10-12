@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import handleChangePassword from "../../actions/auth/handleChangePasswrd";
+import handleChangePassword from "../../handlers/auth/handleChangePasswrd";
 import { useToast } from "@/hooks/useToast";
 
 export default function useChangePassword() {

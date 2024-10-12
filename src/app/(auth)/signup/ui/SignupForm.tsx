@@ -2,14 +2,12 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
-import lock from "@/app/(auth)/(icons)/unlock.svg";
-import envelope from "@/app/(auth)/(icons)/envelope.svg";
-import eyeCrossed from "@/app/(auth)/(icons)/eye-crossed.svg";
-import eye from "@/app/(auth)/(icons)/eye.svg";
-import profile from "@/app/(auth)/(icons)/Profile.svg";
 import useSignUp from "../../../../hooks/auth/useSignUp";
+import Link from "next/link";
+import AnimatedCorrectIcon from "./AnimatedCorrectIcon";
 
 export default function SignUpForm() {
+  const [accountCreated, setAccountCreated] = useState<boolean>(false);
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -19,7 +17,7 @@ export default function SignUpForm() {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { mutate: signUp } = useSignUp();
+  const { mutate: signUp } = useSignUp(setAccountCreated);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
@@ -53,33 +51,41 @@ export default function SignUpForm() {
             {name === "password" ? (
               showPassword ? (
                 <Image
-                  src={eye}
+                  width={20}
+                  height={20}
+                  src="/auth/eye.svg"
                   className="opacity-90"
                   alt="Toggle password visibility"
                 />
               ) : (
                 <Image
-                  src={eyeCrossed}
+                  width={20}
+                  height={20}
+                  src="/auth/eye-crossed.svg"
                   className="opacity-40"
                   alt="Toggle password visibility"
                 />
               )
             ) : showConfirmPassword ? (
               <Image
-                src={eye}
+                width={20}
+                height={20}
+                src="/auth/eye.svg"
                 className="opacity-90"
                 alt="Toggle password visibility"
               />
             ) : (
               <Image
-                src={eyeCrossed}
+                width={20}
+                height={20}
+                src="/auth/eye-crossed.svg"
                 className="opacity-40"
                 alt="Toggle password visibility"
               />
             )}
           </button>
         )}
-        <div className="flex flex-1 justify-end gap-2">
+        <div className="flex flex-1 items-center justify-end gap-2">
           <input
             id={name}
             name={name}
@@ -103,48 +109,72 @@ export default function SignUpForm() {
             onBlur={() => setFocusedField(null)}
             required
           />
-          <Image src={icon} alt={`${name} icon`} />
+          <Image width={20} height={20} src={icon} alt={`${name} icon`} />
         </div>
       </div>
     </>
   );
 
-  return (
-    <form
-      action={signUp}
-      className="flex h-full w-full flex-col items-end gap-1"
-    >
-      {renderInput("الإسم", "name", "text", profile, "الإسم الكامل")}
-      {renderInput(
-        "البريد إلكتروني",
-        "email",
-        "email",
-        envelope,
-        " البريد الإلكتروني",
-      )}
-      {renderInput(
-        "كلمة المرور",
-        "password",
-        "password",
-        lock,
-        " أدخل كلمة المرور",
-        true,
-      )}
-      {renderInput(
-        "التأكد من كلمة المرور",
-        "confirmPassword",
-        "password",
-        lock,
-        "أعد إدخال كلمة المرور",
-        true,
-      )}
-      <button
-        type="submit"
-        style={{ background: "#27A098" }}
-        className="text-md mt-5 w-full rounded-md p-3 text-center font-semibold text-white"
+  if (!accountCreated)
+    return (
+      <form
+        action={signUp}
+        className="flex h-full w-full flex-col items-end gap-1"
       >
-        إنشاء حساب
-      </button>
-    </form>
-  );
+        {renderInput(
+          "الإسم",
+          "name",
+          "text",
+          "/auth/Profile.svg",
+          "الإسم الكامل",
+        )}
+        {renderInput(
+          "البريد إلكتروني",
+          "email",
+          "email",
+          "/auth/envelope.svg",
+          " البريد الإلكتروني",
+        )}
+        {renderInput(
+          "كلمة المرور",
+          "password",
+          "password",
+          "/auth/unlock.svg",
+          " أدخل كلمة المرور",
+          true,
+        )}
+        {renderInput(
+          "التأكد من كلمة المرور",
+          "confirmPassword",
+          "password",
+          "/auth/unlock.svg",
+          "أعد إدخال كلمة المرور",
+          true,
+        )}
+        <button
+          type="submit"
+          style={{ background: "#27A098" }}
+          className="text-md mt-5 w-full rounded-md p-3 text-center font-semibold text-white"
+        >
+          إنشاء حساب
+        </button>
+      </form>
+    );
+  else
+    return (
+      <div className="flex w-full flex-col items-center p-5">
+        <AnimatedCorrectIcon src="/auth/correct.svg" alt="Correct icon" />
+        <h1 className="text-xl">تهانينا !</h1>
+        <p className="text-center text-2xl font-semibold">
+          تهانينا ! تم إنشاء حسابك بنجاح
+        </p>
+        <Link
+          href="/home"
+          style={{ background: "#27A098" }}
+          className="text-md mt-10 w-full rounded-md p-3 text-center font-semibold text-white"
+        >
+          تسجيل الدخول
+        </Link>
+      </div>
+    );
 }

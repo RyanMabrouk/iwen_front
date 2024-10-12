@@ -14,7 +14,7 @@ export default function FormContainer({
   const { page, setPage } = usePage();
 
   return (
-    <div className="col-span-2 row-span-10 flex w-full flex-col items-end p-4 pb-8 px-14 transition-all duration-300 max-lg:px-7 max-md:col-span-3 max-md:row-span-8 max-md:p-4">
+    <div className="col-span-2 row-span-10 flex w-full flex-col items-end p-4 px-14 pb-8 transition-all duration-300 max-lg:px-7 max-md:col-span-3 max-md:row-span-8 max-md:p-4">
       <div className="flex w-full justify-between pt-2">
         <select
           className="cursor-pointer bg-inherit outline-none"

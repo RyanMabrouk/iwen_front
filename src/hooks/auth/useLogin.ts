@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import handleLogIn from "../../actions/auth/handleLogin";
+import handleLogIn from "../../handlers/auth/handleLogin";
 import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
 

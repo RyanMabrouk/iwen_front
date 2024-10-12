@@ -2,10 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import lock from "@/app/(auth)/(icons)/unlock.svg";
-import envelope from "@/app/(auth)/(icons)/envelope.svg";
-import eyeCrossed from "@/app/(auth)/(icons)/eye-crossed.svg";
-import eye from "@/app/(auth)/(icons)/eye.svg";
 import Link from "next/link";
 import { usePage } from "../../../../provider/PageProvider";
 import useLogin from "../../../../hooks/auth/useLogin";
@@ -37,7 +33,7 @@ export default function LoginForm() {
           type="email"
           dir="rtl"
         />
-        <Image src={envelope} alt="envelope" />
+        <Image width={25} height={25} src="/auth/envelope.svg" alt="envelope" />
       </div>
       <label htmlFor="password">كلمة المرور*</label>
       <div
@@ -50,14 +46,26 @@ export default function LoginForm() {
             className="cursor-pointer"
             onClick={() => setShowPassword((e) => !e)}
           >
-            <Image src={eye} alt="eye" className="opacity-90" />
+            <Image
+              width={25}
+              height={25}
+              src="/auth/eye.svg"
+              alt="eye"
+              className="opacity-90"
+            />
           </div>
         ) : (
           <div
             className="cursor-pointer opacity-40"
             onClick={() => setShowPassword((e) => !e)}
           >
-            <Image src={eyeCrossed} className="opacity-40" alt="eye Crossed" />
+            <Image
+              width={25}
+              height={25}
+              src="/auth/eye-crossed.svg"
+              className="opacity-40"
+              alt="eye Crossed"
+            />
           </div>
         )}
         <div className="flex flex-1 justify-end gap-2">
@@ -68,7 +76,7 @@ export default function LoginForm() {
             type={`${showPassword ? "text" : "password"}`}
             dir="rtl"
           />
-          <Image src={lock} alt="lock" />
+          <Image width={25} height={25} src="/auth/unlock.svg" alt="lock" />
         </div>
       </div>
       <div className="flex w-full items-center justify-between p-2">

@@ -1,7 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import logo from "@/app/(auth)/(icons)/logo.svg";
-import cart from "@/app/(auth)/(icons)/cart.svg";
 import SidePicture from "./ui/SidePicture";
 import FormContainer from "./ui/FormContainer";
 import { PageProvider } from "../../provider/PageProvider";
@@ -35,7 +33,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <option value="1">العربية</option>
               </select>
               <button className="rounded-md bg-white p-1">
-                <Image src={cart} className="bg-white" alt="cart" />
+                <Image
+                  src="/auth/cart.svg"
+                  width={30}
+                  height={30}
+                  className="bg-white"
+                  alt="cart"
+                />
               </button>
               <button
                 style={{ background: "#27A098" }}
@@ -51,9 +55,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <li className="text-xl text-white">تعرف علينا</li>
               </ul>
               <Image
-                src={logo}
+                src="/auth/logo.svg"
                 alt="logo"
                 width={125}
+                height={125}
                 className="text-red-500"
               />
             </div>
