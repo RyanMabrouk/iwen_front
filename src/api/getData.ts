@@ -1,10 +1,10 @@
 "use server";
 import { createClient } from "@/lib/supabase";
 import { Tables } from "@/types/database.types";
-import { dbTableType } from "@/types/generic.types";
+import { IDbTableName } from "@/types/generic.types";
 import getSession from "./getSession";
 export default async function getData<
-  ITableName extends dbTableType,
+  ITableName extends IDbTableName,
   IReturnType = Tables<ITableName>[],
 >({
   tableName,

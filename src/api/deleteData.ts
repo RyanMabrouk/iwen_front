@@ -1,8 +1,8 @@
 "use server";
-import { dbTableType } from "@/types/generic.types";
+import { IDbTableName } from "@/types/generic.types";
 import { Tables } from "@/types/database.types";
 import { createClient } from "@/lib/supabase";
-export default async function deleteData<ITableName extends dbTableType>({
+export default async function deleteData<ITableName extends IDbTableName>({
   tableName,
   match,
   matchInArray,

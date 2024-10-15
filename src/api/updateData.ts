@@ -1,9 +1,9 @@
 "use server";
 import { createClient } from "@/lib/supabase";
-import { dbTableType } from "@/types/generic.types";
+import { IDbTableName } from "@/types/generic.types";
 import { Tables, TablesUpdate } from "@/types/database.types";
 import { PostgrestError } from "@supabase/supabase-js";
-export default async function updateData<ITableName extends dbTableType>({
+export default async function updateData<ITableName extends IDbTableName>({
   tableName,
   payload,
   match,

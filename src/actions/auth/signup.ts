@@ -22,12 +22,12 @@ export default async function signUp({
   });
   if (signUpErr) {
     return {
-      error: { message: signUpErr?.message, type: "SignUp Error" },
+      error: { message: "حدث خطأ أثناء انشاء الحساب", type: "SignUp Error" },
     };
   }
   if (data?.user?.identities?.length === 0) {
     return {
-      error: { message: "You already have an account", type: "SignUp Error" },
+      error: { message: "هذا الحساب موجود بالفعل", type: "SignUp Error" },
     };
   }
   return { data, error: null };

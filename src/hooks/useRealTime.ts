@@ -1,11 +1,11 @@
 "use client";
 import { createCsrClient } from "@/lib/client.supabase";
-import { dbTableType } from "@/types/generic.types";
+import { IDbTableName } from "@/types/generic.types";
 import { useEffect } from "react";
 type optionsType = {
   event: "UPDATE" | "INSERT" | "DELETE" | "*";
   schema: string;
-  table: dbTableType;
+  table: IDbTableName;
   filter?: string;
 };
 export default function useRealTime({
@@ -14,7 +14,7 @@ export default function useRealTime({
   event = "*",
   onReceive,
 }: {
-  tableName: dbTableType;
+  tableName: IDbTableName;
   filters?: {
     column: string;
     value: string | number;
