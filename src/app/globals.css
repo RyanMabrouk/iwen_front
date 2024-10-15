@@ -100,3 +100,7 @@ input:-webkit-autofill {
 body {
   color: #153963;
 }
+* {
+  text-align: right;
+}
+
