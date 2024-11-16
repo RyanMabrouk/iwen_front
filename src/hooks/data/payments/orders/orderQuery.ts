@@ -6,7 +6,7 @@ import { Tables } from "@/types/database.types";
 const orderQuery = (orderId : string) => ({
   queryKey: ["orders",orderId],
   queryFn: async () => {
-    const url = await getEndpoint({  resourse: "orders", action: "getOrderId" });
+    const url =  getEndpoint({  resourse: "orders", action: "getOrderId" });
     return await CRUDData<IOrder>({ method: "GET", url: url(orderId) }); 
   },
   enabled : orderId!==null
