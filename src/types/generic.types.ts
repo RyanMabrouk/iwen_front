@@ -1,4 +1,5 @@
 import { UseQueryOptions } from "@tanstack/react-query";
+import { Database } from "./database.types";
 
 export type QueryReturnType<T extends () => UseQueryOptions> = Awaited<
   ReturnType<
@@ -7,3 +8,10 @@ export type QueryReturnType<T extends () => UseQueryOptions> = Awaited<
       : never
   >
 >;
+
+export type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;
+
+export type IDbTableName = keyof Database[Extract<
+  keyof Database,
+  "public"
+>]["Tables"];

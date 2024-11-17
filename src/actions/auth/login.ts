@@ -15,7 +15,7 @@ export default async function login({
   if (error) {
     return {
       error: {
-        message: error.message,
+        message: "حدث خطأ أثناء تسجيل الدخول",
         type: "Login Error",
       },
     };

@@ -11,7 +11,7 @@ export default async function resetPassword({ email }: { email: string }) {
   if (error) {
     return {
       error: {
-        message: error.message,
+        message: "حدث خطأ في أثناء إعادة تعيين كلمة المرور",
         type: "Server Error",
       },
     };

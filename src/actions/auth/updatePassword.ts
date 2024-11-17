@@ -13,7 +13,7 @@ export default async function updatePassword({
   if (error) {
     return {
       error: {
-        message: error.message,
+        message: "حدث خطأ في أثناء تغيير كلمة المرور",
         type: "Server Error",
       },
     };

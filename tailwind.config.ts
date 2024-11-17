@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss/types/config";
 import plugin from "tailwindcss/plugin";
+
 const MyClass = plugin(function ({ addUtilities }: any) {
   addUtilities({
     ".my-rotate-y-180": {
@@ -46,6 +47,9 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        tajawal: ["Tajawal", "sans-serif"],
+      },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
