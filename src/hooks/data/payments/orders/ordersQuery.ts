@@ -1,0 +1,35 @@
+import createNewPathname from "@/helpers/createNewPathname";
+import sendRequest from "@/services/CRUDData";
+import getEndpoint from "@/services/getEndpoint";
+import {
+  InfinityPaginationQueryType,
+  InfinityPaginationResultType,
+} from "@/types";
+import { Tables } from "@/types/database.types";
+
+const ordersQuery = (
+  args: InfinityPaginationQueryType<`orders.${keyof Tables<"orders">}`>,
+) => ({
+  queryKey: ["orders", args],
+  queryFn: async () => {
+    const url = getEndpoint({ resource: "orders", action: "getOrders" });
+    const searchParams = Object.keys(args).map((key) => ({
+      name: key,
+      value: JSON.stringify(args[key as keyof typeof args]),
+    }));
+    const newUrl = createNewPathname({
+      currentPathname: url(),
+      values: searchParams,
+    });
+    const { error, data } = await sendRequest<
+      InfinityPaginationResultType<Tables<"orders">>
+    >({
+      method: "GET",
+      url: newUrl,
+    });
+
+    if (error) return { data: null, error: error };
+    else return { data, error: null };
+  },
+});
+export { ordersQuery };
