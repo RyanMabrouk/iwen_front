@@ -56,6 +56,38 @@ export type Database = {
           },
         ]
       }
+      banners: {
+        Row: {
+          book_id: string
+          created_at: string
+          id: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          book_id: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          book_id?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "banners_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       book_categories: {
         Row: {
           book_id: string
@@ -119,6 +151,7 @@ export type Database = {
       books: {
         Row: {
           canonical: string
+          corner_id: string | null
           cover_type_id: string | null
           created_at: string
           description: string
@@ -132,10 +165,11 @@ export type Database = {
           meta_image: string
           meta_keywords: string[]
           meta_title: string
+          number_of_volumes: number
           page_count: number
           price: number
           price_after_discount: number
-          price_dhs: number
+          price_dollar: number
           release_year: number | null
           share_house_id: string | null
           slug: string
@@ -149,6 +183,7 @@ export type Database = {
         }
         Insert: {
           canonical?: string
+          corner_id?: string | null
           cover_type_id?: string | null
           created_at?: string
           description?: string
@@ -162,10 +197,11 @@ export type Database = {
           meta_image?: string
           meta_keywords?: string[]
           meta_title?: string
+          number_of_volumes?: number
           page_count?: number
           price?: number
           price_after_discount?: number
-          price_dhs?: number
+          price_dollar?: number
           release_year?: number | null
           share_house_id?: string | null
           slug?: string
@@ -179,6 +215,7 @@ export type Database = {
         }
         Update: {
           canonical?: string
+          corner_id?: string | null
           cover_type_id?: string | null
           created_at?: string
           description?: string
@@ -192,10 +229,11 @@ export type Database = {
           meta_image?: string
           meta_keywords?: string[]
           meta_title?: string
+          number_of_volumes?: number
           page_count?: number
           price?: number
           price_after_discount?: number
-          price_dhs?: number
+          price_dollar?: number
           release_year?: number | null
           share_house_id?: string | null
           slug?: string
@@ -208,6 +246,13 @@ export type Database = {
           writer_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "books_corner_id_fkey"
+            columns: ["corner_id"]
+            isOneToOne: false
+            referencedRelation: "corners"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "books_cover_type_id_fkey"
             columns: ["cover_type_id"]
@@ -252,7 +297,79 @@ export type Database = {
         }
         Relationships: []
       }
+      corners: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       cover_types: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      event_books: {
+        Row: {
+          book_id: string | null
+          event_id: string | null
+        }
+        Insert: {
+          book_id?: string | null
+          event_id?: string | null
+        }
+        Update: {
+          book_id?: string | null
+          event_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_books_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "books"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "event_books_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
         Row: {
           created_at: string
           id: string
@@ -500,15 +617,7 @@ export type Database = {
           updated_at?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "users_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       wishlists: {
         Row: {
@@ -664,4 +773,19 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof PublicSchema["CompositeTypes"]
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never

@@ -11,7 +11,6 @@ type CounterContextType = {
 const CounterContext = createContext<CounterContextType | undefined>(undefined);
 
 export function CounterProvider({ children }: { children: React.ReactNode }) {
-  const path = usePathname();
   const [cooldown, setCooldown] = useState(60);
   useEffect(() => {
     const storedCooldownEnd = localStorage.getItem("otpCooldownEnd");
