@@ -1,6 +1,6 @@
 import React from "react";
 import NavBook from "./ui/NavBook";
-import BookInfo from "./ui/BookInfo";
+import BookInfo from "./ui/Book";
 import SimilarBooks from "./ui/SimilarBooks";
 
 export default function page({
