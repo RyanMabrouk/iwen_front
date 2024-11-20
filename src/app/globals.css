@@ -104,7 +104,6 @@ body {
   text-align: right;
 }
 
-
 @font-face {
   font-family: "Tajawal";
   src: url("/fonts/Tajawal-Regular.ttf") format("truetype");
@@ -127,5 +126,12 @@ body {
   html[lang="ar"],
   html[lang="ar"] body {
     font-family: "Tajawal", sans-serif;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
   }
 }

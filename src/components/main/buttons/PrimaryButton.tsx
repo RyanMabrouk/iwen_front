@@ -5,12 +5,14 @@ type PrimaryButtonProps = {
   className?: string;
   size?: "sm" | "md" | "lg";
   children: React.ReactNode;
+  onClick?: () => void;
 };
 
 export default function PrimaryButton({
   className = "",
   size = "md",
   children,
+  onClick,
 }: PrimaryButtonProps) {
   const sizeClasses = {
     sm: "h-[2.5rem] text-base",
@@ -21,10 +23,12 @@ export default function PrimaryButton({
   return (
     <button
       className={cn(
-        "rounded-lg bg-primary-400 px-[20px] text-white transition-all hover:brightness-110", // Lighten on hover
+        "rounded-lg bg-primary-400 px-[20px] text-center text-white transition-all hover:brightness-110", // Lighten on hover
+        "whitespace-nowrap",
         sizeClasses[size],
         className,
       )}
+      onClick={onClick}
     >
       {children}
     </button>

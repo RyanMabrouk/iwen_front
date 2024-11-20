@@ -3,9 +3,9 @@ import React from "react";
 import ShoppingCart from "./icons/ShoppingCart";
 import SearchBar from "./main/SearchBar";
 import Logo from "./main/Logo";
-import PrimaryButton from "./PrimaryButton";
-
+import PrimaryButton from "./main/buttons/PrimaryButton";
 import Select from "./main/Select";
+import { Menu } from "lucide-react";
 
 export default function Header() {
   return (
@@ -15,37 +15,43 @@ export default function Header() {
         height={30}
         width={1920}
         className="min-w-[1920px]"
-        alt={""}
+        alt="Background"
       />
-      <div className="flex h-[123px] w-full items-center justify-between px-20">
-        <div className="flex items-center gap-[4.375rem]">
-          <Select text="العربية" className="text-white" />
-          <div className="flex gap-[21px]">
-            <button className="flex h-[3.313rem] w-fit min-w-[50px] items-center justify-center rounded-lg bg-white">
+
+      <div className="flex items-center justify-between gap-8 px-20 py-6 max-lg:flex-col max-lg:px-4 lg:flex-row-reverse">
+        <div className="flex w-full items-center justify-end gap-10 max-lg:flex-col-reverse max-lg:gap-6">
+          <SearchBar className="lg:max-w-[607px]" />
+          <Logo />
+        </div>
+        <div className="mx-auto flex w-full items-center max-lg:justify-between lg:max-w-[382px] lg:justify-start">
+          <Select text="العربية" className="w-full px-1.5 text-white" />
+          <div className="flex w-full max-w-[228px] justify-between gap-5 max-sm:gap-2">
+            <button className="flex h-[3.313rem] w-fit min-w-[50px] items-center justify-center rounded-lg bg-white shadow-md">
               <ShoppingCart size={22} className="text-primary-500" />
             </button>
-            <PrimaryButton className={""} size={"md"}>
+            <PrimaryButton className="w-full min-w-[150px]" size="md">
               انشاء حساب
             </PrimaryButton>
           </div>
         </div>
-        <div className="flex flex-1 items-center justify-end gap-12">
-          <SearchBar className="max-w-[37.563rem]" />
-          {/* <input type="text" className=" outline-none" /> */}
-          <Logo />
-        </div>
       </div>
-      <div className="flex h-[74px] w-full items-center justify-center bg-primary-100">
-        <div className="flex gap-3">
-          <div className="p-2.5">
-            <Select text=" إستكشف جديدنا" />
+      <div className="bg-primary-100">
+        <div className="flex w-full sm:hidden">
+          <div className="flex-1"></div>
+          <div className="cursor-pointer px-8 py-4 text-primary-500 transition-all duration-200 hover:bg-primary-300">
+            <Menu className="" />
           </div>
-          <div className="p-2.5">
-            <Select text=" تواصل معنا" />
-          </div>
-          <div className="p-2.5">
-            <Select text="تعرف علينا" />
-          </div>
+        </div>
+
+        <div className="mx-auto flex w-fit items-center max-sm:hidden max-sm:w-full max-sm:flex-col max-sm:items-end">
+          {["إستكشف جديدنا", "منتجات مميزة", "عروض خاصة"].map((text, idx) => (
+            <div
+              key={idx}
+              className="flex cursor-pointer justify-center px-8 py-5 transition-all duration-200 hover:bg-primary-300 max-sm:w-full"
+            >
+              <span className="text-lg">{text}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

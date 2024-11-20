@@ -24,11 +24,11 @@ export default function BookCart({ id }: { id: string }) {
       <div className="group relative flex h-64 cursor-pointer items-center justify-center">
         <ArrowLeft
           size={22}
-          className={`${"btn_swiper_arrow_left" + id} absolute left-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100`}
+          className={`${"btn_swiper_arrow_left" + id} absolute left-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
         />
         <ArrowRight
           size={22}
-          className={`${"btn_swiper_arrow_right" + id} absolute right-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100`}
+          className={`${"btn_swiper_arrow_right" + id} absolute right-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
         />
         <CustomSwiper
           navigation={{
@@ -49,7 +49,7 @@ export default function BookCart({ id }: { id: string }) {
           pagination
           className="h-full w-full [&_.swiper-pagination-bullets]:mt-5"
         />
-        <div className="absolute h-48 w-48 rounded-[100%] bg-primary-500/10 opacity-0 blur-lg transition-all duration-200 group-hover:scale-110 group-hover:opacity-100"></div>
+        <div className="absolute h-48 w-48 rounded-[100%] bg-primary-500/10 blur-lg transition-all"></div>
         <div
           className="group absolute right-6 top-6 z-10 cursor-pointer"
           onClick={() => setIsLiked(!isLiked)}
@@ -61,7 +61,7 @@ export default function BookCart({ id }: { id: string }) {
             />
           ) : (
             <Heart
-              className="text-gray-400 opacity-0 transition-all ease-in-out hover:text-red-500 group-hover:opacity-100"
+              className="text-gray-400 transition-all hover:text-red-500"
               size={20}
             />
           )}
