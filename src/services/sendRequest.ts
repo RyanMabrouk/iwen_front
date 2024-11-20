@@ -29,17 +29,24 @@ export default async function sendRequest<
       .get("sb-mqisujmkeqaqwppsnnww-auth-token")
       ?.value.replace("base64-", "")
       .replace(" ", "");
-    const decodedToken = JSON.parse(atob(token ?? "")) as unknown as {
-      access_token: string;
+    let headers: Record<string, string> = {
+      accept: "application/json",
+      "content-type": "application/json",
     };
+    if (token) {
+      const decodedToken = JSON.parse(atob(token ?? "")) as unknown as {
+        access_token: string;
+      };
+      headers = {
+        ...headers,
+        Authorization: `Bearer ${decodedToken.access_token}`,
+      };
+    }
+
     const api = axios.create({
       baseURL: process.env.BACKEND_URL!,
       timeout: 0,
-      headers: {
-        accept: "application/json",
-        "content-type": "application/json",
-        Authorization: `Bearer ${decodedToken.access_token}`,
-      },
+      headers,
     });
     const response = await api.request(options);
     return { data: response.data, error: null, validationErrors: null };
