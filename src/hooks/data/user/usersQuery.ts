@@ -1,5 +1,5 @@
 import createNewPathname from "@/helpers/createNewPathname";
-import sendRequest from "@/services/CRUDData";
+import sendRequest from "@/services/sendRequest";
 import getEndpoint from "@/services/getEndpoint";
 import {
   InfinityPaginationQueryType,

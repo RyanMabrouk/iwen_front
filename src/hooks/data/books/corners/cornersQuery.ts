@@ -1,4 +1,4 @@
-import sendRequest from "@/services/CRUDData";
+import sendRequest from "@/services/sendRequest";
 import getEndpoint from "@/services/getEndpoint";
 import { Tables } from "@/types/database.types";
 const cornersQuery = () => ({
