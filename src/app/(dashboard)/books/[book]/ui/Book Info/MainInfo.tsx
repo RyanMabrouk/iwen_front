@@ -17,7 +17,7 @@ export default function MainInfo() {
         </li>
         <li dir="rtl" className="flex gap-2">
           <strong>تقييمات القارئين :</strong>
-          <StarRating rating={5} />
+          <StarRating rating={3} />
           <p className="font-semibold">(X)</p>
         </li>
       </ul>

@@ -8,35 +8,15 @@ import DescriptionInfo from "./Book Info/DescriptionInfo";
 export default function InfoContent({ selectedTab }: { selectedTab: number }) {
   switch (selectedTab) {
     case 1:
-      return (
-        <div>
-          <MainInfo />
-        </div>
-      );
+      return <MainInfo />;
     case 2:
-      return (
-        <div>
-          <DetailedInfo />
-        </div>
-      );
+      return <DetailedInfo />;
     case 3:
-      return (
-        <div>
-          <CommentsInfo />
-        </div>
-      );
+      return <CommentsInfo />;
     case 4:
-      return (
-        <div>
-          <AuthorInfo />
-        </div>
-      );
+      return <AuthorInfo />;
     case 5:
-      return (
-        <div>
-          <DescriptionInfo />
-        </div>
-      );
+      return <DescriptionInfo />;
     default:
       return <div>an Error occured</div>;
   }

@@ -12,6 +12,7 @@ export default function page({
     <div className="h-full w-full">
       <NavBook />
       <BookInfo />
+      <hr />
       <SimilarBooks />
     </div>
   );

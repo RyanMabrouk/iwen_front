@@ -14,7 +14,13 @@ export default function BookInfo() {
     discount_type: "percentage",
     editor: "",
     id: "",
-    images_urls: [],
+    images_urls: [
+      "/dashboard/book/picture.png",
+      "/dashboard/book/pic1.jpg",
+      "/dashboard/book/pic2.png",
+      "/dashboard/book/pic3.jpg",
+      "/dashboard/book/pic4.jpg",
+    ],
     isbn: "",
     meta_description: "",
     meta_image: "",
@@ -42,7 +48,7 @@ export default function BookInfo() {
       style={{ background: "#E4EFEF" }}
     >
       <MainInfo />
-      <Pictures />
+      <Pictures images={dummyData.images_urls} />
     </div>
   );
 }
