@@ -1,5 +1,4 @@
 "use server";
-import getSession from "@/api/getSession";
 
 const dictionaries = {
   en: () => import("./locales/en.json").then((module) => module.default),

@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { redirect } from "next/navigation";
 import React from "react";
 
-export default function page() {
+export default function Page() {
   const { mutate } = useMutation({
     mutationFn: async () => {
       signOut();
