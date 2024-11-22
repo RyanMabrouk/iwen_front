@@ -1,7 +1,10 @@
 import Image from "next/image";
 import React from "react";
+import { useBookProvider } from "../../provider/BookProvider";
 
 export default function AuthorInfo() {
+  const { book, authors } = useBookProvider();
+  if (!authors) return <div>no authors to be shown</div>;
   const dummyData = [
     { id: 1, src: "/dashboard/book/pic4.jpg", title: "title", price: 200 },
     { id: 2, src: "/dashboard/book/pic3.jpg", title: "title2", price: 300 },
@@ -9,7 +12,7 @@ export default function AuthorInfo() {
     { id: 4, src: "/dashboard/book/picture.png", title: "title4", price: 500 },
   ];
   return (
-    <div dir="rtl" className="flex gap-3">
+    <div dir="rtl" className="flex w-full gap-3">
       <div
         dir="rtl"
         className="m-3 max-w-72 border p-4"
@@ -24,13 +27,13 @@ export default function AuthorInfo() {
               fill
             />
           </div>
-          <h2 className="font-semibold">name of author</h2>
+          <h2 className="font-semibold">{authors[0].name}</h2>
         </div>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-          amet praesentium est dolor quis, neque beatae, temporibus debitis
-          nobis magnam accusamus, dignissimos maiores blanditiis nihil! Nisi
-          quas aspernatur ab tempora.
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, quod
+          nihil. Molestiae perferendis doloremque eum ullam deleniti similique
+          cumque illo aspernatur dolorum, qui, sapiente est ab cupiditate ipsa
+          iste tenetur.
         </p>
       </div>
       <div

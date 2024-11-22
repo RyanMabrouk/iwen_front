@@ -4,7 +4,7 @@ export default function DescriptionInfo() {
   return (
     <div
       dir="rtl"
-      className="justify flex h-full w-full max-w-[35rem] flex-col items-start gap-2 rounded-md border p-2"
+      className="flex h-full w-full max-w-[40rem] flex-grow flex-col items-start gap-2 rounded-md border p-2"
       style={{ background: "#FCFCFD", borderColor: "#E7E9EB" }}
     >
       <strong>بعض المواضيع المطروحة في الكتاب</strong>
