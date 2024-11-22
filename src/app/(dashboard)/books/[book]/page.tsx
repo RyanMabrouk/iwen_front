@@ -15,6 +15,7 @@ export default function page({
 }) {
   const bookData = useBook(book);
   const AuthorData = useWriters();
+
   if (bookData.isLoading || AuthorData.isLoading) return <div>Loading...</div>;
   const author =
     AuthorData.data?.data?.filter(
@@ -29,7 +30,7 @@ export default function page({
       <div className="h-full w-full">
         <NavBook />
         <BookInfo />
-        <hr />
+        <hr className="my-5 border border-black" />
         <SimilarBooks />
       </div>
     </BookProvider>

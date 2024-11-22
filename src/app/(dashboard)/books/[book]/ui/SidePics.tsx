@@ -15,7 +15,7 @@ export default function SidePics({
   console.log(pictures);
   if (pictures.length === 1) return <div></div>;
   return (
-    <div className="flex h-[25rem] w-[5rem] flex-col items-stretch justify-between gap-3 px-2">
+    <div className="flex w-[5rem] flex-col items-stretch justify-between gap-5 px-2 max-lg:h-[5rem] max-lg:w-[20rem] max-lg:flex-row max-lg:p-0">
       {pictures
         .filter((e) => !e.isSelected)
         .map((pic) => (

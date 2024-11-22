@@ -3,19 +3,24 @@ import MainInfo from "./Book Info/MainInfo";
 import DetailedInfo from "./Book Info/DetailedInfo";
 import CommentsInfo from "./Book Info/CommentsInfo";
 import AuthorInfo from "./Book Info/AuthorInfo";
-import DescriptionInfo from "./Book Info/DescriptionInfo";
+import DescriptionInfo from "./Book Info/AboutInfo";
+import { PageType } from "./BookInfo";
 
-export default function InfoContent({ selectedTab }: { selectedTab: number }) {
+export default function InfoContent({
+  selectedTab,
+}: {
+  selectedTab: PageType;
+}) {
   switch (selectedTab) {
-    case 1:
+    case "main":
       return <MainInfo />;
-    case 2:
+    case "details":
       return <DetailedInfo />;
-    case 3:
+    case "comments":
       return <CommentsInfo />;
-    case 4:
+    case "author":
       return <AuthorInfo />;
-    case 5:
+    case "about":
       return <DescriptionInfo />;
     default:
       return <div>an Error occured</div>;

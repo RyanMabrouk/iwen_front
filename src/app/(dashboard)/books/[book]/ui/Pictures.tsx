@@ -27,7 +27,7 @@ export default function Pictures({ images }: { images: string[] }) {
     );
   };
   return (
-    <div dir="rtl" className="flex items-stretch gap-3">
+    <div dir="rtl" className="flex items-stretch gap-3 max-lg:flex-col">
       <MainPic
         liked={liked}
         setLiked={setLiked}
