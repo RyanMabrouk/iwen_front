@@ -1,7 +1,7 @@
 import React from "react";
-import arrows_right from "../../../../../../public/dashboard/book/arrows_right";
-import filter from "../../../../../../public/dashboard/book/filter";
-import serach from "../../../../../../public/dashboard/book/search";
+import arrows_right from "../../../../../public/dashboard/book/arrows_right";
+import filter from "../../../../../public/dashboard/book/filter";
+import serach from "../../../../../public/dashboard/book/search";
 
 export default function Search() {
   return (

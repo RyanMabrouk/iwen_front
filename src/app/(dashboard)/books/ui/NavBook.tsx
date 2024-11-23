@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Prev from "./Prev";
 import Search from "./Search";

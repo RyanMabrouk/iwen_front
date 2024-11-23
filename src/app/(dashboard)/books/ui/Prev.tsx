@@ -1,5 +1,5 @@
 import React from "react";
-import arrow_left from "../../../../../../public/dashboard/book/arrow_left";
+import arrow_left from "../../../../../public/dashboard/book/arrow_left";
 import { useRouter } from "next/navigation";
 
 export default function Prev() {

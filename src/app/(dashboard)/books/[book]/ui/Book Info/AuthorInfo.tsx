@@ -27,6 +27,7 @@ export default function AuthorInfo() {
   return (
     <ScrollArea>
       <div
+        dir="rtl"
         key="author"
         className="flex w-full max-w-[40rem] gap-3 max-lg:max-h-[12rem] max-lg:flex-col max-lg:items-center max-md:min-h-[200px]"
       >
