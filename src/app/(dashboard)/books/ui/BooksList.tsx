@@ -10,7 +10,11 @@ export default function BooksList({
   booksNumber: number;
   sortings: SortingType;
 }) {
-  const data = useBooks({ limit: booksNumber * 3, page: 1 });
+  const data = useBooks({
+    limit: booksNumber * 3,
+    page: 1,
+    sort: { order: "desc", orderBy: "books.price_dollar" },
+  });
   if (data.isLoading) return <div>Loading...</div>;
   const books = data.data?.data?.data;
   return (

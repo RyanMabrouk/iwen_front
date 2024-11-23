@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { Lato } from "next/font/google";
+import { Tajawal } from "next/font/google";
 import "./globals.css";
 import Hydration from "@/provider/MainHydration";
 import { ToastContainer, ToastProvider } from "@/hooks/useToast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Store from "@/provider/QCStore";
+import React from "react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
-const lato = Lato({
-  weight: ["100", "300", "400", "700", "900"],
-  subsets: ["latin"],
+const tajawal = Tajawal({
+  weight: ["200", "300", "400", "500", "700", "800", "900"],
+  subsets: ["arabic"],
   style: ["normal"],
 });
 
@@ -37,14 +40,18 @@ export default async function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className={lato.className + " min-h-screen"}>
+      <body className={tajawal.className + " min-h-screen"}>
         <Analytics />
         <SpeedInsights />
         <Store>
           <Hydration>
             <ToastProvider>
               <ToastContainer />
-              {children}
+              <main>
+                <Header />
+                {children}
+                <Footer />
+              </main>
             </ToastProvider>
           </Hydration>
         </Store>

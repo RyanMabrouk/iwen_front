@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss/types/config";
 import plugin from "tailwindcss/plugin";
 
 const MyClass = plugin(function ({ addUtilities }: any) {
@@ -104,6 +104,11 @@ const config: Config = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          100: "#E4EFEF",
+          200: "#A2CBC9",
+          300: "#CDECEA",
+          400: "#27A098",
+          500: "#1C7775",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
