@@ -103,3 +103,9 @@ export interface IError<T extends object> {
  export type IValidationErrors<T extends object> = {
   [key in keyof T]: string[];
  };
+
+ export interface IUserPayload extends Tables<"users"> {
+  addresses: Tables<"addresses">[];
+  total_spent: number;
+  
+ }

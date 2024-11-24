@@ -1,5 +1,7 @@
 "use server";
-import { uploadToBucket } from "./UploadToBucket";
+
+import { UploadToBucket } from "./UploadToBucket";
+
 
 export async function uploadFile({
   formData,
@@ -16,10 +18,10 @@ export async function uploadFile({
     throw new Error("No file selected or invalid file.");
   }
 
-  const { data, error } = await uploadToBucket({
+  const { data, error } = await UploadToBucket({
     file,
     fileName: title,
-    bucketName: "products_images",
+    bucketName: "pictures",
   });
   if (error) {
     throw new Error(`Failed to upload the file: ${error.message}`);
