@@ -51,6 +51,7 @@ export default async function sendRequest<
     const response = await api.request(options);
     return { data: response.data, error: null, validationErrors: null };
   } catch (error: any) {
+    console.log("🚀 ~ error:", error);
     if (axios.isAxiosError(error)) {
       const backendError: IError<IPayload> = error.response?.data;
       if (backendError.errors) {
