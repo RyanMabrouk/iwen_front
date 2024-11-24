@@ -5,6 +5,8 @@ import CategoryIcon from "./icons/CategoryIcon";
 import BookCart from "./BookCart";
 import ArrowLeft from "./icons/ArrowLeft";
 import useBooks from "@/hooks/data/books/useBooks";
+import { IBookPopulated } from "@/types";
+import useBook from "@/hooks/data/books/useBook";
 
 const categories = [
   {
@@ -24,9 +26,22 @@ const categories = [
 export default function CategoryBooksSection() {
   const [activeCategory, setActiveCategory] = useState(0);
   const { data: books, error } = useBooks({ limit: 4, page: 1 });
+  const data = useBook("0040e197-aa18-469f-afe1-5548935642c0");
+  if (data.isLoading)
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        Loading...
+      </div>
+    );
+  const book = data.data?.data as IBookPopulated;
 
   // if (error) console.log("Hey i have error !" + error.message);
-  console.log(books);
+  const dummyBooks: IBookPopulated[] = [
+    { ...book, id: "1", images_urls: ["/book.png", "/book.png", "/book.png"] },
+    { ...book, id: "2", images_urls: ["/book.png", "/book.png", "/book.png"] },
+    { ...book, id: "3", images_urls: ["/book.png", "/book.png", "/book.png"] },
+    { ...book, id: "4", images_urls: ["/book.png", "/book.png", "/book.png"] },
+  ];
 
   return (
     <div className="overflow-hidden bg-[#E7F6F5]/30 px-6 py-14">
@@ -62,10 +77,9 @@ export default function CategoryBooksSection() {
           </div>
         </div>
         <div className="grid grid-cols-4 gap-10 max-xl:grid-cols-2 max-sm:grid-cols-1">
-          <BookCart id={"zepofjzeijfhchgg"} />
-          <BookCart id={"zeoijfezoiezofouezh"} />
-          <BookCart id={"zejfnezonfoez"} />
-          <BookCart id={"zefoizeoifezofez"} />
+          {dummyBooks.map((book, i) => (
+            <BookCart key={i} book={book} />
+          ))}
         </div>
         <div className="mx-auto flex w-fit cursor-pointer items-center gap-4">
           <span className="flex">

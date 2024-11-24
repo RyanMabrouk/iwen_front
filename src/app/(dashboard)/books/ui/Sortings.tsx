@@ -25,6 +25,11 @@ export default function Sortings({
       name: "تخفيض على السعر (19)",
       view: "discount",
     },
+    {
+      id: 4,
+      name: "كل الكتب",
+      view: "all",
+    },
   ];
   return (
     <ul

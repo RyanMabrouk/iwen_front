@@ -11,9 +11,8 @@ export default async function Layout({
       style={{ background: "#E4EFEF" }}
       className="flex min-h-screen w-full flex-col items-center justify-between font-tajawal"
     >
-      <NavBar />
+      {/* <NavBar /> */}
       <div className="w-full flex-1 overflow-x-hidden">{children}</div>
-      <Footer />
     </div>
   );
 }

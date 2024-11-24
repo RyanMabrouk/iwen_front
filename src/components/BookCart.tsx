@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { Minus, Plus } from "lucide-react";
+import { Divide, Minus, Plus } from "lucide-react";
 import Heart from "./icons/Heart";
 import FilledHeart from "./icons/FilledHeart";
 import ArrowLeft from "./icons/ArrowLeft";
 import ArrowRight from "./icons/ArrowRight";
 import CustomSwiper from "./ui/swiper";
+import { IBookPopulated } from "@/types";
+import Image from "next/image";
 
-export default function BookCart({ id }: { id: string }) {
+export default function BooBookCartkCart({
+  book,
+}: {
+  book: IBookPopulated | null;
+}) {
   const [isLiked, setIsLiked] = useState(false);
   const [quantity, setQuantity] = useState(0);
 
@@ -18,32 +24,50 @@ export default function BookCart({ id }: { id: string }) {
       />
       <img src="/acs.png" className="absolute -top-20 left-20 opacity-30" />
       <div className="absolute left-3 top-4 z-10 rounded-full bg-primary-400 px-2.5 py-1 text-sm font-medium text-white">
-        15% off
+        {book?.discount ?? 15}% off
       </div>
 
       <div className="group relative flex h-64 cursor-pointer items-center justify-center">
         <ArrowLeft
           size={22}
-          className={`${"btn_swiper_arrow_left" + id} absolute left-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
+          className={`${"btn_swiper_arrow_left" + book?.id} absolute left-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
         />
         <ArrowRight
           size={22}
-          className={`${"btn_swiper_arrow_right" + id} absolute right-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
+          className={`${"btn_swiper_arrow_right" + book?.id} absolute right-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
         />
         <CustomSwiper
           navigation={{
-            prevEl: `${".btn_swiper_arrow_left" + id}`,
-            nextEl: `${".btn_swiper_arrow_right" + id}`,
+            prevEl: `${".btn_swiper_arrow_left" + book?.id}`,
+            nextEl: `${".btn_swiper_arrow_right" + book?.id}`,
           }}
           loop
-          slides={Array.from({ length: 2 }).map((_, i) => (
-            <div className="group flex h-full w-full items-center justify-center p-7">
-              <img
-                src="/book.png"
-                className="h-full w-full object-scale-down transition-all duration-200"
-              />
-            </div>
-          ))}
+          slides={
+            book === null || book === undefined
+              ? Array.from({ length: 2 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="group flex h-full w-full items-center justify-center p-7"
+                  >
+                    <img
+                      src="/book.png"
+                      className="h-full w-full object-scale-down transition-all duration-200"
+                    />
+                  </div>
+                ))
+              : book?.images_urls.map((image) => (
+                  <div
+                    key={image}
+                    className="group flex h-full w-full items-center justify-center p-7"
+                  >
+                    <img
+                      alt={image}
+                      src={image}
+                      className="h-full w-full object-scale-down transition-all duration-200"
+                    />
+                  </div>
+                ))
+          }
           initialSlide={0}
           slidesPerView={1}
           pagination
@@ -94,14 +118,24 @@ export default function BookCart({ id }: { id: string }) {
 
           <div className="flex flex-col justify-between">
             <div className="flex flex-col gap-1">
-              <span className="text-base font-medium">
-                ما لايسع المسلم جهله
+              <span dir="rtl" className="text-base font-medium">
+                {book !== null
+                  ? book?.title.length < 31
+                    ? book?.title
+                    : book?.title.slice(0, 31) + "..."
+                  : "no title"}
               </span>
-              <span className="text-sm text-gray-600">الزمخشري</span>
+              <span dir="rtl" className="text-sm text-gray-600">
+                {book !== null && book !== undefined && book?.writer !== null
+                  ? book?.writer?.name.length < 15
+                    ? book.writer?.name
+                    : book.writer?.name.slice(0, 15) + "..."
+                  : "no writer"}
+              </span>
             </div>
             <div>
               <span className="py-2.5 text-lg font-light text-primary-500">
-                120.000 MAD
+                {book?.price ?? 120} MAD
               </span>
             </div>
           </div>

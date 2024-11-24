@@ -11,13 +11,13 @@ export default function Navigation({
 }: {
   sortings: SortingType;
   setSortings: React.Dispatch<React.SetStateAction<SortingType>>;
-  bookNumber: number;
-  setBooks: React.Dispatch<React.SetStateAction<number>>;
+  bookNumber: string;
+  setBooks: React.Dispatch<React.SetStateAction<string>>;
 }) {
   return (
     <nav className="flex w-full items-center justify-between bg-white px-20 py-2">
       <ViewPreference bookNumber={bookNumber} setBooks={setBooks} />{" "}
-      <Sortings sortings={sortings} setSortings={setSortings}/>
+      <Sortings sortings={sortings} setSortings={setSortings} />
     </nav>
   );
 }

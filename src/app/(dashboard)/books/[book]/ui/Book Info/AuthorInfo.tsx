@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useBookProvider } from "../../provider/BookProvider";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Tables } from "@/types/database.types";
 
 export default function AuthorInfo() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -16,14 +17,9 @@ export default function AuthorInfo() {
 
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
-  const { book, authors } = useBookProvider();
-  if (!authors) return <div>no authors to be shown</div>;
-  const dummyData = [
-    { id: 1, src: "/dashboard/book/pic4.jpg", title: "title", price: 200 },
-    { id: 2, src: "/dashboard/book/pic3.jpg", title: "title2", price: 300 },
-    { id: 3, src: "/dashboard/book/pic1.jpg", title: "title3", price: 400 },
-    { id: 4, src: "/dashboard/book/picture.png", title: "title4", price: 500 },
-  ];
+  const { book } = useBookProvider();
+  if (!book?.writer) return <div>no authors to be shown</div>;
+
   return (
     <ScrollArea>
       <div
@@ -39,13 +35,13 @@ export default function AuthorInfo() {
           <div dir="rtl" className="mb-3 flex items-center gap-2">
             <div className="relative h-10 w-10 rounded-full">
               <Image
-                src="/dashboard/book/pic4.jpg"
+                src="/dashboard/book/profile.jpg"
                 alt="alternative"
                 className="rounded-full"
                 fill
               />
             </div>
-            <h2 className="font-semibold">{authors[0].name}</h2>
+            <h2 className="font-semibold">{book.writer.name ?? "no name"}</h2>
           </div>
           <p className="">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, quod
@@ -60,11 +56,11 @@ export default function AuthorInfo() {
           style={{ background: "#FCFCFD", borderColor: "#E7E9EB" }}
         >
           <h2 className="font-semibold">
-            مؤلفات أخرى متوفرة ({dummyData.length})
+            مؤلفات أخرى متوفرة ({book.writer_books.length})
           </h2>
           <ScrollArea className="w-full flex-grow rounded-md border">
             <div className="flex flex-1 flex-col gap-1 p-3">
-              {dummyData.map((book) => (
+              {book.writer_books.map((book) => (
                 <div
                   dir="rtl"
                   className="flex items-center gap-2 rounded-md border bg-white p-2"
@@ -72,10 +68,18 @@ export default function AuthorInfo() {
                   key={book.id}
                 >
                   <div className="relative h-12 w-10">
-                    <Image src={book.src} alt={book.title} fill />
+                    <Image
+                      src={book.images_urls[0] ?? ""}
+                      alt={book.title}
+                      fill
+                    />
                   </div>
                   <div dir="rtl">
-                    <h3 className="font-semibold">{book.title}</h3>
+                    <h3 dir="rtl" className="font-semibold">
+                      {book.title.length < 18
+                        ? book.title
+                        : book.title.slice(0, 18) + "..."}
+                    </h3>
                     <h4 style={{ color: "#27A098" }}>
                       السعر ({book.price} د.م)
                     </h4>

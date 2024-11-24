@@ -72,6 +72,8 @@ export interface IBookPayload {
   structured_data: FormDataEntryValue | null;
 }
 export interface IBookPopulated extends Tables<"books"> {
+  writer_books: Tables<"books">[];
+  recommended_books: IBookPopulated[];
   categories: Tables<"categories">[];
   subcategories: Tables<"subcategories">[];
   cover_type: Tables<"cover_types"> | null;

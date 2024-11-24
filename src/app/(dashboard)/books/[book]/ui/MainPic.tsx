@@ -25,7 +25,7 @@ export default function MainPic({
         onClick={() => setLiked((e) => !e)}
         className="absolute right-5 top-5 transition-all duration-200"
       >
-        {heart(liked)}
+        {heart(liked, "transition-all duration-200 hover:text-red-500")}
       </button>
     </div>
   );

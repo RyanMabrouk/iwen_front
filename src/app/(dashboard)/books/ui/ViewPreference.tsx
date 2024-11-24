@@ -4,14 +4,15 @@ export default function ViewPreference({
   setBooks,
   bookNumber,
 }: {
-  setBooks: React.Dispatch<React.SetStateAction<number>>;
-  bookNumber: number;
+  setBooks: React.Dispatch<React.SetStateAction<string>>;
+  bookNumber: string;
 }) {
-  const choices = [4, 6];
+  const choices = ['4', '6'];
   return (
     <div className="flex items-center gap-2">
       {choices.map((choice) => (
         <button
+          key={choice}
           style={{
             background: bookNumber === choice ? "#27A49B" : "#B1E1DE",
           }}

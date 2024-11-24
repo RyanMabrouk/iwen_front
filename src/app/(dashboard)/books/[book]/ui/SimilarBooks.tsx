@@ -1,17 +1,22 @@
+import BooBookCartkCart from "@/components/BookCart";
 import useBooks from "@/hooks/data/books/useBooks";
+import { IBookPopulated } from "@/types";
 import React from "react";
-import SimilarBook from "./SimilarBook";
 
-export default function SimilarBooks() {
-  const similarBooksData = useBooks({ limit: 8 });
-  if (similarBooksData.isLoading) return <div>Loading...</div>;
-  const similarBooks = similarBooksData.data?.data?.data ?? [];
+export default function SimilarBooks({
+  books,
+}: {
+  books: IBookPopulated[] | null;
+}) {
   return (
-    <div dir="rtl" className="flex flex-col gap-3">
-      <h1 className="font-semibold">كتب مشابهة أخرى</h1>
-      <div dir="ltr" className="grid-cols-6 gap-3">
-        {similarBooks.map((book, i) => (
-          <SimilarBook key={book.id} book={book} />
+    <div dir="rtl" className="flex flex-col gap-3 p-5">
+      <h1 className="mr-8 font-semibold">كتب مشابهة أخرى</h1>
+      <div
+        dir="rtl"
+        className="grid grid-cols-6 gap-3 px-7 py-4 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1"
+      >
+        {books?.map((book, i) => (
+          <BooBookCartkCart key={book.id} book={book} />
         ))}
       </div>
     </div>

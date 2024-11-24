@@ -15,21 +15,19 @@ export default function page({
   const bookData = useBook(book);
   const AuthorData = useWriters();
 
-  if (bookData.isLoading || AuthorData.isLoading) return <div>Loading...</div>;
-  const author =
-    AuthorData.data?.data?.filter(
-      (e) => e.id !== bookData.data?.data?.writer_id,
-    ) ?? null;
+  if (bookData.isLoading || AuthorData.isLoading)
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        Loading...
+      </div>
+    );
 
   return (
-    <BookProvider
-      book={bookData.data?.data ?? null}
-      authors={author as Tables<"writers">[] | null}
-    >
+    <BookProvider book={bookData.data?.data ?? null}>
       <div className="h-full w-full">
         <BookInfo />
         <hr className="my-5 border border-black" />
-        <SimilarBooks />
+        <SimilarBooks books={bookData.data?.data?.recommended_books ?? null} />
       </div>
     </BookProvider>
   );

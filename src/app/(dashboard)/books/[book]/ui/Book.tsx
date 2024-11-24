@@ -11,7 +11,7 @@ import { useBookProvider } from "../provider/BookProvider";
 
 export default function BookInfo() {
   const { book } = useBookProvider();
-  const dummyData: IBookPopulated = {
+  /* const dummyData: IBookPopulated = {
     canonical: "",
     cover_type_id: null,
     created_at: "",
@@ -54,14 +54,16 @@ export default function BookInfo() {
     writer: null,
     share_house: null,
     corner: null,
-  };
+    writer_books: [],
+    recommended_books: []
+  }; */
   return (
     <div
-      className="flex items-stretch justify-center gap-3 p-5 max-2xl:bg-color1 max-xl:bg-color5 max-lg:bg-yellow-400 max-md:bg-color6 max-sm:flex-col-reverse max-sm:items-center max-sm:bg-emerald-500"
+      className="flex h-fit items-stretch justify-center gap-3 p-5 transition-all duration-300"
       /* style={{ background: "#E4EFEF" }} */
     >
       <MainInfo />
-      <Pictures images={dummyData?.images_urls ?? []} />
+      <Pictures images={book?.images_urls ?? []} />
     </div>
   );
 }
