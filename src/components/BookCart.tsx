@@ -24,7 +24,7 @@ export default function BookCart({
   const [isLiked, setIsLiked] = useState(false);
   const [quantity, setQuantity] = useState(0);
 
-  console.log(images);
+  // console.log(images);
 
   return (
     <div className="relative overflow-hidden rounded-2xl border bg-white shadow-md transition-all">
