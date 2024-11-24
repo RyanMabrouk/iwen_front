@@ -1,79 +1,166 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import SelectWithBorder from "./main/SelectWithBorder";
 import CategoryIcon from "./icons/CategoryIcon";
 import BookCart from "./BookCart";
 import ArrowLeft from "./icons/ArrowLeft";
+import CustomSwiper from "./ui/swiper";
 import useBooks from "@/hooks/data/books/useBooks";
+import useCategories from "@/hooks/data/books/categories/useCategories";
+import ArrowRight from "./icons/ArrowRight";
 
-const categories = [
-  {
-    label: "الأكثر مبيعا",
-  },
-  {
-    label: "كتب جديدة",
-  },
-  {
-    label: "تخفيض على السعر",
-  },
-  {
-    label: "عروض خاصة بمناسبة رمضان المبارك",
-  },
+const filter = [
+  { label: "الأكثر مبيعا" },
+  { label: "كتب جديدة" },
+  { label: "تخفيض على السعر" },
+  { label: "عروض خاصة بمناسبة رمضان المبارك" },
 ];
 
 export default function CategoryBooksSection() {
-  const [activeCategory, setActiveCategory] = useState(0);
-  const { data: books, error } = useBooks({ limit: 4, page: 1 });
+  const [activeFilter, setActiveFilter] = useState(0);
+  const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
+  const { data: categories } = useCategories();
+  const { data: books } = useBooks({ limit: 20 });
 
-  // if (error) console.log("Hey i have error !" + error.message);
-  console.log(books);
+  const [isPrevDisabled, setIsPrevDisabled] = useState(true);
+  const [isNextDisabled, setIsNextDisabled] = useState(false);
+
+  const filteredBooks = activeCategoryId
+    ? books?.data?.data.filter((book) =>
+        book.categories.some((category) => category.id === activeCategoryId),
+      )
+    : books?.data?.data;
 
   return (
-    <div className="overflow-hidden bg-[#E7F6F5]/30 px-6 py-14">
+    <div className="relative bg-[#E7F6F5]/30 px-6 py-14">
       <div className="mx-auto w-full max-w-[1400px] space-y-12">
+
         <div className="flex h-fit w-full items-center justify-between gap-10 max-xl:flex-col">
-          <SelectWithBorder text={"الفئات"} icon={<CategoryIcon size={18} />} />
-          <div className="scrollbar scrollbar-thin scrollbar-thumb-primary-500 scrollbar-track-gray-200 dir-[rtl] relative h-[60px] w-full overflow-x-auto overflow-y-hidden">
+          <SelectWithBorder
+            defaultStatus
+            text={"الفئات"}
+            icon={<CategoryIcon size={18} />}
+            content={
+              categories?.data?.map((category) => ({
+                id: category.id,
+                name: category.name,
+              })) || []
+            }
+            onChange={(categoryId) => {
+              setActiveCategoryId(categoryId);
+            }}
+          />
+          <div className="scrollbar scrollbar-thin scrollbar-thumb-primary-500 scrollbar-track-gray-200 dir-[rtl] relative h-[60px] w-full overflow-x-auto">
             <div className="dir-[rtl] flex min-w-max flex-row-reverse gap-[25px] whitespace-nowrap">
-              {categories.map((category, index) => (
+              {filter.map((category, index) => (
                 <div key={index}>
                   <h2
                     id={index.toString()}
                     className={`cursor-pointer p-2.5 text-2xl transition-colors ${
-                      activeCategory === index
+                      activeFilter === index
                         ? "font-semibold text-primary-500"
                         : "font-normal"
                     }`}
                     onClick={() => {
-                      setActiveCategory(index);
+                      setActiveFilter(index);
                     }}
                   >
                     {category.label}
-                    {index != activeCategory && (
+                    {index !== activeFilter && (
                       <span className="text-xl"> (09)</span>
                     )}
                   </h2>
-                  {index === activeCategory && (
-                    <div className={`h-0.5 bg-primary-500`}></div>
+                  {index === activeFilter && (
+                    <div className="h-0.5 bg-primary-500"></div>
                   )}
                 </div>
               ))}
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-10 max-xl:grid-cols-2 max-sm:grid-cols-1">
-          <BookCart id={"zepofjzeijfhchgg"} />
-          <BookCart id={"zeoijfezoiezofouezh"} />
-          <BookCart id={"zejfnezonfoez"} />
-          <BookCart id={"zefoizeoifezofez"} />
+
+        <div className="relative">
+          {filteredBooks && filteredBooks.length >= 4 && (
+            <div className="top-1/2 z-10 flex w-full justify-between">
+              <ArrowLeft
+                size={40}
+                className={`custom-swiper-books-prev absolute -left-10 top-1/2 -translate-y-1/2 cursor-pointer ${
+                  isPrevDisabled ? "text-gray-400" : "text-primary-400"
+                } max-sm:-left-6`}
+              />
+              <ArrowRight
+                size={40}
+                className={`custom-swiper-books-next absolute -right-10 top-1/2 -translate-y-1/2 cursor-pointer ${
+                  isNextDisabled ? "text-gray-400" : "text-primary-400"
+                } max-sm:-right-6`}
+              />
+            </div>
+          )}
+
+          {filteredBooks && filteredBooks.length > 4 ? (
+            <CustomSwiper
+              onSwiper={(swiper) => {
+                setIsPrevDisabled(swiper.isBeginning);
+                setIsNextDisabled(swiper.isEnd);
+              }}
+              onSlideChange={(swiper) => {
+                setIsPrevDisabled(swiper.isBeginning);
+                setIsNextDisabled(swiper.isEnd);
+              }}
+              navigation={{
+                prevEl: ".custom-swiper-books-prev",
+                nextEl: ".custom-swiper-books-next",
+              }}
+              slides={filteredBooks.map((book) => (
+                <div
+                  key={book.id}
+                  className="group flex h-full w-full items-center justify-center p-4"
+                >
+                  <BookCart
+                    id={book.id}
+                    title={book.title}
+                    writer={book.writer?.name || "كاتب غير معروف"}
+                    images={book.images_urls}
+                    discount={book.discount}
+                    price={book.price}
+                  />
+                </div>
+              ))}
+              slidesPerView={1}
+              spaceBetween={20}
+              breakpoints={{
+                1024: { slidesPerView: 4 },
+                768: { slidesPerView: 2 },
+                640: { slidesPerView: 1 },
+              }}
+              className="h-full w-full"
+            />
+          ) : (
+            <div className="grid grid-cols-4 gap-10 max-xl:grid-cols-2 max-sm:grid-cols-1">
+              {filteredBooks?.map((book) => (
+                <BookCart
+                  key={book.id}
+                  id={book.id}
+                  title={book.title}
+                  writer={book.writer?.name || "كاتب غير معروف"}
+                  images={book.images_urls}
+                  discount={book.discount}
+                  price={book.price}
+                />
+              ))}
+            </div>
+          )}
         </div>
-        <div className="mx-auto flex w-fit cursor-pointer items-center gap-4">
-          <span className="flex">
-            <ArrowLeft size={16} />
-            <ArrowLeft size={16} />
-          </span>
-          <span className="text-xl">عرض المزيد</span>
-        </div>
+
+        {filteredBooks && filteredBooks.length > 4 && (
+          <div className="mx-auto flex w-fit cursor-pointer items-center gap-4">
+            <span className="flex">
+              <ArrowLeft size={16} />
+              <ArrowLeft size={16} />
+            </span>
+            <span className="text-lg max-sm:text-base">عرض المزيد</span>
+          </div>
+        )}
       </div>
     </div>
   );

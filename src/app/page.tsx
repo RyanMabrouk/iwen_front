@@ -1,3 +1,4 @@
+
 import CategoryBooksSection from "@/components/CategoryBooksSection";
 import PrimaryButton from "@/components/main/buttons/PrimaryButton";
 import Offers from "@/components/Offers";
@@ -13,7 +14,9 @@ export default async function Page() {
       <div className="px-4 py-12 sm:px-6 sm:py-24 lg:px-8 lg:py-36 [&_.swiper-pagination-bullet-active]:bg-primary-200">
         <div className="mx-auto h-[250px] w-full max-w-[95%] rounded-xl bg-black sm:h-[350px] sm:max-w-[90%] md:h-[400px] lg:h-[493px] lg:max-w-[80%]"></div>
       </div>
+
       <CategoryBooksSection />
+
       <div className="w-full pb-60">
         <Offers />
         <Trusted />

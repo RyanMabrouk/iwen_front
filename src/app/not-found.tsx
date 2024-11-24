@@ -11,9 +11,11 @@ import { useRouter } from "next/navigation";
 function NotFound() {
   const route = useRouter();
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex h-screen items-center justify-center px-12">
       <div className="w-[28.375rem] space-y-[4.813rem]">
-        <img src="/404.svg" className="mx-auto" />
+        <div className="max-sm:px-8">
+          <img src="/404.svg" className="mx-auto" />
+        </div>
         <div className="space-y-10 text-center text-xl">
           <span className="font-bold">مشكلة في الاتصال بالإنترنت</span>
           <p className="text-center font-medium">

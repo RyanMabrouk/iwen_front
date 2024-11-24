@@ -68,13 +68,13 @@ export default function CategoryKidsBooks() {
           </div>
         </div>
 
-
+{/* 
         <div className="grid grid-cols-4 gap-10 max-xl:grid-cols-2 max-sm:grid-cols-1">
           <BookCart id="mzkefizpeiezjdzenfi" />
           <BookCart id="jzenvoeznoifez" />
           <BookCart id="ezfezfzefe" />
           <BookCart id="efzefzefezeazaeazell" />
-        </div>
+        </div> */}
 
 
         <div className="mx-auto flex w-fit cursor-pointer items-center gap-4">

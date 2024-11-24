@@ -6,9 +6,25 @@ import ArrowLeft from "./icons/ArrowLeft";
 import ArrowRight from "./icons/ArrowRight";
 import CustomSwiper from "./ui/swiper";
 
-export default function BookCart({ id }: { id: string }) {
+export default function BookCart({
+  id,
+  title,
+  writer,
+  images,
+  discount,
+  price,
+}: {
+  id: string;
+  title: string;
+  writer: string;
+  images: string[];
+  discount: number;
+  price: number;
+}) {
   const [isLiked, setIsLiked] = useState(false);
   const [quantity, setQuantity] = useState(0);
+
+  console.log(images);
 
   return (
     <div className="relative overflow-hidden rounded-2xl border bg-white shadow-md transition-all">
@@ -17,9 +33,11 @@ export default function BookCart({ id }: { id: string }) {
         className="absolute -left-7 -top-6 -rotate-12 opacity-30"
       />
       <img src="/acs.png" className="absolute -top-20 left-20 opacity-30" />
-      <div className="absolute left-3 top-4 z-10 rounded-full bg-primary-400 px-2.5 py-1 text-sm font-medium text-white">
-        15% off
-      </div>
+      {discount !== 0 && (
+        <div className="absolute left-3 top-4 z-10 rounded-full bg-primary-400 px-2.5 py-1 text-sm font-medium text-white">
+          {discount}% off
+        </div>
+      )}
 
       <div className="group relative flex h-64 cursor-pointer items-center justify-center">
         <ArrowLeft
@@ -94,14 +112,14 @@ export default function BookCart({ id }: { id: string }) {
 
           <div className="flex flex-col justify-between">
             <div className="flex flex-col gap-1">
-              <span className="text-base font-medium">
-                ما لايسع المسلم جهله
+              <span className="line-clamp-1 text-base font-medium">
+                {title}{" "}
               </span>
-              <span className="text-sm text-gray-600">الزمخشري</span>
+              <span className="text-sm text-gray-600">{writer}</span>
             </div>
             <div>
               <span className="py-2.5 text-lg font-light text-primary-500">
-                120.000 MAD
+                {price} MAD
               </span>
             </div>
           </div>
