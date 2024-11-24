@@ -1,6 +1,6 @@
 export const cover_typesEndpoints = {
-  getCoverTypes: () => `/cover_types`,
-  updateCoverType: (id: string) => `/cover_types/${id}`,
-  createCoverType: () => `/cover_types`,
-  deleteCoverType: (id: string) => `/cover_types/${id}`,
-};
+    getcover_types: () => `/cover_types`,
+    updatecover_type: (id:string) => `/cover_types/${id}`,
+    createcover_type: () =>  `/cover_types`,
+    deletecover_type: (id:string) => `/cover_types/${id}`,
+}
