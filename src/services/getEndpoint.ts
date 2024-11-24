@@ -1,13 +1,15 @@
-import { booksEndpoints } from "@/endpoints/booksRoutes";
-import { categoriesEndpoints } from "@/endpoints/categoriesRoutes";
-import { cornersEndpoints } from "@/endpoints/cornersRoutes";
-import { cover_typesEndpoints } from "@/endpoints/coverTypes";
-import { ordersEndpoints } from "@/endpoints/ordersRoutes";
-import { publishHousesEndpoints } from "@/endpoints/publishHouses";
-import { subCategoriesEndpoints } from "@/endpoints/subCategories";
-import { usersEndpoints } from "@/endpoints/users";
-import { writersEndpoints } from "@/endpoints/writers";
-export type CRUDMethod = "GET" | "POST" | "PATCH" | "DELETE";
+import { bannersEndpoints } from '@/endpoints/bannerRoutes';
+import { booksEndpoints } from '@/endpoints/booksRoutes';
+import { categoriesEndpoints } from '@/endpoints/categoriesRoutes';
+import { cornersEndpoints } from '@/endpoints/cornersRoutes';
+import { cover_typesEndpoints } from '@/endpoints/coverTypes';
+import { eventsEndpoints } from '@/endpoints/eventRoutes';
+import { ordersEndpoints } from '@/endpoints/ordersRoutes';
+import { publishHousesEndpoints } from '@/endpoints/publishHouses';
+import { subCategoriesEndpoints } from '@/endpoints/subCategories';
+import { usersEndpoints } from '@/endpoints/users';
+import { writersEndpoints } from '@/endpoints/writers';
+export type CRUDMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 const resources = {
   users: usersEndpoints,
   books: booksEndpoints,
@@ -18,18 +20,14 @@ const resources = {
   writers: writersEndpoints,
   corners: cornersEndpoints,
   orders: ordersEndpoints,
+  banners:bannersEndpoints,
+  events: eventsEndpoints,
 } as const;
-export type IResource = keyof typeof resources;
+export type IResourse = keyof typeof resources;
 export default function getEndpoint<
-  IEndpointResource extends IResource,
-  IAction extends keyof (typeof resources)[IEndpointResource],
->({
-  resource: resource,
-  action,
-}: {
-  resource: IEndpointResource;
-  action: IAction;
-}) {
-  const url = resources[resource][action];
+  IEndpointResourse extends IResourse,
+  IAction extends keyof (typeof resources)[IEndpointResourse]
+>({ resourse, action }: { resourse: IEndpointResourse; action: IAction }) {
+  const url = resources[resourse][action];
   return url;
 }
