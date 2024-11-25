@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import SelectWithBorder from "./main/SelectWithBorder";
 import CategoryIcon from "./icons/CategoryIcon";
 import BookCart from "./BookCart";
@@ -9,28 +10,38 @@ import useBooks from "@/hooks/data/books/useBooks";
 import useCategories from "@/hooks/data/books/categories/useCategories";
 import ArrowRight from "./icons/ArrowRight";
 import EmptyBox from "./icons/EmptyBox";
-
-const filter = [
-  { label: "الأكثر مبيعا" },
-  { label: "كتب جديدة" },
-  { label: "تخفيض على السعر" },
-  { label: "عروض خاصة بمناسبة رمضان المبارك" },
-];
+import useEvents from "@/hooks/data/books/useEvents";
+import SingleEvent from "./SingleEvent";
+import useEvent from "@/hooks/data/books/useEvent";
 
 export default function CategoryBooksSection() {
-  const [activeFilter, setActiveFilter] = useState(0);
+  const [activeEvent, setActiveEvent] = useState(0);
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
-  const { data: categories } = useCategories();
-  const { data: books } = useBooks({ limit: 20 });
-
+  const [eventBooks, setEventBooks] = useState<any[]>([]);
   const [isPrevDisabled, setIsPrevDisabled] = useState(true);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
+
+  const { data: categories } = useCategories();
+  const { data: books } = useBooks({ limit: 20 });
+  const { data: events } = useEvents();
+  // events?.data?.data.map((event) => {
+  //   console.log(event);
+  // });
+  // const { data: event } = useEvent({
+  //   eventId: events?.data?.data[0],
+  // });
 
   const filteredBooks = activeCategoryId
     ? books?.data?.data.filter((book) =>
         book.categories.some((category) => category.id === activeCategoryId),
       )
-    : books?.data?.data;
+    : books?.data?.data || [];
+
+  useEffect(() => {
+    if (events?.data?.data) {
+      setEventBooks(events?.data?.data.map((event) => event.id));
+    }
+  }, [events?.data?.data]);
 
   return (
     <div className="relative bg-[#E7F6F5]/30 px-6 py-14">
@@ -38,7 +49,7 @@ export default function CategoryBooksSection() {
         <div className="flex h-fit w-full items-center justify-between gap-10 max-xl:flex-col">
           <SelectWithBorder
             defaultStatus
-            text={"الفئات"}
+            text="الفئات"
             icon={<CategoryIcon size={18} />}
             content={
               categories?.data?.map((category) => ({
@@ -47,33 +58,19 @@ export default function CategoryBooksSection() {
               })) || []
             }
             onChange={(categoryId) => {
-              setActiveCategoryId(categoryId);
+              setActiveCategoryId(categoryId || null);
             }}
           />
           <div className="scrollbar scrollbar-thin scrollbar-thumb-primary-500 scrollbar-track-gray-200 dir-[rtl] relative h-[60px] w-full overflow-x-auto">
             <div className="dir-[rtl] flex min-w-max flex-row-reverse gap-[25px] whitespace-nowrap">
-              {filter.map((category, index) => (
-                <div key={index}>
-                  <h2
-                    id={index.toString()}
-                    className={`cursor-pointer p-2.5 text-2xl transition-colors ${
-                      activeFilter === index
-                        ? "font-semibold text-primary-500"
-                        : "font-normal"
-                    }`}
-                    onClick={() => {
-                      setActiveFilter(index);
-                    }}
-                  >
-                    {category.label}
-                    {index !== activeFilter && (
-                      <span className="text-xl"> (09)</span>
-                    )}
-                  </h2>
-                  {index === activeFilter && (
-                    <div className="h-0.5 bg-primary-500"></div>
-                  )}
-                </div>
+              {eventBooks.map((event, index) => (
+                <SingleEvent
+                  key={index}
+                  eventId={event.id}
+                  activeEvent={activeEvent}
+                  index={index}
+                  setActiveEvent={setActiveEvent}
+                />
               ))}
             </div>
           </div>
@@ -97,6 +94,7 @@ export default function CategoryBooksSection() {
                     } max-sm:-right-6`}
                   />
                 </div>
+
                 <CustomSwiper
                   onSwiper={(swiper) => {
                     setIsPrevDisabled(swiper.isBeginning);

@@ -1,4 +1,3 @@
-
 import CategoryBooksSection from "@/components/CategoryBooksSection";
 import PrimaryButton from "@/components/main/buttons/PrimaryButton";
 import Offers from "@/components/Offers";

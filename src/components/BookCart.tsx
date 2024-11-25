@@ -5,6 +5,7 @@ import FilledHeart from "./icons/FilledHeart";
 import ArrowLeft from "./icons/ArrowLeft";
 import ArrowRight from "./icons/ArrowRight";
 import CustomSwiper from "./ui/swiper";
+import { cn } from "@/lib/utils";
 
 export default function BookCart({
   id,
@@ -13,6 +14,7 @@ export default function BookCart({
   images,
   discount,
   price,
+  className,
 }: {
   id: string;
   title: string;
@@ -20,6 +22,7 @@ export default function BookCart({
   images: string[];
   discount: number;
   price: number;
+  className?: string;
 }) {
   const [isLiked, setIsLiked] = useState(false);
   const [quantity, setQuantity] = useState(0);
@@ -27,7 +30,12 @@ export default function BookCart({
   // console.log(images);
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border bg-white shadow-md transition-all">
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-2xl border bg-white shadow-md transition-all",
+        className,
+      )}
+    >
       <img
         src="/acs.png"
         className="absolute -left-7 -top-6 -rotate-12 opacity-30"
