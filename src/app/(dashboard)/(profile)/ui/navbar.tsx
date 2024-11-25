@@ -11,7 +11,7 @@ export default function Navbar() {
       <Link href={"/profile"}>
         <li
           className={`pb-1 ${
-            Pathname.includes("generalInfo")
+            Pathname.includes("profile")
               ? "border-b-2 border-color2 text-color2"
               : ""
           }`}

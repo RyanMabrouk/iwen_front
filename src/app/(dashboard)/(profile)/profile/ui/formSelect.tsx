@@ -16,7 +16,10 @@ interface FormSelectProps {
   value: string;
   required?: boolean;
   disabled?: boolean;
-  onChange: (value: string) => void; // Callback to handle value changes
+  defaultValue?: string;
+  onChange: (value: string) => void; 
+  errors?: string[] | null;
+
 }
 
 const FormSelect: React.FC<FormSelectProps> = ({
@@ -28,7 +31,9 @@ const FormSelect: React.FC<FormSelectProps> = ({
   required = false,
   disabled = false,
   onChange,
+  errors,
 }) => {
+    
   return (
     <div className="space-y-2">
       <Label
@@ -55,6 +60,12 @@ const FormSelect: React.FC<FormSelectProps> = ({
           ))}
         </SelectContent>
       </Select>
+      {errors &&
+        errors.map((error, index) => (
+          <div key={index} className="text-right text-sm text-destructive">
+            {error}
+          </div>
+        ))}
     </div>
   );
 };

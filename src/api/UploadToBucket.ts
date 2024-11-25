@@ -1,6 +1,5 @@
 "use server";
 import { createClient } from "@/lib/supabase";
-import { PostgrestError } from '@supabase/supabase-js';
 
 export async function UploadToBucket({
   file,

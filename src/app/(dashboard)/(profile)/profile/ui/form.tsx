@@ -14,13 +14,10 @@ import FormSelect from "./formSelect";
 const phoneNumberSchema = z
   .string()
   .regex(/^0\d{9}$/, "رقم الهاتف يجب أن يبدأ ب0 ويحتوي على 10 أرقام");
-
-const formSchema = z.object({
-  phone_number: phoneNumberSchema,
-});
 export default function Form() {
   const queryClient = useQueryClient();
   const { data: user } = useCurrentUser();
+  console.log("🚀 ~ Form ~ user:", user?.data?.city)
   const { toast } = useToast();
   const [selectedState, setSelectedState] = useState<string>("");
   const [selectedCity, setSelectedCity] = useState<string>("");
@@ -28,26 +25,19 @@ export default function Form() {
     IValidationErrors<IUserPayload> | null | undefined
   >();
   useEffect(() => {
-    if (user?.data) {
-      setSelectedState(user.data.state || "");
-      if (user.data.state) {
-        setSelectedCity(user.data.city || "");
-      }
+    if (user?.data?.state) {
+      setSelectedState(user.data.state);
     }
-  }, [user]);
+  }, [user?.data?.state]);
+  useEffect(() => {
+    if (user?.data?.city) {
+      setSelectedCity(user.data.city);
+    }
+  }, [user?.data?.city]);
+  
+
   const updateMutation = useMutation({
     mutationFn: async (formData: FormData) => {
-      const formValues = Object.fromEntries(formData) as {
-        first_name: string;
-        last_name: string;
-        phone_number: string;
-        postalCode: string;
-        address1: string;
-        address2?: string;
-        state: string;
-        city: string;
-      };
-
       const first_name = String(formData.get("first_name"));
       const last_name = String(formData.get("last_name"));
       const phone_number = String(formData.get("phone_number"));
@@ -55,6 +45,14 @@ export default function Form() {
       const street = String(formData.get("address1"));
       const street2 = String(formData.get("address2"));
       const url = getEndpoint({ resource: "users", action: "updateMe" });
+      try {
+        phoneNumberSchema.parse(phone_number);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          throw new Error(error.errors[0]?.message);
+        }
+        throw new Error("");
+      }
       const payload = {
         first_name,
         last_name,
@@ -77,7 +75,7 @@ export default function Form() {
 
       if (error) {
         setErrors(validationErrors);
-        throw new Error(error);
+        throw new Error("");
       }
     },
     onSuccess: () => {
@@ -85,13 +83,10 @@ export default function Form() {
       toast.success("تم تحديث الملف الشخصي بنجاح");
     },
     onError: (error) => {
-      toast.error(
-        `حدث خطأ أثناء تحديث الملف الشخصي: ${(error as Error).message}`,
-      );
+      toast.error(error.message || "حدث خطأ أثناء تحديث الملف الشخصي");
     },
   });
-  const citiesForState =
-    moroccanStates.find((state) => state.state === selectedState)?.cities || [];
+
   return (
     <form dir="rtl" className="bg-white sm:px-4" action={updateMutation.mutate}>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -135,25 +130,33 @@ export default function Form() {
           icon={<Phone className="h-4 w-4" />}
         />
         <FormSelect
+        errors={errors?.state}
           label="الولاية"
           name="state"
           placeholder="اختر الولاية"
-          options={moroccanStates.map((state) => state.state)} 
+          options={moroccanStates.map((state) => state.state)}
           value={selectedState}
           required
           onChange={(value) => {
-            setSelectedState(value);
-            setSelectedCity(""); 
+            if(value){
+              setSelectedState(value);
+            }
+
           }}
         />
         <FormSelect
+          errors={errors?.city}
           label="المدينة"
           name="city"
           placeholder="اختر المدينة"
-          options={citiesForState} 
+          options={ moroccanStates.find((state) => state.state === selectedState)?.cities || []
+          }
           value={selectedCity}
           required
-          onChange={(value) => setSelectedCity(value)}
+          onChange={(value) =>{ 
+            if(value)setSelectedCity(value)
+          }}
+          disabled={!selectedState}
         />
 
         <FormInput
@@ -182,6 +185,7 @@ export default function Form() {
           defaultValue={user?.data?.street2}
           icon={<MapPin className="h-4 w-4" />}
         />
+      
         <div></div>
         <div className="">
           <button
