@@ -2,7 +2,7 @@ import sendRequest from "@/services/sendRequest";
 import getEndpoint from "@/services/getEndpoint";
 import { InfinityPaginationResultType } from "@/types";
 
-const eventsQuery = () => ({
+const eventsQuery = (): { queryKey: string[]; queryFn: () => Promise<{ data: InfinityPaginationResultType<any> | null; error: any | null }> } => ({
   queryKey: ["events"],
   queryFn: async () => {
     const url = getEndpoint({ resource: "events", action: "getEvents" });

@@ -13,6 +13,7 @@ import EmptyBox from "./icons/EmptyBox";
 import useEvents from "@/hooks/data/books/useEvents";
 import SingleEvent from "./SingleEvent";
 import useEvent from "@/hooks/data/books/useEvent";
+import { set } from "zod";
 
 export default function CategoryBooksSection() {
   const [activeEvent, setActiveEvent] = useState(0);
@@ -24,24 +25,21 @@ export default function CategoryBooksSection() {
   const { data: categories } = useCategories();
   const { data: books } = useBooks({ limit: 20 });
   const { data: events } = useEvents();
-  // events?.data?.data.map((event) => {
-  //   console.log(event);
-  // });
-  // const { data: event } = useEvent({
-  //   eventId: events?.data?.data[0],
-  // });
+
+  useEffect(() => {
+    if (events?.data) {
+      const event = useEvent({
+        eventId: (events.data as unknown as any[])[activeEvent].id,
+      });
+      setEventBooks(Array.isArray(event.data?.data) ? event.data.data : []);
+    }
+  }, [activeEvent]);
 
   const filteredBooks = activeCategoryId
     ? books?.data?.data.filter((book) =>
         book.categories.some((category) => category.id === activeCategoryId),
       )
     : books?.data?.data || [];
-
-  useEffect(() => {
-    if (events?.data?.data) {
-      setEventBooks(events?.data?.data.map((event) => event.id));
-    }
-  }, [events?.data?.data]);
 
   return (
     <div className="relative bg-[#E7F6F5]/30 px-6 py-14">
