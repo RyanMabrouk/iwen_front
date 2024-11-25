@@ -105,7 +105,6 @@ export interface IError<T extends object> {
  };
 
  export interface IUserPayload extends Tables<"users"> {
-  addresses: Tables<"addresses">[];
   total_spent: number;
   
  }

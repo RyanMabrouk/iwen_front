@@ -138,7 +138,7 @@ export default function Orders() {
                             <p className="flex items-center gap-1 text-sm text-muted-foreground">
                               <span>{product.quantity}</span>
                               <span>&#x200E;x&#x200E;</span>
-                              <span>{product.price_before_discount}</span>
+                              <span>{product.price_after_discount}</span>
                               د.م
                             </p>
                           </div>

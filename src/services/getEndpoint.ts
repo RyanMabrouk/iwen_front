@@ -1,4 +1,3 @@
-import { addressesEndpoints } from "@/endpoints/addressesRoutes";
 import { booksEndpoints } from "@/endpoints/booksRoutes";
 import { categoriesEndpoints } from "@/endpoints/categoriesRoutes";
 import { cornersEndpoints } from "@/endpoints/cornersRoutes";
@@ -19,7 +18,6 @@ const resources = {
   writers: writersEndpoints,
   corners: cornersEndpoints,
   orders: ordersEndpoints,
-  addresses :addressesEndpoints
 } as const;
 export type IResource = keyof typeof resources;
 export default function getEndpoint<
