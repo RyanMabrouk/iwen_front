@@ -1,9 +1,6 @@
 "use client";
 import React from "react";
-import NotFoundPage from "/public/NotFound/NotFound.png";
-import NotFoundPanda from "/public/NotFound/NotFoundPanda.png";
 import Image from "next/image";
-import Link from "next/link";
 import PrimaryButton from "@/components/main/buttons/PrimaryButton";
 import TimePast from "@/components/icons/TimePast";
 import { useRouter } from "next/navigation";
