@@ -1,7 +1,6 @@
 import { z } from "zod";
 import updatePassword from "@/actions/auth/updatePassword";
 import getUser from "@/api/getUser";
-import { message } from "antd";
 
 const changePasswordSchema = z
   .object({

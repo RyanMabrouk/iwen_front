@@ -1,8 +1,12 @@
 "use server";
 import { createClient } from "@/lib/supabase";
-export default async function getUser() {
+import type { AuthError, UserResponse } from "@supabase/supabase-js";
+
+export default async function getUser(): Promise<{
+  data: UserResponse["data"];
+  error: string | null;
+}> {
   const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
-  if (error) throw new Error(error.message);
-  return { data };
+  return { data, error: error?.message || null };
 }

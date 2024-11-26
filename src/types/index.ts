@@ -1,27 +1,27 @@
-import { ComparisonOperator } from 'kysely';
-import { Tables } from './database.types';
+import { ComparisonOperator } from "kysely";
+import { Tables } from "./database.types";
 
 export interface InfinityPaginationQueryType<
- EntityFilterKeys extends string | number | symbol,
+  EntityFilterKeys extends string | number | symbol,
 > {
- page?: number;
- limit?: number;
- sort?: {
- order: 'asc' | 'desc';
- orderBy: EntityFilterKeys;
- };
- filters?: {
- [key in EntityFilterKeys]?: {
- operator: ComparisonOperator;
- value: string | null | string[];
- }[];
- };
- search?: {
- [key in EntityFilterKeys]?: {
- operator: ComparisonOperator;
- value: string | null | string[];
- }[];
- };
+  page?: number;
+  limit?: number;
+  sort?: {
+    order: "asc" | "desc";
+    orderBy: EntityFilterKeys;
+  };
+  filters?: {
+    [key in EntityFilterKeys]?: {
+      operator: ComparisonOperator;
+      value: string | null | string[];
+    }[];
+  };
+  search?: {
+    [key in EntityFilterKeys]?: {
+      operator: ComparisonOperator;
+      value: string | null | string[];
+    }[];
+  };
 }
 export type InfinityPaginationResultType<T> = Readonly<{
   data: T[];
@@ -35,10 +35,9 @@ export type InfinityPaginationResultType<T> = Readonly<{
   };
 }>;
 
-
-
-export interface IOrderProduct extends Tables<"orders_products">, Tables<"books"> {
-}
+export interface IOrderProduct
+  extends Tables<"orders_products">,
+    Tables<"books"> {}
 
 export interface IOrder extends Tables<"orders"> {
   products: IOrderProduct[];
@@ -79,8 +78,7 @@ export interface IBookPopulated extends Tables<"books"> {
   writer: Tables<"writers"> | null;
   share_house: Tables<"share_houses"> | null;
   corner: Tables<"corners"> | null;
- }
-
+}
 
 export interface FooterItem {
   title: string;
@@ -91,20 +89,17 @@ export interface FooterItem {
   }[];
 }
 
-
-
 export interface IError<T extends object> {
   message: string;
   detail: string;
   type: string;
   timestamp: number;
   errors?: IValidationErrors<T>;
- }
- export type IValidationErrors<T extends object> = {
+}
+export type IValidationErrors<T extends object> = {
   [key in keyof T]: string[];
- };
+};
 
- export interface IUserPayload extends Tables<"users"> {
+export interface IUserPayload extends Tables<"users"> {
   total_spent: number;
-  
- }
+}

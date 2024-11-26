@@ -5,8 +5,7 @@
   body {
     -webkit-font-smoothing: antialiased;
   }
-  /* Remove default number input arrows style */
-  /* Chrome, Safari, Edge, Opera */
+ 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -17,9 +16,7 @@
     -moz-appearance: textfield;
     appearance: textfield;
   }
-}
-/* Daisyui */
-@layer base {
+}@layer base {
   :root {
     color-scheme: only light;
     --background: 0 0% 100%;
@@ -100,6 +97,9 @@ input:-webkit-autofill {
 body {
   color: #153963;
 }
+* {
+  text-align: right;
+}
 
 @font-face {
   font-family: "Tajawal";
@@ -117,11 +117,17 @@ body {
   font-display: swap;
 }
 
-/* Add more @font-face declarations for other weights if needed */
 
 @layer base {
   html[lang="ar"],
   html[lang="ar"] body {
     font-family: "Tajawal", sans-serif;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
   }
 }

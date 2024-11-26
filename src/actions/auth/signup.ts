@@ -1,13 +1,18 @@
 "use server";
 import { createClient } from "@/lib/supabase";
 import { headers } from "next/headers";
+import { AuthResponse } from "@supabase/supabase-js";
+
 export default async function signUp({
   email,
   password,
 }: {
   email: string;
   password: string;
-}) {
+}): Promise<{
+  data: AuthResponse["data"] | null;
+  error: { message: string; type: string } | null;
+}> {
   const headersList = headers();
   const header_url = headersList.get("host") || "";
   const proto = headersList.get("x-forwarded-proto") || "http";
@@ -21,13 +26,22 @@ export default async function signUp({
     },
   });
   if (signUpErr) {
+    console.log("🚀 ~ signUpErr:", signUpErr)
     return {
-      error: { message: "حدث خطأ أثناء انشاء الحساب", type: "SignUp Error" },
+      data: null,
+      error: {
+        message: "حدث خطأ أثناء انشاء الحساب",
+        type: "SignUp Error",
+      },
     };
   }
   if (data?.user?.identities?.length === 0) {
     return {
-      error: { message: "هذا الحساب موجود بالفعل", type: "SignUp Error" },
+      data: null,
+      error: {
+        message: "هذا الحساب موجود بالفعل",
+        type: "SignUp Error",
+      },
     };
   }
   return { data, error: null };

@@ -1,34 +1,37 @@
+"use client";
 import React from "react";
-import NotFoundPage from "/public/NotFound/NotFound.png";
-import NotFoundPanda from "/public/NotFound/NotFoundPanda.png";
 import Image from "next/image";
-import Link from "next/link";
+import PrimaryButton from "@/components/main/buttons/PrimaryButton";
+import TimePast from "@/components/icons/TimePast";
+import { useRouter } from "next/navigation";
 
 function NotFound() {
+  const route = useRouter();
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-start">
-      <div className="mt-[2rem] flex h-full w-11/12 flex-col items-center justify-start gap-[5rem]">
-        <div className="flex w-full items-center justify-start gap-[1.2rem] border-b border-gray-500 pb-4">
-          <div className="flex items-end justify-center gap-[1.2rem]">
-          
-            <p className="text-4xl font-bold text-slate-700">Page Not Found</p>
-            <p className="font-base text-lg text-gray-700">(404 Error)</p>
-          </div>
+    <div className="flex h-screen items-center justify-center px-12">
+      <div className="w-[28.375rem] space-y-[4.813rem]">
+        <div className="max-sm:px-8">
+          <Image
+            src="/404.svg"
+            className="mx-auto"
+            alt=""
+            width={1000}
+            height={1000}
+          />
         </div>
-        <div className="flex flex-col items-center justify-center gap-[1.6rem]">
-          <Image alt="not found" src={NotFoundPanda} className="" />
-          <p className="text-salte-500 text-4xl font-bold">
-            Wandered a bit too far, have we?
+        <div className="space-y-10 text-center text-xl">
+          <span className="font-bold">مشكلة في الاتصال بالإنترنت</span>
+          <p className="text-center font-medium">
+            ربما تم نقل الصفحة التي تبحث عنها، أو أعيدت تسميتها أو ربما لم تكن
+            موجودة على الإطلاق
           </p>
-          <p className="font-base text-lg text-gray-700">
-            Let's find another way around.
-          </p>
-          <Link
-            className="rounded border border-slate-700 bg-slate-100 p-2 px-5 font-bold text-slate-700 duration-300 ease-in-out hover:!bg-slate-600 hover:!text-slate-200"
-            href="/home"
+          <PrimaryButton
+            className="mx-auto flex items-center gap-4"
+            onClick={() => route.refresh()}
           >
-            Go Home
-          </Link>
+            <TimePast size="16" />
+            <span>تحديث الصفحة</span>
+          </PrimaryButton>
         </div>
       </div>
     </div>

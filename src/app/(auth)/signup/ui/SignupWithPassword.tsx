@@ -1,8 +1,8 @@
 "use client";
 import signUp from "@/actions/auth/signup";
-import Input from "@/components/Input";
-import PrimaryButton from "@/components/PrimaryButton";
-import SecondaryLink from "@/components/SecondaryLink";
+import Input from "@/components/main/inputs/Input";
+import PrimaryButton from "@/components/main/buttons/PrimaryButton";
+import SecondaryLink from "@/components/main/links/SecondaryLink";
 import useTranslation from "@/translation/useTranslation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
@@ -153,7 +153,7 @@ export default function SignupWithPassword() {
       )}
 
       <div className="flex justify-between gap-4 max-sm:flex-col">
-        <PrimaryButton className="max-sm:w-full" loading={isPending}>
+        <PrimaryButton className="max-sm:w-full">
           {translation?.lang["Sign Up"]}
         </PrimaryButton>
         <SecondaryLink href={"/login"} className="max-sm:w-full">

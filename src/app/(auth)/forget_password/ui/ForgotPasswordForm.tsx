@@ -4,6 +4,14 @@ import Image from "next/image";
 import React, { useState } from "react";
 import useForgotPassword from "../../../../hooks/auth/useForgotPassword";
 import { useCounter } from "@/provider/auth/CounterProvider";
+import resetPassword from "@/actions/auth/resetPassword";
+import Input from "@/components/main/inputs/Input";
+import PrimaryButton from "@/components/main/buttons/PrimaryButton";
+import SecondaryButton from "@/components/main/buttons/SecondaryButton";
+import useTranslation from "@/translation/useTranslation";
+import { useMutation } from "@tanstack/react-query";
+import Link from "next/link";
+import { z } from "zod";
 
 export default function ForgotPasswordForm() {
   const [emailSelected, setEmailSelected] = useState<boolean>(false);

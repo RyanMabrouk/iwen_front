@@ -1,10 +1,10 @@
-import getSession from "@/api/getSession";
 import { redirect } from "next/navigation";
 import React from "react";
 import ForgotPasswordForm from "./ui/ForgotPasswordForm";
+import getUser from "@/api/getUser";
 
 export default async function Page() {
-  const { session } = await getSession();
-  if (session) redirect("/home");
+  const { data } = await getUser();
+  if (data.user) redirect("/home");
   return <ForgotPasswordForm />;
 }

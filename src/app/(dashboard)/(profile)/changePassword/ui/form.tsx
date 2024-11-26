@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useMutation } from "@tanstack/react-query";
-import updatePassword from "@/actions/auth/updatePassword";
 import useCurrentUser from "@/hooks/data/user/useCurrentUser";
 import { useToast } from "@/hooks/useToast";
+import changeAuthUserPwd from "@/actions/auth/changeAuthUserPwd";
 
 export default function PasswordChangeForm() {
   const { data: user } = useCurrentUser();
@@ -24,7 +24,7 @@ export default function PasswordChangeForm() {
       message: "كلمة المرور وتأكيدها يجب أن تكون متطابقة",
     });
   const { toast } = useToast();
-  const formRef = React.useRef<HTMLFormElement>(null); 
+  const formRef = React.useRef<HTMLFormElement>(null);
 
   const [showCurrentPassword, setShowCurrentPassword] = React.useState(false);
   const [showNewPassword, setShowNewPassword] = React.useState(false);
@@ -40,12 +40,12 @@ export default function PasswordChangeForm() {
 
       if (!result.success) {
         result.error.errors.forEach((error) => {
-          toast.error(error.message,);
+          toast.error(error.message);
         });
         throw new Error("Validation error");
       }
 
-      const updateResult = await updatePassword({
+      const updateResult = await changeAuthUserPwd({
         currentPassword,
         newPassword,
         email: user?.data?.email ?? "",
@@ -60,13 +60,13 @@ export default function PasswordChangeForm() {
       formRef.current?.reset();
     },
     onError: (error: any) => {
-      toast.error( error.message || "حدث خطأ أثناء تغيير كلمة المرور",);
+      toast.error(error.message || "حدث خطأ أثناء تغيير كلمة المرور");
     },
   });
   return (
     <form
       dir="rtl"
-      ref={formRef} 
+      ref={formRef}
       className="w-full space-y-6"
       action={updatePasswordMutation.mutate}
     >
@@ -157,14 +157,16 @@ export default function PasswordChangeForm() {
           </div>
         </div>
       </div>
-      <div className="mt-4 ">
-      <button
-            type="submit"
-            disabled={updatePasswordMutation.isPending}
-            className="bg-color1 text-lg p-2 px-4 rounded-md text-white opacity-100 hover:opacity-50"
-          >
-            {updatePasswordMutation.isPending ? "جاري التحديث..." : "احفظ التغيير"}
-          </button>
+      <div className="mt-4">
+        <button
+          type="submit"
+          disabled={updatePasswordMutation.isPending}
+          className="rounded-md bg-color1 p-2 px-4 text-lg text-white opacity-100 hover:opacity-50"
+        >
+          {updatePasswordMutation.isPending
+            ? "جاري التحديث..."
+            : "احفظ التغيير"}
+        </button>
       </div>
     </form>
   );
