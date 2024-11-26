@@ -6,6 +6,7 @@ import ArrowLeft from "./icons/ArrowLeft";
 import ArrowRight from "./icons/ArrowRight";
 import CustomSwiper from "./ui/swiper";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export default function BookCart({
   id,
@@ -36,11 +37,20 @@ export default function BookCart({
         className,
       )}
     >
-      <img
+      <Image
         src="/acs.png"
         className="absolute -left-7 -top-6 -rotate-12 opacity-30"
+        alt="ACS"
+        width={1000}
+        height={1000}
       />
-      <img src="/acs.png" className="absolute -top-20 left-20 opacity-30" />
+      <Image
+        src="/acs.png"
+        className="absolute -top-20 left-20 opacity-30"
+        alt="ACS"
+        width={1000}
+        height={1000}
+      />
       {discount !== 0 && (
         <div className="absolute left-3 top-4 z-10 rounded-full bg-primary-400 px-2.5 py-1 text-sm font-medium text-white">
           {discount}% off
@@ -63,10 +73,16 @@ export default function BookCart({
           }}
           loop
           slides={Array.from({ length: 2 }).map((_, i) => (
-            <div className="group flex h-full w-full items-center justify-center p-7">
-              <img
+            <div
+              className="group flex h-full w-full items-center justify-center p-7"
+              key={i}
+            >
+              <Image
                 src="/book.png"
                 className="h-full w-full object-scale-down transition-all duration-200"
+                alt="Book"
+                width={1000}
+                height={1000}
               />
             </div>
           ))}

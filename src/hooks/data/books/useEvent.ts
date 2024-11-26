@@ -1,5 +1,3 @@
-import React from "react";
-import { eventsQuery } from "./eventsQuery";
 import { useQuery } from "@tanstack/react-query";
 import { eventQuery } from "./eventQuery";
 

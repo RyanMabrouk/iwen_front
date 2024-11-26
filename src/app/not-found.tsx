@@ -14,7 +14,7 @@ function NotFound() {
     <div className="flex h-screen items-center justify-center px-12">
       <div className="w-[28.375rem] space-y-[4.813rem]">
         <div className="max-sm:px-8">
-          <img src="/404.svg" className="mx-auto" />
+          <Image src="/404.svg" className="mx-auto" alt="" />
         </div>
         <div className="space-y-10 text-center text-xl">
           <span className="font-bold">مشكلة في الاتصال بالإنترنت</span>

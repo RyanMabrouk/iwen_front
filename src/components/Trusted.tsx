@@ -11,7 +11,12 @@ export default function Trusted() {
           .fill(null)
           .map((_, i) => (
             <div key={i} className="flex justify-center">
-              <img src={`/sponsor${i + 1}.png`} alt="trusted" />
+              <Image
+                src={`/sponsor${i + 1}.png`}
+                alt="trusted"
+                width={1000}
+                height={1000}
+              />
             </div>
           ))}
       </div>
