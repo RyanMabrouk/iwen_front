@@ -18,22 +18,23 @@ import { set } from "zod";
 export default function CategoryBooksSection() {
   const [activeEvent, setActiveEvent] = useState(0);
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
-  const [eventBooks, setEventBooks] = useState<any[]>([]);
+  const [allEvents, setAllEvents] = useState<any[]>([]);
   const [isPrevDisabled, setIsPrevDisabled] = useState(true);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
 
   const { data: categories } = useCategories();
   const { data: books } = useBooks({ limit: 20 });
   const { data: events } = useEvents();
+  // setAllEvents(events?.data?.data || []);
+  // console.log(events);
 
-  useEffect(() => {
-    if (events?.data) {
-      const event = useEvent({
-        eventId: (events.data as unknown as any[])[activeEvent].id,
-      });
-      setEventBooks(Array.isArray(event.data?.data) ? event.data.data : []);
-    }
-  }, [activeEvent]);
+  // if (events?.data) {
+  //   const event = useEvent({
+  //     eventId: (events.data as unknown as any[])[0].id,
+  //   });
+  //   // setEventBooks(Array.isArray(event.data?.data) ? event.data.data : []);
+  //   console.log(event);
+  // }
 
   const filteredBooks = activeCategoryId
     ? books?.data?.data.filter((book) =>
@@ -61,13 +62,14 @@ export default function CategoryBooksSection() {
           />
           <div className="scrollbar scrollbar-thin scrollbar-thumb-primary-500 scrollbar-track-gray-200 dir-[rtl] relative h-[60px] w-full overflow-x-auto">
             <div className="dir-[rtl] flex min-w-max flex-row-reverse gap-[25px] whitespace-nowrap">
-              {eventBooks.map((event, index) => (
+              {allEvents.map((event, index) => (
                 <SingleEvent
                   key={index}
                   eventId={event.id}
                   activeEvent={activeEvent}
                   index={index}
                   setActiveEvent={setActiveEvent}
+                  eventName={event.name}
                 />
               ))}
             </div>

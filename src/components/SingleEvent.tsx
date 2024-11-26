@@ -7,18 +7,19 @@ export default function SingleEvent({
   activeEvent,
   index,
   setActiveEvent,
+  eventName,
 }: {
   eventId: string;
   activeEvent: number;
   index: number;
   setActiveEvent: (index: number) => void;
+  eventName: string;
 }) {
-  const { data: event } = useEvent({ eventId });
 
   return (
     <div>
       <h2
-        id={event?.data?.data?.id}
+        id={eventId}
         className={`cursor-pointer p-2.5 text-2xl transition-colors ${
           activeEvent === index
             ? "font-semibold text-primary-500"
@@ -26,7 +27,7 @@ export default function SingleEvent({
         }`}
         onClick={() => setActiveEvent(index)}
       >
-        {event?.data?.data?.name}
+        {eventName}
       </h2>
       {index === activeEvent && <div className="h-0.5 bg-primary-500"></div>}
     </div>
