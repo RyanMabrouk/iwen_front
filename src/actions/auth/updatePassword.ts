@@ -1,23 +1,37 @@
 "use server";
 import { createClient } from "@/lib/supabase";
-import { redirect } from "next/navigation";
-export default async function updatePassword({
+export default async function updatePassword({email,currentPassword,
   newPassword,
 }: {
   newPassword: string;
+  email: string;
+  currentPassword: string;
+
 }) {
   const supabase = createClient();
-  const { error } = await supabase.auth.updateUser({
-    password: newPassword,
+  const { error: signInError } = await supabase.auth.signInWithPassword({
+    email,
+    password: currentPassword
   });
-  if (error) {
+  if (signInError) {
     return {
       error: {
-        message: "حدث خطأ في أثناء تغيير كلمة المرور",
-        type: "Server Error",
-      },
+        message: `${signInError.message}`,
+      }
     };
-  } else {
-    redirect("/home");
   }
+
+  const { error: updateError } = await supabase.auth.updateUser({
+    password: newPassword
+  });
+  if (updateError) {
+    return {
+      error: {
+        message: `${updateError.message}`,
+      }
+    };
+  }
+
+
+
 }

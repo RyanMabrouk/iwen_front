@@ -4,6 +4,7 @@ import getEndpoint from "@/services/getEndpoint";
 import {
   InfinityPaginationQueryType,
   InfinityPaginationResultType,
+  IOrder,
 } from "@/types";
 import { Tables } from "@/types/database.types";
 
@@ -22,7 +23,7 @@ const ordersQuery = (
       values: searchParams,
     });
     const { error, data } = await sendRequest<
-      InfinityPaginationResultType<Tables<"orders">>
+      InfinityPaginationResultType<IOrder>
     >({
       method: "GET",
       url: newUrl,

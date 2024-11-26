@@ -4,16 +4,16 @@ import getEndpoint from "@/services/getEndpoint";
 import {
   InfinityPaginationQueryType,
   InfinityPaginationResultType,
-  IUserPayload,
+  IOrder,
 } from "@/types";
 import { Tables } from "@/types/database.types";
 
-const usersQuery = (
-  args: InfinityPaginationQueryType<`users.${keyof Tables<"users">}`>,
+const myOrdersQuery = (
+  args: InfinityPaginationQueryType<`orders.${keyof Tables<"orders">}`>,
 ) => ({
-  queryKey: ["users", args],
+  queryKey: ["orders", args],
   queryFn: async () => {
-    const url = getEndpoint({ resource: "users", action: "getUsers" });
+    const url = getEndpoint({ resource: "orders", action: "getMyOrders" });
     const searchParams = Object.keys(args).map((key) => ({
       name: key,
       value: JSON.stringify(args[key as keyof typeof args]),
@@ -23,7 +23,7 @@ const usersQuery = (
       values: searchParams,
     });
     const { error, data } = await sendRequest<
-      InfinityPaginationResultType<IUserPayload>
+      InfinityPaginationResultType<IOrder>
     >({
       method: "GET",
       url: newUrl,
@@ -33,4 +33,4 @@ const usersQuery = (
     else return { data, error: null };
   },
 });
-export { usersQuery };
+export { myOrdersQuery };
