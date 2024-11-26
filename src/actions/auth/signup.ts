@@ -26,6 +26,7 @@ export default async function signUp({
     },
   });
   if (signUpErr) {
+    console.log("🚀 ~ signUpErr:", signUpErr)
     return {
       data: null,
       error: {

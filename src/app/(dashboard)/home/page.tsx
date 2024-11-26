@@ -5,7 +5,6 @@ import Trusted from "@/components/Trusted";
 import React from "react";
 import Image from "next/image";
 import CategoryKidsBooks from "@/components/CategoryKidsBooks";
-import getUser from "@/api/getUser";
 export default async function Page() {
   // const { mutate } = useMutation({
   //   mutationFn: async () => {

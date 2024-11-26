@@ -25,7 +25,7 @@ export default function Header() {
         </div>
         <div className="mx-auto flex w-full items-center max-lg:justify-between lg:max-w-[382px] lg:justify-start">
           <Select text="العربية" className="w-full px-1.5 text-white" />
-          <div className="flex w-full max-w-[228px] justify-between gap-5 max-sm:gap-2">
+          <div className="flex w-full max-w-[228px] gap-5 max-sm:gap-2">
             <button className="flex h-[3.313rem] w-fit min-w-[50px] items-center justify-center rounded-lg bg-white shadow-md">
               <ShoppingCart size={22} className="text-primary-500" />
             </button>
