@@ -1,41 +1,30 @@
-import React from "react";
-import arrow_left from "../../../../../public/dashboard/book/arrow_left";
-import arrow_right from "../../../../../public/dashboard/book/arrow_right";
+"use client";
 
-export default function BookPage({
+import React from "react";
+import { Pagination } from "@mui/material";
+
+export default function PaginationExample({
   page,
   setPage,
 }: {
-  page: string;
-  setPage: React.Dispatch<React.SetStateAction<string>>;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  console.log("type of page : ", typeof page);
-  const pageNum = parseInt(page);
-  const availablePages =
-    page === "1" ? [1, 2, 3] : [pageNum - 1, pageNum, pageNum + 1];
-  return (
-    <div className="flex items-center gap-3 p-4">
-      <button
-        onClick={() =>
-          setPage(pageNum !== 1 ? (e) => String(Number(e) - 1) : (e) => e)
-        }
-      >
-        {arrow_left("#31827D")}
-      </button>
-      {availablePages.map((i) => (
-        <button
-          key={i}
-          style={{ color: i === pageNum ? "#31827D" : "#000" }}
-          onClick={() => setPage(String(i))}
-          className="cursor-pointer text-2xl transition-all duration-300 hover:text-emerald-600"
-        >
-          {i}
-        </button>
-      ))}
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
 
-      <button onClick={() => setPage((e) => e + 1)}>
-        {arrow_right("#31827D")}
-      </button>
+  return (
+    <div className="flex flex-col items-center py-4">
+      <Pagination
+        count={4}
+        page={page}
+        onChange={handleChange}
+        color="primary"
+        size="large"
+        showFirstButton
+        showLastButton
+      />
     </div>
   );
 }

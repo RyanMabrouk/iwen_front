@@ -3,30 +3,44 @@ import { SortingType } from "../page";
 import useBooks from "@/hooks/data/books/useBooks";
 import BookCart from "@/components/BookCart";
 import BookPage from "./BookPage";
-import stateToUrl from "@/helpers/stateToUrl";
 import { Spinner } from "@/app/ui/Spinner";
 
 export default function BooksList({
   booksNumber,
   sortings,
-  page, 
+  page,
   setPage,
 }: {
-  booksNumber: string;
+  booksNumber: number;
   sortings: SortingType;
-  page: string;
-  setPage : React.Dispatch<React.SetStateAction<string>>;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  
-
   const data = useBooks({
-    limit: parseInt(booksNumber) * 3,
-    page: parseInt(page),
-    filters: sortings === "newest" ? {"books.created_at": [{operator: ">", value: new Date(Date.now() - 4 * 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}]} : sortings === "discount" ? {"books.discount": [{operator: ">", value: "0"}]} : {},
+    limit: booksNumber * 3,
+    page,
+    ...(sortings === "mostSold" ? { most_sold: "asc" } : {}),
+    ...(sortings === "newest"
+      ? {
+          filters: {
+            "books.created_at": [
+              {
+                operator: ">",
+                value: new Date(Date.now() - 4 * 7 * 24 * 60 * 60 * 1000)
+                  .toISOString()
+                  .split("T")[0],
+              },
+            ],
+          },
+        }
+      : {}),
+    ...(sortings === "discount"
+      ? { filters: { "books.discount": [{ operator: ">", value: "0" }] } }
+      : {}),
   });
   if (data.isLoading)
     return (
-      <div className="min-h-[40rem] flex h-full  w-full bg-transparent bg-opacity-25 items-center justify-center">
+      <div className="flex h-full min-h-[40rem] w-full items-center justify-center bg-transparent bg-opacity-25">
         <Spinner />
       </div>
     );
@@ -37,7 +51,7 @@ export default function BooksList({
         {books?.map((book, i) => (
           <div
             key={i}
-            className={`${booksNumber === "6" ? "px-5 py-4" : "px-10 py-5"}`}
+            className={` ${booksNumber === 6 ? "px-5 py-4" : "px-10 py-5"}`}
           >
             <BookCart book={book} />
           </div>

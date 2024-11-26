@@ -4,10 +4,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function Sortings({
   sortings,
-  setSortings,
+  setView,
 }: {
   sortings: SortingType;
-  setSortings: React.Dispatch<React.SetStateAction<SortingType>>;
+  setView: (view: SortingType) => void;
 }) {
   const options = [
     {
@@ -39,7 +39,7 @@ export default function Sortings({
     >
       {options.map((option) => (
         <li
-          onClick={() => setSortings(option.view as SortingType)}
+          onClick={() => setView(option.view as SortingType)}
           key={option.id}
           style={{
             color: sortings === option.view ? "#27A49B" : "#000",

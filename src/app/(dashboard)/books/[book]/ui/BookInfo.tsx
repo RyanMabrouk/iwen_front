@@ -3,12 +3,12 @@ import InfoNav from "./InfoNav";
 import InfoContent from "./InfoContent";
 import PriceInfo from "./PriceInfo";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import stateToUrl from "@/helpers/stateToUrl";
+import useStateToUrl from "@/helpers/stateToUrl";
 
 export type PageType = "main" | "details" | "comments" | "author" | "about";
 
 export default function MainInfo() {
-  const [selectedTab, setSelectedTab] = stateToUrl<PageType>("view", "main");
+  const [selectedTab, setSelectedTab] = useStateToUrl<PageType>("view", "main");
   return (
     <div className="flex h-auto flex-col justify-between gap-3 max-sm:max-h-screen">
       <div

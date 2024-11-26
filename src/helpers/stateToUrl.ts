@@ -1,51 +1,33 @@
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState, useCallback } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-export default function stateToUrl<T extends number | string | boolean>(
+export function useStateToUrl<T>(
   name: string,
-  defaultState: T
-): [state: T, setState: React.Dispatch<React.SetStateAction<T>>] {
-  const router = useRouter();
-  const pathname = usePathname();
+  defaultValue: T,
+): [T, Dispatch<SetStateAction<T>>] {
   const searchParams = useSearchParams();
-  const [isInitialRender, setIsInitialRender] = useState(true);
+  const pathname = usePathname();
+  const router = useRouter();
 
-  const [state, setState] = useState<T>(() => {
-    const value = searchParams.get(name);
-    if (value === null) return defaultState;
-    if (typeof defaultState === "number") return parseInt(value) as T;
-    if (typeof defaultState === "boolean") return (value === "1") as T;
-    return value as T;
-  });
+  const initialValue = (searchParams.get(name) as T) ?? defaultValue;
+  console.log(
+    "initial value ",
+    initialValue,
+    "typze of initial value ",
+    typeof initialValue,
+  );
 
-  const updateURL = useCallback((newState: T) => {
-    const newParams = new URLSearchParams(searchParams.toString());
-    if (typeof newState === "string") newParams.set(name, newState);
-    if (typeof newState === "number") newParams.set(name, newState.toString());
-    if (typeof newState === "boolean") newParams.set(name, newState ? "1" : "0");
-    router.push(`${pathname}?${newParams.toString()}`, { scroll: false });
-  }, [name, pathname, router, searchParams]);
+  const [state, setState] = useState<T>(initialValue);
 
   useEffect(() => {
-    setIsInitialRender(false);
-  }, []);
-
-  useEffect(() => {
-    if (!isInitialRender) {
-      updateURL(state);
+    const params = new URLSearchParams(searchParams);
+    if (state !== defaultValue) {
+      params.set(name, state as string);
+    } else {
+      params.delete(name);
     }
-  }, [state, isInitialRender, updateURL]);
+    router.replace(`${pathname}?${params.toString()}`);
+  }, [state, name, defaultValue, pathname, router, searchParams]);
 
-  const setStateAndUpdateURL: React.Dispatch<React.SetStateAction<T>> = useCallback((newState) => {
-    setState((prevState) => {
-      const updatedState = typeof newState === 'function' ? (newState as Function)(prevState) : newState;
-      if (!isInitialRender) {
-        updateURL(updatedState);
-      }
-      return updatedState;
-    });
-  }, [isInitialRender, updateURL]);
-
-  return [state, setStateAndUpdateURL];
+  return [state, setState];
 }
-

@@ -10,7 +10,10 @@
     "sync": "npx supabase gen types typescript --project-id mqisujmkeqaqwppsnnww > src/types/database.types.ts"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
     "@lottiefiles/react-lottie-player": "^3.5.4",
+    "@mui/material": "^6.1.8",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-dropdown-menu": "^2.1.2",
     "@radix-ui/react-scroll-area": "^1.2.1",

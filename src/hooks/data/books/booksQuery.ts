@@ -14,14 +14,25 @@ const booksQuery = (
   queryKey: ["books", args],
   queryFn: async () => {
     const url = getEndpoint({ resource: "books", action: "getBooks" });
-    const searchParams = Object.keys(args).map((key) => ({
-      name: key,
-      value: JSON.stringify(args[key as keyof typeof args]),
-    }));
+    const searchParams = Object.entries(args).map(([key, value]) => {
+      let stringValue: string;
+      if (typeof value === "number") {
+        stringValue = value.toString();
+      } else if (typeof value === "string") {
+        stringValue = value;
+      } else if (value === null) {
+        stringValue = "null";
+      } else {
+        stringValue = JSON.stringify(value);
+      }
+      return { name: key, value: stringValue };
+    });
+
     const newUrl = createNewPathname({
       currentPathname: url(),
       values: searchParams,
     });
+
     const { error, data } = await sendRequest<
       InfinityPaginationResultType<IBookPopulated>
     >({

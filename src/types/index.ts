@@ -6,6 +6,7 @@ export interface InfinityPaginationQueryType<
 > {
   page?: number;
   limit?: number;
+  most_sold?: SortType;
   sort?: {
     order: "asc" | "desc";
     orderBy: EntityFilterKeys;
@@ -42,6 +43,7 @@ export interface IOrderProduct
 export interface IOrder extends Tables<"orders"> {
   products: IOrderProduct[];
 }
+type SortType = "asc" | "desc";
 export interface IBookPayload {
   title?: string;
   writer_id?: string;

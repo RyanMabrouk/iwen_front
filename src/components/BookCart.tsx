@@ -47,23 +47,23 @@ export default function BooBookCartkCart({
               ? Array.from({ length: 2 }).map((_, i) => (
                   <div
                     key={i}
-                    className="group flex h-full w-full items-center justify-center p-7"
+                    className="group mt-10 flex h-fit w-full items-center justify-center p-7 transition-all duration-300 max-2xl:pb-0"
                   >
                     <img
                       src="/book.png"
-                      className="h-full w-full object-scale-down transition-all duration-200"
+                      className="h-[10rem] w-full object-scale-down transition-all duration-200"
                     />
                   </div>
                 ))
               : book?.images_urls.map((image) => (
                   <div
                     key={image}
-                    className="group flex h-full w-full items-center justify-center p-7"
+                    className="group mt-10 flex h-fit w-full items-center justify-center p-7 transition-all duration-300 max-2xl:pb-0"
                   >
                     <img
                       alt={image}
                       src={image}
-                      className="h-full w-full object-scale-down transition-all duration-200"
+                      className="h-[10rem] w-full object-scale-down transition-all duration-200"
                     />
                   </div>
                 ))
@@ -92,8 +92,8 @@ export default function BooBookCartkCart({
         </div>
       </div>
 
-      <div className="flex items-center justify-between p-4">
-        <div className="flex w-full justify-between">
+      <div className="flex items-center justify-between p-4 max-2xl:pt-0">
+        <div dir="ltr" className="flex w-full justify-between">
           <div className="flex flex-col items-center justify-between">
             <div
               className={`h-fit cursor-pointer rounded-lg border border-primary-500 p-1 text-primary-400 transition-all hover:bg-black/5 ${
@@ -118,7 +118,10 @@ export default function BooBookCartkCart({
 
           <div className="flex flex-col justify-between">
             <div className="flex flex-col gap-1">
-              <span dir="rtl" className="text-base font-medium">
+              <span
+                dir="rtl"
+                className="max-h-[45px] overflow-hidden text-base font-medium"
+              >
                 {book !== null
                   ? book?.title.length < 31
                     ? book?.title
