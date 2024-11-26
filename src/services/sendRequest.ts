@@ -33,6 +33,7 @@ export default async function sendRequest<
       accept: "application/json",
       "content-type": "application/json",
     };
+    console.log("🚀 ~ token:", token);
     if (token) {
       const decodedToken = JSON.parse(atob(token ?? "")) as unknown as {
         access_token: string;
