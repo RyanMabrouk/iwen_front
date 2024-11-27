@@ -7,6 +7,7 @@ import ArrowRight from "./icons/ArrowRight";
 import CustomSwiper from "./ui/swiper";
 import { IBookPopulated } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function BooBookCartkCart({
   book,
@@ -56,7 +57,8 @@ export default function BooBookCartkCart({
                   </div>
                 ))
               : book?.images_urls.map((image) => (
-                  <div
+                  <Link
+                    href={`/books/${book.id}`}
                     key={image}
                     className="group mt-10 flex h-fit w-full items-center justify-center p-7 transition-all duration-300 max-2xl:pb-0"
                   >
@@ -65,7 +67,7 @@ export default function BooBookCartkCart({
                       src={image}
                       className="h-[10rem] w-full object-scale-down transition-all duration-200"
                     />
-                  </div>
+                  </Link>
                 ))
           }
           initialSlide={0}
@@ -128,7 +130,10 @@ export default function BooBookCartkCart({
                     : book?.title.slice(0, 31) + "..."
                   : "no title"}
               </span>
-              <span dir="rtl" className="text-sm text-gray-600">
+              <span
+                dir="rtl"
+                className="overflow-hidden text-nowrap text-sm text-gray-600"
+              >
                 {book !== null && book !== undefined && book?.writer !== null
                   ? book?.writer?.name.length < 15
                     ? book.writer?.name

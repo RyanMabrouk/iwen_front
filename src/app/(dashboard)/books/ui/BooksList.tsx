@@ -1,5 +1,5 @@
 import React from "react";
-import { SortingType } from "../page";
+import { FilterType, SortingType } from "../page";
 import useBooks from "@/hooks/data/books/useBooks";
 import BookCart from "@/components/BookCart";
 import BookPage from "./BookPage";
@@ -10,33 +10,55 @@ export default function BooksList({
   sortings,
   page,
   setPage,
+  filters: filter,
 }: {
   booksNumber: number;
   sortings: SortingType;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  filters: FilterType;
 }) {
   const data = useBooks({
     limit: booksNumber * 3,
     page,
-    ...(sortings === "mostSold" ? { most_sold: "asc" } : {}),
-    ...(sortings === "newest"
-      ? {
-          filters: {
-            "books.created_at": [
-              {
-                operator: ">",
-                value: new Date(Date.now() - 4 * 7 * 24 * 60 * 60 * 1000)
-                  .toISOString()
-                  .split("T")[0],
-              },
-            ],
+    filters: {
+      ...(sortings === "newest" && {
+        "books.created_at": [
+          {
+            operator: ">",
+            value: new Date(Date.now() - 4 * 7 * 24 * 60 * 60 * 1000)
+              .toISOString()
+              .split("T")[0],
           },
-        }
-      : {}),
-    ...(sortings === "discount"
-      ? { filters: { "books.discount": [{ operator: ">", value: "0" }] } }
-      : {}),
+        ],
+      }),
+      ...(sortings === "discount" && {
+        "books.discount": [{ operator: ">", value: "0" }],
+      }),
+      ...(filter.priceMin !== undefined &&
+      filter.priceMax !== undefined &&
+      filter.priceMin > 0 &&
+      filter.priceMax < 1000
+        ? {
+            "books.price_dollar": [
+              { operator: ">", value: filter.priceMin.toString() },
+              { operator: "<", value: filter.priceMax.toString() },
+            ],
+          }
+        : filter.priceMin !== undefined && filter.priceMin > 0
+          ? {
+              "books.price_dollar": [
+                { operator: ">", value: filter.priceMin.toString() },
+              ],
+            }
+          : filter.priceMax !== undefined && filter.priceMax < 1000
+            ? {
+                "books.price_dollar": [
+                  { operator: "<", value: filter.priceMax.toString() },
+                ],
+              }
+            : {}),
+    },
   });
   if (data.isLoading)
     return (
@@ -51,7 +73,7 @@ export default function BooksList({
         {books?.map((book, i) => (
           <div
             key={i}
-            className={` ${booksNumber === 6 ? "px-5 py-4" : "px-10 py-5"}`}
+            className={`py-3 transition-all duration-300 ${booksNumber === 6 ? "px-4" : booksNumber === 4 ? "px-10" : booksNumber === 3 ? "px-16 py-4 max-lg:px-5" : "px-20 max-md:px-10"}`}
           >
             <BookCart book={book} />
           </div>

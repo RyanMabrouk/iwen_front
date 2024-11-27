@@ -6,6 +6,7 @@ import useBook from "@/hooks/data/books/useBook";
 import useWriters from "@/hooks/data/books/writers/useWriters";
 import { Tables } from "@/types/database.types";
 import { BookProvider } from "./provider/BookProvider";
+import { Spinner } from "@/app/ui/Spinner";
 
 export default function page({
   params: { book },
@@ -13,12 +14,11 @@ export default function page({
   params: { book: string };
 }) {
   const bookData = useBook(book);
-  const AuthorData = useWriters();
 
-  if (bookData.isLoading || AuthorData.isLoading)
+  if (bookData.isLoading)
     return (
-      <div className="flex h-full w-full items-center justify-center">
-        Loading...
+      <div className="flex h-full min-h-[40rem] w-full items-center justify-center bg-transparent bg-opacity-25">
+        <Spinner />
       </div>
     );
 

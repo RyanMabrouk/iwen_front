@@ -1,5 +1,6 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import objectToUrl from "./objectToUrl";
 
 export function useStateToUrl<T>(
   name: string,
@@ -10,12 +11,6 @@ export function useStateToUrl<T>(
   const router = useRouter();
 
   const initialValue = (searchParams.get(name) as T) ?? defaultValue;
-  console.log(
-    "initial value ",
-    initialValue,
-    "typze of initial value ",
-    typeof initialValue,
-  );
 
   const [state, setState] = useState<T>(initialValue);
 
@@ -26,6 +21,7 @@ export function useStateToUrl<T>(
     } else {
       params.delete(name);
     }
+
     router.replace(`${pathname}?${params.toString()}`);
   }, [state, name, defaultValue, pathname, router, searchParams]);
 

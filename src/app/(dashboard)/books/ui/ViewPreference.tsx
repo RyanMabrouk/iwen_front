@@ -10,7 +10,7 @@ export default function ViewPreference({
   const choices1 = [4, 6];
   const choices2 = [2, 3];
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 text-nowrap max-lg:flex-col-reverse">
       <div className={`flex gap-2 max-xl:hidden`}>
         {choices1.map((choice) => (
           <button

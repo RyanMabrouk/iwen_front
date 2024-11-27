@@ -7,6 +7,7 @@ import ArrowLeft from "./icons/ArrowLeft";
 import useBooks from "@/hooks/data/books/useBooks";
 import { IBookPopulated } from "@/types";
 import useBook from "@/hooks/data/books/useBook";
+import { Spinner } from "@/app/ui/Spinner";
 
 const categories = [
   {
@@ -29,8 +30,8 @@ export default function CategoryBooksSection() {
   const data = useBook("0040e197-aa18-469f-afe1-5548935642c0");
   if (data.isLoading)
     return (
-      <div className="flex h-full w-full items-center justify-center">
-        Loading...
+      <div className="flex h-full min-h-[40rem] w-full items-center justify-center bg-transparent bg-opacity-25">
+        <Spinner />
       </div>
     );
   const book = data.data?.data as IBookPopulated;
