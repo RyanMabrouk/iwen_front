@@ -41,6 +41,17 @@ export default function Navbar() {
       تغيير  كلمة المرور
         </li>
       </Link>
+      <Link href={"/wishlist"}>
+        <li
+          className={`pb-1 ${
+            Pathname.includes("wishlist")
+              ? "border-b-2 border-color2 text-color2"
+              : ""
+          }`}
+        >
+          قائمة الرغبات
+        </li>
+      </Link>
     </ul>
   );
 }

@@ -17,6 +17,7 @@ import { Package } from "lucide-react";
 import { Pagination } from "@mui/material";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
+import NoPurchases from "./noPurchases";
 
 export default function Orders() {
   const [page, setPage] = useState<number>(1);
@@ -36,7 +37,7 @@ export default function Orders() {
   }, [page, orders?.data?.meta?.has_next_page, queryClient]);
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("ar-EG", {
+    return new Date(dateString).toLocaleDateString("ar", {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -55,26 +56,27 @@ export default function Orders() {
         return "bg-gray-500";
     }
   };
-
+  if (orders?.data?.meta.total_count === 0) {
+    return <NoPurchases />;
+  }
   return (
-    <div className=" mx-auto py-8" dir="rtl">
+    <div className="mx-auto" dir="rtl">
       <h1 className="mb-8 text-right text-3xl font-bold text-color1">طلباتي</h1>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {orders?.data?.data.map((order) => (
           <Card key={order.id} className="overflow-hidden">
             <CardHeader className="bg-muted">
               <CardTitle className="flex items-center justify-between">
-                <span>طلب #{order.id.slice(-6)}</span>
-                <Badge
-                  variant="outline"
-                  className={`${getStatusColor(order.status)} text-base font-normal text-white`}
+                <span className="sm:text-2xl text-xl ">طلب #{order.id.slice(-5)}</span>
+                <div
+                  className={`${getStatusColor(order.status)} p-2 rounded-xl text-sm w-fit sm:text-base font-normal text-white`}
                 >
                   {order.status === "paid"
                     ? "مدفوع"
                     : order.status === "pending"
                       ? "قيد الانتظار"
                       : "ملغى"}
-                </Badge>
+                </div>
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-6">

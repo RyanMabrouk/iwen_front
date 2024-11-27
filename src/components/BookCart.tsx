@@ -1,5 +1,6 @@
+"use client";
 import React, { useState } from "react";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, ShoppingCartIcon } from "lucide-react";
 import Heart from "./icons/Heart";
 import FilledHeart from "./icons/FilledHeart";
 import ArrowLeft from "./icons/ArrowLeft";
@@ -7,6 +8,12 @@ import ArrowRight from "./icons/ArrowRight";
 import CustomSwiper from "./ui/swiper";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import ShoppingCart from "./icons/ShoppingCart";
+import getEndpoint from "@/services/getEndpoint";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/hooks/useToast";
+import sendRequest from "@/services/sendRequest";
+import { IValidationErrors } from "@/types";
 
 export default function BookCart({
   id,
@@ -16,6 +23,7 @@ export default function BookCart({
   discount,
   price,
   className,
+  isWishlist,
 }: {
   id: string;
   title: string;
@@ -24,11 +32,67 @@ export default function BookCart({
   discount: number;
   price: number;
   className?: string;
+  isWishlist?: boolean;
 }) {
-  const [isLiked, setIsLiked] = useState(false);
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+  const [isLiked, setIsLiked] = useState(isWishlist);
+  const [errors, setError] = useState<
+    IValidationErrors<{ book_id: string }> | null | undefined
+  >();
   const [quantity, setQuantity] = useState(0);
-
-  // console.log(images);
+  const addUrl = getEndpoint({
+    resource: "wishlist",
+    action: "createWishlist",
+  });
+  const deleteUrl = getEndpoint({
+    resource: "wishlist",
+    action: "deleteWishlist",
+  });
+  const addToWishlistMutation = useMutation({
+    mutationFn: async () => {
+      const { error, validationErrors } = await sendRequest<
+        { book_id: string },
+        { book_id: string }
+      >({
+        method: "POST",
+        url: addUrl(),
+        payload: { book_id: id },
+      });
+      if (error) {
+        setError(validationErrors);
+        throw new Error("Validation error");
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["wishlist", "me"] });
+      toast.info("تمت الإضافة إلى قائمة الرغبات");
+    },
+    onError: () => {
+      toast.info("هذا الكتاب موجود بالفعل في قائمة الرغبات");
+    },
+  });
+  const removeFromWishlistMutation = useMutation({
+    mutationFn: async () => {
+      await sendRequest({ method: "DELETE", url: deleteUrl(id) });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["wishlist", "me"] });
+      toast.info("تمت الإزالة من قائمة الرغبات");
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.info("هذا الكتاب غير موجود في قائمة الرغبات");
+    },
+  });
+  const toggleWishlist = () => {
+    setIsLiked((prev) => !prev);
+    if (isLiked) {
+      removeFromWishlistMutation.mutate();
+    } else {
+      addToWishlistMutation.mutate();
+    }
+  };
 
   return (
     <div
@@ -72,15 +136,15 @@ export default function BookCart({
             nextEl: `${".btn_swiper_arrow_right" + id}`,
           }}
           loop
-          slides={Array.from({ length: 2 }).map((_, i) => (
+          slides={images.map((imageUrl, index) => (
             <div
               className="group flex h-full w-full items-center justify-center p-7"
-              key={i}
+              key={index}
             >
               <Image
-                src="/book.png"
+                src={imageUrl}
                 className="h-full w-full object-scale-down transition-all duration-200"
-                alt="Book"
+                alt={`Book Image ${index + 1}`}
                 width={1000}
                 height={1000}
               />
@@ -91,10 +155,11 @@ export default function BookCart({
           pagination
           className="h-full w-full [&_.swiper-pagination-bullets]:mt-5"
         />
+
         <div className="absolute h-48 w-48 rounded-[100%] bg-primary-500/10 blur-lg transition-all"></div>
         <div
           className="group absolute right-6 top-6 z-10 cursor-pointer"
-          onClick={() => setIsLiked(!isLiked)}
+          onClick={toggleWishlist}
         >
           {isLiked ? (
             <FilledHeart
@@ -107,11 +172,19 @@ export default function BookCart({
               size={20}
             />
           )}
+          {errors?.book_id.map((error, index) => (
+            <div key={index} className="text-sm text-red-500">
+              {error}
+            </div>
+          ))}
         </div>
       </div>
 
       <div className="flex items-center justify-between p-4">
         <div className="flex w-full justify-between">
+          {/*       <div className="mt-auto h-fit cursor-pointer rounded-lg border border-primary-500 p-2 text-primary-400 transition-all hover:bg-black/5">
+            <ShoppingCartIcon />
+          </div>*/}
           <div className="flex flex-col items-center justify-between">
             <div
               className={`h-fit cursor-pointer rounded-lg border border-primary-500 p-1 text-primary-400 transition-all hover:bg-black/5 ${

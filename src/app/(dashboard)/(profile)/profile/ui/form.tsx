@@ -88,7 +88,7 @@ export default function Form() {
   });
 
   return (
-    <form dir="rtl" className="bg-white sm:px-4" action={updateMutation.mutate}>
+    <form dir="rtl" className="bg-white " action={updateMutation.mutate}>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <FormInput
           errors={errors?.first_name}
@@ -191,7 +191,7 @@ export default function Form() {
           <button
             type="submit"
             disabled={updateMutation.isPending}
-            className="rounded-md bg-color1 p-2 px-4 text-lg text-white opacity-100 hover:opacity-50"
+            className="rounded-md bg-color2 p-2 px-4 text-lg text-white opacity-100 hover:opacity-50"
           >
             {updateMutation.isPending ? "جاري التحديث..." : "احفظ التغيير"}
           </button>
