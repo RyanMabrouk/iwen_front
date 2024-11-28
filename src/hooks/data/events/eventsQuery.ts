@@ -18,8 +18,6 @@ const eventsQuery = (): {
       method: "GET",
       url: url(),
     });
-    console.log("🚀 ~ queryFn: ~ data:", data);
-
     if (error) return { data: null, error: error };
     else return { data, error: null };
   },
