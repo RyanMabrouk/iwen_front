@@ -1,12 +1,12 @@
 import sendRequest from "@/services/sendRequest";
 import getEndpoint from "@/services/getEndpoint";
-import { Tables } from "@/types/database.types";
+import { IUserPayload } from "@/types";
 
 const userQuery = (userId: string) => ({
   queryKey: ["users", userId],
   queryFn: async () => {
     const url = getEndpoint({ resource: "users", action: "getUser" });
-    return await sendRequest<Tables<"users">>({
+    return await sendRequest<IUserPayload>({
       method: "GET",
       url: url(userId),
     });

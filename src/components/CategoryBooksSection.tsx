@@ -1,93 +1,159 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import SelectWithBorder from "./main/SelectWithBorder";
 import CategoryIcon from "./icons/CategoryIcon";
 import BookCart from "./BookCart";
 import ArrowLeft from "./icons/ArrowLeft";
+import CustomSwiper from "./ui/swiper";
 import useBooks from "@/hooks/data/books/useBooks";
-import { IBookPopulated } from "@/types";
-import useBook from "@/hooks/data/books/useBook";
-import { Spinner } from "@/app/ui/Spinner";
-
-const categories = [
-  {
-    label: "الأكثر مبيعا",
-  },
-  {
-    label: "كتب جديدة",
-  },
-  {
-    label: "تخفيض على السعر",
-  },
-  {
-    label: "عروض خاصة بمناسبة رمضان المبارك",
-  },
-];
+import useCategories from "@/hooks/data/books/categories/useCategories";
+import ArrowRight from "./icons/ArrowRight";
+import EmptyBox from "./icons/EmptyBox";
+import useEvents from "@/hooks/data/books/useEvents";
+import SingleEvent from "./SingleEvent";
+import useEvent from "@/hooks/data/books/useEvent";
+import { set } from "zod";
 
 export default function CategoryBooksSection() {
-  const [activeCategory, setActiveCategory] = useState(0);
-  const { data: books, error } = useBooks({ limit: 4, page: 1 });
-  const data = useBook("0040e197-aa18-469f-afe1-5548935642c0");
-  if (data.isLoading)
-    return (
-      <div className="flex h-full min-h-[40rem] w-full items-center justify-center bg-transparent bg-opacity-25">
-        <Spinner />
-      </div>
-    );
-  const book = data.data?.data as IBookPopulated;
+  const [activeEvent, setActiveEvent] = useState(0);
+  const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
+  const [allEvents, setAllEvents] = useState<any[]>([]);
+  const [isPrevDisabled, setIsPrevDisabled] = useState(true);
+  const [isNextDisabled, setIsNextDisabled] = useState(false);
 
-  // if (error) console.log("Hey i have error !" + error.message);
-  const dummyBooks: IBookPopulated[] = [
-    { ...book, id: "1", images_urls: ["/book.png", "/book.png", "/book.png"] },
-    { ...book, id: "2", images_urls: ["/book.png", "/book.png", "/book.png"] },
-    { ...book, id: "3", images_urls: ["/book.png", "/book.png", "/book.png"] },
-    { ...book, id: "4", images_urls: ["/book.png", "/book.png", "/book.png"] },
-  ];
+  const { data: categories } = useCategories();
+  const { data: books } = useBooks({ limit: 20 });
+  const { data: events } = useEvents();
+  // setAllEvents(events?.data?.data || []);
+  // console.log(events);
+
+  // if (events?.data) {
+  //   const event = useEvent({
+  //     eventId: (events.data as unknown as any[])[0].id,
+  //   });
+  //   // setEventBooks(Array.isArray(event.data?.data) ? event.data.data : []);
+  //   console.log(event);
+  // }
+
+  const filteredBooks = activeCategoryId
+    ? books?.data?.data.filter((book) =>
+        book.categories.some((category) => category.id === activeCategoryId),
+      )
+    : books?.data?.data || [];
 
   return (
-    <div className="overflow-hidden bg-[#E7F6F5]/30 px-6 py-14">
+    <div className="relative bg-[#E7F6F5]/30 px-6 py-14">
       <div className="mx-auto w-full max-w-[1400px] space-y-12">
         <div className="flex h-fit w-full items-center justify-between gap-10 max-xl:flex-col">
-          <SelectWithBorder text={"الفئات"} icon={<CategoryIcon size={18} />} />
-          <div className="scrollbar scrollbar-thin scrollbar-thumb-primary-500 scrollbar-track-gray-200 dir-[rtl] relative h-[60px] w-full overflow-x-auto overflow-y-hidden">
+          <SelectWithBorder
+            defaultStatus
+            text="الفئات"
+            icon={<CategoryIcon size={18} />}
+            content={
+              categories?.data?.map((category) => ({
+                id: category.id,
+                name: category.name,
+              })) || []
+            }
+            onChange={(categoryId) => {
+              setActiveCategoryId(categoryId || null);
+            }}
+          />
+          <div className="scrollbar scrollbar-thin scrollbar-thumb-primary-500 scrollbar-track-gray-200 dir-[rtl] relative h-[60px] w-full overflow-x-auto">
             <div className="dir-[rtl] flex min-w-max flex-row-reverse gap-[25px] whitespace-nowrap">
-              {categories.map((category, index) => (
-                <div key={index}>
-                  <h2
-                    id={index.toString()}
-                    className={`cursor-pointer p-2.5 text-2xl transition-colors ${
-                      activeCategory === index
-                        ? "font-semibold text-primary-500"
-                        : "font-normal"
-                    }`}
-                    onClick={() => {
-                      setActiveCategory(index);
-                    }}
-                  >
-                    {category.label}
-                    {index != activeCategory && (
-                      <span className="text-xl"> (09)</span>
-                    )}
-                  </h2>
-                  {index === activeCategory && (
-                    <div className={`h-0.5 bg-primary-500`}></div>
-                  )}
-                </div>
+              {allEvents.map((event, index) => (
+                <SingleEvent
+                  key={index}
+                  eventId={event.id}
+                  activeEvent={activeEvent}
+                  index={index}
+                  setActiveEvent={setActiveEvent}
+                  eventName={event.name}
+                />
               ))}
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-10 max-xl:grid-cols-2 max-sm:grid-cols-1">
-          {dummyBooks.map((book, i) => (
-            <BookCart key={i} book={book} />
-          ))}
-        </div>
-        <div className="mx-auto flex w-fit cursor-pointer items-center gap-4">
-          <span className="flex">
-            <ArrowLeft size={16} />
-            <ArrowLeft size={16} />
-          </span>
-          <span className="text-xl">عرض المزيد</span>
+
+        <div className="relative">
+          {filteredBooks && filteredBooks.length > 0 ? (
+            filteredBooks.length > 4 ? (
+              <>
+                <div className="top-1/2 z-10 flex w-full justify-between">
+                  <ArrowLeft
+                    size={40}
+                    className={`custom-swiper-books-prev absolute -left-10 top-1/2 -translate-y-1/2 cursor-pointer ${
+                      isPrevDisabled ? "text-gray-400" : "text-primary-400"
+                    } max-sm:-left-6`}
+                  />
+                  <ArrowRight
+                    size={40}
+                    className={`custom-swiper-books-next absolute -right-10 top-1/2 -translate-y-1/2 cursor-pointer ${
+                      isNextDisabled ? "text-gray-400" : "text-primary-400"
+                    } max-sm:-right-6`}
+                  />
+                </div>
+
+                <CustomSwiper
+                  onSwiper={(swiper) => {
+                    setIsPrevDisabled(swiper.isBeginning);
+                    setIsNextDisabled(swiper.isEnd);
+                  }}
+                  onSlideChange={(swiper) => {
+                    setIsPrevDisabled(swiper.isBeginning);
+                    setIsNextDisabled(swiper.isEnd);
+                  }}
+                  navigation={{
+                    prevEl: ".custom-swiper-books-prev",
+                    nextEl: ".custom-swiper-books-next",
+                  }}
+                  slides={filteredBooks.map((book) => (
+                    <div
+                      key={book.id}
+                      className="group flex h-full w-full items-center justify-center p-4"
+                    >
+                      <BookCart
+                        id={book.id}
+                        title={book.title}
+                        writer={book.writer?.name || "كاتب غير معروف"}
+                        images={book.images_urls}
+                        discount={book.discount}
+                        price={book.price}
+                      />
+                    </div>
+                  ))}
+                  slidesPerView={1}
+                  spaceBetween={20}
+                  breakpoints={{
+                    1024: { slidesPerView: 4 },
+                    768: { slidesPerView: 2 },
+                    640: { slidesPerView: 1 },
+                  }}
+                  className="h-full w-full"
+                />
+              </>
+            ) : (
+              <div className="grid grid-cols-4 gap-10 max-xl:grid-cols-2 max-sm:grid-cols-1">
+                {filteredBooks.map((book) => (
+                  <BookCart
+                    key={book.id}
+                    id={book.id}
+                    title={book.title}
+                    writer={book.writer?.name || "كاتب غير معروف"}
+                    images={book.images_urls}
+                    discount={book.discount}
+                    price={book.price}
+                  />
+                ))}
+              </div>
+            )
+          ) : (
+            <div className="flex flex-col items-center justify-center space-y-4">
+              <EmptyBox />
+              <p className="text-lg text-gray-500">لا توجد كتب متاحة</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import getEndpoint from "@/services/getEndpoint";
 import {
   InfinityPaginationQueryType,
   InfinityPaginationResultType,
+  IUserPayload,
 } from "@/types";
 import { Tables } from "@/types/database.types";
 
@@ -22,7 +23,7 @@ const usersQuery = (
       values: searchParams,
     });
     const { error, data } = await sendRequest<
-      InfinityPaginationResultType<Tables<"users">>
+      InfinityPaginationResultType<IUserPayload>
     >({
       method: "GET",
       url: newUrl,

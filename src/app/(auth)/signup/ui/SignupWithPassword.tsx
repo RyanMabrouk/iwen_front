@@ -153,7 +153,7 @@ export default function SignupWithPassword() {
       )}
 
       <div className="flex justify-between gap-4 max-sm:flex-col">
-        <PrimaryButton className="max-sm:w-full" loading={isPending}>
+        <PrimaryButton className="max-sm:w-full">
           {translation?.lang["Sign Up"]}
         </PrimaryButton>
         <SecondaryLink href={"/login"} className="max-sm:w-full">

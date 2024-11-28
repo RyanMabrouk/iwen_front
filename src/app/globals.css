@@ -5,8 +5,7 @@
   body {
     -webkit-font-smoothing: antialiased;
   }
-  /* Remove default number input arrows style */
-  /* Chrome, Safari, Edge, Opera */
+ 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -17,9 +16,7 @@
     -moz-appearance: textfield;
     appearance: textfield;
   }
-}
-/* Daisyui */
-@layer base {
+}@layer base {
   :root {
     color-scheme: only light;
     --background: 0 0% 100%;
@@ -120,7 +117,6 @@ body {
   font-display: swap;
 }
 
-/* Add more @font-face declarations for other weights if needed */
 
 @layer base {
   html[lang="ar"],
@@ -131,7 +127,7 @@ body {
     display: none;
   }
   .scrollbar-hide {
-    -ms-overflow-style: none; /* for Internet Explorer, Edge */
-    scrollbar-width: none; /* for Firefox */
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
   }
 }

@@ -9,53 +9,6 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      addresses: {
-        Row: {
-          city: string
-          country: string
-          created_at: string
-          id: string
-          name: string
-          postal_code: string
-          state: string
-          street: string
-          updated_at: string
-          user_id: string | null
-        }
-        Insert: {
-          city?: string
-          country?: string
-          created_at?: string
-          id?: string
-          name?: string
-          postal_code?: string
-          state?: string
-          street?: string
-          updated_at?: string
-          user_id?: string | null
-        }
-        Update: {
-          city?: string
-          country?: string
-          created_at?: string
-          id?: string
-          name?: string
-          postal_code?: string
-          state?: string
-          street?: string
-          updated_at?: string
-          user_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "addresses_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["user_id"]
-          },
-        ]
-      }
       banners: {
         Row: {
           book_id: string
@@ -361,7 +314,7 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "event_books_event_id_fkey"
+            foreignKeyName: "event_books_event_id_fkey1"
             columns: ["event_id"]
             isOneToOne: false
             referencedRelation: "events"
@@ -589,31 +542,52 @@ export type Database = {
       users: {
         Row: {
           avatar: string
+          city: string
+          country: string
           created_at: string
           email: string
           first_name: string
           last_name: string
+          phone_number: string
+          postal_code: string
           roles: Database["public"]["Enums"]["roles_enum"][]
+          state: string
+          street: string
+          street2: string
           updated_at: string
           user_id: string
         }
         Insert: {
           avatar?: string
+          city?: string
+          country?: string
           created_at?: string
           email: string
           first_name?: string
           last_name?: string
+          phone_number?: string
+          postal_code?: string
           roles?: Database["public"]["Enums"]["roles_enum"][]
+          state?: string
+          street?: string
+          street2?: string
           updated_at?: string
           user_id: string
         }
         Update: {
           avatar?: string
+          city?: string
+          country?: string
           created_at?: string
           email?: string
           first_name?: string
           last_name?: string
+          phone_number?: string
+          postal_code?: string
           roles?: Database["public"]["Enums"]["roles_enum"][]
+          state?: string
+          street?: string
+          street2?: string
           updated_at?: string
           user_id?: string
         }

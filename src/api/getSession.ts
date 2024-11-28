@@ -1,6 +1,10 @@
 "use server";
 import { createClient } from "@/lib/supabase";
-export default async function getSession() {
+
+export default async function getSession(): Promise<{
+  session: { user: any } | null;
+  error: any;
+}> {
   const supabase = createClient();
   const {
     data: { user },

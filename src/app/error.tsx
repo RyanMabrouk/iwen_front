@@ -16,7 +16,7 @@ export default function Error({
   }, [error]);
   return (
     <div className="z-[9999] flex h-screen w-screen flex-col items-center justify-center gap-4">
-      {/* <Player
+      <Player
         src="https://lottie.host/fe6d5193-dee6-47e6-909b-490ba613151a/qH19788RBq.json"
         className="h-80 w-80"
         loop
@@ -28,7 +28,7 @@ export default function Error({
         onClick={() => Router.back()}
       >
         Go back
-      </button> */}
+      </button>
     </div>
   );
 }

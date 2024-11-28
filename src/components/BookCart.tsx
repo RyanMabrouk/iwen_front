@@ -5,71 +5,89 @@ import FilledHeart from "./icons/FilledHeart";
 import ArrowLeft from "./icons/ArrowLeft";
 import ArrowRight from "./icons/ArrowRight";
 import CustomSwiper from "./ui/swiper";
-import { IBookPopulated } from "@/types";
-import Image from "next/image";
-import Link from "next/link";
 
-export default function BooBookCartkCart({
-  book,
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+
+export default function BookCart({
+  id,
+  title,
+  writer,
+  images,
+  discount,
+  price,
+  className,
 }: {
-  book: IBookPopulated | null;
+  id: string;
+  title: string;
+  writer: string;
+  images: string[];
+  discount: number;
+  price: number;
+  className?: string;
 }) {
   const [isLiked, setIsLiked] = useState(false);
   const [quantity, setQuantity] = useState(0);
 
+  // console.log(images);
+
   return (
-    <div className="relative overflow-hidden rounded-2xl border bg-white shadow-md transition-all">
-      <img
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-2xl border bg-white shadow-md transition-all",
+        className,
+      )}
+    >
+      <Image
         src="/acs.png"
         className="absolute -left-7 -top-6 -rotate-12 opacity-30"
+        alt="ACS"
+        width={1000}
+        height={1000}
       />
-      <img src="/acs.png" className="absolute -top-20 left-20 opacity-30" />
-      <div className="absolute left-3 top-4 z-10 rounded-full bg-primary-400 px-2.5 py-1 text-sm font-medium text-white">
-        {book?.discount ?? 15}% off
-      </div>
+
+      <Image
+        src="/acs.png"
+        className="absolute -top-20 left-20 opacity-30"
+        alt="ACS"
+        width={1000}
+        height={1000}
+      />
+      {discount !== 0 && (
+        <div className="absolute left-3 top-4 z-10 rounded-full bg-primary-400 px-2.5 py-1 text-sm font-medium text-white">
+          {discount}% off
+        </div>
+      )}
 
       <div className="group relative flex h-64 cursor-pointer items-center justify-center">
         <ArrowLeft
           size={22}
-          className={`${"btn_swiper_arrow_left" + book?.id} absolute left-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
+          className={`${"btn_swiper_arrow_left" + id} absolute left-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
         />
         <ArrowRight
           size={22}
-          className={`${"btn_swiper_arrow_right" + book?.id} absolute right-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
+          className={`${"btn_swiper_arrow_right" + id} absolute right-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
         />
         <CustomSwiper
           navigation={{
-            prevEl: `${".btn_swiper_arrow_left" + book?.id}`,
-            nextEl: `${".btn_swiper_arrow_right" + book?.id}`,
+            prevEl: `${".btn_swiper_arrow_left" + id}`,
+            nextEl: `${".btn_swiper_arrow_right" + id}`,
           }}
           loop
-          slides={
-            book === null || book === undefined
-              ? Array.from({ length: 2 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="group mt-10 flex h-fit w-full items-center justify-center p-7 transition-all duration-300 max-2xl:pb-0"
-                  >
-                    <img
-                      src="/book.png"
-                      className="h-[10rem] w-full object-scale-down transition-all duration-200"
-                    />
-                  </div>
-                ))
-              : book?.images_urls.map((image) => (
-                  <Link
-                    href={`/books/${book.id}`}
-                    key={image}
-                    className="group mt-10 flex h-fit w-full items-center justify-center p-7 transition-all duration-300 max-2xl:pb-0"
-                  >
-                    <img
-                      alt={image}
-                      src={image}
-                      className="h-[10rem] w-full object-scale-down transition-all duration-200"
-                    />
-                  </Link>
-                ))
-          }
+          slides={Array.from({ length: 2 }).map((_, i) => (
+            <div
+              className="group flex h-full w-full items-center justify-center p-7"
+              key={i}
+            >
+              <Image
+                src="/book.png"
+                className="h-full w-full object-scale-down transition-all duration-200"
+                alt="Book"
+                width={1000}
+                height={1000}
+              />
+            </div>
+          ))}
           initialSlide={0}
           slidesPerView={1}
           pagination
@@ -120,30 +138,14 @@ export default function BooBookCartkCart({
 
           <div className="flex flex-col justify-between">
             <div className="flex flex-col gap-1">
-              <span
-                dir="rtl"
-                className="max-h-[45px] overflow-hidden text-base font-medium"
-              >
-                {book !== null
-                  ? book?.title.length < 31
-                    ? book?.title
-                    : book?.title.slice(0, 31) + "..."
-                  : "no title"}
+              <span className="line-clamp-1 text-base font-medium">
+                {title}{" "}
               </span>
-              <span
-                dir="rtl"
-                className="overflow-hidden text-nowrap text-sm text-gray-600"
-              >
-                {book !== null && book !== undefined && book?.writer !== null
-                  ? book?.writer?.name.length < 15
-                    ? book.writer?.name
-                    : book.writer?.name.slice(0, 15) + "..."
-                  : "no writer"}
-              </span>
+              <span className="text-sm text-gray-600">{writer}</span>
             </div>
             <div>
               <span className="py-2.5 text-lg font-light text-primary-500">
-                {book?.price ?? 120} MAD
+                {price} MAD
               </span>
             </div>
           </div>

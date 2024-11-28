@@ -4,6 +4,7 @@ import SelectWithBorder from "./main/SelectWithBorder";
 import CategoryIcon from "./icons/CategoryIcon";
 import BookCart from "./BookCart";
 import ArrowLeft from "./icons/ArrowLeft";
+import Image from "next/image";
 
 const categories = [
   { label: "الأكثر مبيعا" },
@@ -17,20 +18,28 @@ export default function CategoryKidsBooks() {
 
   return (
     <div className="relative space-y-12 bg-white px-6 py-14">
-
       <div className="pointer-events-none absolute inset-0 top-12 flex w-full items-start justify-between">
-        <img src="/boykid.png" className="w-auto max-w-[50%]" alt="Boy Kid" />
-        <img src="/girlkid.png" className="w-auto max-w-[50%]" alt="Girl Kid" />
+        <Image
+          src="/boykid.png"
+          className="w-auto max-w-[50%]"
+          alt="Boy Kid"
+          width={1000}
+          height={1000}
+        />
+        <Image
+          src="/girlkid.png"
+          className="w-auto max-w-[50%]"
+          alt="Girl Kid"
+          width={1000}
+          height={1000}
+        />
       </div>
-
 
       <h1 className="relative z-10 mx-auto w-fit text-3xl font-bold">
         ركن الأطفال
       </h1>
 
-
       <div className="relative z-10 mx-auto w-full max-w-[1400px] space-y-12">
-
         <div className="flex h-fit items-center justify-between gap-10 max-xl:flex-col">
           <div className="flex-1">
             <SelectWithBorder
@@ -40,7 +49,6 @@ export default function CategoryKidsBooks() {
             />
           </div>
 
-   
           <div className="scrollbar-thin scrollbar-thumb-primary-500 flex h-[60px] w-full overflow-x-auto overflow-y-hidden">
             <div className="flex min-w-max flex-row-reverse gap-[25px] whitespace-nowrap">
               {categories.map((category, index) => (
@@ -68,14 +76,13 @@ export default function CategoryKidsBooks() {
           </div>
         </div>
 
-
+        {/* 
         <div className="grid grid-cols-4 gap-10 max-xl:grid-cols-2 max-sm:grid-cols-1">
           <BookCart id="mzkefizpeiezjdzenfi" />
           <BookCart id="jzenvoeznoifez" />
           <BookCart id="ezfezfzefe" />
           <BookCart id="efzefzefezeazaeazell" />
-        </div>
-
+        </div> */}
 
         <div className="mx-auto flex w-fit cursor-pointer items-center gap-4">
           <span className="flex">

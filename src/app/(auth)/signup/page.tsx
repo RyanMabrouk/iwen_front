@@ -1,6 +1,4 @@
-import getSession from "@/api/getSession";
-import { redirect } from "next/navigation";
-import SignUpForm from "./ui/SignUpForm";
+import SignUpForm from "./ui/SignupForm";
 
 export default async function Page() {
   return <SignUpForm />;

@@ -2,6 +2,7 @@ import { booksEndpoints } from "@/endpoints/booksRoutes";
 import { categoriesEndpoints } from "@/endpoints/categoriesRoutes";
 import { cornersEndpoints } from "@/endpoints/cornersRoutes";
 import { cover_typesEndpoints } from "@/endpoints/coverTypes";
+import { eventsEndpoints } from "@/endpoints/eventsEndpoints";
 import { ordersEndpoints } from "@/endpoints/ordersRoutes";
 import { publishHousesEndpoints } from "@/endpoints/publishHouses";
 import { subCategoriesEndpoints } from "@/endpoints/subCategories";
@@ -18,6 +19,7 @@ const resources = {
   writers: writersEndpoints,
   corners: cornersEndpoints,
   orders: ordersEndpoints,
+  events: eventsEndpoints,
 } as const;
 export type IResource = keyof typeof resources;
 export default function getEndpoint<
