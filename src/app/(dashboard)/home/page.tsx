@@ -6,12 +6,6 @@ import React from "react";
 import Image from "next/image";
 import CategoryKidsBooks from "@/components/CategoryKidsBooks";
 export default async function Page() {
-  // const { mutate } = useMutation({
-  //   mutationFn: async () => {
-  //     signOut();
-  //     redirect("/login");
-  //   },
-  // });
   return (
     <div>
       <div className="px-4 py-12 sm:px-6 sm:py-24 lg:px-8 lg:py-36 [&_.swiper-pagination-bullet-active]:bg-primary-200">

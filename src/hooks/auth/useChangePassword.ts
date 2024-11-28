@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import handleChangePassword from "../../handlers/auth/handleChangePasswrd";
 import { useToast } from "@/hooks/useToast";
+import handleChangePassword from "@/app/(auth)/handlers/auth/handleChangePasswrd";
 
 export default function useChangePassword() {
   const { toast } = useToast();

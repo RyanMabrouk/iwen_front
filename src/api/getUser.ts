@@ -1,12 +1,24 @@
 "use server";
-import { createClient } from "@/lib/supabase";
-import type { AuthError, UserResponse } from "@supabase/supabase-js";
+import getEndpoint from "@/services/getEndpoint";
+import sendRequest from "@/services/sendRequest";
+import { IUserPayload } from "@/types";
 
 export default async function getUser(): Promise<{
-  data: UserResponse["data"];
+  data: {
+    user: IUserPayload | null;
+  };
   error: string | null;
 }> {
-  const supabase = createClient();
-  const { data, error } = await supabase.auth.getUser();
-  return { data, error: error?.message || null };
+  const url = getEndpoint({
+    resource: "users",
+    action: "getMe",
+  });
+  const { data: user, error } = await sendRequest<IUserPayload>({
+    method: "GET",
+    url: url(),
+  });
+  return {
+    error,
+    data: { user },
+  };
 }

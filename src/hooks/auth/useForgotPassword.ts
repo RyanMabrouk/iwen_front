@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import handleForgetPassword from "../../handlers/auth/handleForgetPassword";
 import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
+import handleForgetPassword from "@/app/(auth)/handlers/auth/handleForgetPassword";
 
 export default function useForgotPassword(email: string) {
   const { toast } = useToast();

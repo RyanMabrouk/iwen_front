@@ -82,7 +82,20 @@ export default function BookCard({
                   height={1000}
                 />
               </div>
-            )) ?? []
+            )) ?? [
+              <div
+                className="group flex h-full w-full items-center justify-center p-7"
+                key={0}
+              >
+                <Image
+                  src="/empty-book.svg"
+                  className="h-full w-full object-scale-down transition-all duration-200"
+                  alt="Book"
+                  width={1000}
+                  height={1000}
+                />
+              </div>,
+            ]
           }
           initialSlide={0}
           slidesPerView={1}

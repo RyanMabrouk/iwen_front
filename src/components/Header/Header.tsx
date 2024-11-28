@@ -29,9 +29,9 @@ export default function Header() {
           <div className="flex w-full max-w-[228px] gap-5 max-sm:gap-2">
             <Link
               href={"/cart"}
-              className="flex h-[3rem] w-fit min-w-[50px] items-center justify-center rounded-lg bg-white shadow-md"
+              className="flex h-[3rem] w-fit min-w-[50px] items-center justify-center rounded-lg border bg-white text-primary-500 shadow-md transition-all ease-linear hover:border-white hover:bg-primary-500 hover:text-white"
             >
-              <ShoppingCart size={22} className="text-primary-500" />
+              <ShoppingCart size={22} className="" />
             </Link>
             <HeaderLoginButton />
           </div>
