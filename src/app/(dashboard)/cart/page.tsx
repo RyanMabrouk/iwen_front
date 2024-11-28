@@ -1,6 +1,6 @@
 "use client";
 import { Spinner } from "@/app/ui/Spinner";
-import { CartButtons } from "@/components/BookCart";
+import { CartButtons } from "@/components/BookCard";
 import PrimaryButton from "@/components/main/buttons/PrimaryButton";
 import useCart from "@/hooks/cart/useCart";
 import Image from "next/image";
@@ -79,6 +79,9 @@ export default function Page() {
                   <button
                     className="flex h-full w-full flex-row items-center justify-center gap-2 text-xl text-color4"
                     key={book.id}
+                    onClick={() => {
+                      cart.removeFromCart(book.id);
+                    }}
                   >
                     <Image
                       src={"/auth/x-dark.svg"}
