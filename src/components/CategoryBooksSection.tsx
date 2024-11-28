@@ -111,14 +111,7 @@ export default function CategoryBooksSection() {
                       key={book.id}
                       className="group flex h-full w-full items-center justify-center p-4"
                     >
-                      <BookCard
-                        id={book.id}
-                        title={book.title}
-                        writer={book.writer?.name || "كاتب غير معروف"}
-                        images={book.images_urls}
-                        discount={book.discount}
-                        price={book.price}
-                      />
+                      <BookCard {...book} writer={book.writer?.name} />
                     </div>
                   ))}
                   slidesPerView={1}
@@ -136,12 +129,8 @@ export default function CategoryBooksSection() {
                 {filteredBooks.map((book) => (
                   <BookCard
                     key={book.id}
-                    id={book.id}
-                    title={book.title}
-                    writer={book.writer?.name || "كاتب غير معروف"}
-                    images={book.images_urls}
-                    discount={book.discount}
-                    price={book.price}
+                    {...book}
+                    writer={book.writer?.name}
                   />
                 ))}
               </div>

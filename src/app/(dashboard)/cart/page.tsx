@@ -1,4 +1,5 @@
 "use client";
+import { Spinner } from "@/app/ui/Spinner";
 import { CartButtons } from "@/components/BookCart";
 import PrimaryButton from "@/components/main/buttons/PrimaryButton";
 import useCart from "@/hooks/cart/useCart";
@@ -119,6 +120,10 @@ export default function Page() {
             </div>
           </div>
         </div>
+      ) : cart.isLoading ? (
+        <span>
+          <Spinner />
+        </span>
       ) : (
         <div className="relative flex items-center justify-center overflow-x-hidden overflow-y-hidden">
           <Image
