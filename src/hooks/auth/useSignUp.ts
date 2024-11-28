@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import handleSignUp from "../../handlers/auth/handleSignUp";
 import { useToast } from "@/hooks/useToast";
+import handleSignUp from "@/app/(auth)/handlers/auth/handleSignUp";
 
 export default function useSignUp(
   setter: React.Dispatch<React.SetStateAction<boolean>>,
