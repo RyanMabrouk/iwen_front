@@ -6,7 +6,6 @@ import {
   InfinityPaginationQueryType,
   InfinityPaginationResultType,
 } from "@/types";
-import { Tables } from "@/types/database.types";
 
 interface QueryBooksArgs extends InfinityPaginationQueryType<"books"> {
   most_sold?: "asc" | "desc";
