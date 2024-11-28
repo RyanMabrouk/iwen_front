@@ -55,62 +55,60 @@ export default function BookCard({
         </div>
       )}
 
-      {images && (
-        <div className="group relative flex h-64 cursor-pointer items-center justify-center">
-          <ArrowLeft
-            size={22}
-            className={`${"btn_swiper_arrow_left" + id} absolute left-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
-          />
-          <ArrowRight
-            size={22}
-            className={`${"btn_swiper_arrow_right" + id} absolute right-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
-          />
-          <CustomSwiper
-            navigation={{
-              prevEl: `${".btn_swiper_arrow_left" + id}`,
-              nextEl: `${".btn_swiper_arrow_right" + id}`,
-            }}
-            loop
-            slides={
-              images?.map((image, i) => (
-                <div
-                  className="group flex h-full w-full items-center justify-center p-7"
-                  key={i}
-                >
-                  <Image
-                    src={image}
-                    className="h-full w-full object-scale-down transition-all duration-200"
-                    alt="Book"
-                    width={1000}
-                    height={1000}
-                  />
-                </div>
-              )) ?? []
-            }
-            initialSlide={0}
-            slidesPerView={1}
-            pagination
-            className="h-full w-full [&_.swiper-pagination-bullets]:mt-5"
-          />
-          <div className="absolute h-48 w-48 rounded-[100%] bg-primary-500/10 blur-lg transition-all"></div>
-          <div
-            className="group absolute right-6 top-6 z-10 cursor-pointer"
-            onClick={() => setIsLiked(!isLiked)}
-          >
-            {isLiked ? (
-              <FilledHeart
-                size={20}
-                className="text-red-500 transition-colors duration-500"
-              />
-            ) : (
-              <Heart
-                className="text-gray-400 transition-all hover:text-red-500"
-                size={20}
-              />
-            )}
-          </div>
+      <div className="group relative flex h-64 cursor-pointer items-center justify-center">
+        <ArrowLeft
+          size={22}
+          className={`${"btn_swiper_arrow_left" + id} absolute left-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
+        />
+        <ArrowRight
+          size={22}
+          className={`${"btn_swiper_arrow_right" + id} absolute right-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
+        />
+        <CustomSwiper
+          navigation={{
+            prevEl: `${".btn_swiper_arrow_left" + id}`,
+            nextEl: `${".btn_swiper_arrow_right" + id}`,
+          }}
+          loop
+          slides={
+            images?.map((image, i) => (
+              <div
+                className="group flex h-full w-full items-center justify-center p-7"
+                key={i}
+              >
+                <Image
+                  src={image}
+                  className="h-full w-full object-scale-down transition-all duration-200"
+                  alt="Book"
+                  width={1000}
+                  height={1000}
+                />
+              </div>
+            )) ?? []
+          }
+          initialSlide={0}
+          slidesPerView={1}
+          pagination
+          className="h-full w-full [&_.swiper-pagination-bullets]:mt-5"
+        />
+        <div className="absolute h-48 w-48 rounded-[100%] bg-primary-500/10 blur-lg transition-all"></div>
+        <div
+          className="group absolute right-6 top-6 z-10 cursor-pointer"
+          onClick={() => setIsLiked(!isLiked)}
+        >
+          {isLiked ? (
+            <FilledHeart
+              size={20}
+              className="text-red-500 transition-colors duration-500"
+            />
+          ) : (
+            <Heart
+              className="text-gray-400 transition-all hover:text-red-500"
+              size={20}
+            />
+          )}
         </div>
-      )}
+      </div>
       <div className="flex flex-row-reverse items-center justify-between p-4">
         <CartButtons
           book={{
