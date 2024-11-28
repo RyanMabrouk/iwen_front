@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss/types/config";
 import plugin from "tailwindcss/plugin";
+import { color } from "framer-motion";
 
 const MyClass = plugin(function ({ addUtilities }: any) {
   addUtilities({
@@ -134,10 +135,12 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        color1: '#1C7775',
-        color2: '#27A098',
-        color3: '#E4EFEF',
+        color1: "#1C7775",
+        color2: "#27A098",
+        color3: "#E4EFEF",
         bgcolor1: "#F6FBFB",
+        color4: "#8C8C8C",
+        color5: "#E7E9EB",
       },
       boxShadow: {
         text: "2px 2px 4px rgba(0, 0, 0, 0.5)",
