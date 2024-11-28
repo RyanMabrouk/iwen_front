@@ -1,9 +1,10 @@
 import React from "react";
 import { FilterType, SortingType } from "../page";
 import useBooks from "@/hooks/data/books/useBooks";
-import BookCart from "@/components/BookCart";
+
 import BookPage from "./BookPage";
 import { Spinner } from "@/app/ui/Spinner";
+import BookCard from "@/components/BookCard";
 
 export default function BooksList({
   booksNumber,
@@ -75,7 +76,7 @@ export default function BooksList({
             key={i}
             className={`py-3 transition-all duration-300 ${booksNumber === 6 ? "px-4" : booksNumber === 4 ? "px-10" : booksNumber === 3 ? "px-16 py-4 max-lg:px-5" : "px-20 max-md:px-10"}`}
           >
-            <BookCart book={book} />
+            <BookCard {...book} writer={book.writer?.name ?? ""} />
           </div>
         ))}
       </div>

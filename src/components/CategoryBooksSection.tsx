@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import SelectWithBorder from "./main/SelectWithBorder";
 import CategoryIcon from "./icons/CategoryIcon";
-import BookCard from "./BookCart";
+import BookCard from "./BookCard";
 import ArrowLeft from "./icons/ArrowLeft";
 import CustomSwiper from "./ui/swiper";
 import useBooks from "@/hooks/data/books/useBooks";

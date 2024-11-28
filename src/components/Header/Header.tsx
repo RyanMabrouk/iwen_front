@@ -29,7 +29,7 @@ export default function Header() {
           <div className="flex w-full max-w-[228px] gap-5 max-sm:gap-2">
             <Link
               href={"/cart"}
-              className="flex h-[3.313rem] w-fit min-w-[50px] items-center justify-center rounded-lg bg-white shadow-md"
+              className="flex h-[3rem] w-fit min-w-[50px] items-center justify-center rounded-lg bg-white shadow-md"
             >
               <ShoppingCart size={22} className="text-primary-500" />
             </Link>

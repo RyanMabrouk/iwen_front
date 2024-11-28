@@ -6,11 +6,14 @@ import {
   InfinityPaginationQueryType,
   InfinityPaginationResultType,
 } from "@/types";
-import { Tables } from "@/types/database.types";
 
-const booksQuery = (
-  args: InfinityPaginationQueryType<`books.${keyof Tables<"books">}`>,
-) => ({
+interface QueryBooksArgs extends InfinityPaginationQueryType<"books"> {
+  most_sold?: "asc" | "desc";
+  subcategories_ids?: string[];
+  categories_ids?: string[];
+}
+
+const booksQuery = (args: QueryBooksArgs) => ({
   queryKey: ["books", args],
   queryFn: async () => {
     const url = getEndpoint({ resource: "books", action: "getBooks" });

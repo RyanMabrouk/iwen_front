@@ -65,7 +65,7 @@ export interface IBookPayload {
   cover_type_id?: string;
   corner_id?: string;
   status?: string;
-  discount_type: string;
+  discount_type: "percentage" | "fixed";
   meta_image?: string;
   meta_title: string;
   meta_description: string;
