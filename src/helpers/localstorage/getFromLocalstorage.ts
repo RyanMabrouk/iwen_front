@@ -1,5 +1,5 @@
 "use client";
-export default function getLocalValues(key: string) {
+export default function getFromLocalstorage<T>(key: string): T | null {
   let storedFormValues = null;
   try {
     storedFormValues = localStorage.getItem(key);

@@ -63,7 +63,7 @@ export interface IBookPayload {
   cover_type_id?: string;
   corner_id?: string;
   status?: string;
-  discount_type: string;
+  discount_type: "percentage" | "fixed";
   meta_image?: string;
   meta_title: string;
   meta_description: string;
@@ -78,6 +78,10 @@ export interface IBookPopulated extends Tables<"books"> {
   writer: Tables<"writers"> | null;
   share_house: Tables<"share_houses"> | null;
   corner: Tables<"corners"> | null;
+}
+
+export interface ICartBook extends Tables<"books"> {
+  quantity: number;
 }
 
 export interface FooterItem {

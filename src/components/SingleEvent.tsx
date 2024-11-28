@@ -1,6 +1,6 @@
 "use client";
 
-import useEvent from "@/hooks/data/books/useEvent";
+import useEvent from "@/hooks/data/events/useEvent";
 
 export default function SingleEvent({
   eventId,
@@ -15,7 +15,6 @@ export default function SingleEvent({
   setActiveEvent: (index: number) => void;
   eventName: string;
 }) {
-
   return (
     <div>
       <h2

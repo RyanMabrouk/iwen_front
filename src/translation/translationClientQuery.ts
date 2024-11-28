@@ -1,9 +1,9 @@
 "use client";
-import getLocalValues from "@/helpers/getLocalValues";
+import getFromLocalstorage from "@/helpers/localstorage/getFromLocalstorage";
 import getTranslation from "./getTranslation";
 
 export const translationClientQuery = () => {
-  let locale = getLocalValues("lang") ? getLocalValues("lang") : "en";
+  let locale = getFromLocalstorage("lang") ? getFromLocalstorage("lang") : "en";
   if (!["en", "fr"].includes(locale)) {
     locale = "fr";
   }
