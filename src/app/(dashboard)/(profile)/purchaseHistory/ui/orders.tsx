@@ -18,11 +18,12 @@ import { Pagination } from "@mui/material";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
 import NoPurchases from "./noPurchases";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 export default function Orders() {
   const [page, setPage] = useState<number>(1);
   const limit = 3;
-  const { data: orders } = useMyOrders({ limit, page });
+  const { data: orders, isLoading } = useMyOrders({ limit, page });
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -56,9 +57,21 @@ export default function Orders() {
         return "bg-gray-500";
     }
   };
+  if (isLoading) {
+    return (
+      <Player
+        className="m-auto"
+        autoplay
+        loop
+        src="/loading.json"
+        style={{ height: "12rem", width: "12rem" }}
+      />
+    );
+  }
   if (orders?.data?.meta.total_count === 0) {
     return <NoPurchases />;
   }
+
   return (
     <div className="mx-auto" dir="rtl">
       <h1 className="mb-8 text-right text-3xl font-bold text-color1">طلباتي</h1>
@@ -67,9 +80,11 @@ export default function Orders() {
           <Card key={order.id} className="overflow-hidden">
             <CardHeader className="bg-muted">
               <CardTitle className="flex items-center justify-between">
-                <span className="sm:text-2xl text-xl ">طلب #{order.id.slice(-5)}</span>
+                <span className="text-xl sm:text-2xl">
+                  طلب #{order.id.slice(-5)}
+                </span>
                 <div
-                  className={`${getStatusColor(order.status)} p-2 rounded-xl text-sm w-fit sm:text-base font-normal text-white`}
+                  className={`${getStatusColor(order.status)} w-fit rounded-xl p-2 text-sm font-normal text-white sm:text-base`}
                 >
                   {order.status === "paid"
                     ? "مدفوع"

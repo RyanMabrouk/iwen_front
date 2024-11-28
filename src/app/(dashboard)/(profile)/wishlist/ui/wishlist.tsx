@@ -3,6 +3,7 @@ import BookCart from "@/components/BookCart";
 import useWishlist from "@/hooks/data/user/wishlist/useWishlist";
 import { wishlistQuery } from "@/hooks/data/user/wishlist/wishlistQuery";
 import { IBookPopulated } from "@/types";
+import { Player } from "@lottiefiles/react-lottie-player";
 import { Pagination } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
@@ -27,6 +28,18 @@ export default function Wishlist() {
       );
     }
   }, [page, wishlist?.data?.meta?.has_next_page, queryClient]);
+  if (isLoading) {
+    return (
+      <Player
+        className="m-auto"
+        autoplay
+        loop
+        src="/loading.json"
+        style={{ height: "12rem", width: "12rem" }}
+      />
+    );
+  }
+
   return (
     <div dir="rtl">
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
