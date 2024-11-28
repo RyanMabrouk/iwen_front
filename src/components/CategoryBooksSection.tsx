@@ -1,19 +1,17 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SelectWithBorder from "./main/SelectWithBorder";
 import CategoryIcon from "./icons/CategoryIcon";
-import BookCart from "./BookCart";
+import BookCard from "./BookCart";
 import ArrowLeft from "./icons/ArrowLeft";
 import CustomSwiper from "./ui/swiper";
 import useBooks from "@/hooks/data/books/useBooks";
 import useCategories from "@/hooks/data/books/categories/useCategories";
 import ArrowRight from "./icons/ArrowRight";
 import EmptyBox from "./icons/EmptyBox";
-import useEvents from "@/hooks/data/books/useEvents";
+import useEvents from "@/hooks/data/events/useEvents";
 import SingleEvent from "./SingleEvent";
-import useEvent from "@/hooks/data/books/useEvent";
-import { set } from "zod";
 
 export default function CategoryBooksSection() {
   const [activeEvent, setActiveEvent] = useState(0);
@@ -113,14 +111,7 @@ export default function CategoryBooksSection() {
                       key={book.id}
                       className="group flex h-full w-full items-center justify-center p-4"
                     >
-                      <BookCart
-                        id={book.id}
-                        title={book.title}
-                        writer={book.writer?.name || "كاتب غير معروف"}
-                        images={book.images_urls}
-                        discount={book.discount}
-                        price={book.price}
-                      />
+                      <BookCard {...book} writer={book.writer?.name} />
                     </div>
                   ))}
                   slidesPerView={1}
@@ -136,14 +127,10 @@ export default function CategoryBooksSection() {
             ) : (
               <div className="grid grid-cols-4 gap-10 max-xl:grid-cols-2 max-sm:grid-cols-1">
                 {filteredBooks.map((book) => (
-                  <BookCart
+                  <BookCard
                     key={book.id}
-                    id={book.id}
-                    title={book.title}
-                    writer={book.writer?.name || "كاتب غير معروف"}
-                    images={book.images_urls}
-                    discount={book.discount}
-                    price={book.price}
+                    {...book}
+                    writer={book.writer?.name}
                   />
                 ))}
               </div>

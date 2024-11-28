@@ -84,6 +84,10 @@ export interface IBookPopulated extends Tables<"books"> {
   corner: Tables<"corners"> | null;
 }
 
+export interface ICartBook extends Tables<"books"> {
+  quantity: number;
+}
+
 export interface FooterItem {
   title: string;
   items: {
