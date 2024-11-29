@@ -104,7 +104,7 @@ export default function BookCard({
         </div>
       )}
 
-      <div className="group relative flex h-64 cursor-pointer items-center justify-center">
+      <div className="group relative flex h-60 cursor-pointer items-center justify-center">
         <ArrowLeft
           size={22}
           className={`${"btn_swiper_arrow_left" + book.id} absolute left-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
@@ -140,7 +140,7 @@ export default function BookCard({
               >
                 <Image
                   src="/empty-book.svg"
-                  className="h-full w-full object-scale-down transition-all duration-200"
+                  className="-mb-12 h-full w-full object-scale-down transition-all duration-200"
                   alt="Book"
                   width={1000}
                   height={1000}
