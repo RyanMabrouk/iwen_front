@@ -32,6 +32,12 @@ export default function useCart() {
         queryKey: ["cart"],
       });
     },
+    clearCart: () => {
+      clearCart();
+      queryClient.invalidateQueries({
+        queryKey: ["cart"],
+      });
+    },
   };
 }
 function addToCart(book: Tables<"books">) {
@@ -55,4 +61,7 @@ function removeFromCart(book_id: string) {
       saveToLocalstorage("cart", newCart);
     }
   }
+}
+function clearCart() {
+  saveToLocalstorage("cart", []);
 }

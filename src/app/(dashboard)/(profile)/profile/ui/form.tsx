@@ -57,7 +57,7 @@ export default function Form() {
         phone_number,
         postal_code,
         street,
-        street2,
+        street2: street2 ?? "لا يوجد",
         country: "Morocco",
         state: selectedState,
         city: selectedCity,
@@ -78,6 +78,7 @@ export default function Form() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users", "me"] });
+      setErrors(null);
       toast.success("تم تحديث الملف الشخصي بنجاح");
     },
     onError: (error) => {

@@ -60,7 +60,7 @@ export function HeaderLoginButton() {
           className="flex h-[3rem] w-fit min-w-[50px] items-center justify-center rounded-lg bg-white shadow-md"
         >
           <Image
-            className="rounded-lg"
+            className="h-[3rem] rounded-lg"
             src={user.data.avatar ? user.data.avatar : "/default_avatar.png"}
             width={50}
             height={50}
