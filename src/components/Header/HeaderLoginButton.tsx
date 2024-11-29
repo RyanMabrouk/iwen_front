@@ -69,7 +69,12 @@ export function HeaderLoginButton() {
         </button>
         {isDropdownOpen && (
           <div className="absolute right-0 z-10 mt-2 w-32 origin-top scale-100 transform rounded-md bg-white font-medium opacity-100 shadow-lg transition duration-200 ease-out">
-            <Link href="/profile">
+            <Link
+              href="/profile"
+              onClick={() => {
+                setIsDropdownOpen(false);
+              }}
+            >
               <span className="block w-full cursor-pointer rounded-t-md px-4 py-2 text-gray-800 transition hover:bg-gray-100">
                 حسابي
               </span>

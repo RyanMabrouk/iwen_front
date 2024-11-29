@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Book, Minus, Plus } from "lucide-react";
+import React, { useState } from "react";
+import { Minus, Plus } from "lucide-react";
 import Heart from "./icons/Heart";
 import FilledHeart from "./icons/FilledHeart";
 import ArrowLeft from "./icons/ArrowLeft";
@@ -14,8 +14,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import sendRequest from "@/services/sendRequest";
 import getEndpoint from "@/services/getEndpoint";
 import { useToast } from "@/hooks/useToast";
-import { IValidationErrors } from "@/types";
-import useWishlist from "@/hooks/data/user/wishlist/useWishlist";
 
 export default function BookCard({
   writer,
@@ -55,7 +53,7 @@ export default function BookCard({
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["wishlist", "me"] });
+      queryClient.invalidateQueries({ queryKey: ["wishlist"] });
       toast.info("تمت الإضافة إلى قائمة الرغبات");
     },
     onError: () => {
@@ -67,7 +65,7 @@ export default function BookCard({
       await sendRequest({ method: "DELETE", url: deleteUrl(book.id) });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["wishlist", "me"] });
+      queryClient.invalidateQueries({ queryKey: ["wishlist"] });
       toast.info("تمت الإزالة من قائمة الرغبات");
     },
     onError: (error) => {

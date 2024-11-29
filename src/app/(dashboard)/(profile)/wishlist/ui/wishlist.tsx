@@ -1,5 +1,5 @@
 "use client";
-import BookCart from "@/components/BookCart";
+import BookCard from "@/components/BookCard";
 import useWishlist from "@/hooks/data/user/wishlist/useWishlist";
 import { wishlistQuery } from "@/hooks/data/user/wishlist/wishlistQuery";
 import { IBookPopulated } from "@/types";
@@ -50,14 +50,9 @@ export default function Wishlist() {
               key={book.id}
               className="group flex h-full w-full items-center justify-center p-4"
             >
-              <BookCart
-                id={book.id}
-                title={book.title}
+              <BookCard
+                {...book}
                 writer={book.writer?.name || "كاتب غير معروف"}
-                images={book.images_urls}
-                discount={book.discount}
-                price={book.price}
-                isWishlist={true}
               />
             </div>
           );
