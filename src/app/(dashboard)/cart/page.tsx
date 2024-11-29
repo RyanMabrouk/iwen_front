@@ -101,7 +101,7 @@ export default function Page() {
             </div>
           </div>
           <div className="flex flex-row items-center justify-evenly gap-[30svw]">
-            <Link href="/home">
+            <Link href="/books">
               <PrimaryButton
                 className="flex flex-row-reverse items-center"
                 size="md"

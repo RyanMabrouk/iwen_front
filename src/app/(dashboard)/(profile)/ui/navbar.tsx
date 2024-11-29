@@ -7,7 +7,7 @@ export default function Navbar() {
   const Pathname = usePathname();
 
   return (
-    <ul className=" flex gap-3 text-sm sm:gap-4 items-center sm:text-lg font-semibold">
+    <ul className="flex items-center gap-3 text-sm font-semibold sm:gap-4 sm:text-lg">
       <Link href={"/profile"}>
         <li
           className={`pb-1 ${
@@ -38,7 +38,7 @@ export default function Navbar() {
               : ""
           }`}
         >
-      تغيير  كلمة المرور
+          تغيير كلمة المرور
         </li>
       </Link>
       <Link href={"/wishlist"}>
