@@ -13,7 +13,7 @@ export default async function Layout({
     redirect("/login");
   }
   return (
-    <div className="m-auto mt-12 flex h-full min-h-screen w-full flex-col overflow-x-hidden bg-bgcolor1 p-10">
+    <div className=" m-auto mt-12 flex h-full min-h-screen w-full flex-col overflow-x-hidden bg-bgcolor1 p-10">
       <Header />
       <NavZone>{children}</NavZone>
     </div>

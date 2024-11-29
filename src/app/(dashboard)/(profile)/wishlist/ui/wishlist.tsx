@@ -7,6 +7,7 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { Pagination } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
+import NoWishlist from "./noWishlist";
 
 export default function Wishlist() {
   const limit = 4;
@@ -39,10 +40,13 @@ export default function Wishlist() {
       />
     );
   }
+  if (wishlist?.data?.meta.total_count === 0) {
+    return <NoWishlist />;
+  }
 
   return (
-    <div dir="rtl">
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6">
+    <div className=" sm:max-w-4xl" dir="rtl">
+      <div className=" grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
         {wishlist?.data?.data.map((book: IBookPopulated) => {
           return (
             <div
