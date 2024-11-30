@@ -5,7 +5,7 @@ export default function createNewPathname({
   currentPathname: string;
   values: {
     name: string;
-    value: string;
+    value: any;
   }[];
 }) {
   const params = new URLSearchParams();
