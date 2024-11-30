@@ -1,7 +1,6 @@
 import React from "react";
 import { FilterType, SortingType } from "../page";
 import useBooks from "@/hooks/data/books/useBooks";
-
 import BookPage from "./BookPage";
 import { Spinner } from "@/app/ui/Spinner";
 import BookCard from "@/components/BookCard";
@@ -22,19 +21,21 @@ export default function BooksList({
   const currentDate = new Date();
   currentDate.setMonth(currentDate.getMonth() - 1);
   const formattedDate = currentDate.toISOString().split("T")[0];
-
-  const data = useBooks({
-    limit: parseInt(booksNumber) * 3,
-    page,
-    ...(filter.categories !== undefined &&
+  const extra_filters = {
+    ...(Array.isArray(filter.categories) &&
       filter.categories.length > 0 && {
         categories_ids: filter.categories,
       }),
-    ...(filter.subcategories !== undefined &&
+    ...(Array.isArray(filter.subcategories) &&
       filter.subcategories.length > 0 && {
         subcategories_ids: filter.subcategories,
       }),
-    ...(sortings === "mostSold" && { most_sold: "desc" }),
+    ...(sortings === "mostSold" && { most_sold: "desc" as const }),
+  };
+  const data = useBooks({
+    limit: parseInt(booksNumber) * 3,
+    page,
+    ...(Object.keys(extra_filters).length > 0 && { extra_filters }),
     filters: {
       ...(sortings === "newest"
         ? { "books.created_at": [{ operator: ">=", value: formattedDate }] }
