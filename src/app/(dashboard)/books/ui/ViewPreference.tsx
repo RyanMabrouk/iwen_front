@@ -3,14 +3,18 @@ import React from "react";
 export default function ViewPreference({
   setBooks,
   bookNumber,
+  className,
 }: {
-  setBooks: (value: number) => void;
-  bookNumber: number;
+  setBooks: (value: string) => void;
+  bookNumber: string;
+  className?: string;
 }) {
-  const choices1 = [4, 6];
-  const choices2 = [2, 3];
+  const choices1 = ["4", "6"];
+  const choices2 = ["2", "3"];
   return (
-    <div className="flex items-center gap-2 text-nowrap max-lg:flex-col-reverse">
+    <div
+      className={`flex items-center gap-2 text-nowrap max-lg:flex-col-reverse ${className}`}
+    >
       <div className={`flex gap-2 max-xl:hidden`}>
         {choices1.map((choice) => (
           <button

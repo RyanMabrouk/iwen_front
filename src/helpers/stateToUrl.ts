@@ -9,15 +9,15 @@ export function useStateToUrl<T>(
   const pathname = usePathname();
   const router = useRouter();
 
-  const initialValue = (searchParams.get(name) as T) ?? defaultValue;
+  const initialValue = (searchParams.get(name) ?? defaultValue) as T;
 
   const [state, setState] = useState<T>(initialValue);
 
   const changeState = (value: T) => {
     setState(value);
     const params = new URLSearchParams(searchParams);
-    if (state !== defaultValue) {
-      params.set(name, state as string);
+    if (value !== defaultValue) {
+      params.set(name, value as string);
     } else {
       params.delete(name);
     }

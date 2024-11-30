@@ -22,45 +22,29 @@ import useCorners from "@/hooks/data/books/corners/useCorners";
 import useCategories from "@/hooks/data/books/categories/useCategories";
 import useSubCategories from "@/hooks/data/books/subCategories/useSubCategories";
 import useShareHouses from "@/hooks/data/books/useShareHouses";
-/*
-const shareHouses = [
-  { id: 1, name: "Share House 1" },
-  { id: 2, name: "Share House 2" },
-  { id: 3, name: "Share House 3" },
-];
- const corners = [
-  { id: 1, name: "Corner 1" },
-  { id: 2, name: "Corner 2" },
-  { id: 3, name: "Corner 3" },
-];
-const categories = [
-  { id: 1, name: "Category 1" },
-  { id: 2, name: "Category 2" },
-  { id: 3, name: "Category 3" },
-];
-const subcategories = [
-  { id: 1, name: "Subcategory 1" },
-  { id: 2, name: "Subcategory 2" },
-  { id: 3, name: "Subcategory 3" },
-]; */
+import { FilterType } from "../page";
 
 type FilterSelectProps = {
-  onApply: (filters: any) => void;
+  onApply: (filters: FilterType) => void;
   onClose: () => void;
 };
 
 export function FilterSelect({ onApply, onClose }: FilterSelectProps) {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-  const [writer, setWriter] = useState<{ id?: number; name?: string }>({});
-  const [shareHouse, setShareHouse] = useState<{ id?: number; name?: string }>(
+  const [writer, setWriter] = useState<{ id?: string; name?: string }>({});
+  const [shareHouse, setShareHouse] = useState<{ id?: string; name?: string }>(
     {},
   );
-  const [corner, setCorner] = useState<{ id?: number; name?: string }>({});
-  const [category, setCategory] = useState<{ id?: number; name?: string }>({});
-  const [subcategory, setSubcategory] = useState<{
-    id?: number;
-    name?: string;
-  }>({});
+  const [corner, setCorner] = useState<{ id?: string; name?: string }>({});
+  const [category, setCategory] = useState<{ id?: string; name?: string }[]>(
+    [],
+  );
+  const [subcategory, setSubcategory] = useState<
+    {
+      id?: string;
+      name?: string;
+    }[]
+  >([]);
   const [openWriter, setOpenWriter] = useState(false);
   const [openShareHouse, setOpenShareHouse] = useState(false);
   const [openCorner, setOpenCorner] = useState(false);
@@ -94,11 +78,11 @@ export function FilterSelect({ onApply, onClose }: FilterSelectProps) {
   const handleApply = () => {
     onApply({
       priceRange,
-      writer: writer.id?.toString(),
-      shareHouse,
-      corner,
-      category,
-      subcategory,
+      writer: writer.id,
+      categories: category.map((c) => c.id).filter(Boolean) as string[],
+      subcategories: subcategory.map((s) => s.id).filter(Boolean) as string[],
+      corner: corner.id,
+      shareHouse: shareHouse.id,
     });
     onClose();
   };
@@ -107,12 +91,12 @@ export function FilterSelect({ onApply, onClose }: FilterSelectProps) {
     button: string;
     command: string;
     search: string;
-    selected: { id?: number | undefined; name?: string | undefined };
+    selected: { id?: string | undefined; name?: string | undefined };
     table: { id: string; name: string }[];
     notFound: string;
     setter: React.Dispatch<
       React.SetStateAction<{
-        id?: number | undefined;
+        id?: string | undefined;
         name?: string | undefined;
       }>
     >;
@@ -156,7 +140,26 @@ export function FilterSelect({ onApply, onClose }: FilterSelectProps) {
       open: openCorner,
       setOpen: setOpenCorner,
     },
-
+  ];
+  const multipleFilters: {
+    label: string;
+    button: string;
+    command: string;
+    search: string;
+    selected: { id?: string | undefined; name?: string | undefined }[];
+    table: { id: string; name: string }[];
+    notFound: string;
+    setter: React.Dispatch<
+      React.SetStateAction<
+        {
+          id?: string | undefined;
+          name?: string | undefined;
+        }[]
+      >
+    >;
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  }[] = [
     {
       label: "الفئة",
       button: "اختر الفئة",
@@ -194,6 +197,8 @@ export function FilterSelect({ onApply, onClose }: FilterSelectProps) {
           step={1}
           value={priceRange}
           onValueChange={(value: [number, number]) => setPriceRange(value)}
+          className="[&_.range-slider__range]:bg-color1 [&_[role=slider]]:border-black [&_[role=slider]]:bg-color2 [&_[role=slider]]:focus:ring-color1"
+          color="#27a098"
         />
         <div className="flex justify-between text-sm">
           <span>${priceRange[0]}</span>
@@ -231,7 +236,7 @@ export function FilterSelect({ onApply, onClose }: FilterSelectProps) {
                         key={e.id}
                         onSelect={(value) => {
                           filter.setter({
-                            id: parseInt(e.id),
+                            id: e.id,
                             name: e.name,
                           });
                           filter.setOpen(false);
@@ -247,8 +252,85 @@ export function FilterSelect({ onApply, onClose }: FilterSelectProps) {
           </Popover>
         </div>
       ))}
+      {multipleFilters.map((filter) => (
+        <div key={filter.label} className="space-y-2">
+          <Popover open={filter.open} onOpenChange={filter.setOpen}>
+            <PopoverTrigger asChild>
+              <Button className="w-full" variant="outline">
+                {filter.selected.length === 1 ? (
+                  `فئة`
+                ) : filter.selected.length === 2 ? (
+                  "فئتين"
+                ) : filter.selected.length > 2 ? (
+                  <h2 dir="rtl">{filter.selected.length} فئات </h2>
+                ) : (
+                  filter.command
+                )}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="p-0" side="bottom" align="start">
+              <Command dir="rtl">
+                <div dir="rtl" className="flex justify-between">
+                  <CommandInput placeholder={filter.search} />
+                  <div className="m-1 flex items-center gap-0.5">
+                    <button
+                      onClick={() => {
+                        filter.setOpen(false);
+                      }}
+                      className="h-full rounded-md bg-blue-500 px-3 text-white"
+                    >
+                      إنتهاء
+                    </button>
+                    <button
+                      onClick={() => {
+                        filter.setter([]);
+                        filter.setOpen(false);
+                      }}
+                      className="h-full rounded-md bg-red-500 px-3 text-white"
+                    >
+                      فسخ
+                    </button>
+                  </div>
+                </div>
+                <CommandList>
+                  <CommandEmpty>{filter.notFound}</CommandEmpty>
+                  <CommandGroup>
+                    {filter.table.map((e) => (
+                      <CommandItem
+                        key={e.id}
+                        onSelect={() => {
+                          filter.setter((prev) =>
+                            prev.some((item) => item.id === e.id)
+                              ? prev.filter((item) => item.id !== e.id)
+                              : [...prev, { id: e.id, name: e.name }],
+                          );
+                        }}
+                      >
+                        <div className="flex items-center">
+                          <input
+                            type="checkbox"
+                            checked={filter.selected.some(
+                              (item) => item.id === e.id,
+                            )}
+                            readOnly
+                            className="mr-2"
+                          />
+                          {e.name}
+                        </div>
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
+      ))}
 
-      <Button onClick={handleApply} className="w-full">
+      <Button
+        onClick={handleApply}
+        className="w-full bg-color1 hover:bg-color2"
+      >
         تطبيق المرشحات
       </Button>
     </div>

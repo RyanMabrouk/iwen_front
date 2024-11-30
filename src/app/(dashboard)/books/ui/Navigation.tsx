@@ -17,8 +17,8 @@ export default function Navigation({
 }: {
   sortings: SortingType;
   setView: (view: SortingType) => void;
-  bookNumber: number;
-  setBooks: (value: number) => void;
+  bookNumber: string;
+  setBooks: (value: string) => void;
   filters: FilterType;
   setFilters: React.Dispatch<React.SetStateAction<FilterType>>;
 }) {
@@ -26,7 +26,11 @@ export default function Navigation({
     <nav className="flex w-full items-center justify-between bg-white px-4 py-2 sm:px-6 lg:px-8">
       <div className="flex w-full items-center justify-between gap-2">
         <div className="flex items-center gap-4">
-          <ViewPreference bookNumber={bookNumber} setBooks={setBooks} />
+          <ViewPreference
+            className="max-sm:hidden"
+            bookNumber={bookNumber}
+            setBooks={setBooks}
+          />
           <BooksFilters setFilters={setFilters} />
         </div>
         <Sortings sortings={sortings} setView={setView} />

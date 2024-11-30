@@ -223,7 +223,7 @@ export function CartButtons({
   const quantity = data?.find((item) => item.id === book.id)?.quantity ?? 0;
   return (
     <div
-      className={`z-[100] flex items-center justify-between ${
+      className={`z-[10] flex items-center justify-between ${
         variant === "column" ? "flex-col" : "flex-row gap-3"
       }`}
     >

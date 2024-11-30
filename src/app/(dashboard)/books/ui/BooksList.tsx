@@ -13,7 +13,7 @@ export default function BooksList({
   setPage,
   filters: filter,
 }: {
-  booksNumber: number;
+  booksNumber: string;
   sortings: SortingType;
   page: number;
   setPage: (value: number) => void;
@@ -24,15 +24,29 @@ export default function BooksList({
   const formattedDate = currentDate.toISOString().split("T")[0];
 
   const data = useBooks({
-    limit: booksNumber * 3,
+    limit: parseInt(booksNumber) * 3,
     page,
+    ...(filter.categories !== undefined &&
+      filter.categories.length > 0 && {
+        categories_ids: filter.categories,
+      }),
+    ...(filter.subcategories !== undefined &&
+      filter.subcategories.length > 0 && {
+        subcategories_ids: filter.subcategories,
+      }),
     ...(sortings === "mostSold" && { most_sold: "desc" }),
     filters: {
       ...(sortings === "newest"
-        ? { books: [{ operator: ">=", value: formattedDate }] }
+        ? { "books.created_at": [{ operator: ">=", value: formattedDate }] }
         : sortings === "discount"
-          ? { books: [{ operator: ">", value: "0%" }] }
+          ? { "books.discount": [{ operator: ">=", value: "0" }] }
           : {}),
+      ...(filter.writer !== undefined && {
+        "books.writer_id": [{ operator: "=", value: filter.writer }],
+      }),
+      ...(filter.shareHouse !== undefined && {
+        "books.share_house_id": [{ operator: "=", value: filter.shareHouse }],
+      }),
     },
   });
   if (data.isLoading)
@@ -44,11 +58,14 @@ export default function BooksList({
   const books = data.data?.data?.data;
   return (
     <div className="flex flex-col items-center">
-      <div dir="rtl" className={`grid w-full grid-cols-${booksNumber}`}>
+      <div
+        dir="rtl"
+        className={`grid w-full max-sm:grid-cols-2 grid-cols-${booksNumber}`}
+      >
         {books?.map((book, i) => (
           <div
             key={i}
-            className={`py-3 transition-all duration-300 ${booksNumber === 6 ? "px-4" : booksNumber === 4 ? "px-10" : booksNumber === 3 ? "px-16 py-4 max-lg:px-5" : "px-20 max-md:px-10"}`}
+            className={`py-3 transition-all duration-300 max-sm:px-5 ${booksNumber === "6" ? "px-4" : booksNumber === "4" ? "px-10" : booksNumber === "3" ? "px-16 py-4 max-lg:px-5" : "px-20 max-md:px-10"}`}
           >
             <BookCard {...book} writer={book.writer?.name ?? ""} />
           </div>

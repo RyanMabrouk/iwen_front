@@ -8,7 +8,7 @@ import {
 } from "@/types";
 import { Tables } from "@/types/database.types";
 
-interface QueryBooksArgs
+export interface QueryBooksArgs
   extends InfinityPaginationQueryType<`books.${keyof Tables<"books">}`> {
   most_sold?: "asc" | "desc";
   subcategories_ids?: string[];

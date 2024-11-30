@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../themes/theme";
 import { Pagination } from "@mui/material";
-import useBooks from "@/hooks/data/books/useBooks";
 
 export default function PaginationExample({
   page,
@@ -16,16 +17,18 @@ export default function PaginationExample({
   };
 
   return (
-    <div className="flex flex-col items-center py-4">
-      <Pagination
-        count={4}
-        page={page}
-        onChange={handleChange}
-        color="primary"
-        size="large"
-        showFirstButton
-        showLastButton
-      />
+    <div className="bg-color flex flex-col items-center py-4">
+      <ThemeProvider theme={theme}>
+        <Pagination
+          count={4}
+          page={page}
+          onChange={handleChange}
+          color="primary"
+          size="large"
+          showFirstButton
+          showLastButton
+        />
+      </ThemeProvider>
     </div>
   );
 }

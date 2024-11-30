@@ -4,6 +4,7 @@ import Navigation from "./ui/Navigation";
 import BooksList from "./ui/BooksList";
 import { useStateToUrl } from "@/helpers/stateToUrl";
 import { useWindowSize } from "@/hooks/useWindowSize";
+import { number } from "zod";
 
 export type SortingType = "mostSold" | "newest" | "discount" | "all";
 export type GenreType = "test" | "test2";
@@ -16,40 +17,41 @@ export type FilterType = {
   writer?: string;
   shareHouse?: string;
   corner?: string;
-  category?: string;
-  subcategory?: string;
+  categories?: string[];
+  subcategories?: string[];
 };
 
 export default function page() {
-  const [numberOfBooks, setNumberOfBooks] = useStateToUrl<number>(
+  const [numberOfBooks, setNumberOfBooks] = useStateToUrl<string>(
     "booksPerLine",
-    6,
+    "6",
   );
   const [sortings, setSortings] = useStateToUrl<SortingType>("view", "all");
   const [page, setPage] = useStateToUrl<number>("page", 1);
   const [filters, setFilters] = useState<FilterType>({});
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (Object.keys(filters).length > 0) {
       console.log(filters);
     }
-  }, [filters]);
+  }, [filters]); */
+
   const size = useWindowSize();
   useEffect(() => {
     if (
       size !== undefined &&
       size.width !== undefined &&
       size.width < 1280 &&
-      numberOfBooks > 3
+      parseInt(numberOfBooks) > 3
     ) {
-      setNumberOfBooks(3);
+      setNumberOfBooks("3");
     } else if (
       size !== undefined &&
       size.width !== undefined &&
       size.width > 1280 &&
-      numberOfBooks < 4
+      parseInt(numberOfBooks) < 4
     ) {
-      setNumberOfBooks(4);
+      setNumberOfBooks("4");
     }
   }, [size]);
 
@@ -59,7 +61,7 @@ export default function page() {
   };
 
   return (
-    <div className="flex flex-col gap-2 max-2xl:bg-red-700 max-xl:bg-orange-500 max-lg:bg-yellow-600 max-md:bg-emerald-700 max-sm:bg-blue-500">
+    <div className="flex flex-col gap-2">
       <Navigation
         filters={filters}
         setFilters={setFilters}
