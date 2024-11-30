@@ -79,6 +79,7 @@ export default function Page() {
                   <button
                     className="flex h-full w-full flex-row items-center justify-center gap-2 text-xl text-color4"
                     key={book.id}
+                    title="إلغاء"
                   >
                     <Image
                       src={"/auth/x-dark.svg"}

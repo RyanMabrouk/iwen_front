@@ -13,12 +13,9 @@ export default function Header() {
       dir="rtl"
       className="flex h-auto flex-col items-center gap-4 p-4 md:h-[8.5rem] md:flex-row md:gap-[2rem] md:p-0"
     >
-      {/* User Avatar */}
       <ProfilePictureUpload defaultProfilePic={user?.data?.avatar} />
 
-      {/* User Details and Sections */}
       <div className="flex w-full flex-col items-center gap-4 rounded-lg bg-white p-3 md:h-full md:flex-row md:items-stretch md:gap-0 md:p-5">
-        {/* User Info Section */}
         <div className="flex flex-col items-center justify-center gap-2 pl-2 pr-2 text-center sm:pl-[4rem] sm:pr-[2rem] md:gap-3 md:text-right">
           <div className="text-lg font-semibold md:text-xl">
             {user?.data?.first_name + " " + user?.data?.last_name}
@@ -35,7 +32,6 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Purchases Section */}
         <div className="flex flex-col items-center justify-center gap-2 px-4 py-2 md:gap-3 md:border-l-2 md:border-r-2 md:border-t-0 md:px-[8rem] md:py-0">
           <Image
             src={"/profile/fi-rr-book.png"}
@@ -49,7 +45,6 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Total Spending Section */}
         <div className="flex flex-col items-center justify-center gap-2 px-4 py-2 md:gap-3 md:px-[8rem] md:py-0">
           <Image
             src={"/profile/coin-svgrepo-com 1.png"}
