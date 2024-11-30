@@ -6,7 +6,6 @@ export interface InfinityPaginationQueryType<
 > {
   page?: number;
   limit?: number;
-  most_sold?: SortType;
   sort?: {
     order: "asc" | "desc";
     orderBy: EntityFilterKeys;

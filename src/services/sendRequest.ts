@@ -49,6 +49,7 @@ export default async function sendRequest<
   } catch (error: any) {
     console.log(error.response.data.errors);
     if (axios.isAxiosError(error)) {
+      console.log("🚀 ~ error:", error.response?.data.errors);
       const backendError: IError<IPayload> = error.response?.data;
       if (backendError.errors) {
         return {
