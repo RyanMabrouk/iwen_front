@@ -16,13 +16,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { PopoverClose } from "@radix-ui/react-popover";
 import useWriters from "@/hooks/data/books/writers/useWriters";
 import useCorners from "@/hooks/data/books/corners/useCorners";
 import useCategories from "@/hooks/data/books/categories/useCategories";
 import useSubCategories from "@/hooks/data/books/subCategories/useSubCategories";
 import useShareHouses from "@/hooks/data/books/useShareHouses";
-import { FilterType } from "../page";
 import { useBooksProvider } from "../provider/BooksProvider";
 
 type FilterSelectProps = {
@@ -47,15 +45,15 @@ export function FilterSelect({ onClose }: FilterSelectProps) {
   const [priceRange, setPriceRange] = useState<[number, number]>(
     (priceRangeValue.split("%") as unknown as [number, number]) ?? [0, 2000],
   );
-  const [writer, setWriter] = useState<{ id?: string; name?: string }>(
-    { id: writerId } ?? {},
-  );
-  const [corner, setCorner] = useState<{ id?: string; name?: string }>(
-    { id: cornerId } ?? {},
-  );
-  const [shareHouse, setShareHouse] = useState<{ id?: string; name?: string }>(
-    { id: shareHouseId } ?? {},
-  );
+  const [writer, setWriter] = useState<{ id?: string; name?: string }>({
+    id: writerId,
+  });
+  const [corner, setCorner] = useState<{ id?: string; name?: string }>({
+    id: cornerId,
+  });
+  const [shareHouse, setShareHouse] = useState<{ id?: string; name?: string }>({
+    id: shareHouseId,
+  });
   const [category, setCategory] = useState<{ id?: string; name?: string }[]>(
     categoriesIds.split("%").map((id) => ({ id })) ?? [],
   );
