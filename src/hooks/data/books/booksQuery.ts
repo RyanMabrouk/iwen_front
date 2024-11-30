@@ -10,9 +10,11 @@ import { Tables } from "@/types/database.types";
 
 export interface QueryBooksArgs
   extends InfinityPaginationQueryType<`books.${keyof Tables<"books">}`> {
-  most_sold?: "asc" | "desc";
-  subcategories_ids?: string[];
-  categories_ids?: string[];
+  extra_filters: {
+    most_sold?: "asc" | "desc";
+    subcategories_ids?: string[];
+    categories_ids?: string[];
+  };
 }
 
 const booksQuery = (args: QueryBooksArgs) => ({
