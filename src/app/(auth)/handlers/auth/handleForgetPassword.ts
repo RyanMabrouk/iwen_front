@@ -1,5 +1,5 @@
+import signInWithOPT from "@/actions/auth/signInWithOTP";
 import { z } from "zod";
-import signInWithOPT from "../../actions/auth/signInWithOTP";
 
 const forgetPasswordSchema = z.object({
   email: z.string().email("عنوان البريد الإلكتروني غير صالح"),

@@ -18,7 +18,7 @@ export default function Page() {
               src="/sideLine.svg"
               alt="book"
               className="absolute right-2 top-0 h-full rounded-md bg-transparent bg-clip-border"
-              width={55}
+              width={45}
               height={2000}
             />
             <div className="flex flex-col items-start justify-start gap-8">
@@ -30,7 +30,7 @@ export default function Page() {
                     className="gap -mr-6 flex flex-row items-start gap-6"
                   >
                     <Image
-                      src={book.images_urls?.[0] ?? "/book.png"}
+                      src={book.images_urls?.[0] ?? "/empty-book.svg"}
                       alt="book"
                       className="bg rounded-md bg-white px-6 py-4"
                       width={120}

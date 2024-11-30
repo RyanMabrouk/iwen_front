@@ -6,8 +6,10 @@ import {
   InfinityPaginationQueryType,
   InfinityPaginationResultType,
 } from "@/types";
+import { Tables } from "@/types/database.types";
 
-interface QueryBooksArgs extends InfinityPaginationQueryType<"books"> {
+interface QueryBooksArgs
+  extends InfinityPaginationQueryType<`books.${keyof Tables<"books">}`> {
   most_sold?: "asc" | "desc";
   subcategories_ids?: string[];
   categories_ids?: string[];
@@ -16,24 +18,25 @@ interface QueryBooksArgs extends InfinityPaginationQueryType<"books"> {
 const booksQuery = (args: QueryBooksArgs) => ({
   queryKey: ["books", args],
   queryFn: async () => {
-    const url = getEndpoint({ resource: "books", action: "getBooks" });
-    const searchParams = Object.keys(args).map((key) => ({
-      name: key,
-      value: JSON.stringify(args[key as keyof typeof args]),
-    }));
-    const newUrl = createNewPathname({
-      currentPathname: url(),
-      values: searchParams,
-    });
-    const { error, data } = await sendRequest<
-      InfinityPaginationResultType<IBookPopulated>
-    >({
-      method: "GET",
-      url: newUrl,
-    });
-
+    const { data, error } = await getBooks(args);
     if (error) return { data: null, error: error };
     else return { data, error: null };
   },
 });
-export { booksQuery };
+export { booksQuery, getBooks };
+
+async function getBooks(args: QueryBooksArgs) {
+  const url = getEndpoint({ resource: "books", action: "getBooks" });
+  const searchParams = Object.keys(args).map((key) => ({
+    name: key,
+    value: JSON.stringify(args[key as keyof typeof args]),
+  }));
+  const newUrl = createNewPathname({
+    currentPathname: url(),
+    values: searchParams,
+  });
+  return await sendRequest<InfinityPaginationResultType<IBookPopulated>>({
+    method: "GET",
+    url: newUrl,
+  });
+}
