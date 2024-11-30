@@ -21,21 +21,22 @@ export default function BooksList({
   const currentDate = new Date();
   currentDate.setMonth(currentDate.getMonth() - 1);
   const formattedDate = currentDate.toISOString().split("T")[0];
-  const extra_filters = {
-    ...(Array.isArray(filter.categories) &&
-      filter.categories.length > 0 && {
-        categories_ids: filter.categories,
-      }),
-    ...(Array.isArray(filter.subcategories) &&
-      filter.subcategories.length > 0 && {
-        subcategories_ids: filter.subcategories,
-      }),
-    ...(sortings === "mostSold" && { most_sold: "desc" as const }),
-  };
+
   const data = useBooks({
     limit: parseInt(booksNumber) * 3,
     page,
-    ...(Object.keys(extra_filters).length > 0 && { extra_filters }),
+    extra_filters: {
+      ...(filter.categories !== undefined &&
+        filter.categories.length > 0 && {
+          categories_ids: filter.categories,
+        }),
+      ...(filter.subcategories !== undefined &&
+        filter.subcategories.length > 0 && {
+          subcategories_ids: filter.subcategories,
+        }),
+      ...(sortings === "mostSold" && { most_sold: "desc" }),
+    },
+
     filters: {
       ...(sortings === "newest"
         ? { "books.created_at": [{ operator: ">=", value: formattedDate }] }
@@ -48,6 +49,12 @@ export default function BooksList({
       ...(filter.shareHouse !== undefined && {
         "books.share_house_id": [{ operator: "=", value: filter.shareHouse }],
       }),
+      ...(filter.priceRange !== undefined && {
+        "books.price": [
+          { operator: ">", value: filter.priceRange[0].toString() },
+          { operator: "<", value: filter.priceRange[1].toString() },
+        ],
+      }),
     },
   });
   if (data.isLoading)
@@ -57,6 +64,7 @@ export default function BooksList({
       </div>
     );
   const books = data.data?.data?.data;
+  const pages = data.data?.data?.meta.total_pages ?? 0;
   return (
     <div className="flex flex-col items-center">
       <div
@@ -68,11 +76,15 @@ export default function BooksList({
             key={i}
             className={`py-3 transition-all duration-300 max-sm:px-5 ${booksNumber === "6" ? "px-4" : booksNumber === "4" ? "px-10" : booksNumber === "3" ? "px-16 py-4 max-lg:px-5" : "px-20 max-md:px-10"}`}
           >
-            <BookCard {...book} writer={book.writer?.name ?? ""} />
+            <BookCard
+              images={book.images_urls}
+              {...book}
+              writer={book.writer?.name ?? ""}
+            />
           </div>
         ))}
       </div>
-      <BookPage page={page} setPage={setPage} />
+      <BookPage numberOfPages={pages} page={page} setPage={setPage} />
     </div>
   );
 }
