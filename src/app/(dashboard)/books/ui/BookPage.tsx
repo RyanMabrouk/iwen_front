@@ -8,9 +8,11 @@ import { Pagination } from "@mui/material";
 export default function PaginationExample({
   page,
   setPage,
+  numberOfPages,
 }: {
   page: number;
   setPage: (value: number) => void;
+  numberOfPages: number;
 }) {
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -20,7 +22,7 @@ export default function PaginationExample({
     <div className="bg-color flex flex-col items-center py-4">
       <ThemeProvider theme={theme}>
         <Pagination
-          count={4}
+          count={numberOfPages}
           page={page}
           onChange={handleChange}
           color="primary"

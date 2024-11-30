@@ -30,7 +30,7 @@ type FilterSelectProps = {
 };
 
 export function FilterSelect({ onApply, onClose }: FilterSelectProps) {
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 2000]);
   const [writer, setWriter] = useState<{ id?: string; name?: string }>({});
   const [shareHouse, setShareHouse] = useState<{ id?: string; name?: string }>(
     {},
@@ -193,7 +193,7 @@ export function FilterSelect({ onApply, onClose }: FilterSelectProps) {
         <Label>السعر</Label>
         <Slider
           min={0}
-          max={1000}
+          max={2000}
           step={1}
           value={priceRange}
           onValueChange={(value: [number, number]) => setPriceRange(value)}
@@ -306,7 +306,7 @@ export function FilterSelect({ onApply, onClose }: FilterSelectProps) {
                           );
                         }}
                       >
-                        <div className="flex items-center">
+                        <div className="flex items-center gap-2">
                           <input
                             type="checkbox"
                             checked={filter.selected.some(
@@ -315,7 +315,9 @@ export function FilterSelect({ onApply, onClose }: FilterSelectProps) {
                             readOnly
                             className="mr-2"
                           />
-                          {e.name}
+                          <h1 className="font-semibold transition-all duration-200 hover:text-color1">
+                            {e.name}
+                          </h1>
                         </div>
                       </CommandItem>
                     ))}
