@@ -31,7 +31,7 @@ async function getBooks(args: QueryBooksArgs) {
   const url = getEndpoint({ resource: "books", action: "getBooks" });
   const searchParams = Object.keys(args).map((key) => ({
     name: key,
-    value: args[key as keyof typeof args],
+    value: JSON.stringify(args[key as keyof typeof args]),
   }));
   const newUrl = createNewPathname({
     currentPathname: url(),
