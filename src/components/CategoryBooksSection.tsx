@@ -67,7 +67,7 @@ export default function CategoryBooksSection() {
               })) || []),
             ]}
             onChange={(categoryId) => {
-              setActiveCategoryId(categoryId); 
+              setActiveCategoryId(categoryId);
             }}
           />
           <div className="scrollbar scrollbar-thin scrollbar-thumb-primary-500 scrollbar-track-gray-200 dir-[rtl] relative h-[60px] w-full overflow-x-auto">

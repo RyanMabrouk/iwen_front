@@ -2,7 +2,12 @@
 
 import { createClient } from "@/lib/supabase";
 
-export default async function verifyOTP(email: string, otp: string) {
+import { AuthResponse } from "@supabase/auth-js";
+
+export default async function verifyOTP(
+  email: string,
+  otp: string,
+): Promise<AuthResponse> {
   const supabase = createClient();
   console.log(email, otp);
 
@@ -24,5 +29,5 @@ export default async function verifyOTP(email: string, otp: string) {
     });
   }
 
-  return { session };
+  return { data: { user: session?.user ?? null, session }, error: null };
 }
