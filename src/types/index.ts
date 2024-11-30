@@ -72,6 +72,7 @@ export interface IBookPayload {
   canonical: string;
   slug: string;
   structured_data: FormDataEntryValue | null;
+  is_in_wishlist: boolean;
 }
 export interface IBookPopulated extends Tables<"books"> {
   writer_books: Tables<"books">[];

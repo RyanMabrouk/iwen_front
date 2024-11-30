@@ -18,7 +18,7 @@ export default function Page() {
               src="/sideLine.svg"
               alt="book"
               className="absolute right-2 top-0 h-full rounded-md bg-transparent bg-clip-border"
-              width={55}
+              width={45}
               height={2000}
             />
             <div className="flex flex-col items-start justify-start gap-8">
@@ -30,18 +30,20 @@ export default function Page() {
                     className="gap -mr-6 flex flex-row items-start gap-6"
                   >
                     <Image
-                      src={book.images_urls?.[0] ?? "/book.png"}
+                      src={book.images_urls?.[0] ?? "/empty-book.svg"}
                       alt="book"
                       className="bg rounded-md bg-white px-6 py-4"
                       width={120}
-                      height={120} // 1:1
+                      height={120}
                     />
                     <div className="mt-6 flex flex-col justify-center gap-2">
                       <h1 className="font-semibold">{book.title}</h1>
-                      <span className="flex flex-row items-start justify-start gap-2 text-sm text-color4">
-                        <p>رقم الكتاب :</p>
-                        <p>{book.isbn}</p>
-                      </span>
+                      {book.isbn && (
+                        <span className="flex flex-row items-start justify-start gap-2 text-sm text-color4">
+                          <p>رقم الكتاب :</p>
+                          <p>{book.isbn}</p>
+                        </span>
+                      )}
                     </div>
                   </div>
                 </>
@@ -68,6 +70,9 @@ export default function Page() {
                     key={book.id}
                   >
                     <p>{book.price_after_discount} د.م</p>
+                    {!!book.discount && (
+                      <del className="text-sm text-color4">{book.price}</del>
+                    )}
                   </span>
                 ))}
               </div>
@@ -96,7 +101,7 @@ export default function Page() {
             </div>
           </div>
           <div className="flex flex-row items-center justify-evenly gap-[30svw]">
-            <Link href="/home">
+            <Link href="/books">
               <PrimaryButton
                 className="flex flex-row-reverse items-center"
                 size="md"
@@ -116,6 +121,11 @@ export default function Page() {
               <div className="flex flex-row gap-2">
                 <span className="font-medium"> إجمالي المبلغ :</span>
                 <span className="text-xl font-semibold">{cart.total}د.م</span>
+                {cart.total_before_discount !== cart.total && (
+                  <span className="text-sm text-color4">
+                    <del>{cart.total_before_discount}د.م</del>
+                  </span>
+                )}
               </div>
               <Link href="/order">
                 <PrimaryButton size="md"> تأكيد الطلب</PrimaryButton>

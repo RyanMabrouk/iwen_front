@@ -17,7 +17,6 @@ const phoneNumberSchema = z
 export default function Form() {
   const queryClient = useQueryClient();
   const { data: user } = useCurrentUser();
-  console.log("🚀 ~ Form ~ user:", user?.data?.city)
   const { toast } = useToast();
   const [selectedState, setSelectedState] = useState<string>("");
   const [selectedCity, setSelectedCity] = useState<string>("");
@@ -34,7 +33,6 @@ export default function Form() {
       setSelectedCity(user.data.city);
     }
   }, [user?.data?.city]);
-  
 
   const updateMutation = useMutation({
     mutationFn: async (formData: FormData) => {
@@ -88,7 +86,7 @@ export default function Form() {
   });
 
   return (
-    <form dir="rtl" className="bg-white sm:px-4" action={updateMutation.mutate}>
+    <form dir="rtl" className="bg-white" action={updateMutation.mutate}>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <FormInput
           errors={errors?.first_name}
@@ -130,7 +128,7 @@ export default function Form() {
           icon={<Phone className="h-4 w-4" />}
         />
         <FormSelect
-        errors={errors?.state}
+          errors={errors?.state}
           label="الولاية"
           name="state"
           placeholder="اختر الولاية"
@@ -138,10 +136,9 @@ export default function Form() {
           value={selectedState}
           required
           onChange={(value) => {
-            if(value){
+            if (value) {
               setSelectedState(value);
             }
-
           }}
         />
         <FormSelect
@@ -149,12 +146,14 @@ export default function Form() {
           label="المدينة"
           name="city"
           placeholder="اختر المدينة"
-          options={ moroccanStates.find((state) => state.state === selectedState)?.cities || []
+          options={
+            moroccanStates.find((state) => state.state === selectedState)
+              ?.cities || []
           }
           value={selectedCity}
           required
-          onChange={(value) =>{ 
-            if(value)setSelectedCity(value)
+          onChange={(value) => {
+            if (value) setSelectedCity(value);
           }}
           disabled={!selectedState}
         />
@@ -185,13 +184,13 @@ export default function Form() {
           defaultValue={user?.data?.street2}
           icon={<MapPin className="h-4 w-4" />}
         />
-      
+
         <div></div>
         <div className="">
           <button
             type="submit"
             disabled={updateMutation.isPending}
-            className="rounded-md bg-color1 p-2 px-4 text-lg text-white opacity-100 hover:opacity-50"
+            className="rounded-md bg-color2 p-2 px-4 text-lg text-white opacity-100 hover:opacity-50"
           >
             {updateMutation.isPending ? "جاري التحديث..." : "احفظ التغيير"}
           </button>

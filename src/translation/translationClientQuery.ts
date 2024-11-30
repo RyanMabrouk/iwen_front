@@ -3,7 +3,7 @@ import getFromLocalstorage from "@/helpers/localstorage/getFromLocalstorage";
 import getTranslation from "./getTranslation";
 
 export const translationClientQuery = () => {
-  let locale = getFromLocalstorage("lang") ? getFromLocalstorage("lang") : "en";
+  let locale = getFromLocalstorage<string>("lang") ?? "en";
   if (!["en", "fr"].includes(locale)) {
     locale = "fr";
   }

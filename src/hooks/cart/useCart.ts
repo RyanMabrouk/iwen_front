@@ -8,15 +8,18 @@ import { Tables } from "@/types/database.types";
 
 export default function useCart() {
   const query = useQuery(cartQuery());
-  const total = query.data?.reduce((acc, book) => {
+  const total_after_discount = query.data?.reduce((acc, book) => {
     return acc + book.price_after_discount;
+  }, 0);
+  const total_before_discount = query.data?.reduce((acc, book) => {
+    return acc + book.price;
   }, 0);
   const queryClient = useQueryClient();
   return {
     ...query,
     cart: query.data,
-    total,
-
+    total: total_after_discount,
+    total_before_discount,
     addToCart: (book: Tables<"books">) => {
       addToCart(book);
       queryClient.invalidateQueries({

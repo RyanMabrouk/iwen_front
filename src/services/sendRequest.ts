@@ -2,6 +2,7 @@
 import axios from "axios";
 import { cookies } from "next/headers";
 import { IError } from "@/types";
+import { createClient } from "@/lib/supabase";
 export type CRUDMethod = "GET" | "POST" | "PATCH" | "DELETE";
 export default async function sendRequest<
   T,
@@ -25,24 +26,19 @@ export default async function sendRequest<
     data: payload || {},
   };
   try {
-    const token = cookies()
-      .get("sb-mqisujmkeqaqwppsnnww-auth-token")
-      ?.value.replace("base64-", "")
-      .replace(" ", "");
+    const supabase = createClient();
+    const user = await supabase.auth.getSession();
+    const token = user.data.session?.access_token;
     let headers: Record<string, string> = {
       accept: "application/json",
       "content-type": "application/json",
     };
     if (token) {
-      const decodedToken = JSON.parse(atob(token ?? "")) as unknown as {
-        access_token: string;
-      };
       headers = {
         ...headers,
-        Authorization: `Bearer ${decodedToken.access_token}`,
+        Authorization: `Bearer ${token}`,
       };
     }
-
     const api = axios.create({
       baseURL: process.env.BACKEND_URL!,
       timeout: 0,

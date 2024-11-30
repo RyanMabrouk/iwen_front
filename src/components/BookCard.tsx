@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Book, Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import Heart from "./icons/Heart";
 import FilledHeart from "./icons/FilledHeart";
 import ArrowLeft from "./icons/ArrowLeft";
@@ -11,18 +11,69 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Tables } from "@/types/database.types";
 import useCart from "@/hooks/cart/useCart";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import sendRequest from "@/services/sendRequest";
+import getEndpoint from "@/services/getEndpoint";
+import { useToast } from "@/hooks/useToast";
 
 export default function BookCard({
   writer,
   images,
   className,
+  is_in_wishlist,
   ...book
 }: Tables<"books"> & {
+  is_in_wishlist?: boolean;
   className?: string;
   writer?: string;
   images?: string[];
 }) {
-  const [isLiked, setIsLiked] = useState(false);
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+  const [isLiked, setIsLiked] = useState(is_in_wishlist);
+  const addUrl = getEndpoint({
+    resource: "wishlist",
+    action: "createWishlist",
+  });
+  const deleteUrl = getEndpoint({
+    resource: "wishlist",
+    action: "deleteWishlist",
+  });
+  const addToWishlistMutation = useMutation({
+    mutationFn: async () => {
+      const { error, validationErrors } = await sendRequest<
+        { book_id: string },
+        { book_id: string }
+      >({
+        method: "POST",
+        url: addUrl(),
+        payload: { book_id: book.id },
+      });
+      if (error || validationErrors) {
+        throw new Error("Validation error");
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["wishlist"] });
+      toast.info("تمت الإضافة إلى قائمة الرغبات");
+    },
+    onError: () => {
+      toast.info("هذا الكتاب موجود بالفعل في قائمة الرغبات");
+    },
+  });
+  const removeFromWishlistMutation = useMutation({
+    mutationFn: async () => {
+      await sendRequest({ method: "DELETE", url: deleteUrl(book.id) });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["wishlist"] });
+      toast.info("تمت الإزالة من قائمة الرغبات");
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.info("هذا الكتاب غير موجود في قائمة الرغبات");
+    },
+  });
   return (
     <div
       dir="rtl"
@@ -55,7 +106,7 @@ export default function BookCard({
         </div>
       )}
 
-      <div className="group relative flex h-64 cursor-pointer items-center justify-center">
+      <div className="group relative flex h-60 cursor-pointer items-center justify-center">
         <ArrowLeft
           size={22}
           className={`${"btn_swiper_arrow_left" + book.id} absolute left-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
@@ -84,7 +135,20 @@ export default function BookCard({
                   height={1000}
                 />
               </div>
-            )) ?? []
+            )) ?? [
+              <div
+                className="group flex h-full w-full items-center justify-center p-7"
+                key={0}
+              >
+                <Image
+                  src="/empty-book.svg"
+                  className="-mb-12 h-full w-full object-scale-down transition-all duration-200"
+                  alt="Book"
+                  width={1000}
+                  height={1000}
+                />
+              </div>,
+            ]
           }
           initialSlide={0}
           slidesPerView={1}
@@ -94,7 +158,14 @@ export default function BookCard({
         <div className="absolute h-48 w-48 rounded-[100%] bg-primary-500/10 blur-lg transition-all"></div>
         <div
           className="group absolute right-6 top-6 z-10 cursor-pointer"
-          onClick={() => setIsLiked(!isLiked)}
+          onClick={() => {
+            if (isLiked) {
+              removeFromWishlistMutation.mutate();
+            } else {
+              addToWishlistMutation.mutate();
+            }
+            setIsLiked((prev) => !prev);
+          }}
         >
           {isLiked ? (
             <FilledHeart
