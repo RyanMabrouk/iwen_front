@@ -16,49 +16,23 @@ export default function BooksList({
   booksNumber: number;
   sortings: SortingType;
   page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setPage: (value: number) => void;
   filters: FilterType;
 }) {
+  const currentDate = new Date();
+  currentDate.setMonth(currentDate.getMonth() - 1);
+  const formattedDate = currentDate.toISOString().split("T")[0];
+
   const data = useBooks({
     limit: booksNumber * 3,
     page,
+    ...(sortings === "mostSold" && { most_sold: "desc" }),
     filters: {
-      ...(sortings === "newest" && {
-        "books.created_at": [
-          {
-            operator: ">",
-            value: new Date(Date.now() - 4 * 7 * 24 * 60 * 60 * 1000)
-              .toISOString()
-              .split("T")[0],
-          },
-        ],
-      }),
-      ...(sortings === "discount" && {
-        "books.discount": [{ operator: ">", value: "0" }],
-      }),
-      ...(filter.priceMin !== undefined &&
-      filter.priceMax !== undefined &&
-      filter.priceMin > 0 &&
-      filter.priceMax < 1000
-        ? {
-            "books.price_dollar": [
-              { operator: ">", value: filter.priceMin.toString() },
-              { operator: "<", value: filter.priceMax.toString() },
-            ],
-          }
-        : filter.priceMin !== undefined && filter.priceMin > 0
-          ? {
-              "books.price_dollar": [
-                { operator: ">", value: filter.priceMin.toString() },
-              ],
-            }
-          : filter.priceMax !== undefined && filter.priceMax < 1000
-            ? {
-                "books.price_dollar": [
-                  { operator: "<", value: filter.priceMax.toString() },
-                ],
-              }
-            : {}),
+      ...(sortings === "newest"
+        ? { books: [{ operator: ">=", value: formattedDate }] }
+        : sortings === "discount"
+          ? { books: [{ operator: ">", value: "0%" }] }
+          : {}),
     },
   });
   if (data.isLoading)

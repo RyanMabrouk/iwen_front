@@ -4,7 +4,7 @@ export default function ViewPreference({
   setBooks,
   bookNumber,
 }: {
-  setBooks: React.Dispatch<React.SetStateAction<number>>;
+  setBooks: (value: number) => void;
   bookNumber: number;
 }) {
   const choices1 = [4, 6];

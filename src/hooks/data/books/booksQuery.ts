@@ -7,7 +7,7 @@ import {
   InfinityPaginationResultType,
 } from "@/types";
 
-interface QueryBooksArgs extends InfinityPaginationQueryType<"books"> {
+export interface QueryBooksArgs extends InfinityPaginationQueryType<"books"> {
   most_sold?: "asc" | "desc";
   subcategories_ids?: string[];
   categories_ids?: string[];

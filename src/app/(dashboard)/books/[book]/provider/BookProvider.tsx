@@ -1,8 +1,7 @@
 "use client";
 
 import { IBookPopulated } from "@/types";
-import { Tables } from "@/types/database.types";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext} from "react";
 
 type BookContextType = {
   book: IBookPopulated | null;

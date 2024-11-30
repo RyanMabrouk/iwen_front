@@ -7,7 +7,7 @@ export default function InfoNav({
   setSelectedTab,
 }: {
   selectedTab: PageType;
-  setSelectedTab: React.Dispatch<React.SetStateAction<PageType>>;
+  setSelectedTab: (value : PageType) => void;
 }) {
   const navItems: { id: PageType; title: string }[] = [
     { id: "main", title: "المعلومات الأساسيات" },

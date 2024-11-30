@@ -2,13 +2,14 @@
 
 import React from "react";
 import { Pagination } from "@mui/material";
+import useBooks from "@/hooks/data/books/useBooks";
 
 export default function PaginationExample({
   page,
   setPage,
 }: {
   page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setPage: (value: number) => void;
 }) {
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);

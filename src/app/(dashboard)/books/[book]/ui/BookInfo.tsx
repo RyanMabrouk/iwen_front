@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import InfoNav from "./InfoNav";
 import InfoContent from "./InfoContent";
 import PriceInfo from "./PriceInfo";

@@ -2,7 +2,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useBookProvider } from "../../provider/BookProvider";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Tables } from "@/types/database.types";
 
 export default function AuthorInfo() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);

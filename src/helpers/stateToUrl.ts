@@ -1,11 +1,10 @@
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import objectToUrl from "./objectToUrl";
 
 export function useStateToUrl<T>(
   name: string,
   defaultValue: T,
-): [T, Dispatch<SetStateAction<T>>] {
+): [T, (value: T) => void] {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -14,7 +13,8 @@ export function useStateToUrl<T>(
 
   const [state, setState] = useState<T>(initialValue);
 
-  useEffect(() => {
+  const changeState = (value: T) => {
+    setState(value);
     const params = new URLSearchParams(searchParams);
     if (state !== defaultValue) {
       params.set(name, state as string);
@@ -22,8 +22,9 @@ export function useStateToUrl<T>(
       params.delete(name);
     }
 
-    router.replace(`${pathname}?${params.toString()}`);
-  }, [state, name, defaultValue, pathname, router, searchParams]);
+    const newUrl = `${pathname}?${params.toString()}`;
+    router.replace(newUrl);
+  };
 
-  return [state, setState];
+  return [state, changeState] as [T, (value: T) => void];
 }

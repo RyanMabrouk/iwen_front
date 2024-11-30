@@ -9,11 +9,15 @@ export type SortingType = "mostSold" | "newest" | "discount" | "all";
 export type GenreType = "test" | "test2";
 export type FilterType = {
   stars?: number;
-  priceMax?: number;
-  priceMin?: number;
+  priceRange?: [number, number];
   genres?: GenreType[];
   release_yearMax?: number;
   release_yearMin?: number;
+  writer?: string;
+  shareHouse?: string;
+  corner?: string;
+  category?: string;
+  subcategory?: string;
 };
 
 export default function page() {
@@ -24,11 +28,12 @@ export default function page() {
   const [sortings, setSortings] = useStateToUrl<SortingType>("view", "all");
   const [page, setPage] = useStateToUrl<number>("page", 1);
   const [filters, setFilters] = useState<FilterType>({});
-  /* useEffect(() => {
+
+  useEffect(() => {
     if (Object.keys(filters).length > 0) {
       console.log(filters);
     }
-  }, [filters]); */
+  }, [filters]);
   const size = useWindowSize();
   useEffect(() => {
     if (
