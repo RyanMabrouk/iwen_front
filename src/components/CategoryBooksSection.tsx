@@ -12,17 +12,21 @@ import ArrowRight from "./icons/ArrowRight";
 import EmptyBox from "./icons/EmptyBox";
 import useEvents from "@/hooks/data/events/useEvents";
 import SingleEvent from "./SingleEvent";
+import useEvent from "@/hooks/data/events/useEvent";
+import Events from "./Events";
 
 export default function CategoryBooksSection() {
   const [activeEvent, setActiveEvent] = useState(0);
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
-  const [allEvents, setAllEvents] = useState<any[]>([]);
+  const [books, setBooks] = useState<any[]>([]);
   const [isPrevDisabled, setIsPrevDisabled] = useState(true);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
 
   const { data: categories } = useCategories();
-  const { data: books } = useBooks({ limit: 20 });
-  const { data: events } = useEvents();
+
+  // if (events?.data) {
+  //   setAllEvents(events?.data?.data || []);
+  // }
   // setAllEvents(events?.data?.data || []);
   // console.log(events);
 
@@ -34,11 +38,18 @@ export default function CategoryBooksSection() {
   //   console.log(event);
   // }
 
-  const filteredBooks = activeCategoryId
-    ? books?.data?.data.filter((book) =>
+  interface Book {
+    id: string;
+    categories: { id: string }[];
+    writer?: { name: string };
+    [key: string]: any;
+  }
+
+  const filtredBooks = activeCategoryId
+    ? books.filter((book: Book) =>
         book.categories.some((category) => category.id === activeCategoryId),
       )
-    : books?.data?.data || [];
+    : books || [];
 
   return (
     <div className="relative bg-[#E7F6F5]/30 px-6 py-14">
@@ -48,35 +59,30 @@ export default function CategoryBooksSection() {
             defaultStatus
             text="الفئات"
             icon={<CategoryIcon size={18} />}
-            content={
-              categories?.data?.map((category) => ({
+            content={[
+              { id: null, name: "عرض الكل" },
+              ...(categories?.data?.map((category) => ({
                 id: category.id,
                 name: category.name,
-              })) || []
-            }
+              })) || []),
+            ]}
             onChange={(categoryId) => {
-              setActiveCategoryId(categoryId || null);
+              setActiveCategoryId(categoryId); 
             }}
           />
           <div className="scrollbar scrollbar-thin scrollbar-thumb-primary-500 scrollbar-track-gray-200 dir-[rtl] relative h-[60px] w-full overflow-x-auto">
-            <div className="dir-[rtl] flex min-w-max flex-row-reverse gap-[25px] whitespace-nowrap">
-              {allEvents.map((event, index) => (
-                <SingleEvent
-                  key={index}
-                  eventId={event.id}
-                  activeEvent={activeEvent}
-                  index={index}
-                  setActiveEvent={setActiveEvent}
-                  eventName={event.name}
-                />
-              ))}
-            </div>
+            <Events
+              activeEvent={activeEvent}
+              setActiveEvent={setActiveEvent}
+              books={books}
+              setBooks={setBooks}
+            />
           </div>
         </div>
 
         <div className="relative">
-          {filteredBooks && filteredBooks.length > 0 ? (
-            filteredBooks.length > 4 ? (
+          {filtredBooks && filtredBooks.length > 0 ? (
+            books.length > 4 ? (
               <>
                 <div className="top-1/2 z-10 flex w-full justify-between">
                   <ArrowLeft
@@ -106,7 +112,7 @@ export default function CategoryBooksSection() {
                     prevEl: ".custom-swiper-books-prev",
                     nextEl: ".custom-swiper-books-next",
                   }}
-                  slides={filteredBooks.map((book) => (
+                  slides={books.map((book) => (
                     <div
                       key={book.id}
                       className="group flex h-full w-full items-center justify-center p-4"
@@ -126,11 +132,13 @@ export default function CategoryBooksSection() {
               </>
             ) : (
               <div className="grid grid-cols-4 gap-10 max-xl:grid-cols-2 max-sm:grid-cols-1">
-                {filteredBooks.map((book) => (
+                {filtredBooks.map((book) => (
                   <BookCard
                     key={book.id}
                     {...book}
                     writer={book.writer?.name}
+                    stock={book.stock}
+                    images={book.images_urls}
                   />
                 ))}
               </div>
