@@ -5,6 +5,7 @@ import React from "react";
 import ViewPreference from "./ViewPreference";
 import Sortings from "./Sortings";
 import BooksFilters from "./BooksFilters";
+import { BooksSortings } from "./BookSortings";
 
 export default function Navigation() {
   return (
@@ -13,6 +14,7 @@ export default function Navigation() {
         <div className="flex items-center gap-4">
           <ViewPreference className="max-sm:hidden" />
           <BooksFilters />
+          <BooksSortings />
         </div>
         <Sortings />
       </div>
