@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/popover";
 import { FilterSelect } from "./FilterSelect";
 import { FilterType } from "../page";
+import { FilterProvider } from "../provider/FilterProvider";
 
 export default function BooksFilters() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,9 @@ export default function BooksFilters() {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
-        <FilterSelect onClose={() => setIsOpen(false)} />
+        <FilterProvider>
+          <FilterSelect onClose={() => setIsOpen(false)} />
+        </FilterProvider>
       </PopoverContent>
     </Popover>
   );

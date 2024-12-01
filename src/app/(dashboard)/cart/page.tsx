@@ -9,7 +9,6 @@ import Link from "next/link";
 export default function Page() {
   const cart = useCart();
   const books = cart?.data ?? [];
-  console.log("🚀 ~ Page ~ books:", books);
   return (
     <>
       {books.length > 0 ? (

@@ -8,7 +8,6 @@ export function useStateToUrl(name: string, defaultValue: string) {
 
   const state = searchParams.get(name) ?? defaultValue;
   const changeState = (value: string) => {
-    console.log("3- changing to ", value);
     router.replace(
       createCompletePathName({
         currentPathname: pathname,

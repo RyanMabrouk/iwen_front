@@ -94,14 +94,8 @@ export default function BooksProvider({
       setNumberOfBooks("4");
     }
   }, [size]);
-  /* useEffect(() => {
-    if (Object.keys(filters).length > 0) {
-      console.log(filters);
-    }
-  }, [filters]); */
 
   const changeView = (view: string) => {
-    console.log("2- changing to ", view);
     setView(view);
     setPage("1");
   };

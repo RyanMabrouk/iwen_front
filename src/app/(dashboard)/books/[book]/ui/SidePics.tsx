@@ -12,7 +12,6 @@ export default function SidePics({
   }[];
   set: (src: string) => void;
 }) {
-  console.log(pictures);
   if (pictures.length === 1) return <div></div>;
   return (
     <div className="flex w-[5rem] flex-col items-stretch justify-between gap-5 px-2 max-lg:h-[5rem] max-lg:w-[20rem] max-lg:flex-row max-lg:p-0">

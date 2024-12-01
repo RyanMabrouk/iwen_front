@@ -72,7 +72,6 @@ export default function BookCard({
       toast.info("تمت الإزالة من قائمة الرغبات");
     },
     onError: (error) => {
-      console.log(error);
       toast.info("هذا الكتاب غير موجود في قائمة الرغبات");
     },
   });

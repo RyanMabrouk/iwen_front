@@ -6,7 +6,6 @@ function useURL() {
   const newSearchParams = new URLSearchParams(searchParams);
   const router = useRouter();
   const update = (values: { name: string; value: string }[]) => {
-    console.log(values);
     values.forEach((value) => {
       value.value
         ? newSearchParams.set(value.name, value.value)
