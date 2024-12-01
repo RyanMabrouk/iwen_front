@@ -37,7 +37,6 @@ export default function Banners() {
           delay: 5000,
           disableOnInteraction: true,
         }}
-        className=""
       />
     </div>
   );
