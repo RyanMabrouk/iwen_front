@@ -1,14 +1,9 @@
 import React from "react";
+import { useBooksProvider } from "../provider/BooksProvider";
 
-export default function ViewPreference({
-  setBooks,
-  bookNumber,
-  className,
-}: {
-  setBooks: (value: string) => void;
-  bookNumber: string;
-  className?: string;
-}) {
+export default function ViewPreference({ className }: { className?: string }) {
+  const { numberOfBooks: bookNumber, setNumberOfBooks: setBooks } =
+    useBooksProvider();
   const choices1 = ["4", "6"];
   const choices2 = ["2", "3"];
   return (

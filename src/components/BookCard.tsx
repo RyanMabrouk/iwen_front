@@ -15,6 +15,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import sendRequest from "@/services/sendRequest";
 import getEndpoint from "@/services/getEndpoint";
 import { useToast } from "@/hooks/useToast";
+import Link from "next/link";
+import TooltipGeneric from "@/app/ui/InsightGeneric";
 
 export default function BookCard({
   writer,
@@ -78,7 +80,7 @@ export default function BookCard({
     <div
       dir="rtl"
       className={cn(
-        "relative overflow-hidden rounded-2xl border bg-white shadow-md transition-all",
+        "relative h-[23rem] overflow-hidden rounded-2xl border bg-white shadow-md transition-all",
         className,
       )}
     >
@@ -123,9 +125,10 @@ export default function BookCard({
           loop
           slides={
             images?.map((image, i) => (
-              <div
-                className="group flex h-full w-full items-center justify-center p-7"
+              <Link
+                href={`/books/${book.id}`}
                 key={i}
+                className="group flex h-full w-full items-center justify-center p-7"
               >
                 <Image
                   src={image}
@@ -134,9 +137,10 @@ export default function BookCard({
                   width={1000}
                   height={1000}
                 />
-              </div>
+              </Link>
             )) ?? [
-              <div
+              <Link
+                href={`/books/${book.id}`}
                 className="group flex h-full w-full items-center justify-center p-7"
                 key={0}
               >
@@ -147,7 +151,7 @@ export default function BookCard({
                   width={1000}
                   height={1000}
                 />
-              </div>,
+              </Link>,
             ]
           }
           initialSlide={0}
@@ -184,16 +188,26 @@ export default function BookCard({
         <CartButtons book={book} />
         <div className="flex w-full justify-between">
           <div className="flex flex-col justify-between">
-            <div className="flex flex-col gap-1">
-              <span
-                data-tip={book.title}
-                className="tooltip tooltip-top line-clamp-1 text-right text-base font-medium"
-              >
-                {book.title}{" "}
-              </span>
-              <span className="text-sm text-gray-600">
-                {writer ?? "كاتب غير معروف"}
-              </span>
+            <div className="flex flex-col items-start gap-1">
+              <TooltipGeneric tip={book.title}>
+                <h1
+                  data-tip={book.title}
+                  className="tooltip tooltip-top line-clamp-1 text-right text-base font-medium"
+                >
+                  {book.title.length > 30
+                    ? book.title.slice(0, 30) + "..."
+                    : book.title}
+                </h1>
+              </TooltipGeneric>
+              <TooltipGeneric tip={writer ?? ""}>
+                <h1 className="text-sm text-gray-600">
+                  {writer !== undefined
+                    ? writer.length > 30
+                      ? writer.slice(1, 30) + "..."
+                      : writer
+                    : "كاتب غير معروف"}
+                </h1>
+              </TooltipGeneric>
             </div>
             <div className="flex flex-row gap-2">
               <span className="py-2.5 text-lg font-normal text-primary-500">

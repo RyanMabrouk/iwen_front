@@ -5,7 +5,7 @@ import CartButton from "@/app/(dashboard)/ui/CartButton";
 export default function PriceInfo() {
   return (
     <div
-      className="flex items-center justify-end gap-3 rounded-md bg-white p-3 pr-10 max-md:flex-col"
+      className="flex items-center justify-end gap-3 rounded-md border-2 border-gray-200 bg-white p-3 pr-10 max-md:flex-col"
       style={{ color: "#27A098" }}
     >
       <div

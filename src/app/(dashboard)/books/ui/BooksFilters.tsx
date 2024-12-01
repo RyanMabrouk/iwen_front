@@ -11,30 +11,18 @@ import {
 import { FilterSelect } from "./FilterSelect";
 import { FilterType } from "../page";
 
-export default function BooksFilters({
-  setFilters,
-}: {
-  setFilters: React.Dispatch<React.SetStateAction<FilterType>>;
-}) {
+export default function BooksFilters() {
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleApplyFilters = (newFilters: FilterType) => {
-    setFilters(newFilters);
-    setIsOpen(false);
-  };
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="w-[150px]">
+        <Button className="w-[150px]" variant="outline">
           <Filter className="mr-2 h-4 w-4" /> المرشحات
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
-        <FilterSelect
-          onApply={handleApplyFilters}
-          onClose={() => setIsOpen(false)}
-        />
+        <FilterSelect onClose={() => setIsOpen(false)} />
       </PopoverContent>
     </Popover>
   );
