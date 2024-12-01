@@ -1,21 +1,13 @@
-import sendRequest from "@/services/sendRequest";
 import getEndpoint from "@/services/getEndpoint";
+import sendRequest from "@/services/sendRequest";
+import { IEvent } from "@/types";
 
-const eventQuery = (eventId: string) => ({
-  queryKey: ["event", eventId],
+const eventQuery = (eventId : string) => ({
+  queryKey: ["events",eventId],
   queryFn: async () => {
-    const url = getEndpoint({ resource: "events", action: "getEventById" });
-    const { error, data } = await sendRequest<{
-      data: any;
-      error: string | null;
-    }>({
-      method: "GET",
-      url: url(eventId),
-    });
-
-    if (error) return { data: null, error: error };
-    else return { data, error: null };
+    const url =  getEndpoint({  resourse: "events", action: "getEvent" });
+    return await sendRequest<IEvent>({ method: "GET", url: url(eventId) });
   },
+  enabled : eventId!==null
 });
-
 export { eventQuery };

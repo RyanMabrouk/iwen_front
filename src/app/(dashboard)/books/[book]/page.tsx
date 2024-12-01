@@ -8,7 +8,7 @@ import { Tables } from "@/types/database.types";
 import { BookProvider } from "./provider/BookProvider";
 import { Spinner } from "@/app/ui/Spinner";
 
-export default function page({
+export default function Page({
   params: { book },
 }: {
   params: { book: string };

@@ -1,8 +1,9 @@
+import { bannersEndpoints } from "@/endpoints/bannerRoutes";
 import { booksEndpoints } from "@/endpoints/booksRoutes";
 import { categoriesEndpoints } from "@/endpoints/categoriesRoutes";
 import { cornersEndpoints } from "@/endpoints/cornersRoutes";
 import { cover_typesEndpoints } from "@/endpoints/coverTypes";
-import { eventsEndpoints } from "@/endpoints/eventsEndpoints";
+import { eventsEndpoints } from "@/endpoints/eventRoutes";
 import { ordersEndpoints } from "@/endpoints/ordersRoutes";
 import { publishHousesEndpoints } from "@/endpoints/publishHouses";
 import { subCategoriesEndpoints } from "@/endpoints/subCategories";
@@ -21,6 +22,7 @@ const resources = {
   corners: cornersEndpoints,
   orders: ordersEndpoints,
   events: eventsEndpoints,
+  banners:bannersEndpoints,
   wishlist: wishlistEndpoints
 } as const;
 export type IResource = keyof typeof resources;

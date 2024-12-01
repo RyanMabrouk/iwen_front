@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import NoWishlist from "./noWishlist";
 
 export default function Wishlist() {
-  const limit = 4;
+  const limit = 3;
   const [page, setPage] = useState(1);
   const { data: wishlist, isLoading } = useWishlist({
     page,
@@ -45,8 +45,8 @@ export default function Wishlist() {
   }
 
   return (
-    <div className=" sm:max-w-4xl" dir="rtl">
-      <div className=" grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
+    <div className=" sm:max-w-3xl mx-auto" dir="rtl">
+      <div className=" grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3">
         {wishlist?.data?.data.map((book: IBookPopulated) => {
           return (
             <div

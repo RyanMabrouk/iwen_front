@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import heart from "../../../../../../public/dashboard/book/heart";
 
-export default function MainPic({
+export default function   MainPic({
   liked,
   setLiked,
   selectedImage,

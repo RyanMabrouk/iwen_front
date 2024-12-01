@@ -1,5 +1,5 @@
 import { ComparisonOperator } from "kysely";
-import { Tables } from "./database.types";
+import { Enums, Tables } from "./database.types";
 
 export interface InfinityPaginationQueryType<
   EntityFilterKeys extends string | number | symbol,
@@ -111,3 +111,48 @@ export type IValidationErrors<T extends object> = {
 export interface IUserPayload extends Tables<"users"> {
   total_spent: number;
 }
+
+export interface IBookPopulated extends Tables<'books'> {
+  categories: Tables<'categories'>[];
+  subcategories: Tables<'subcategories'>[];
+  cover_type: Tables<'cover_types'> | null;
+  writer: Tables<'writers'> | null;
+  share_house: Tables<'share_houses'> | null;
+  corner: Tables<'corners'> | null;
+}
+
+
+
+export interface FooterItem {
+  title: string;
+  items: {
+    title: string;
+    href: string;
+    external?: boolean;
+  }[];
+}
+
+
+export interface IError<T extends object> {
+  message: string;
+  detail: string;
+  type: string;
+  timestamp: number;
+  errors?: IValidationErrors<T>;
+}
+
+
+export interface IEvent extends Tables<'events'> {
+  books: IBookPopulated[];
+}
+
+export interface IEventPayload {
+  name: string;
+  books_ids: string[];
+}
+
+export interface IBannerPayload {
+  book_id: string;
+  url: string;  
+}
+  

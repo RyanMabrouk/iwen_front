@@ -5,6 +5,7 @@ import Trusted from "@/components/Trusted";
 import React from "react";
 import Image from "next/image";
 import CategoryKidsBooks from "@/components/CategoryKidsBooks";
+import Link from "next/link";
 export default async function Page() {
   return (
     <div>
@@ -32,7 +33,9 @@ export default async function Page() {
             </span>
           </div>
           <div className="mx-auto w-fit">
+            <Link href="/books">
             <PrimaryButton>إستكشف أكثر</PrimaryButton>
+            </Link>
           </div>
         </div>
       </div>
