@@ -6,6 +6,7 @@ import React from "react";
 import Image from "next/image";
 import CategoryKidsBooks from "@/components/CategoryKidsBooks";
 import Banners from "@/components/main/banners/Banners";
+import Link from "next/link";
 export default async function Page() {
   return (
     <div>
@@ -31,7 +32,9 @@ export default async function Page() {
             </span>
           </div>
           <div className="mx-auto w-fit">
-            <PrimaryButton>إستكشف أكثر</PrimaryButton>
+            <Link href="/books">
+              <PrimaryButton>إستكشف أكثر</PrimaryButton>
+            </Link>
           </div>
         </div>
       </div>

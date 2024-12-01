@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 export default function SearchBar({ className }: { className?: string }) {
   return (
-    <div className={cn("flex h-[3.313rem] w-full", className)}>
+    <div dir="ltr" className={cn("flex h-[3.313rem] w-full", className)}>
       <div className="flex h-full w-full items-center rounded-l-lg bg-primary-100">
         <div className="flex h-full cursor-pointer items-center pl-[1.5rem]">
           <SearchNormal size={23} className="text-current" />

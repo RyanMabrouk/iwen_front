@@ -21,7 +21,6 @@ export default function ProfilePictureUpload({
   const [preview, setPreview] = useState<string>(
     defaultProfilePic ?? "/default_avatar.png",
   );
-    console.log("🚀 ~ defaultProfilePic:", defaultProfilePic)
   const [isNewImage, setIsNewImage] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const queryClient = useQueryClient();

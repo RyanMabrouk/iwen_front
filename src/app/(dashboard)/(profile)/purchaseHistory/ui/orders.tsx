@@ -142,7 +142,7 @@ export default function Orders() {
                           className="flex items-center gap-4"
                         >
                           <Image
-                            src={product.images_urls[0]}
+                            src={product.images_urls[0] ?? "/empty-book.svg"}
                             alt={product.title}
                             width={500}
                             height={500}
