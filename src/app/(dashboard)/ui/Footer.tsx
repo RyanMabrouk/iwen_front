@@ -23,24 +23,24 @@ export default function Footer() {
         </div>
 
         {/* Middle Section */}
-        <div className="flex flex-col items-start gap-5 sm:gap-14">
+        <div className="flex flex-col items-start gap-5 sm:gap-10">
           {user?.data ? (
-            <div className="flex gap-4 m-auto items-center">
+            <div className="flex gap-4  items-center">
               {" "}
-              <div className="rounded-md text-color1 bg-white h-fit  p-2">
+              <div className="rounded-md text-color1 bg-white h-fit  p-1">
                 {" "}
                 {user.data.first_name + " " + user.data.last_name}
               </div>{" "}
               <Image
                 src={user.data.avatar ?? "/noAvatar.png"}
                 alt={user.data.last_name ?? ""}
-                width={60}
-                height={60}
+                width={40}
+                height={40}
                 className="rounded-md"
               />
             </div>
           ) : (
-            <PrimaryButton className="m-auto w-fit text-base font-normal">
+            <PrimaryButton className=" w-fit text-base font-normal">
               إنشاء حساب
             </PrimaryButton>
           )}
@@ -49,7 +49,7 @@ export default function Footer() {
             <div>العنوان : تونس ـ شارع أبو قاسم الشابي 4084</div>
             <div>+رقم الهاتف : 147 748 73 216</div>
           </div>
-          <div className="m-auto flex items-center gap-10">
+          <div className=" flex items-center gap-10">
             <Image alt="twitter" src="/twitter.png" width={30} height={30} />
             <Image alt="facebook" src="/facebook.png" width={30} height={30} />
             <Image
