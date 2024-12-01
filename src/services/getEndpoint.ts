@@ -1,3 +1,4 @@
+import { bannersEndpoints } from "@/endpoints/bannersEndpoints";
 import { booksEndpoints } from "@/endpoints/booksRoutes";
 import { categoriesEndpoints } from "@/endpoints/categoriesRoutes";
 import { cornersEndpoints } from "@/endpoints/cornersRoutes";
@@ -21,6 +22,7 @@ const resources = {
   corners: cornersEndpoints,
   orders: ordersEndpoints,
   events: eventsEndpoints,
+  banners: bannersEndpoints,
   wishlist: wishlistEndpoints
 } as const;
 export type IResource = keyof typeof resources;
