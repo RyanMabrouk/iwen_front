@@ -1,55 +1,28 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import SelectWithBorder from "./main/SelectWithBorder";
 import CategoryIcon from "./icons/CategoryIcon";
 import BookCard from "./BookCard";
 import ArrowLeft from "./icons/ArrowLeft";
 import CustomSwiper from "./ui/swiper";
-import useBooks from "@/hooks/data/books/useBooks";
 import useCategories from "@/hooks/data/books/categories/useCategories";
 import ArrowRight from "./icons/ArrowRight";
 import EmptyBox from "./icons/EmptyBox";
-import useEvents from "@/hooks/data/events/useEvents";
-import SingleEvent from "./SingleEvent";
-import useEvent from "@/hooks/data/events/useEvent";
 import Events from "./Events";
+import { IEventPopulated } from "@/hooks/data/events/eventQuery";
+import useEvents from "@/hooks/data/events/useEvents";
+import useEvent from "@/hooks/data/events/useEvent";
 
 export default function CategoryBooksSection() {
   const [activeEvent, setActiveEvent] = useState(0);
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
-  const [books, setBooks] = useState<any[]>([]);
-  const [isPrevDisabled, setIsPrevDisabled] = useState(true);
-  const [isNextDisabled, setIsNextDisabled] = useState(false);
-
+  const { data: events } = useEvents();
+  const active_event = events?.data ? events.data[activeEvent] : null;
+  const { data: active_event_populated } = useEvent({
+    eventId: active_event?.id || "",
+  });
   const { data: categories } = useCategories();
-
-  // if (events?.data) {
-  //   setAllEvents(events?.data?.data || []);
-  // }
-  // setAllEvents(events?.data?.data || []);
-  // console.log(events);
-
-  // if (events?.data) {
-  //   const event = useEvent({
-  //     eventId: (events.data as unknown as any[])[0].id,
-  //   });
-  //   // setEventBooks(Array.isArray(event.data?.data) ? event.data.data : []);
-  //   console.log(event);
-  // }
-
-  interface Book {
-    id: string;
-    categories: { id: string }[];
-    writer?: { name: string };
-    [key: string]: any;
-  }
-
-  const filtredBooks = activeCategoryId
-    ? books.filter((book: Book) =>
-        book.categories.some((category) => category.id === activeCategoryId),
-      )
-    : books || [];
 
   return (
     <div className="relative bg-[#E7F6F5]/30 px-6 py-14">
@@ -71,17 +44,13 @@ export default function CategoryBooksSection() {
             }}
           />
           <div className="scrollbar scrollbar-thin scrollbar-thumb-primary-500 scrollbar-track-gray-200 dir-[rtl] relative h-[60px] w-full overflow-x-auto">
-            <Events
-              activeEvent={activeEvent}
-              setActiveEvent={setActiveEvent}
-              books={books}
-              setBooks={setBooks}
-            />
+            <Events activeEvent={activeEvent} setActiveEvent={setActiveEvent} />
           </div>
         </div>
 
         <div className="relative">
-          {filtredBooks && filtredBooks.length > 0 ? (
+          {active_event_populated?.data &&
+          active_event_populated.data.books.length > 0 ? (
             <>
               <div className="top-1/2 z-10 flex w-full justify-between">
                 <ArrowLeft
@@ -100,14 +69,22 @@ export default function CategoryBooksSection() {
                   prevEl: ".custom-swiper-books-prev",
                   nextEl: ".custom-swiper-books-next",
                 }}
-                slides={books.map((book) => (
-                  <div
-                    key={book.id}
-                    className="group flex h-full w-full items-center justify-center p-4"
-                  >
-                    <BookCard {...book} writer={book.writer?.name} />
-                  </div>
-                ))}
+                slides={active_event_populated.data?.books
+                  .filter((book) =>
+                    activeCategoryId
+                      ? book.categories.some(
+                          (category) => category.id === activeCategoryId,
+                        )
+                      : true,
+                  )
+                  .map((book) => (
+                    <div
+                      key={book.id}
+                      className="group flex h-full w-full items-center justify-center p-4"
+                    >
+                      <BookCard {...book} writer={book.writer?.name} />
+                    </div>
+                  ))}
                 slidesPerView={1}
                 spaceBetween={20}
                 breakpoints={{

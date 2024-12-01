@@ -80,7 +80,7 @@ export default function BookCard({
     <div
       dir="rtl"
       className={cn(
-        "relative h-[23rem] overflow-hidden rounded-2xl border bg-white shadow-md transition-all",
+        "relative h-[21rem] w-[15rem] overflow-hidden rounded-2xl border bg-white shadow-md transition-all",
         className,
       )}
     >
@@ -108,7 +108,7 @@ export default function BookCard({
         </div>
       )}
 
-      <div className="group relative flex h-[62%] cursor-pointer items-center justify-center">
+      <div className="group relative flex h-[62%] cursor-pointer flex-row items-center justify-center">
         <ArrowLeft
           size={22}
           className={`${"btn_swiper_arrow_left" + book.id} absolute left-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
@@ -118,6 +118,7 @@ export default function BookCard({
           className={`${"btn_swiper_arrow_right" + book.id} absolute right-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
         />
         <CustomSwiper
+          className="h-full w-[80%] [&_.swiper-pagination-bullets]:mt-5"
           navigation={{
             prevEl: `${".btn_swiper_arrow_left" + book.id}`,
             nextEl: `${".btn_swiper_arrow_right" + book.id}`,
@@ -133,9 +134,9 @@ export default function BookCard({
                 <Image
                   src={image}
                   className="h-full w-full object-scale-down transition-all duration-200"
-                  alt="Book"
-                  width={1000}
-                  height={1000}
+                  alt=""
+                  width={500}
+                  height={500}
                 />
               </Link>
             )) ?? [
@@ -157,7 +158,6 @@ export default function BookCard({
           initialSlide={0}
           slidesPerView={1}
           pagination
-          className="h-full w-full [&_.swiper-pagination-bullets]:mt-5"
         />
         <div className="absolute h-48 w-48 rounded-[100%] bg-primary-500/10 blur-lg transition-all"></div>
         <div

@@ -1,20 +1,19 @@
 import sendRequest from "@/services/sendRequest";
 import getEndpoint from "@/services/getEndpoint";
 import { InfinityPaginationResultType } from "@/types";
+import { Tables } from "@/types/database.types";
 
 const eventsQuery = (): {
   queryKey: string[];
   queryFn: () => Promise<{
-    data: InfinityPaginationResultType<any> | null;
+    data: Tables<"events">[] | null;
     error: any | null;
   }>;
 } => ({
   queryKey: ["events"],
   queryFn: async () => {
     const url = getEndpoint({ resource: "events", action: "getEvents" });
-    const { error, data } = await sendRequest<
-      InfinityPaginationResultType<any>
-    >({
+    const { error, data } = await sendRequest<Tables<"events">[]>({
       method: "GET",
       url: url(),
     });
