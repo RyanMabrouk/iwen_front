@@ -5,7 +5,7 @@ import ArrowDown from "../icons/ArrowDown";
 import { cn } from "@/lib/utils";
 
 type Item = {
-  id: string;
+  id: string | null;
   name: string;
 };
 
@@ -22,7 +22,7 @@ export default function SelectWithBorder({
   className?: string;
   content?: Item[];
   defaultStatus?: boolean;
-  onChange?: (value: string) => void;
+  onChange?: (value: string | null) => void;
 }) {
   const [open, setOpen] = useState(defaultStatus || false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -73,28 +73,26 @@ export default function SelectWithBorder({
       <div className="ml-2">{icon}</div>
       <div className={"flex items-center gap-2.5"}>
         <span className="text-lg">{label}</span>
-        <ArrowDown
-          size={24}
-          // className={`transition-all duration-300 ${open ? "rotate-180" : ""}`}
-        />
+        <ArrowDown size={24} />
       </div>
       {open && (
         <div
           className="absolute left-0 top-16 max-h-60 w-full overflow-y-auto overflow-x-hidden rounded-lg border border-black bg-white py-2 shadow-xl"
           onMouseDown={(e) => e.stopPropagation()}
         >
-          {content?.map((item) => (
-            <div
-              key={item.id}
-              className="p-2.5 text-lg hover:bg-gray-100"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSelect(item);
-              }}
-            >
-              {item.name}
-            </div>
-          ))}
+          {content &&
+            content?.map((item) => (
+              <div
+                key={item.id}
+                className="p-2.5 text-lg hover:bg-gray-100"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleSelect(item);
+                }}
+              >
+                {item.name}
+              </div>
+            ))}
         </div>
       )}
     </div>

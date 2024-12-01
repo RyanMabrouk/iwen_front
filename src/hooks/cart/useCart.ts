@@ -32,6 +32,12 @@ export default function useCart() {
         queryKey: ["cart"],
       });
     },
+    clearCart: () => {
+      clearCart();
+      queryClient.invalidateQueries({
+        queryKey: ["cart"],
+      });
+    },
   };
 }
 function addToCart(book: Tables<"books">) {
@@ -46,13 +52,18 @@ function addToCart(book: Tables<"books">) {
 }
 function removeFromCart(book_id: string) {
   const cart = getFromLocalstorage<ICartBook[]>("cart") ?? [];
-  const bookInCart = cart.find((item) => item.id === book_id);
-  if (bookInCart) {
-    if (bookInCart.quantity > 1) {
-      bookInCart.quantity -= 1;
+  const updatedCart = cart.reduce<ICartBook[]>((acc, item) => {
+    if (item.id === book_id) {
+      if (item.quantity > 1) {
+        acc.push({ ...item, quantity: item.quantity - 1 });
+      }
     } else {
-      const newCart = cart.filter((item) => item.id !== book_id);
-      saveToLocalstorage("cart", newCart);
+      acc.push(item);
     }
-  }
+    return acc;
+  }, []);
+  saveToLocalstorage("cart", updatedCart);
+}
+function clearCart() {
+  saveToLocalstorage("cart", []);
 }
