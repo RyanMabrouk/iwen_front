@@ -36,6 +36,15 @@ export default async function Page() {
         </div>
       </div>
       <CategoryKidsBooks />
+      <div className="flex h-full w-full items-center justify-center">
+        <Image
+          src={"/writers.svg"}
+          alt=""
+          className="h-full w-full pb-12 object-cover"
+          height={1000}
+          width={1000}
+        />
+      </div>
     </div>
   );
 }

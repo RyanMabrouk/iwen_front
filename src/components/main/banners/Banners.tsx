@@ -20,11 +20,11 @@ export default function Banners() {
           <Image
             key={index}
             src={banner.url || ""}
-            alt="Banner Image"
+            alt=""
             layout="responsive"
             width={200}
             height={500}
-            className="mx-auto w-full max-w-[100%] rounded-xl sm:h-[350px] sm:max-w-[80%]"
+            className="mx-auto w-full max-w-[100%] rounded-xl object-cover sm:h-[350px] sm:max-w-[80%]"
           />
         ))}
         initialSlide={0}
@@ -37,7 +37,6 @@ export default function Banners() {
           delay: 5000,
           disableOnInteraction: true,
         }}
-        className=""
       />
     </div>
   );
