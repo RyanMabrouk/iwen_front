@@ -82,56 +82,42 @@ export default function CategoryBooksSection() {
 
         <div className="relative">
           {filtredBooks && filtredBooks.length > 0 ? (
-            books.length > 4 ? (
-              <>
-                <div className="top-1/2 z-10 flex w-full justify-between">
-                  <ArrowLeft
-                    size={40}
-                    className={`custom-swiper-books-prev absolute -left-10 top-1/2 -translate-y-1/2 cursor-pointer text-primary-400 max-sm:-left-6`}
-                  />
-                  <ArrowRight
-                    size={40}
-                    className={`custom-swiper-books-next absolute -right-10 top-1/2 -translate-y-1/2 cursor-pointer text-primary-400 max-sm:-right-6`}
-                  />
-                </div>
-
-                <CustomSwiper
-                  loop
-                  navigation={{
-                    prevEl: ".custom-swiper-books-prev",
-                    nextEl: ".custom-swiper-books-next",
-                  }}
-                  slides={books.map((book) => (
-                    <div
-                      key={book.id}
-                      className="group flex h-full w-full items-center justify-center p-4"
-                    >
-                      <BookCard {...book} writer={book.writer?.name} />
-                    </div>
-                  ))}
-                  slidesPerView={1}
-                  spaceBetween={20}
-                  breakpoints={{
-                    1024: { slidesPerView: 4 },
-                    768: { slidesPerView: 2 },
-                    640: { slidesPerView: 1 },
-                  }}
-                  className="h-full w-full"
+            <>
+              <div className="top-1/2 z-10 flex w-full justify-between">
+                <ArrowLeft
+                  size={40}
+                  className={`custom-swiper-books-prev absolute -left-10 top-1/2 -translate-y-1/2 cursor-pointer text-primary-400 max-sm:-left-6`}
                 />
-              </>
-            ) : (
-              <div className="grid grid-cols-4 gap-10 max-xl:grid-cols-2 max-sm:grid-cols-1">
-                {filtredBooks.map((book) => (
-                  <BookCard
-                    key={book.id}
-                    {...book}
-                    writer={book.writer?.name}
-                    stock={book.stock}
-                    images={book.images_urls}
-                  />
-                ))}
+                <ArrowRight
+                  size={40}
+                  className={`custom-swiper-books-next absolute -right-10 top-1/2 -translate-y-1/2 cursor-pointer text-primary-400 max-sm:-right-6`}
+                />
               </div>
-            )
+
+              <CustomSwiper
+                loop
+                navigation={{
+                  prevEl: ".custom-swiper-books-prev",
+                  nextEl: ".custom-swiper-books-next",
+                }}
+                slides={books.map((book) => (
+                  <div
+                    key={book.id}
+                    className="group flex h-full w-full items-center justify-center p-4"
+                  >
+                    <BookCard {...book} writer={book.writer?.name} />
+                  </div>
+                ))}
+                slidesPerView={1}
+                spaceBetween={20}
+                breakpoints={{
+                  1024: { slidesPerView: 5 },
+                  768: { slidesPerView: 2 },
+                  640: { slidesPerView: 1 },
+                }}
+                className="h-full w-full"
+              />
+            </>
           ) : (
             <div className="flex flex-col items-center justify-center space-y-4">
               <EmptyBox />
