@@ -38,6 +38,7 @@ export default function Sortings() {
       >
         {options.map((option) => (
           <Link
+            key={option.id}
             href={`/books?page=1&view=${option.view}&booksPerLine=${numberOfBooks}`}
           >
             <li
