@@ -21,7 +21,7 @@ export type FilterType = {
   subcategories?: string[];
 };
 
-export default function page() {
+export default function Page() {
   const [numberOfBooks, setNumberOfBooks] = useStateToUrl<string>(
     "booksPerLine",
     "6",
