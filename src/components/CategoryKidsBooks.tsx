@@ -54,7 +54,7 @@ export default function CategoryKidsBooks() {
                 <div key={index}>
                   <h2
                     id={index.toString()}
-                    className={`cursor-pointer p-2.5 text-2xl transition-colors ${
+                    className={`cursor-pointer p-2.5 text-xl transition-colors ${
                       activeCategory === index
                         ? "font-semibold text-primary-500"
                         : "font-normal"

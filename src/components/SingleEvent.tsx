@@ -27,7 +27,7 @@ export default function SingleEvent({
     <div>
       <h2
         id={eventId}
-        className={`cursor-pointer p-2.5 text-2xl transition-colors ${
+        className={`cursor-pointer p-2.5 text-xl transition-colors ${
           activeEvent === index
             ? "font-semibold text-primary-500"
             : "font-normal"
