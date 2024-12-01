@@ -23,28 +23,46 @@ import useCategories from "@/hooks/data/books/categories/useCategories";
 import useSubCategories from "@/hooks/data/books/subCategories/useSubCategories";
 import useShareHouses from "@/hooks/data/books/useShareHouses";
 import { FilterType } from "../page";
+import { useBooksProvider } from "../provider/BooksProvider";
 
 type FilterSelectProps = {
-  onApply: (filters: FilterType) => void;
   onClose: () => void;
 };
 
-export function FilterSelect({ onApply, onClose }: FilterSelectProps) {
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 2000]);
-  const [writer, setWriter] = useState<{ id?: string; name?: string }>({});
-  const [shareHouse, setShareHouse] = useState<{ id?: string; name?: string }>(
-    {},
+export function FilterSelect({ onClose }: FilterSelectProps) {
+  const {
+    writer: writerId,
+    setWriter: setWriterId,
+    shareHouse: shareHouseId,
+    setShareHouse: setShareHouseId,
+    corner: cornerId,
+    setCorner: setCornerId,
+    categories: categoriesIds,
+    setCategories: setCategoriesIds,
+    subcategories: subcategoriesIds,
+    setSubcategories: setSubcategoriesIds,
+    priceRange: priceRangeValue,
+    setPriceRange: setPriceRangeValue,
+  } = useBooksProvider();
+  const [priceRange, setPriceRange] = useState<[number, number]>(
+    (priceRangeValue.split("%") as unknown as [number, number]) ?? [0, 2000],
   );
-  const [corner, setCorner] = useState<{ id?: string; name?: string }>({});
+  const [writer, setWriter] = useState<{ id?: string; name?: string }>(
+    { id: writerId } ?? {},
+  );
+  const [corner, setCorner] = useState<{ id?: string; name?: string }>(
+    { id: cornerId } ?? {},
+  );
+  const [shareHouse, setShareHouse] = useState<{ id?: string; name?: string }>(
+    { id: shareHouseId } ?? {},
+  );
   const [category, setCategory] = useState<{ id?: string; name?: string }[]>(
-    [],
+    categoriesIds.split("%").map((id) => ({ id })) ?? [],
   );
   const [subcategory, setSubcategory] = useState<
-    {
-      id?: string;
-      name?: string;
-    }[]
-  >([]);
+    { id?: string; name?: string }[]
+  >(subcategoriesIds.split("%").map((id) => ({ id })) ?? []);
+
   const [openWriter, setOpenWriter] = useState(false);
   const [openShareHouse, setOpenShareHouse] = useState(false);
   const [openCorner, setOpenCorner] = useState(false);
@@ -76,14 +94,12 @@ export function FilterSelect({ onApply, onClose }: FilterSelectProps) {
     shareHousesData.data?.data?.map((e) => ({ id: e.id, name: e.name })) ?? [];
 
   const handleApply = () => {
-    onApply({
-      priceRange,
-      writer: writer.id,
-      categories: category.map((c) => c.id).filter(Boolean) as string[],
-      subcategories: subcategory.map((s) => s.id).filter(Boolean) as string[],
-      corner: corner.id,
-      shareHouse: shareHouse.id,
-    });
+    setWriterId(writer.id ?? "");
+    setShareHouseId(shareHouse.id ?? "");
+    setCornerId(corner.id ?? "");
+    setCategoriesIds(category.map((c) => c.id).join("%") as string);
+    setSubcategoriesIds(subcategories.map((s) => s.id).join("%") as string);
+    setPriceRangeValue(priceRange.join("%") as string);
     onClose();
   };
   const filters: {

@@ -1,14 +1,12 @@
 import React from "react";
 import { SortingType } from "../page";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useBooksProvider } from "../provider/BooksProvider";
+import Link from "next/link";
 
-export default function Sortings({
-  sortings,
-  setView,
-}: {
-  sortings: SortingType;
-  setView: (view: SortingType) => void;
-}) {
+export default function Sortings() {
+  const { view, changeView } = useBooksProvider();
+  const { numberOfBooks } = useBooksProvider();
   const options = [
     {
       id: 1,
@@ -39,16 +37,23 @@ export default function Sortings({
         style={{ fontWeight: 600 }}
       >
         {options.map((option) => (
-          <li
-            onClick={() => setView(option.view as SortingType)}
-            key={option.id}
-            style={{
-              color: sortings === option.view ? "#27A49B" : "#000",
-            }}
-            className="cursor-pointer text-nowrap border-b-2 border-white transition-all duration-200 hover:border-emerald-500"
+          <Link
+            href={`/books?page=1&view=${option.view}&booksPerLine=${numberOfBooks}`}
           >
-            {option.name}
-          </li>
+            <li
+              onClick={() => {
+                changeView(option.view);
+                console.log("1- changing to ", option.view);
+              }}
+              key={option.id}
+              style={{
+                color: view === option.view ? "#27A49B" : "#000",
+              }}
+              className="cursor-pointer text-nowrap border-b-2 border-white transition-all duration-200 hover:border-emerald-500"
+            >
+              {option.name}
+            </li>
+          </Link>
         ))}
       </ul>
       <ScrollBar orientation="horizontal" />
