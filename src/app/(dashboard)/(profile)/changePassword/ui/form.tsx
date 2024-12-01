@@ -161,7 +161,7 @@ export default function PasswordChangeForm() {
         <button
           type="submit"
           disabled={updatePasswordMutation.isPending}
-          className="rounded-md bg-color1 p-2 px-4 text-lg text-white opacity-100 hover:opacity-50"
+          className="rounded-md bg-color2 p-2 px-4 text-lg text-white opacity-100 hover:opacity-50"
         >
           {updatePasswordMutation.isPending
             ? "جاري التحديث..."

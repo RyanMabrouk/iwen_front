@@ -8,6 +8,7 @@ import { ordersEndpoints } from "@/endpoints/ordersRoutes";
 import { publishHousesEndpoints } from "@/endpoints/publishHouses";
 import { subCategoriesEndpoints } from "@/endpoints/subCategories";
 import { usersEndpoints } from "@/endpoints/users";
+import { wishlistEndpoints } from "@/endpoints/wishlistRoutes";
 import { writersEndpoints } from "@/endpoints/writers";
 export type CRUDMethod = "GET" | "POST" | "PATCH" | "DELETE";
 const resources = {
@@ -22,6 +23,7 @@ const resources = {
   orders: ordersEndpoints,
   events: eventsEndpoints,
   banners: bannersEndpoints,
+  wishlist: wishlistEndpoints
 } as const;
 export type IResource = keyof typeof resources;
 export default function getEndpoint<

@@ -7,13 +7,6 @@ import Image from "next/image";
 import CategoryKidsBooks from "@/components/CategoryKidsBooks";
 import Banners from "@/components/main/banners/Banners";
 export default async function Page() {
-  // const { mutate } = useMutation({
-  //   mutationFn: async () => {
-  //     signOut();
-  //     redirect("/login");
-  //   },
-  // });
-
   return (
     <div>
       <Banners />

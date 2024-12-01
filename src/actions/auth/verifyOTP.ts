@@ -9,7 +9,6 @@ export default async function verifyOTP(
   otp: string,
 ): Promise<AuthResponse> {
   const supabase = createClient();
-  console.log(email, otp);
 
   const {
     data: { session },

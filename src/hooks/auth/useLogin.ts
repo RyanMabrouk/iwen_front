@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import handleLogIn from "../../handlers/auth/handleLogin";
 import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
+import handleLogIn from "@/app/(auth)/handlers/auth/handleLogin";
 
 export default function useLogin() {
   const { toast } = useToast();

@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import handleForgetPassword from "../../handlers/auth/handleForgetPassword";
 import { useToast } from "@/hooks/useToast";
+import handleForgetPassword from "@/app/(auth)/handlers/auth/handleForgetPassword";
 
 export default function useSendOTP(email: string) {
   const { toast } = useToast();

@@ -11,7 +11,7 @@ export default function Header() {
   return (
     <div
       dir="rtl"
-      className="flex h-auto flex-col items-center gap-4 p-4 md:h-[8.5rem] md:flex-row md:gap-[2rem] md:p-0"
+      className="mx-auto flex h-auto w-[65svw] flex-col items-center justify-evenly gap-4 p-4 md:h-[8.5rem] md:flex-row md:gap-[2rem] md:p-0"
     >
       <ProfilePictureUpload defaultProfilePic={user?.data?.avatar} />
 

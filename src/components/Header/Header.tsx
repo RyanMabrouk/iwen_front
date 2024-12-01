@@ -1,12 +1,11 @@
 import Image from "next/image";
 import React from "react";
-import ShoppingCart from "../icons/ShoppingCart";
 import SearchBar from "../main/SearchBar";
 import Logo from "../main/Logo";
 import Select from "../main/Select";
 import { HeaderLoginButton } from "./HeaderLoginButton";
 import { HeaderPhoneMenu } from "./HeaderPhoneMenu";
-import Link from "next/link";
+import CartButton from "./CartButton";
 
 export default function Header() {
   return (
@@ -27,12 +26,7 @@ export default function Header() {
         <div className="mx-auto flex w-full items-center max-lg:justify-between lg:max-w-[382px] lg:justify-start">
           <Select text="العربية" className="w-full px-1.5 text-white" />
           <div className="flex w-full max-w-[228px] gap-5 max-sm:gap-2">
-            <Link
-              href={"/cart"}
-              className="flex h-[3.313rem] w-fit min-w-[50px] items-center justify-center rounded-lg bg-white shadow-md"
-            >
-              <ShoppingCart size={22} className="text-primary-500" />
-            </Link>
+            <CartButton />
             <HeaderLoginButton />
           </div>
         </div>

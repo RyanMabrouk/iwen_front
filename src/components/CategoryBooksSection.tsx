@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import SelectWithBorder from "./main/SelectWithBorder";
 import CategoryIcon from "./icons/CategoryIcon";
-import BookCard from "./BookCart";
+import BookCard from "./BookCard";
 import ArrowLeft from "./icons/ArrowLeft";
 import CustomSwiper from "./ui/swiper";
 import useBooks from "@/hooks/data/books/useBooks";
@@ -87,27 +87,16 @@ export default function CategoryBooksSection() {
                 <div className="top-1/2 z-10 flex w-full justify-between">
                   <ArrowLeft
                     size={40}
-                    className={`custom-swiper-books-prev absolute -left-10 top-1/2 -translate-y-1/2 cursor-pointer ${
-                      isPrevDisabled ? "text-gray-400" : "text-primary-400"
-                    } max-sm:-left-6`}
+                    className={`custom-swiper-books-prev absolute -left-10 top-1/2 -translate-y-1/2 cursor-pointer text-primary-400 max-sm:-left-6`}
                   />
                   <ArrowRight
                     size={40}
-                    className={`custom-swiper-books-next absolute -right-10 top-1/2 -translate-y-1/2 cursor-pointer ${
-                      isNextDisabled ? "text-gray-400" : "text-primary-400"
-                    } max-sm:-right-6`}
+                    className={`custom-swiper-books-next absolute -right-10 top-1/2 -translate-y-1/2 cursor-pointer text-primary-400 max-sm:-right-6`}
                   />
                 </div>
 
                 <CustomSwiper
-                  onSwiper={(swiper) => {
-                    setIsPrevDisabled(swiper.isBeginning);
-                    setIsNextDisabled(swiper.isEnd);
-                  }}
-                  onSlideChange={(swiper) => {
-                    setIsPrevDisabled(swiper.isBeginning);
-                    setIsNextDisabled(swiper.isEnd);
-                  }}
+                  loop
                   navigation={{
                     prevEl: ".custom-swiper-books-prev",
                     nextEl: ".custom-swiper-books-next",

@@ -28,7 +28,7 @@ const FormInput: React.FC<FormInputProps> = ({
   errors,
 }) => {
   return (
-    <div className="space-y-2">
+    <div className="w-full space-y-2">
       <Label
         htmlFor={name}
         className="block text-right text-lg font-medium text-gray-700"
@@ -50,7 +50,7 @@ const FormInput: React.FC<FormInputProps> = ({
           defaultValue={defaultValue}
           disabled={disabled}
           onChange={onChange}
-          className={`${icon ? "pr-10" : "pr-3"} pl-3 focus:ring-color1`}
+          className={`${icon ? "pr-10" : "pr-3"} w-full text-[1rem] ring-0 placeholder:text-[1rem] focus:ring-0`}
         />
       </div>
       {errors &&
