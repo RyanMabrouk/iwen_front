@@ -78,7 +78,7 @@ export default function BookCard({
     <div
       dir="rtl"
       className={cn(
-        "relative overflow-hidden rounded-2xl border bg-white shadow-md transition-all",
+        "relative h-[20rem] w-[15rem] overflow-hidden rounded-2xl border bg-white shadow-md transition-all",
         className,
       )}
     >
@@ -106,7 +106,7 @@ export default function BookCard({
         </div>
       )}
 
-      <div className="group relative flex h-60 cursor-pointer items-center justify-center">
+      <div className="group relative flex h-[62%] cursor-pointer items-center justify-center">
         <ArrowLeft
           size={22}
           className={`${"btn_swiper_arrow_left" + book.id} absolute left-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
