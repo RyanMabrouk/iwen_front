@@ -8,13 +8,21 @@ export default function SingleEvent({
   index,
   setActiveEvent,
   eventName,
+  setBooks,
+  books,
 }: {
   eventId: string;
   activeEvent: number;
   index: number;
   setActiveEvent: (index: number) => void;
   eventName: string;
+  setBooks: (books: any[]) => void;
+  books: any[];
 }) {
+  const { data: event } = useEvent({ eventId }) as unknown as any;
+  if (event?.data?.books) {
+    setBooks(Array.isArray(event.data.books) ? event.data.books : []);
+  }
   return (
     <div>
       <h2

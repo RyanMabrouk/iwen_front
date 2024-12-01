@@ -6,7 +6,7 @@ import { User, Mail, Phone, MapPin, Building2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { IValidationErrors } from "@/types";
 import useCurrentUser from "@/hooks/data/user/useCurrentUser";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import getEndpoint from "@/services/getEndpoint";
 import { z } from "zod";
 import sendRequest from "@/services/sendRequest";
@@ -14,8 +14,9 @@ import { useToast } from "@/hooks/useToast";
 import { moroccanStates } from "@/helpers/data/data";
 import { Enums } from "@/types/database.types";
 import useCart from "@/hooks/cart/useCart";
-import CustomSwiper from "@/components/ui/swiper";
 import { redirect } from "next/navigation";
+import PrimaryButton from "@/components/main/buttons/PrimaryButton";
+import Link from "next/link";
 interface ICreateOrderPayload {
   name: string;
   email: string;
@@ -34,7 +35,7 @@ const phoneNumberSchema = z
   .regex(/^0\d{9}$/, "رقم الهاتف يجب أن يبدأ ب0 ويحتوي على 10 أرقام");
 export default function Page() {
   const { toast } = useToast();
-  const [successFullySubmitted, setSuccessFullySubmitted] = useState(true);
+  const [successFullySubmitted, setSuccessFullySubmitted] = useState(false);
   const { data: user, isLoading: userIsLoading } = useCurrentUser();
   const cart = useCart();
   const [selectedState, setSelectedState] = useState<string>("");
@@ -141,8 +142,7 @@ export default function Page() {
       <div className="relative mx-auto my-10 flex w-full flex-row items-start justify-center gap-4 bg-bgcolor1 py-4">
         <div className="flex h-full items-center justify-center">
           {successFullySubmitted ? (
-            <div>
-              {" "}
+            <div className="flex flex-col items-center justify-center">
               <Image
                 src={"/success_order.svg"}
                 height={300}
@@ -150,7 +150,21 @@ export default function Page() {
                 alt=""
                 className="-mt-4 mb-6 h-full w-full max-w-[60svw] object-cover"
               />
-              PrimaryB
+              <Link href="/purchaseHistory">
+                <PrimaryButton
+                  size="md"
+                  className="flex w-[10rem] flex-row-reverse items-center justify-center gap-1"
+                >
+                  <Image
+                    src="/double-arrow-right-white.svg"
+                    alt=""
+                    className="-ml-3 rotate-180"
+                    width={25}
+                    height={25}
+                  />
+                  <span>طلباتي</span>
+                </PrimaryButton>
+              </Link>
             </div>
           ) : (
             <form
