@@ -142,6 +142,7 @@ const config: Config = {
         color4: "#8C8C8C",
         color5: "#E7E9EB",
         color6: "#6ECEBB",
+        color7: "#FCFCFD",
       },
       boxShadow: {
         text: "2px 2px 4px rgba(0, 0, 0, 0.5)",

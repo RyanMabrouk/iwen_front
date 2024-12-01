@@ -9,6 +9,7 @@ import Link from "next/link";
 export default function Page() {
   const cart = useCart();
   const books = cart?.data ?? [];
+  console.log("🚀 ~ Page ~ books:", books);
   return (
     <>
       {books.length > 0 ? (
@@ -18,7 +19,7 @@ export default function Page() {
               src="/sideLine.svg"
               alt="book"
               className="absolute right-2 top-0 h-full rounded-md bg-transparent bg-clip-border"
-              width={55}
+              width={45}
               height={2000}
             />
             <div className="flex flex-col items-start justify-start gap-8">
@@ -30,7 +31,7 @@ export default function Page() {
                     className="gap -mr-6 flex flex-row items-start gap-6"
                   >
                     <Image
-                      src={book.images_urls?.[0] ?? "/book.png"}
+                      src={book.images_urls?.[0] ?? "/empty-book.svg"}
                       alt="book"
                       className="bg rounded-md bg-white px-6 py-4"
                       width={120}
@@ -52,9 +53,9 @@ export default function Page() {
             <div className="flex flex-col items-start justify-start gap-8">
               <strong className="mb-10 text-xl">الكمية</strong>
               {
-                <div className="flex flex-col items-start justify-start gap-[5.5rem]">
+                <div className="flex flex-col items-start justify-start gap-[3.75rem]">
                   {books.map((book, i) => (
-                    <div key={book.id} className="-mr-6 mb-10">
+                    <div key={book.id + "quantity"} className="-mr-6 mb-10">
                       <CartButtons variant="row" book={book} />
                     </div>
                   ))}
@@ -63,11 +64,11 @@ export default function Page() {
             </div>
             <div className="flex flex-col items-start justify-start gap-8">
               <strong className="mb-10 text-xl">السعر</strong>
-              <div className="flex flex-col items-start justify-start gap-[8.6rem]">
+              <div className="flex flex-col items-start justify-start gap-[6.75rem]">
                 {books.map((book, i) => (
                   <span
                     className="flex flex-row items-start justify-start gap-2 text-lg font-medium"
-                    key={book.id}
+                    key={book.id + "price"}
                   >
                     <p>{book.price_after_discount} د.م</p>
                     {!!book.discount && (
@@ -79,11 +80,11 @@ export default function Page() {
             </div>
             <div className="flex flex-col items-start justify-start gap-8">
               <strong className="mb-10 text-xl">إلغاء</strong>
-              <div className="flex w-full flex-col items-center justify-center gap-[8.5rem]">
+              <div className="flex w-full flex-col items-center justify-center gap-[6.75rem]">
                 {books.map((book, i) => (
                   <button
                     className="flex h-full w-full flex-row items-center justify-center gap-2 text-xl text-color4"
-                    key={book.id}
+                    key={book.id + "remove"}
                     onClick={() => {
                       cart.removeFromCart(book.id);
                     }}

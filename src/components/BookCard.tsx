@@ -6,6 +6,7 @@ import FilledHeart from "./icons/FilledHeart";
 import ArrowLeft from "./icons/ArrowLeft";
 import ArrowRight from "./icons/ArrowRight";
 import CustomSwiper from "./ui/swiper";
+
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Tables } from "@/types/database.types";
@@ -88,6 +89,7 @@ export default function BookCard({
         width={1000}
         height={1000}
       />
+
       <Image
         src="/acs.png"
         className="absolute -top-20 left-20 opacity-30"
@@ -221,7 +223,7 @@ export function CartButtons({
   const quantity = data?.find((item) => item.id === book.id)?.quantity ?? 0;
   return (
     <div
-      className={`z-[100] flex items-center justify-between ${
+      className={`z-[10] flex items-center justify-between ${
         variant === "column" ? "flex-col" : "flex-row gap-3"
       }`}
     >

@@ -42,6 +42,7 @@ export interface IOrderProduct
 export interface IOrder extends Tables<"orders"> {
   products: IOrderProduct[];
 }
+type SortType = "asc" | "desc";
 export interface IBookPayload {
   title?: string;
   writer_id?: string;
@@ -73,6 +74,8 @@ export interface IBookPayload {
   is_in_wishlist: boolean;
 }
 export interface IBookPopulated extends Tables<"books"> {
+  writer_books: Tables<"books">[];
+  recommended_books: IBookPopulated[];
   categories: Tables<"categories">[];
   subcategories: Tables<"subcategories">[];
   cover_type: Tables<"cover_types"> | null;
