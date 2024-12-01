@@ -118,7 +118,7 @@ export default function CategoryKidsBooks() {
                   slidesPerView={1}
                   spaceBetween={20}
                   breakpoints={{
-                    1024: { slidesPerView: 4 },
+                    1024: { slidesPerView: 5 },
                     768: { slidesPerView: 2 },
                     640: { slidesPerView: 1 },
                   }}
