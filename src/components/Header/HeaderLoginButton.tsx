@@ -68,7 +68,7 @@ export function HeaderLoginButton() {
           />
         </button>
         {isDropdownOpen && (
-          <div className="absolute right-0 z-10 mt-2 w-32 origin-top scale-100 transform rounded-md bg-white font-medium opacity-100 shadow-lg transition duration-200 ease-out">
+          <div className="absolute right-0 z-[1000] mt-2 w-32 origin-top scale-100 transform rounded-md bg-white font-medium opacity-100 shadow-lg transition duration-200 ease-out">
             <Link
               href="/profile"
               onClick={() => {

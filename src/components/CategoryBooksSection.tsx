@@ -50,7 +50,13 @@ export default function CategoryBooksSection() {
 
         <div className="relative">
           {active_event_populated?.data &&
-          active_event_populated.data.books.length > 0 ? (
+          active_event_populated.data.books.filter((book) =>
+            activeCategoryId
+              ? book.categories.some(
+                  (category) => category.id === activeCategoryId,
+                )
+              : true,
+          ).length > 0 ? (
             <>
               <div className="top-1/2 z-10 flex w-full justify-between">
                 <ArrowLeft

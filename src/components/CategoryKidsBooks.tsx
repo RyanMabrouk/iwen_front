@@ -9,6 +9,7 @@ import useBooks from "@/hooks/data/books/useBooks";
 import ArrowRight from "./icons/ArrowRight";
 import CustomSwiper from "./ui/swiper";
 import EmptyBox from "./icons/EmptyBox";
+import Link from "next/link";
 
 const categories = [
   { label: "الأكثر مبيعا" },
@@ -24,21 +25,21 @@ export default function CategoryKidsBooks() {
   const { data: books } = useBooks({ limit: 10 });
 
   return (
-    <div className="relative space-y-12 bg-white px-6 py-14">
+    <div className="relative space-y-12 bg-white px-6 pt-14">
       <div className="pointer-events-none absolute inset-0 top-12 flex w-full items-start justify-between">
         <Image
           src="/boykid.png"
-          className="w-auto max-w-[50%]"
+          className="w-full max-w-[20%]"
           alt="Boy Kid"
-          width={1000}
-          height={1000}
+          width={500}
+          height={500}
         />
         <Image
           src="/girlkid.png"
-          className="w-auto max-w-[50%]"
+          className="w-full max-w-[20%]"
           alt="Girl Kid"
-          width={1000}
-          height={1000}
+          width={500}
+          height={500}
         />
       </div>
 
@@ -146,13 +147,16 @@ export default function CategoryKidsBooks() {
           )}
         </div>
 
-        <div className="mx-auto flex w-fit cursor-pointer items-center gap-4">
+        <Link
+          href={"/books"}
+          className="absolute left-[2%] top-[21%] mx-auto flex w-fit cursor-pointer items-center gap-2 bg-white px-4 text-gray-700 hover:text-color1 hover:underline max-[1100px]:hidden"
+        >
           <span className="flex">
-            <ArrowLeft size={16} />
-            <ArrowLeft size={16} />
+            <ArrowLeft size={12} />
+            <ArrowLeft size={12} />
           </span>
-          <span className="text-xl font-medium text-gray-700">عرض المزيد</span>
-        </div>
+          <span className="text-lg font-medium">عرض المزيد</span>
+        </Link>
       </div>
     </div>
   );
