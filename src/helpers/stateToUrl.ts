@@ -1,30 +1,30 @@
-import { useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import createCompletePathName from "./createCompletePathName";
 
-export function useStateToUrl<T>(
-  name: string,
-  defaultValue: T,
-): [T, (value: T) => void] {
+export function useStateToUrl(name: string, defaultValue: string) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
 
-  const initialValue = (searchParams.get(name) ?? defaultValue) as T;
-
-  const [state, setState] = useState<T>(initialValue);
-
-  const changeState = (value: T) => {
-    setState(value);
-    const params = new URLSearchParams(searchParams);
+  const state = searchParams.get(name) ?? defaultValue;
+  const changeState = (value: string) => {
+    console.log("3- changing to ", value);
+    router.replace(
+      createCompletePathName({
+        currentPathname: pathname,
+        currentSearchParams: searchParams,
+        values: [{ name, value }],
+      }) as string,
+    );
+    /* const params = new URLSearchParams(searchParams);
     if (value !== defaultValue) {
-      params.set(name, value as string);
+      params.set(name, value);
     } else {
       params.delete(name);
     }
 
-    const newUrl = `${pathname}?${params.toString()}`;
-    router.replace(newUrl);
+    router.replace(`${pathname}?${params}`); */
   };
 
-  return [state, changeState] as [T, (value: T) => void];
+  return [state, changeState] as [string, (value: string) => void];
 }
