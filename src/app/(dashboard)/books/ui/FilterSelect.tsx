@@ -16,52 +16,51 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { PopoverClose } from "@radix-ui/react-popover";
 import useWriters from "@/hooks/data/books/writers/useWriters";
 import useCorners from "@/hooks/data/books/corners/useCorners";
 import useCategories from "@/hooks/data/books/categories/useCategories";
 import useSubCategories from "@/hooks/data/books/subCategories/useSubCategories";
 import useShareHouses from "@/hooks/data/books/useShareHouses";
-import { FilterType } from "../page";
-import { useBooksProvider } from "../provider/BooksProvider";
+import useURL from "@/hooks/useURL";
 
 type FilterSelectProps = {
   onClose: () => void;
 };
 
 export function FilterSelect({ onClose }: FilterSelectProps) {
-  const {
-    writer: writerId,
-    setWriter: setWriterId,
-    shareHouse: shareHouseId,
-    setShareHouse: setShareHouseId,
-    corner: cornerId,
-    setCorner: setCornerId,
-    categories: categoriesIds,
-    setCategories: setCategoriesIds,
-    subcategories: subcategoriesIds,
-    setSubcategories: setSubcategoriesIds,
-    priceRange: priceRangeValue,
-    setPriceRange: setPriceRangeValue,
-  } = useBooksProvider();
+  const { update, getValue } = useURL();
   const [priceRange, setPriceRange] = useState<[number, number]>(
-    (priceRangeValue.split("%") as unknown as [number, number]) ?? [0, 2000],
+    (getValue("priceRange")?.split("%") as unknown as [number, number]) ?? [
+      0, 2000,
+    ],
   );
-  const [writer, setWriter] = useState<{ id?: string; name?: string }>(
-    { id: writerId } ?? {},
-  );
+  const [writer, setWriter] = useState<{ id?: string; name?: string }>(() => {
+    console.log(getValue("writer")?.split("%"));
+    return (
+      {
+        id: getValue("writer")?.split("%")[0],
+        name: getValue("writer")?.split("%")[1],
+      } ?? {}
+    );
+  });
   const [corner, setCorner] = useState<{ id?: string; name?: string }>(
-    { id: cornerId } ?? {},
+    { id: getValue("corner") } ?? {},
   );
   const [shareHouse, setShareHouse] = useState<{ id?: string; name?: string }>(
-    { id: shareHouseId } ?? {},
+    { id: getValue("shareHouse") } ?? {},
   );
   const [category, setCategory] = useState<{ id?: string; name?: string }[]>(
-    categoriesIds.split("%").map((id) => ({ id })) ?? [],
+    getValue("categories")
+      ?.split("%")
+      .map((id) => ({ id })) ?? [],
   );
   const [subcategory, setSubcategory] = useState<
     { id?: string; name?: string }[]
-  >(subcategoriesIds.split("%").map((id) => ({ id })) ?? []);
+  >(
+    getValue("subcategories")
+      ?.split("%")
+      .map((id) => ({ id })) ?? [],
+  );
 
   const [openWriter, setOpenWriter] = useState(false);
   const [openShareHouse, setOpenShareHouse] = useState(false);
@@ -94,12 +93,21 @@ export function FilterSelect({ onClose }: FilterSelectProps) {
     shareHousesData.data?.data?.map((e) => ({ id: e.id, name: e.name })) ?? [];
 
   const handleApply = () => {
-    setWriterId(writer.id ?? "");
-    setShareHouseId(shareHouse.id ?? "");
-    setCornerId(corner.id ?? "");
-    setCategoriesIds(category.map((c) => c.id).join("%") as string);
-    setSubcategoriesIds(subcategories.map((s) => s.id).join("%") as string);
-    setPriceRangeValue(priceRange.join("%") as string);
+    console.log(subcategories);
+    update([
+      { name: "writer", value: writer.id ? writer.id + "%" + writer.name : "" },
+      { name: "shareHouse", value: shareHouse.id ?? "" },
+      { name: "corner", value: corner.id ?? "" },
+      {
+        name: "categories",
+        value: category.map((c) => c.id).join("%") as string,
+      },
+      {
+        name: "subcategories",
+        value: subcategories.map((s) => s.id).join("%") as string,
+      },
+      { name: "priceRange", value: priceRange.join("%") as string },
+    ]);
     onClose();
   };
   const filters: {
@@ -182,8 +190,8 @@ export function FilterSelect({ onClose }: FilterSelectProps) {
       command: "اختر الفئة",
       search: "ابحث عن الفئة",
       selected: category,
-      table: categories,
       setter: setCategory,
+      table: categories,
       notFound: "لم يتم العثور على فئة",
       open: openCategory,
       setOpen: setOpenCategory,
@@ -195,8 +203,8 @@ export function FilterSelect({ onClose }: FilterSelectProps) {
       command: "اختر الفئة الفرعية",
       search: "ابحث عن الفئة الفرعية",
       selected: subcategory,
-      table: subcategories,
       setter: setSubcategory,
+      table: subcategories,
       notFound: "لم يتم العثور على فئة فرعية",
       open: openSubcategory,
       setOpen: setOpenSubcategory,

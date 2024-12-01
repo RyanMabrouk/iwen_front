@@ -42,7 +42,7 @@ export default function BooksList() {
           : {}),
       ...(writer !== undefined &&
         writer !== "" && {
-          "books.writer_id": [{ operator: "=", value: writer }],
+          "books.writer_id": [{ operator: "=", value: writer.split("%")[0] }],
         }),
       ...(shareHouse !== undefined &&
         shareHouse !== "" && {
