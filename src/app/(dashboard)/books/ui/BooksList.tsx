@@ -7,14 +7,15 @@ import { useBooksProvider } from "../provider/BooksProvider";
 
 export default function BooksList() {
   const {
-    view: sortings,
-    numberOfBooks: booksNumber,
+    view,
+    numberOfBooks,
     page,
     priceRange,
     shareHouse,
     categories,
     subcategories,
     writer,
+    sortings,
   } = useBooksProvider();
   const currentDate = new Date();
   currentDate.setMonth(currentDate.getMonth() - 1);
@@ -28,21 +29,21 @@ export default function BooksList() {
       subcategories.split("%").length > 0 && {
         subcategories_ids: subcategories.split("%"),
       }),
-    ...(sortings === "mostSold" && { most_sold: "desc" as const }),
+    ...(view === "mostSold" && { most_sold: "desc" as const }),
   };
   const data = useBooks({
-    limit: parseInt(booksNumber) * 3,
+    limit: parseInt(numberOfBooks) * 3,
     page: parseInt(page),
     ...(Object.keys(extra_filters).length > 0 && { extra_filters }),
     filters: {
-      ...(sortings === "newest"
+      ...(view === "newest"
         ? { "books.created_at": [{ operator: ">=", value: formattedDate }] }
-        : sortings === "discount"
+        : view === "discount"
           ? { "books.discount": [{ operator: ">=", value: "0" }] }
           : {}),
       ...(writer !== undefined &&
         writer !== "" && {
-          "books.writer_id": [{ operator: "=", value: writer }],
+          "books.writer_id": [{ operator: "=", value: writer.split("%")[0] }],
         }),
       ...(shareHouse !== undefined &&
         shareHouse !== "" && {
@@ -56,6 +57,21 @@ export default function BooksList() {
           ],
         }),
     },
+    ...(sortings !== undefined &&
+      sortings !== "" && {
+        sort:
+          sortings === "alphabetical"
+            ? { order: "asc", orderBy: "books.title" }
+            : sortings === "discount"
+              ? { order: "desc", orderBy: "books.discount" }
+              : sortings === "price-asc"
+                ? { order: "asc", orderBy: "books.price" }
+                : sortings === "price-desc"
+                  ? { order: "desc", orderBy: "books.price" }
+                  : sortings === "date"
+                    ? { order: "desc", orderBy: "books.created_at" }
+                    : undefined,
+      }),
   });
   if (data.isLoading)
     return (
@@ -69,12 +85,12 @@ export default function BooksList() {
     <div className="flex flex-col items-center">
       <div
         dir="rtl"
-        className={`grid w-full max-sm:grid-cols-2 grid-cols-${booksNumber}`}
+        className={`grid w-full max-sm:grid-cols-2 grid-cols-${numberOfBooks}`}
       >
         {books?.map((book, i) => (
           <div
             key={i}
-            className={`py-3 transition-all duration-300 max-sm:px-5 ${booksNumber === "6" ? "px-4" : booksNumber === "4" ? "px-10" : booksNumber === "3" ? "px-16 py-4 max-lg:px-5" : "px-20 max-md:px-10"}`}
+            className={`py-3 transition-all duration-300 max-sm:px-5 ${numberOfBooks === "6" ? "px-4" : numberOfBooks === "4" ? "px-10" : numberOfBooks === "3" ? "px-16 py-4 max-lg:px-5" : "px-20 max-md:px-10"}`}
           >
             <BookCard
               images={

@@ -26,12 +26,87 @@ interface BooksProviderProps {
   setCategories: (value: string) => void;
   subcategories: string;
   setSubcategories: (value: string) => void;
+  sortings: string;
+  setSortings: (value: string) => void;
 }
 
 // Create a context for the BooksProvider
 const BooksContext = createContext<BooksProviderProps | undefined>(undefined);
 
 // Custom hook to access the BooksProvider values
+
+// BooksProvider component
+export default function BooksProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [numberOfBooks, setNumberOfBooks] = useStateToUrl("booksPerLine", "6");
+  const [view, setView] = useStateToUrl("view", "all");
+  const [page, setPage] = useStateToUrl("page", "1");
+  const [categories, setCategories] = useStateToUrl("categories", "");
+  const [subcategories, setSubcategories] = useStateToUrl("subcategories", "");
+  const [corner, setCorner] = useStateToUrl("corner", "");
+  const [shareHouse, setShareHouse] = useStateToUrl("shareHouse", "");
+  const [writer, setWriter] = useStateToUrl("writer", "");
+  const [priceRange, setPriceRange] = useStateToUrl("priceRange", "");
+  const [sortings, setSortings] = useStateToUrl("sortings", "");
+  const size = useWindowSize();
+  useEffect(() => {
+    if (
+      size !== undefined &&
+      size.width !== undefined &&
+      size.width < 1280 &&
+      parseInt(numberOfBooks) > 3
+    ) {
+      setNumberOfBooks("3");
+    } else if (
+      size !== undefined &&
+      size.width !== undefined &&
+      size.width > 1280 &&
+      parseInt(numberOfBooks) < 4
+    ) {
+      setNumberOfBooks("4");
+    }
+  }, [size]);
+
+  const changeView = (view: string) => {
+    setView(view);
+    setPage("1");
+  };
+
+  return (
+    <BooksContext.Provider
+      value={{
+        sortings,
+        setSortings,
+        view,
+        setView,
+        page,
+        setPage,
+        numberOfBooks,
+        setNumberOfBooks,
+        size,
+        changeView,
+        corner,
+        setCorner,
+        shareHouse,
+        setShareHouse,
+        writer,
+        setWriter,
+        priceRange,
+        setPriceRange,
+        categories,
+        setCategories,
+        subcategories,
+        setSubcategories,
+      }}
+    >
+      {children}
+    </BooksContext.Provider>
+  );
+}
+
 export function useBooksProvider() {
   const context = useContext(BooksContext);
   if (!context) {
@@ -58,80 +133,7 @@ export function useBooksProvider() {
     setCategories: context.setCategories!,
     subcategories: context.subcategories!,
     setSubcategories: context.setSubcategories!,
+    sortings: context.sortings!,
+    setSortings: context.setSortings!,
   };
-}
-
-// BooksProvider component
-export default function BooksProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [numberOfBooks, setNumberOfBooks] = useStateToUrl("booksPerLine", "6");
-  const [view, setView] = useStateToUrl("view", "all");
-  const [page, setPage] = useStateToUrl("page", "1");
-  const [categories, setCategories] = useStateToUrl("categories", "");
-  const [subcategories, setSubcategories] = useStateToUrl("subcategories", "");
-  const [corner, setCorner] = useStateToUrl("corner", "");
-  const [shareHouse, setShareHouse] = useStateToUrl("shareHouse", "");
-  const [writer, setWriter] = useStateToUrl("writer", "");
-  const [priceRange, setPriceRange] = useStateToUrl("priceRange", "");
-  const size = useWindowSize();
-  useEffect(() => {
-    if (
-      size !== undefined &&
-      size.width !== undefined &&
-      size.width < 1280 &&
-      parseInt(numberOfBooks) > 3
-    ) {
-      setNumberOfBooks("3");
-    } else if (
-      size !== undefined &&
-      size.width !== undefined &&
-      size.width > 1280 &&
-      parseInt(numberOfBooks) < 4
-    ) {
-      setNumberOfBooks("4");
-    }
-  }, [size]);
-  /* useEffect(() => {
-    if (Object.keys(filters).length > 0) {
-      console.log(filters);
-    }
-  }, [filters]); */
-
-  const changeView = (view: string) => {
-    console.log("2- changing to ", view);
-    setView(view);
-    setPage("1");
-  };
-
-  return (
-    <BooksContext.Provider
-      value={{
-        view,
-        setView,
-        page,
-        setPage,
-        numberOfBooks,
-        setNumberOfBooks,
-        size,
-        changeView,
-        corner,
-        setCorner,
-        shareHouse,
-        setShareHouse,
-        writer,
-        setWriter,
-        priceRange,
-        setPriceRange,
-        categories,
-        setCategories,
-        subcategories,
-        setSubcategories,
-      }}
-    >
-      {children}
-    </BooksContext.Provider>
-  );
 }

@@ -44,7 +44,6 @@ export default function Sortings() {
             <li
               onClick={() => {
                 changeView(option.view);
-                console.log("1- changing to ", option.view);
               }}
               key={option.id}
               style={{

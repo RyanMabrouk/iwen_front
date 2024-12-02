@@ -21,7 +21,6 @@ const booksQuery = (args: QueryBooksArgs) => ({
   queryKey: ["books", args],
   queryFn: async () => {
     const { data, error } = await getBooks(args);
-    console.log("🚀 ~ queryFn: ~ args:", args);
     if (error) return { data: null, error: error };
     else return { data, error: null };
   },

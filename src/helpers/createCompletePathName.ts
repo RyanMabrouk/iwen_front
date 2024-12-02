@@ -16,7 +16,6 @@ export default function createCompletePathName({
 }: CreateNewPathnameParams): string {
   // Clone the existing search params to avoid mutating the original
   const params = new URLSearchParams(currentSearchParams.toString());
-  console.log("old params : ", params.toString());
 
   values.forEach(({ name, value }) => {
     if (value === null || value === undefined) {
@@ -29,7 +28,6 @@ export default function createCompletePathName({
   });
 
   const queryString = params.toString();
-  console.log("new params ", queryString);
 
   // Return the pathname with the updated query string if it exists
   return queryString ? `${currentPathname}?${queryString}` : currentPathname;
