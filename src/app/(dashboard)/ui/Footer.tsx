@@ -14,10 +14,10 @@ export default function Footer() {
     <div className="bg-color1">
       <div
         dir="rtl"
-        className="flex flex-wrap items-start justify-center gap-10 bg-color1 p-5 text-white sm:pl-[8rem] sm:pr-10 sm:pt-10 md:justify-between"
+        className="flex flex-col md:flex-row items-start justify-center gap-10 bg-color1 p-5 text-white sm:pl-[8rem] sm:pr-10 sm:pt-10 md:justify-between"
       >
         {/* Left Section */}
-        <div className="flex flex-col items-start gap-5 sm:gap-20">
+        <div className="flex flex-col max-sm:m-auto items-start gap-5 sm:gap-20">
           <Logo />
           <Select className="m-auto text-sm" text="العربية" />
         </div>
@@ -45,7 +45,7 @@ export default function Footer() {
             </PrimaryButton>
           )}
 
-          <div className="flex flex-col gap-2 text-xs leading-relaxed">
+          <div className="flex flex-col gap-2 text-sm leading-relaxed">
             <div>العنوان : تونس ـ شارع أبو قاسم الشابي 4084</div>
             <div>+رقم الهاتف : 147 748 73 216</div>
           </div>
