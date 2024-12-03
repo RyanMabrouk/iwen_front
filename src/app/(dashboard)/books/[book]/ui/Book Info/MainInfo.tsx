@@ -5,12 +5,12 @@ import { useBookProvider } from "../../provider/BookProvider";
 import check from "../../../../../../../public/dashboard/book/check";
 
 export default function MainInfo() {
-  const { book, authors } = useBookProvider();
+  const { book } = useBookProvider();
   return (
     <div className="max-h-[200px] w-full">
       <ul className="mb-10 flex flex-col items-start gap-2 p-3">
         <li dir="rtl">
-          <strong>إسم المؤلف :</strong> {authors?.[0].name}
+          <strong>إسم المؤلف :</strong> {book?.writer?.name}
         </li>
         <li dir="rtl">
           <strong>إسم الكتاب :</strong> {book?.title}

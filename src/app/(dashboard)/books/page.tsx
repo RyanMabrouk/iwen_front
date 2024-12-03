@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import Navigation from "./ui/Navigation";
 import BooksList from "./ui/BooksList";
 
@@ -22,11 +22,13 @@ export type FilterType = {
 
 export default function page() {
   return (
-    <BooksProvider>
-      <div className="flex flex-col gap-2">
-        <Navigation />
-        <BooksList />
-      </div>
-    </BooksProvider>
+    <Suspense fallback={<div>Loading...</div>}>
+      <BooksProvider>
+        <div className="flex flex-col gap-2">
+          <Navigation />
+          <BooksList />
+        </div>
+      </BooksProvider>
+    </Suspense>
   );
 }

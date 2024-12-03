@@ -7,7 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Store from "@/provider/QCStore";
 import React from "react";
-import Footer from "@/components/Footer";
+import Footer from "./(dashboard)/ui/Footer";
 
 const tajawal = Tajawal({
   weight: ["200", "300", "400", "500", "700", "800", "900"],

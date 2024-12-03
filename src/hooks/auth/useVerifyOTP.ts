@@ -8,7 +8,7 @@ export default function useVerifyOTP(email: string, otp: string) {
   const router = useRouter();
   return useMutation({
     mutationFn: async () => verifyOTP(email ?? "", otp),
-    onSuccess: ({ session }: { session: any }) => {
+    onSuccess: () => {
       toast.success("تم التحقق من الرمز المميز بنجاح");
       router.push(`/change_password`);
     },

@@ -45,7 +45,7 @@ export default function Wishlist() {
   }
 
   return (
-    <div className=" sm:max-w-4xl" dir="rtl">
+    <div className="mx-auto sm:max-w-5xl" dir="rtl">
       <div className=" grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
         {wishlist?.data?.data.map((book: IBookPopulated) => {
           return (

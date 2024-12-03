@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-10 lg:flex-row">
           <div className="flex h-fit w-full flex-col gap-9">
             <SearchBar />
-            <div className="grid w-full grid-cols-2 gap-5 text-lg text-white max-sm:text-sm xl:text-xl 2xl:grid-cols-4">
+            <div className="grid w-full grid-cols-2 gap-5 text-sm text-white   sm:grid-cols-3 md:grid-cols-4">
               <div className="flex flex-col gap-[22px]">
                 <span className="text-right max-xl:text-center">
                   خثقعالعخثقالعقالع
@@ -66,11 +66,11 @@ export default function Footer() {
             <div className="flex w-full flex-col items-end space-y-5 max-xl:items-center lg:space-y-[52px]">
               <PrimaryButton className="w-fit">إنشاء حساب</PrimaryButton>
 
-              <div className="w-full space-y-5">
-                <p className="w-full text-base font-light max-xl:items-center max-xl:text-center lg:whitespace-normal lg:text-lg xl:whitespace-nowrap">
+              <div className="w-full text-sm space-y-5">
+                <p className="w-full  font-light ">
                   العنوان : تونس ـ شارع أبو قاسم الشابي 4084
                 </p>
-                <p className="text-base font-light max-xl:text-center lg:text-lg">
+                <p className=" font-light ">
                   +رقم الهاتف :147 748 73 216
                 </p>
               </div>
@@ -91,7 +91,7 @@ export default function Footer() {
       <Image
         src={"/Group2.svg"}
         width={1920}
-        height={30}
+        height={1000}
         alt={""}
         className="min-w-[1920px]"
       />
