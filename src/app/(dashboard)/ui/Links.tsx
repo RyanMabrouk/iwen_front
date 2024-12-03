@@ -72,7 +72,7 @@ export default function Links() {
   return (
     <div
       dir="rtl"
-      className="grid text-white text-sm  grid-cols-2 gap-6 p-4 text-center md:grid-cols-4 sm:grid-cols-3"
+      className="grid text-white text-base  grid-cols-2 gap-6 p-4 text-center md:grid-cols-4 sm:grid-cols-3"
     >
       {links.map((link, index) => (
         <Link href={link.href} key={index}>

@@ -7,6 +7,7 @@ import Image from "next/image";
 import CategoryKidsBooks from "@/components/CategoryKidsBooks";
 import Banners from "@/components/main/banners/Banners";
 import Link from "next/link";
+import NewAuthors from "./ui/newAuthors";
 export default async function Page() {
   return (
     <div>
@@ -39,15 +40,8 @@ export default async function Page() {
         </div>
       </div>
       <CategoryKidsBooks />
-      <div className="flex h-full w-full items-center justify-center">
-        <Image
-          src={"/writers.svg"}
-          alt=""
-          className="h-full w-full pb-12 object-cover"
-          height={1000}
-          width={1000}
-        />
-      </div>
+      <NewAuthors />
+
     </div>
   );
 }
