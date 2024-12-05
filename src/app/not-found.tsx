@@ -3,10 +3,9 @@ import React from "react";
 import Image from "next/image";
 import PrimaryButton from "@/components/main/buttons/PrimaryButton";
 import TimePast from "@/components/icons/TimePast";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 function NotFound() {
-  const route = useRouter();
   return (
     <div className="flex h-screen items-center justify-center px-12">
       <div className="w-[28.375rem] space-y-[4.813rem]">
@@ -25,13 +24,12 @@ function NotFound() {
             ربما تم نقل الصفحة التي تبحث عنها، أو أعيدت تسميتها أو ربما لم تكن
             موجودة على الإطلاق
           </p>
-          <PrimaryButton
-            className="mx-auto flex items-center gap-4"
-            onClick={() => route.refresh()}
-          >
-            <TimePast size="16" />
-            <span>تحديث الصفحة</span>
-          </PrimaryButton>
+          <Link href={"/home"}>
+            <PrimaryButton className="mx-auto flex items-center gap-4">
+              <TimePast size="16" />
+              <span>الذهاب للصفحة الرئيسية</span>
+            </PrimaryButton>
+          </Link>
         </div>
       </div>
     </div>
