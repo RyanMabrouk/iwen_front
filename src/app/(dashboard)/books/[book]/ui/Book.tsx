@@ -55,7 +55,7 @@ export default function BookInfo() {
     share_house: null,
     corner: null,
     writer_books: [],
-    recommended_books: []
+    recommended_books: [],
   }; */
   return (
     <div
