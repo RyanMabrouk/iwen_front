@@ -19,7 +19,7 @@ function NotFound() {
         />
       }
     >
-      <div className="flex h-screen items-center justify-center px-12">
+      {/* <div className="flex h-screen items-center justify-center px-12">
         <div className="w-[28.375rem] space-y-[4.813rem]">
           <div className="max-sm:px-8">
             <Image
@@ -44,7 +44,7 @@ function NotFound() {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
     </Suspense>
   );
 }
