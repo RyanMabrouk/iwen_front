@@ -69,24 +69,18 @@ export function FilterProvider({ children }: { children: React.ReactNode }) {
       ?.split("%")
       .map((id) => ({ id })) ?? [],
   );
-  const [writer, setWriter] = useState<{ id?: string; name?: string }>(
-    {
-      id: getValue("writer")?.split("%")[0],
-      name: getValue("writer")?.split("%")[1],
-    } ?? {},
-  );
-  const [corner, setCorner] = useState<{ id?: string; name?: string }>(
-    {
-      id: getValue("corner")?.split("%")[0],
-      name: getValue("corner")?.split("%")[1],
-    } ?? {},
-  );
-  const [shareHouse, setShareHouse] = useState<{ id?: string; name?: string }>(
-    {
-      id: getValue("shareHouse")?.split("%")[0],
-      name: getValue("shareHouse")?.split("%")[1],
-    } ?? {},
-  );
+  const [writer, setWriter] = useState<{ id?: string; name?: string }>({
+    id: getValue("writer")?.split("%")[0],
+    name: getValue("writer")?.split("%")[1],
+  });
+  const [corner, setCorner] = useState<{ id?: string; name?: string }>({
+    id: getValue("corner")?.split("%")[0],
+    name: getValue("corner")?.split("%")[1],
+  });
+  const [shareHouse, setShareHouse] = useState<{ id?: string; name?: string }>({
+    id: getValue("shareHouse")?.split("%")[0],
+    name: getValue("shareHouse")?.split("%")[1],
+  });
   const writersData = useWriters();
   const cornersData = useCorners();
   const categoriesData = useCategories();
