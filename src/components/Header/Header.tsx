@@ -4,9 +4,9 @@ import React from "react";
 import SearchBar from "../main/SearchBar";
 import Logo from "../main/Logo";
 import Select from "../main/Select";
-// const HeaderLoginButton = dynamic(() => import("./HeaderLoginButton"), {
-//   ssr: false,
-// });
+const HeaderLoginButton = dynamic(() => import("./HeaderLoginButton"), {
+  ssr: false,
+});
 import dynamic from "next/dynamic";
 import { HeaderPhoneMenu } from "./HeaderPhoneMenu";
 import CartButton from "./CartButton";
@@ -31,7 +31,7 @@ export default function Header() {
           <Select text="العربية" className="w-full px-1.5 text-white" />
           <div className="flex w-full max-w-[228px] gap-5 max-sm:gap-2">
             <CartButton />
-            {/* <HeaderLoginButton /> */}
+            <HeaderLoginButton />
           </div>
         </div>
       </div>

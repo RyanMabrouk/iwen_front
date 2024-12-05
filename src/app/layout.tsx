@@ -6,8 +6,9 @@ import { ToastContainer, ToastProvider } from "@/hooks/useToast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Store from "@/provider/QCStore";
-import React from "react";
+import React, { Suspense } from "react";
 import Footer from "./(dashboard)/ui/Footer";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 const tajawal = Tajawal({
   weight: ["200", "300", "400", "500", "700", "800", "900"],
@@ -46,10 +47,22 @@ export default async function RootLayout({
           <Hydration>
             <ToastProvider>
               <ToastContainer />
-              <main>
-                {children}
-                <Footer />
-              </main>
+              <Suspense
+                fallback={
+                  <Player
+                    className="m-auto"
+                    autoplay
+                    loop
+                    src="/loading.json"
+                    style={{ height: "12rem", width: "12rem" }}
+                  />
+                }
+              >
+                <main>
+                  {children}
+                  <Footer />
+                </main>{" "}
+              </Suspense>
             </ToastProvider>
           </Hydration>
         </Store>

@@ -14,5 +14,3 @@ export default async function Layout({
     </>
   );
 }
-
-// <div className="flex h-full flex-col overflow-x-hidden">{children}</div>
