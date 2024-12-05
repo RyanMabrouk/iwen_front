@@ -76,6 +76,7 @@ export default function ProfilePictureUpload({
   };
 
   const handleSubmit = () => {
+    if (!document) return;
     const fileInput = document.querySelector<HTMLInputElement>(
       "#profile-picture-upload",
     );
