@@ -2,9 +2,9 @@
 import useCurrentUser from "@/hooks/data/user/useCurrentUser";
 import Image from "next/image";
 import React from "react";
-const ProfilePictureUpload = dynamic(() => import("./profilepic"), {
-  ssr: false,
-});
+// const ProfilePictureUpload = dynamic(() => import("./profilepic"), {
+//   ssr: false,
+// });
 import useMyOrders from "@/hooks/data/payments/orders/useMyOrders";
 import dynamic from "next/dynamic";
 
@@ -16,7 +16,7 @@ export default function Header() {
       dir="rtl"
       className="mx-auto flex h-auto w-[80svw] flex-col items-center justify-evenly gap-4 p-4 md:h-[8.5rem] md:flex-row md:gap-[2rem] md:p-0"
     >
-      <ProfilePictureUpload defaultProfilePic={user?.data?.avatar} />
+      {/* <ProfilePictureUpload defaultProfilePic={user?.data?.avatar} /> */}
 
       <div className="flex w-full flex-col items-center gap-4 rounded-lg bg-white p-3 md:h-full md:flex-row md:items-stretch md:gap-0 md:p-0">
         <div className="flex flex-col items-center justify-center gap-2 pl-2 pr-2 text-center sm:pl-[6rem] sm:pr-[2rem] md:gap-3 md:text-right">

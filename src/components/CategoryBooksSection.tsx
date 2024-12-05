@@ -1,9 +1,9 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
-const SelectWithBorder = dynamic(() => import("./main/SelectWithBorder"), {
-  ssr: false,
-});
+import React, { useState } from "react";
+// const SelectWithBorder = dynamic(() => import("./main/SelectWithBorder"), {
+//   ssr: false,
+// });
 import CategoryIcon from "./icons/CategoryIcon";
 import BookCard from "./BookCard";
 import ArrowLeft from "./icons/ArrowLeft";
@@ -11,11 +11,8 @@ import CustomSwiper from "./ui/swiper";
 import useCategories from "@/hooks/data/books/categories/useCategories";
 import ArrowRight from "./icons/ArrowRight";
 import EmptyBox from "./icons/EmptyBox";
-import Events from "./Events";
-import { IEventPopulated } from "@/hooks/data/events/eventQuery";
 import useEvents from "@/hooks/data/events/useEvents";
 import useEvent from "@/hooks/data/events/useEvent";
-import dynamic from "next/dynamic";
 
 export default function CategoryBooksSection() {
   const [activeEvent, setActiveEvent] = useState(0);
@@ -30,7 +27,7 @@ export default function CategoryBooksSection() {
   return (
     <div className="relative bg-[#E7F6F5]/30 px-6 py-14">
       <div className="mx-auto w-full max-w-[1400px] space-y-12">
-        <div className="flex h-fit w-full items-center justify-between gap-10 max-xl:flex-col">
+        {/* <div className="flex h-fit w-full items-center justify-between gap-10 max-xl:flex-col">
           <SelectWithBorder
             defaultStatus
             text="الفئات"
@@ -49,7 +46,7 @@ export default function CategoryBooksSection() {
           <div className="scrollbar scrollbar-thin scrollbar-thumb-primary-500 scrollbar-track-gray-200 dir-[rtl] relative h-[60px] w-full overflow-x-auto">
             <Events activeEvent={activeEvent} setActiveEvent={setActiveEvent} />
           </div>
-        </div>
+        </div> */}
 
         <div className="relative">
           {active_event_populated?.data &&
