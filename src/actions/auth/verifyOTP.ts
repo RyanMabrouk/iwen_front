@@ -1,13 +1,14 @@
 "use server";
 
 import { createClient } from "@/lib/supabase";
-
-import { AuthResponse } from "@supabase/auth-js";
+import { AuthError } from "@supabase/supabase-js";
 
 export default async function verifyOTP(
   email: string,
   otp: string,
-): Promise<AuthResponse> {
+): Promise<{
+  error: AuthError | null;
+}> {
   const supabase = createClient();
 
   const {
@@ -19,7 +20,7 @@ export default async function verifyOTP(
     type: "email",
   });
 
-  if (error) throw new Error("(OTP) الرمز السري غير صالح");
+  if (error) return { error };
 
   if (session) {
     await supabase.auth.setSession({
@@ -28,5 +29,5 @@ export default async function verifyOTP(
     });
   }
 
-  return { data: { user: session?.user ?? null, session }, error: null };
+  return { error: null };
 }

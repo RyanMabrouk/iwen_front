@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
 import PrimaryButton from "../main/buttons/PrimaryButton";
@@ -6,12 +7,13 @@ import useCurrentUser from "@/hooks/data/user/useCurrentUser";
 import Link from "next/link";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import signOut from "@/actions/auth/signout";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation"; // Client-side navigation
 
 export function HeaderLoginButton() {
   const { data: user } = useCurrentUser();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter(); // Initialize router
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -21,10 +23,14 @@ export function HeaderLoginButton() {
 
   const { mutate: signOutUser } = useMutation({
     mutationFn: async () => {
-      signOut();
+      await signOut();
       setIsDropdownOpen(false);
-      await queryClient.invalidateQueries();
-      redirect("/login");
+      await queryClient.invalidateQueries(); // Invalidate all queries
+      router.push("/login"); // Client-side navigation
+    },
+    onError: (error) => {
+      // Optional: Handle sign-out errors here
+      console.error("Error signing out:", error);
     },
   });
 
@@ -42,14 +48,16 @@ export function HeaderLoginButton() {
   };
 
   useEffect(() => {
-    if (isDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+    if (typeof window !== "undefined") {
+      if (isDropdownOpen) {
+        document.addEventListener("mousedown", handleClickOutside);
+      } else {
+        document.removeEventListener("mousedown", handleClickOutside);
+      }
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
     }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
   }, [isDropdownOpen]);
 
   if (user?.data) {
