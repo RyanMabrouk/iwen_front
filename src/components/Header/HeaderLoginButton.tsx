@@ -9,7 +9,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import signOut from "@/actions/auth/signout";
 import { useRouter } from "next/navigation"; // Client-side navigation
 
-export function HeaderLoginButton() {
+export default function HeaderLoginButton() {
   const { data: user } = useCurrentUser();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

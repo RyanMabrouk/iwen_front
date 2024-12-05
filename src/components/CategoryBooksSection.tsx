@@ -1,7 +1,9 @@
 "use client";
 
 import React, { use, useEffect, useState } from "react";
-import SelectWithBorder from "./main/SelectWithBorder";
+const SelectWithBorder = dynamic(() => import("./main/SelectWithBorder"), {
+  ssr: false,
+});
 import CategoryIcon from "./icons/CategoryIcon";
 import BookCard from "./BookCard";
 import ArrowLeft from "./icons/ArrowLeft";
@@ -13,6 +15,7 @@ import Events from "./Events";
 import { IEventPopulated } from "@/hooks/data/events/eventQuery";
 import useEvents from "@/hooks/data/events/useEvents";
 import useEvent from "@/hooks/data/events/useEvent";
+import dynamic from "next/dynamic";
 
 export default function CategoryBooksSection() {
   const [activeEvent, setActiveEvent] = useState(0);

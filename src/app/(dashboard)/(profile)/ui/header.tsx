@@ -2,8 +2,11 @@
 import useCurrentUser from "@/hooks/data/user/useCurrentUser";
 import Image from "next/image";
 import React from "react";
-import ProfilePictureUpload from "./profilepic";
+const ProfilePictureUpload = dynamic(() => import("./profilepic"), {
+  ssr: false,
+});
 import useMyOrders from "@/hooks/data/payments/orders/useMyOrders";
+import dynamic from "next/dynamic";
 
 export default function Header() {
   const { data: user } = useCurrentUser();
@@ -45,7 +48,7 @@ export default function Header() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-2 px-4 py-2 md:gap-3 md:pr-[6rem] md:pl-[5rem] md:py-0 ">
+        <div className="flex flex-col items-center justify-center gap-2 px-4 py-2 md:gap-3 md:py-0 md:pl-[5rem] md:pr-[6rem]">
           <Image
             src={"/profile/coin-svgrepo-com 1.png"}
             alt="Total Spending Icon"

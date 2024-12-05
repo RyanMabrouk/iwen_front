@@ -1,9 +1,13 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import SearchBar from "../main/SearchBar";
 import Logo from "../main/Logo";
 import Select from "../main/Select";
-import { HeaderLoginButton } from "./HeaderLoginButton";
+const HeaderLoginButton = dynamic(() => import("./HeaderLoginButton"), {
+  ssr: false,
+});
+import dynamic from "next/dynamic";
 import { HeaderPhoneMenu } from "./HeaderPhoneMenu";
 import CartButton from "./CartButton";
 
