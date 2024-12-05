@@ -48,15 +48,16 @@ export function HeaderLoginButton() {
   };
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (isDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+    if (typeof window !== "undefined") {
+      if (isDropdownOpen) {
+        document.addEventListener("mousedown", handleClickOutside);
+      } else {
+        document.removeEventListener("mousedown", handleClickOutside);
+      }
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
     }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
   }, [isDropdownOpen]);
 
   if (user?.data) {

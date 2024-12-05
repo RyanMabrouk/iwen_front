@@ -38,12 +38,12 @@ export default function SelectWithBorder({
       }
     };
 
-    if (typeof window === "undefined") return;
-
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+    if (typeof window !== "undefined") {
+      if (open) {
+        document.addEventListener("mousedown", handleClickOutside);
+      } else {
+        document.removeEventListener("mousedown", handleClickOutside);
+      }
     }
 
     return () => {
