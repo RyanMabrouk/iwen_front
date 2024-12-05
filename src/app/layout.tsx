@@ -8,6 +8,7 @@ import { Analytics } from "@vercel/analytics/react";
 import Store from "@/provider/QCStore";
 import React, { Suspense } from "react";
 import Footer from "./(dashboard)/ui/Footer";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 const tajawal = Tajawal({
   weight: ["200", "300", "400", "500", "700", "800", "900"],
@@ -40,21 +41,31 @@ export default async function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body className={tajawal.className + " min-h-screen"}>
-        <Suspense fallback={"loading..."}>
-          <Analytics />
-          <SpeedInsights />
-          <Store>
-            <Hydration>
-              <ToastProvider>
-                <ToastContainer />
+        <Analytics />
+        <SpeedInsights />
+        <Store>
+          <Hydration>
+            <ToastProvider>
+              <ToastContainer />
+              <Suspense
+                fallback={
+                  <Player
+                    className="m-auto"
+                    autoplay
+                    loop
+                    src="/loading.json"
+                    style={{ height: "12rem", width: "12rem" }}
+                  />
+                }
+              >
                 <main>
                   {children}
                   <Footer />
                 </main>{" "}
-              </ToastProvider>
-            </Hydration>
-          </Store>{" "}
-        </Suspense>
+              </Suspense>
+            </ToastProvider>
+          </Hydration>
+        </Store>
       </body>
     </html>
   );
