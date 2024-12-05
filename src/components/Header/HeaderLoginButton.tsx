@@ -48,7 +48,7 @@ export function HeaderLoginButton() {
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (window && document) {
       if (isDropdownOpen) {
         document.addEventListener("mousedown", handleClickOutside);
       } else {

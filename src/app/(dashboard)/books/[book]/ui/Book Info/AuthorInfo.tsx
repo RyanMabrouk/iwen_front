@@ -7,14 +7,16 @@ export default function AuthorInfo() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
-    const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth < 1024);
-    };
+    if (window) {
+      const checkScreenSize = () => {
+        setIsSmallScreen(window.innerWidth < 1024);
+      };
 
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
+      checkScreenSize();
+      window.addEventListener("resize", checkScreenSize);
 
-    return () => window.removeEventListener("resize", checkScreenSize);
+      return () => window.removeEventListener("resize", checkScreenSize);
+    }
   }, []);
   const { book } = useBookProvider();
   if (!book?.writer) return <div>no authors to be shown</div>;

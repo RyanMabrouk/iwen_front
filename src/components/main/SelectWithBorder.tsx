@@ -38,17 +38,16 @@ export default function SelectWithBorder({
       }
     };
 
-    if (typeof window !== "undefined") {
+    if (window && document) {
       if (open) {
         document.addEventListener("mousedown", handleClickOutside);
       } else {
         document.removeEventListener("mousedown", handleClickOutside);
       }
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
     }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
   }, [open]);
 
   const handleSelect = (item: Item) => {
