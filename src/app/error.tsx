@@ -2,6 +2,7 @@
 import { Player } from "@lottiefiles/react-lottie-player";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+
 export default function Error({
   error,
   reset,
