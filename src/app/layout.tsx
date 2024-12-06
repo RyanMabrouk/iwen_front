@@ -44,28 +44,15 @@ export default function RootLayout({
       </head>
       <body className={tajawal.className + " min-h-screen"}>
         <Analytics />
-        <SpeedInsights />
-        <Suspense
-          fallback={
-            <Player
-              className="m-auto"
-              autoplay
-              loop
-              src="/loading.json"
-              style={{ height: "12rem", width: "12rem" }}
-            />
-          }
-        >
-          {" "}
-          <Store>
-            <Hydration>
-              <ToastProvider>
-                <ToastContainer />
-                <main>{children}</main>{" "}
-              </ToastProvider>
-            </Hydration>
-          </Store>
-        </Suspense>
+        <SpeedInsights />{" "}
+        <Store>
+          <Hydration>
+            <ToastProvider>
+              <ToastContainer />
+              <main>{children}</main>{" "}
+            </ToastProvider>
+          </Hydration>
+        </Store>
       </body>
     </html>
   );
