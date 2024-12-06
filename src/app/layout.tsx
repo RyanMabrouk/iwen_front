@@ -6,12 +6,8 @@ import { ToastContainer, ToastProvider } from "@/hooks/useToast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Store from "@/provider/QCStore";
-import React, { Suspense } from "react";
-import dynamic from "next/dynamic";
-const Player = dynamic(
-  () => import("@lottiefiles/react-lottie-player").then((mod) => mod.Player),
-  { ssr: false },
-);
+import React from "react";
+
 const tajawal = Tajawal({
   weight: ["200", "300", "400", "500", "700", "800", "900"],
   subsets: ["arabic"],
