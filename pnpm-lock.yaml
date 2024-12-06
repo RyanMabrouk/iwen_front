@@ -15,10 +15,10 @@ dependencies:
     specifier: ^3.5.4
     version: 3.5.4(react@18.3.1)
   '@mui/icons-material':
-    specifier: ^6.1.9
+    specifier: ^6.1.10
     version: 6.1.10(@mui/material@6.1.10)(@types/react@18.3.14)(react@18.3.1)
   '@mui/material':
-    specifier: ^6.1.9
+    specifier: ^6.1.10
     version: 6.1.10(@emotion/react@11.13.5)(@emotion/styled@11.13.5)(@types/react@18.3.14)(react-dom@18.3.1)(react@18.3.1)
   '@radix-ui/react-checkbox':
     specifier: ^1.1.2
@@ -48,34 +48,34 @@ dependencies:
     specifier: ^1.1.0
     version: 1.1.0(@types/react@18.3.14)(react@18.3.1)
   '@sentry/nextjs':
-    specifier: ^8
+    specifier: ^8.42.0
     version: 8.42.0(@opentelemetry/core@1.29.0)(@opentelemetry/instrumentation@0.54.2)(@opentelemetry/sdk-trace-base@1.29.0)(next@14.2.20)(react@18.3.1)(webpack@5.97.1)
   '@supabase/ssr':
     specifier: ^0.5.2
     version: 0.5.2(@supabase/supabase-js@2.47.1)
   '@supabase/supabase-js':
-    specifier: ^2.46.2
+    specifier: ^2.47.1
     version: 2.47.1
   '@tanstack/react-query':
-    specifier: ^5.60.5
+    specifier: ^5.62.2
     version: 5.62.2(react@18.3.1)
   '@tanstack/react-query-devtools':
-    specifier: ^5.60.5
+    specifier: ^5.62.2
     version: 5.62.2(@tanstack/react-query@5.62.2)(react@18.3.1)
   '@vercel/analytics':
-    specifier: ^1.4.0
+    specifier: ^1.4.1
     version: 1.4.1(next@14.2.20)(react@18.3.1)
   '@vercel/speed-insights':
     specifier: ^1.1.0
     version: 1.1.0(next@14.2.20)(react@18.3.1)
   antd:
-    specifier: ^5.22.1
+    specifier: ^5.22.3
     version: 5.22.3(date-fns@3.6.0)(react-dom@18.3.1)(react@18.3.1)
   axios:
-    specifier: ^1.7.7
+    specifier: ^1.7.9
     version: 1.7.9
   class-variance-authority:
-    specifier: ^0.7.0
+    specifier: ^0.7.1
     version: 0.7.1
   classnames:
     specifier: ^2.5.1
@@ -90,10 +90,10 @@ dependencies:
     specifier: ^3.6.0
     version: 3.6.0
   dotenv:
-    specifier: ^16.4.5
+    specifier: ^16.4.7
     version: 16.4.7
   framer-motion:
-    specifier: ^11.11.17
+    specifier: ^11.13.1
     version: 11.13.1(react-dom@18.3.1)(react@18.3.1)
   kysely:
     specifier: ^0.27.4
@@ -102,7 +102,7 @@ dependencies:
     specifier: ^0.439.0
     version: 0.439.0(react@18.3.1)
   next:
-    specifier: ^14.2.18
+    specifier: ^14.2.20
     version: 14.2.20(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1)(react@18.3.1)
   nodemailer:
     specifier: ^6.9.16
@@ -120,22 +120,22 @@ dependencies:
     specifier: ^14.3.5
     version: 14.3.5(react@18.3.1)
   react-icons:
-    specifier: ^5.3.0
+    specifier: ^5.4.0
     version: 5.4.0(react@18.3.1)
   react-tooltip:
     specifier: ^5.28.0
     version: 5.28.0(react-dom@18.3.1)(react@18.3.1)
   recharts:
-    specifier: ^2.13.3
+    specifier: ^2.14.1
     version: 2.14.1(react-dom@18.3.1)(react@18.3.1)
   sharp:
     specifier: ^0.33.5
     version: 0.33.5
   swiper:
-    specifier: ^11.1.14
+    specifier: ^11.1.15
     version: 11.1.15
   tailwind-merge:
-    specifier: ^2.5.4
+    specifier: ^2.5.5
     version: 2.5.5
   tailwindcss-animate:
     specifier: ^1.0.7
@@ -149,22 +149,22 @@ dependencies:
 
 devDependencies:
   '@tanstack/eslint-plugin-query':
-    specifier: ^5.60.1
+    specifier: ^5.62.1
     version: 5.62.1(eslint@8.57.1)(typescript@5.7.2)
   '@types/next-pwa':
     specifier: ^5.6.9
     version: 5.6.9(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1)(react@18.3.1)
   '@types/node':
-    specifier: ^20.17.6
+    specifier: ^20.17.9
     version: 20.17.9
   '@types/nodemailer':
-    specifier: ^6.4.16
+    specifier: ^6.4.17
     version: 6.4.17
   '@types/react':
-    specifier: ^18.3.12
+    specifier: ^18.3.14
     version: 18.3.14
   '@types/react-dom':
-    specifier: ^18.3.1
+    specifier: ^18.3.2
     version: 18.3.2
   '@types/uuid':
     specifier: ^10.0.0
@@ -179,25 +179,25 @@ devDependencies:
     specifier: ^8.57.1
     version: 8.57.1
   eslint-config-next:
-    specifier: ^14.2.18
+    specifier: ^14.2.20
     version: 14.2.20(eslint@8.57.1)(typescript@5.7.2)
   husky:
-    specifier: ^9.1.6
+    specifier: ^9.1.7
     version: 9.1.7
   prettier:
-    specifier: ^3.3.3
+    specifier: ^3.4.2
     version: 3.4.2
   prettier-plugin-tailwindcss:
-    specifier: ^0.6.8
+    specifier: ^0.6.9
     version: 0.6.9(prettier@3.4.2)
   supabase:
-    specifier: ^1.219.2
+    specifier: ^1.226.4
     version: 1.226.4
   tailwindcss:
-    specifier: ^3.4.15
+    specifier: ^3.4.16
     version: 3.4.16
   typescript:
-    specifier: ^5.6.3
+    specifier: ^5.7.2
     version: 5.7.2
 
 packages:
@@ -4330,6 +4330,7 @@ packages:
 
   /@types/estree@0.0.39:
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
+    dev: true
 
   /@types/estree@1.0.6:
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
@@ -6761,7 +6762,7 @@ packages:
   /is-reference@1.2.1:
     resolution: {integrity: sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==}
     dependencies:
-      '@types/estree': 0.0.39
+      '@types/estree': 1.0.6
     dev: false
 
   /is-regex@1.2.0:
