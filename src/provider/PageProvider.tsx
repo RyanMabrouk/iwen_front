@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import React, { createContext } from "react";
+import React, { createContext, useContext } from "react";
 
 type PageContextType = {
   page: "login" | "signup" | null;
@@ -28,7 +28,7 @@ export function PageProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function usePage() {
-  const context = React.useContext(PageContext);
+  const context = useContext(PageContext);
   if (!context) {
     throw new Error("usePage must be used within a PageProvider");
   }

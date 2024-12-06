@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 type CounterContextType = {
   counter: number;
@@ -57,7 +57,7 @@ export function CounterProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useCounter() {
-  const context = React.useContext(CounterContext);
+  const context = useContext(CounterContext);
   if (!context) {
     throw new Error("useCounter must be used within a PageProvider");
   }
