@@ -2,11 +2,23 @@ import type { Metadata } from "next";
 import { Tajawal } from "next/font/google";
 import "./globals.css";
 import Hydration from "@/provider/MainHydration";
-import { ToastContainer, ToastProvider } from "@/hooks/useToast";
+const ToastContainer = dynamic(
+  () => import("@/hooks/useToast").then((mob) => mob.ToastContainer),
+  {
+    ssr: false,
+  },
+);
+const ToastProvider = dynamic(
+  () => import("@/hooks/useToast").then((mob) => mob.ToastProvider),
+  {
+    ssr: false,
+  },
+);
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Store from "@/provider/QCStore";
 import React from "react";
+import dynamic from "next/dynamic";
 
 const tajawal = Tajawal({
   weight: ["200", "300", "400", "500", "700", "800", "900"],
