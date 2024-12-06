@@ -6,13 +6,9 @@ import {
   HydrationBoundary,
 } from "@tanstack/react-query";
 import React from "react";
-export default async function Hydration({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Hydration({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient(QueriesConfig);
-  await Promise.all([]);
+  // await Promise.all([]);
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       {children}
