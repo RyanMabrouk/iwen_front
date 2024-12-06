@@ -6,8 +6,12 @@ import { ToastContainer, ToastProvider } from "@/hooks/useToast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Store from "@/provider/QCStore";
-import React from "react";
-
+import React, { Suspense } from "react";
+import dynamic from "next/dynamic";
+const Player = dynamic(
+  () => import("@lottiefiles/react-lottie-player").then((mod) => mod.Player),
+  { ssr: false },
+);
 const tajawal = Tajawal({
   weight: ["200", "300", "400", "500", "700", "800", "900"],
   subsets: ["arabic"],
@@ -41,14 +45,27 @@ export default function RootLayout({
       <body className={tajawal.className + " min-h-screen"}>
         <Analytics />
         <SpeedInsights />
-        <Store>
-          <Hydration>
-            <ToastProvider>
-              <ToastContainer />
-              <main>{children}</main>{" "}
-            </ToastProvider>
-          </Hydration>
-        </Store>
+        <Suspense
+          fallback={
+            <Player
+              className="m-auto"
+              autoplay
+              loop
+              src="/loading.json"
+              style={{ height: "12rem", width: "12rem" }}
+            />
+          }
+        >
+          {" "}
+          <Store>
+            <Hydration>
+              <ToastProvider>
+                <ToastContainer />
+                <main>{children}</main>{" "}
+              </ToastProvider>
+            </Hydration>
+          </Store>
+        </Suspense>
       </body>
     </html>
   );
