@@ -7,6 +7,7 @@ import useURL from "@/hooks/useURL";
 import SingleSelectFilters from "./SingleSelectFilters";
 import MultipleSelectFilters from "./MultipleSelectFilters";
 import { useFilterProvider } from "../provider/FilterProvider";
+import PriceRangeFilter from "../[book]/ui/PriceRangeFilter";
 
 type FilterSelectProps = {
   onClose: () => void;
@@ -44,7 +45,7 @@ export function FilterSelect({ onClose }: FilterSelectProps) {
     <div className="space-y-4 p-4">
       <div className="space-y-2">
         <Label>السعر</Label>
-        <Slider
+        {/* <Slider
           min={0}
           max={2000}
           step={1}
@@ -52,7 +53,8 @@ export function FilterSelect({ onClose }: FilterSelectProps) {
           onValueChange={(value: [number, number]) => setPriceRange(value)}
           className="[&_.range-slider__range]:bg-color1 [&_[role=slider]]:border-black [&_[role=slider]]:bg-color2 [&_[role=slider]]:focus:ring-color1"
           color="#27a098"
-        />
+        /> */}
+        <PriceRangeFilter priceRange={priceRange} setPriceRange={setPriceRange}/>
         <div className="flex justify-between text-sm">
           <span>${priceRange[0]}</span>
           <span>${priceRange[1]}</span>

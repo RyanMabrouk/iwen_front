@@ -42,6 +42,7 @@
     "firebase": "^11.0.2",
     "framer-motion": "^11.13.1",
     "kysely": "^0.27.4",
+    "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.439.0",
     "next": "^14.2.20",
     "nodemailer": "^6.9.16",

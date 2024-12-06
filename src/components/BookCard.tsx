@@ -79,25 +79,10 @@ export default function BookCard({
     <div
       dir="rtl"
       className={cn(
-        "relative h-[21rem] w-[15rem] overflow-hidden rounded-2xl border bg-white shadow-md transition-all",
+        "relative h-[20rem] w-[13rem] rounded-2xl border bg-white shadow-md transition-all",
         className,
       )}
     >
-      <Image
-        src="/acs.png"
-        className="absolute -left-7 -top-6 -rotate-12 opacity-30"
-        alt="ACS"
-        width={1000}
-        height={1000}
-      />
-
-      <Image
-        src="/acs.png"
-        className="absolute -top-20 left-20 opacity-30"
-        alt="ACS"
-        width={1000}
-        height={1000}
-      />
       {!!book.discount && (
         <div className="absolute left-3 top-4 z-10 rounded-full bg-primary-400 px-2.5 py-1 text-sm font-medium text-white">
           تخفيض{" "}
@@ -107,7 +92,22 @@ export default function BookCard({
         </div>
       )}
 
-      <div className="group relative flex h-[62%] cursor-pointer flex-row items-center justify-center">
+      <div className="group relative flex h-[65%] cursor-pointer flex-row items-center justify-center overflow-clip">
+        <Image
+          src="/acs.png"
+          className="absolute -left-7 -top-6 -rotate-12 opacity-30"
+          alt="ACS"
+          width={1000}
+          height={1000}
+        />
+
+        <Image
+          src="/acs.png"
+          className="absolute -top-20 left-20 opacity-30"
+          alt="ACS"
+          width={1000}
+          height={1000}
+        />
         <ArrowLeft
           size={22}
           className={`${"btn_swiper_arrow_left" + book.id} absolute left-[5%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
@@ -183,7 +183,7 @@ export default function BookCard({
           )}
         </div>
       </div>
-      <div className="flex flex-row-reverse items-center justify-between p-4">
+      <div className="flex flex-row-reverse items-center justify-between p-3">
         <CartButtons book={book} />
         <div className="flex w-full justify-between">
           <div className="flex flex-col justify-between">
@@ -193,18 +193,12 @@ export default function BookCard({
                   data-tip={book.title}
                   className="tooltip tooltip-top line-clamp-1 text-right text-base font-medium"
                 >
-                  {book.title.length > 30
-                    ? book.title.slice(0, 30) + "..."
-                    : book.title}
+                  {book.title}
                 </h1>
               </TooltipGeneric>
               <TooltipGeneric tip={writer ?? ""}>
-                <h1 className="text-sm text-gray-600">
-                  {writer !== undefined
-                    ? writer.length > 30
-                      ? writer.slice(1, 30) + "..."
-                      : writer
-                    : "كاتب غير معروف"}
+                <h1 className="line-clamp-1 text-sm text-gray-600">
+                  {writer ?? "كاتب غير معروف"}
                 </h1>
               </TooltipGeneric>
             </div>
@@ -236,7 +230,7 @@ export function CartButtons({
   const quantity = data?.find((item) => item.id === book.id)?.quantity ?? 0;
   return (
     <div
-      className={`z-[10] flex items-center justify-between ${
+      className={`z-[10] flex items-center justify-between -mt-2 ${
         variant === "column" ? "flex-col" : "flex-row gap-3"
       }`}
     >
