@@ -8,8 +8,11 @@ import { Analytics } from "@vercel/analytics/react";
 import Store from "@/provider/QCStore";
 import React, { Suspense } from "react";
 import Footer from "./(dashboard)/ui/Footer";
-import { Player } from "@lottiefiles/react-lottie-player";
-
+import dynamic from "next/dynamic";
+const Player = dynamic(
+  () => import("@lottiefiles/react-lottie-player").then((mod) => mod.Player),
+  { ssr: false },
+);
 const tajawal = Tajawal({
   weight: ["200", "300", "400", "500", "700", "800", "900"],
   subsets: ["arabic"],
