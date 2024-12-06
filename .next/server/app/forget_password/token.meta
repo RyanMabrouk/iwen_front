@@ -1,0 +1,5 @@
+{
+  "headers": {
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(auth)/layout,_N_T_/(auth)/forget_password/layout,_N_T_/(auth)/forget_password/token/layout,_N_T_/(auth)/forget_password/token/page,_N_T_/forget_password/token"
+  }
+}
