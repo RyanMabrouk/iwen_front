@@ -4,7 +4,6 @@ import Image from "next/image";
 import React, { useState } from "react";
 import useForgotPassword from "../../../../hooks/auth/useForgotPassword";
 import { useCounter } from "@/provider/auth/CounterProvider";
-import resetPassword from "@/actions/auth/resetPassword";
 import Input from "@/components/main/inputs/Input";
 import PrimaryButton from "@/components/main/buttons/PrimaryButton";
 import SecondaryButton from "@/components/main/buttons/SecondaryButton";
@@ -18,14 +17,18 @@ export default function ForgotPasswordForm() {
   const [email, setEmail] = useState<string>("");
   const { mutate } = useForgotPassword(email);
   const { counter: cooldown, setCounter: setCooldown } = useCounter();
-  const handleSubmit = (formData: FormData) => {
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (cooldown === 0) {
       setCooldown(60);
+      const formData = new FormData(event.currentTarget);
       mutate(formData);
     }
   };
+
   return (
-    <form action={handleSubmit} className="flex flex-col items-end gap-3 py-5">
+    <form onSubmit={handleSubmit} className="flex flex-col items-end gap-3 py-5">
       <h1 className="text-left text-xl font-semibold">
         إعادة تعيين كلمة المرور
       </h1>

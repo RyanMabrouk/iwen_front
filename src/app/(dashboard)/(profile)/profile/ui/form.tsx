@@ -86,8 +86,14 @@ export default function Form() {
     },
   });
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    updateMutation.mutate(formData);
+  };
+
   return (
-    <form dir="rtl" className="bg-white" action={updateMutation.mutate}>
+    <form dir="rtl" className="bg-white" onSubmit={handleSubmit}>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <FormInput
           errors={errors?.first_name}

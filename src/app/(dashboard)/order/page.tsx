@@ -17,6 +17,7 @@ import useCart from "@/hooks/cart/useCart";
 import { redirect } from "next/navigation";
 import PrimaryButton from "@/components/main/buttons/PrimaryButton";
 import Link from "next/link";
+
 interface ICreateOrderPayload {
   name: string;
   email: string;
@@ -30,9 +31,11 @@ interface ICreateOrderPayload {
     quantity: number;
   }[];
 }
+
 const phoneNumberSchema = z
   .string()
   .regex(/^0\d{9}$/, "رقم الهاتف يجب أن يبدأ ب0 ويحتوي على 10 أرقام");
+
 export default function Page() {
   const { toast } = useToast();
   const [successFullySubmitted, setSuccessFullySubmitted] = useState(false);
@@ -51,11 +54,13 @@ export default function Page() {
       setSelectedState(user.data.state);
     }
   }, [user?.data?.state]);
+
   useEffect(() => {
     if (user?.data?.city) {
       setSelectedCity(user.data.city);
     }
   }, [user?.data?.city]);
+
   const updateMutation = useMutation({
     mutationFn: async (formData: FormData) => {
       const phone_number = String(formData.get("phone_number"));
@@ -113,6 +118,12 @@ export default function Page() {
     },
   });
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    updateMutation.mutate(formData);
+  };
+
   const payment_methods: {
     img: string;
     value: Enums<"payment_method_enum">;
@@ -137,6 +148,7 @@ export default function Page() {
   if (!user?.data && !userIsLoading) {
     redirect("/login");
   }
+
   return (
     <div dir="rtl" className="my-8 h-fit">
       <div className="relative mx-auto my-10 flex w-full flex-row items-start justify-center gap-4 bg-bgcolor1 py-4">
@@ -170,7 +182,7 @@ export default function Page() {
             <form
               dir="rtl"
               className="min-w-[60svw] rounded-md bg-white p-6 shadow-md"
-              action={updateMutation.mutate}
+              onSubmit={handleSubmit}
             >
               <div className="mb-6 text-lg font-semibold">الشحن</div>
               <div className="grid w-full grid-cols-2 gap-6 md:grid-cols-2">

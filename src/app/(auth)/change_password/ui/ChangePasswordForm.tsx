@@ -10,8 +10,18 @@ export default function ChangePasswordForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const { mutate } = useChangePassword();
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    mutate(formData);
+  };
+
   return (
-    <form action={mutate} className="flex flex-col items-end gap-2 py-5">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-end gap-2 py-5"
+    >
       <h1 className="text-right text-xl font-semibold">
         إعادة تعيين كلمة المرور
       </h1>

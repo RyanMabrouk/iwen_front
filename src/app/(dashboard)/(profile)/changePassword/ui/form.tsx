@@ -63,12 +63,19 @@ export default function PasswordChangeForm() {
       toast.error(error.message || "حدث خطأ أثناء تغيير كلمة المرور");
     },
   });
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    updatePasswordMutation.mutate(formData);
+  };
+
   return (
     <form
       dir="rtl"
       ref={formRef}
       className="w-full space-y-6"
-      action={updatePasswordMutation.mutate}
+      onSubmit={handleSubmit}
     >
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div className="space-y-2">

@@ -102,8 +102,14 @@ export default function SignupWithPassword() {
     },
   });
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    mutate(formData);
+  };
+
   return (
-    <form className="flex-1 space-y-6" action={mutate}>
+    <form className="flex-1 space-y-6" onSubmit={handleSubmit}>
       <h2 className="text-2xl font-bold text-gray-800">
         {translation?.lang["Create Account"]}
       </h2>
