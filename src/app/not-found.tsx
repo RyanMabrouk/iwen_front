@@ -4,8 +4,11 @@ import Image from "next/image";
 import PrimaryButton from "@/components/main/buttons/PrimaryButton";
 import TimePast from "@/components/icons/TimePast";
 import Link from "next/link";
-import { Player } from "@lottiefiles/react-lottie-player";
-
+import dynamic from "next/dynamic";
+const Player = dynamic(
+  () => import("@lottiefiles/react-lottie-player").then((mod) => mod.Player),
+  { ssr: false },
+);
 function NotFound() {
   return (
     <Suspense
