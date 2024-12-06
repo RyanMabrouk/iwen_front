@@ -1,3 +1,4 @@
+"use client";
 import useCategories from "@/hooks/data/books/categories/useCategories";
 import useCorners from "@/hooks/data/books/corners/useCorners";
 import useSubCategories from "@/hooks/data/books/subCategories/useSubCategories";

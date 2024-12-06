@@ -2,7 +2,6 @@
 
 import { useStateToUrl } from "@/helpers/stateToUrl";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { FilterType, SortingType } from "../page";
 import { WindowSize, useWindowSize } from "@/hooks/useWindowSize";
 
 interface BooksProviderProps {

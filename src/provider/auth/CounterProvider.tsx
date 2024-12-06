@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import React, { createContext, useEffect, useState } from "react";
 
 type CounterContextType = {

@@ -1,3 +1,4 @@
+"use client";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import createCompletePathName from "./createCompletePathName";
 
