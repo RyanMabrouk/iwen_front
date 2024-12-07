@@ -1,10 +1,5 @@
 import React from "react";
-import Form from "./ui/form";
 
 export default function Page() {
-  return (
-    <div>
-      <Form />
-    </div>
-  );
+  return <div>{/* <Form /> */}</div>;
 }
