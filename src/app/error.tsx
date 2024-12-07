@@ -1,7 +1,6 @@
 "use client";
 import { Player } from "@lottiefiles/react-lottie-player";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Error({
@@ -11,7 +10,6 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  const Router = useRouter();
   useEffect(() => {
     // Log the error to an error reporting service
     console.error("ui error :" + error);
