@@ -14,12 +14,7 @@ const ToastProvider = dynamic(
     ssr: false,
   },
 );
-const Player = dynamic(
-  () => import("@lottiefiles/react-lottie-player").then((mob) => mob.Player),
-  {
-    ssr: false,
-  },
-);
+
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Store from "@/provider/QCStore";
