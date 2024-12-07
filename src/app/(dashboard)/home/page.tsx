@@ -7,10 +7,9 @@ import Image from "next/image";
 import CategoryKidsBooks from "@/components/CategoryKidsBooks";
 import Banners from "@/components/main/banners/Banners";
 import Link from "next/link";
-import NewAuthors from "./ui/newAuthors";
 export default async function Page() {
   return (
-    <div>
+    <div className="mb-12">
       <Banners />
       <CategoryBooksSection />
       <div className="w-full pb-60">
@@ -40,8 +39,7 @@ export default async function Page() {
         </div>
       </div>
       <CategoryKidsBooks />
-      <NewAuthors />
-
+      {/* <NewAuthors /> */}
     </div>
   );
 }

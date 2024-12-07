@@ -14,7 +14,7 @@ export default function Banners() {
   };
 
   return (
-    <div className="relative sm:px-6 sm:py-24 lg:px-8 lg:py-28 [&_.swiper-pagination-bullet-active]:bg-primary-200">
+    <div className="relative sm:px-6 sm:py-24 lg:px-8 lg:py-28 [&_.swiper-pagination-bullet-active]:bg-primary-400">
       <CustomSwiper
         slides={(banners?.data || []).map((banner: Banner, index: number) => (
           <Image

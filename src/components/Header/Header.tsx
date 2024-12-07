@@ -40,15 +40,17 @@ export default function Header() {
         <HeaderPhoneMenu />
         <div>
           <div className="mx-auto flex w-fit items-center max-sm:hidden max-sm:w-full max-sm:flex-col max-sm:items-end">
-            {["إستكشف جديدنا", "منتجات مميزة", "عروض خاصة"].map((text, idx) => (
-              <Link
-                href="/books"
-                key={idx}
-                className="flex cursor-pointer justify-center px-8 py-5 transition-all duration-200 hover:bg-primary-300 max-sm:w-full"
-              >
-                <span className="text-lg">{text}</span>
-              </Link>
-            ))}
+            {["كتب تونسية", "كتب مغربية ", "جميع المنتوجات", "عروض خاصة"].map(
+              (text, idx) => (
+                <Link
+                  href="/books"
+                  key={idx}
+                  className="flex cursor-pointer justify-center px-8 py-5 transition-all duration-200 hover:bg-primary-300 max-sm:w-full"
+                >
+                  <span className="text-lg">{text}</span>
+                </Link>
+              ),
+            )}
           </div>
         </div>
       </div>
