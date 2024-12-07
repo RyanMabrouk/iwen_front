@@ -1,6 +1,5 @@
 "use server";
 import axios from "axios";
-import { cookies } from "next/headers";
 import { IError } from "@/types";
 import { createClient } from "@/lib/supabase";
 export type CRUDMethod = "GET" | "POST" | "PATCH" | "DELETE";
