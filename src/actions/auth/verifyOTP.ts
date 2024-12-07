@@ -1,13 +1,12 @@
 "use server";
 
 import { createClient } from "@/lib/supabase";
-import { AuthError } from "@supabase/supabase-js";
 
 export default async function verifyOTP(
   email: string,
   otp: string,
 ): Promise<{
-  error: AuthError | null;
+  error: any | null;
 }> {
   const supabase = createClient();
 

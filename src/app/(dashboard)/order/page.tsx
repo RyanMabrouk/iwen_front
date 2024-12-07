@@ -124,13 +124,13 @@ export default function Page() {
     updateMutation.mutate(formData);
   };
 
-  const payment_methods: {
-    img: string;
-    value: Enums<"payment_method_enum">;
-    text: string;
-    forbidden?: boolean;
-  }[] = [
-    { img: "/truck.svg", value: "onDelivery", text: "الدفع عند التسليم" },
+  const payment_methods = [
+    {
+      img: "/truck.svg",
+      value: "onDelivery",
+      text: "الدفع عند التسليم",
+      forbidden: false,
+    },
     {
       img: "/bank.svg",
       value: "bank",

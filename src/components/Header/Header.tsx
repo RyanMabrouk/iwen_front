@@ -10,6 +10,7 @@ const HeaderLoginButton = dynamic(() => import("./HeaderLoginButton"), {
 import dynamic from "next/dynamic";
 import { HeaderPhoneMenu } from "./HeaderPhoneMenu";
 import CartButton from "./CartButton";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -40,12 +41,13 @@ export default function Header() {
         <div>
           <div className="mx-auto flex w-fit items-center max-sm:hidden max-sm:w-full max-sm:flex-col max-sm:items-end">
             {["إستكشف جديدنا", "منتجات مميزة", "عروض خاصة"].map((text, idx) => (
-              <div
+              <Link
+                href="/books"
                 key={idx}
                 className="flex cursor-pointer justify-center px-8 py-5 transition-all duration-200 hover:bg-primary-300 max-sm:w-full"
               >
                 <span className="text-lg">{text}</span>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

@@ -1,8 +1,9 @@
+"use client";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/useToast";
 import handleChangePassword from "@/app/(auth)/handlers/auth/handleChangePasswrd";
 
-export default function useChangePassword() {
+export default function useChangePasswordMutaion() {
   const { toast } = useToast();
   return useMutation({
     mutationFn: handleChangePassword,

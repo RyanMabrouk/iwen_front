@@ -49,7 +49,7 @@ export default async function sendRequest<
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
       const backendError: IError<IPayload> = error.response?.data;
-      if (backendError.errors) {
+      if (backendError?.errors) {
         return {
           data: null,
           error: error.message,

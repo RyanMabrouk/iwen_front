@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import useChangePassword from "../../../../hooks/auth/useChangePassword";
+import useChangePasswordMutaion from "../../../../hooks/auth/useChangePassword";
 
 export default function ChangePasswordForm() {
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [newPasswordFocused, setNewPasswordFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const { mutate } = useChangePassword();
+  const { mutate } = useChangePasswordMutaion();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

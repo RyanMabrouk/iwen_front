@@ -11,10 +11,10 @@ export default function Events({
   setActiveEvent: (index: number) => void;
 }) {
   const { data: events } = useEvents();
-  const events_data = Array.isArray(events?.data) ? events.data : [];
+  const events_data = Array.isArray(events?.data) ? events?.data : [];
   return (
     <div className="dir-[rtl] flex min-w-max flex-row-reverse gap-[25px] whitespace-nowrap">
-      {events_data.map((event, index) => (
+      {events_data?.map((event, index) => (
         <SingleEvent
           key={event.id}
           eventId={event.id}

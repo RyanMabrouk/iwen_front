@@ -1,6 +1,7 @@
 import { Database } from "@/types/database.types";
 import { createBrowserClient } from "@supabase/ssr";
 import { SupabaseClient } from "@supabase/supabase-js";
+
 export function createCsrClient(): SupabaseClient<Database> {
   // @ts-ignore
   return createBrowserClient<Database>(

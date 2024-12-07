@@ -20,7 +20,7 @@ export type FilterType = {
   subcategories?: string[];
 };
 
-export default function page() {
+export default function Page() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <BooksProvider>

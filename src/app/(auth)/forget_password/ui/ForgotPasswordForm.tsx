@@ -4,13 +4,6 @@ import Image from "next/image";
 import React, { useState } from "react";
 import useForgotPassword from "../../../../hooks/auth/useForgotPassword";
 import { useCounter } from "@/provider/auth/CounterProvider";
-import Input from "@/components/main/inputs/Input";
-import PrimaryButton from "@/components/main/buttons/PrimaryButton";
-import SecondaryButton from "@/components/main/buttons/SecondaryButton";
-import useTranslation from "@/translation/useTranslation";
-import { useMutation } from "@tanstack/react-query";
-import Link from "next/link";
-import { z } from "zod";
 
 export default function ForgotPasswordForm() {
   const [emailSelected, setEmailSelected] = useState<boolean>(false);
@@ -28,7 +21,10 @@ export default function ForgotPasswordForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-end gap-3 py-5">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-end gap-3 py-5"
+    >
       <h1 className="text-left text-xl font-semibold">
         إعادة تعيين كلمة المرور
       </h1>
