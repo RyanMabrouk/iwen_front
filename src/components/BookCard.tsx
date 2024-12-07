@@ -91,6 +91,11 @@ export default function BookCard({
             : book.discount + " د.م"}{" "}
         </div>
       )}
+      {book.stock === 0 && (
+        <div className="absolute left-3 top-4 z-10 rounded-full bg-red-500 px-2.5 py-1 text-sm font-medium text-white">
+          نفذت الكمية
+        </div>
+      )}
 
       <div className="group relative flex h-[65%] cursor-pointer flex-row items-center justify-center overflow-clip">
         <Image
@@ -230,7 +235,7 @@ export function CartButtons({
   const quantity = data?.find((item) => item.id === book.id)?.quantity ?? 0;
   return (
     <div
-      className={`z-[10] flex items-center justify-between -mt-2 ${
+      className={`z-[10] -mt-2 flex items-center justify-between ${
         variant === "column" ? "flex-col" : "flex-row gap-3"
       }`}
     >
