@@ -1,27 +1,29 @@
 import React from "react";
-import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-interface FormTextareaProps {
+interface FormInputProps {
   label: string;
   name: string;
+  type?: string;
+  icon?: React.ReactNode;
   placeholder?: string;
-  defaultValue?: string;
+  defaultValue?: string | number;
   required?: boolean;
   disabled?: boolean;
-  rows?: number;
-  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errors?: string[] | null;
 }
 
-const FormTextarea: React.FC<FormTextareaProps> = ({
+const FormInput: React.FC<FormInputProps> = ({
   label,
   name,
+  type = "text",
+  icon,
   placeholder = "",
   defaultValue = "",
   required = false,
   disabled = false,
-  rows = 3,
   onChange,
   errors,
 }) => {
@@ -29,21 +31,26 @@ const FormTextarea: React.FC<FormTextareaProps> = ({
     <div className="w-full space-y-2">
       <Label
         htmlFor={name}
-        className="block text-right text-lg font-medium text-gray-700"
+        className="block text-right text-base font-medium text-gray-700"
       >
         {label}
         {required && <span className="text-destructive">*</span>}
       </Label>
       <div className="relative">
-        <Textarea
+        {icon && (
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+            {icon}
+          </div>
+        )}
+        <Input
           id={name}
           name={name}
+          type={type}
           placeholder={placeholder}
           defaultValue={defaultValue}
           disabled={disabled}
-          rows={rows}
           onChange={onChange}
-          className="w-full text-[1rem] ring-0 placeholder:text-[1rem] focus:ring-0"
+          className={`${icon ? "pr-10" : "pr-3"} w-full h-[3rem] text-[1rem] ring-0 placeholder:text-[1rem] focus:ring-0`}
         />
       </div>
       {errors &&
@@ -56,5 +63,4 @@ const FormTextarea: React.FC<FormTextareaProps> = ({
   );
 };
 
-export default FormTextarea;
-
+export default FormInput;
