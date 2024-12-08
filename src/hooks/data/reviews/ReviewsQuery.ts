@@ -2,12 +2,7 @@ import sendRequest from "@/services/sendRequest";
 import getEndpoint from "@/services/getEndpoint";
 import { Tables } from "@/types/database.types";
 
-interface ReviewsType {
-  id: string;
-  rating: number;
-  content: string;
-  book_id: string;
-  user_id: string;
+export interface ReviewsType extends Tables<"reviews"> {
   user: Tables<"users">;
 }
 

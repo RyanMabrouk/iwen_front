@@ -489,6 +489,51 @@ export type Database = {
           },
         ];
       };
+      reviews: {
+        Row: {
+          book_id: string;
+          content: string;
+          created_at: string;
+          id: string;
+          rating: number;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          book_id: string;
+          content: string;
+          created_at?: string;
+          id?: string;
+          rating: number;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          book_id?: string;
+          content?: string;
+          created_at?: string;
+          id?: string;
+          rating?: number;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "reviews_book_id_fkey";
+            columns: ["book_id"];
+            isOneToOne: false;
+            referencedRelation: "books";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "reviews_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["user_id"];
+          },
+        ];
+      };
       share_houses: {
         Row: {
           created_at: string;
