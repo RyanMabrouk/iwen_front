@@ -18,12 +18,14 @@ export default function MainInfo() {
         <li dir="rtl">
           <strong>فئة :</strong> {book?.categories[0].name}
         </li>
-        <li dir="rtl" className="flex gap-2 max-md:flex-col">
+        <li dir="rtl" className="flex items-center gap-2 max-md:flex-col">
           <strong>تقييمات القارئين :</strong>
 
           <div className="flex items-center gap-1">
-            <StarRating rating={2} />
-            <p className="font-semibold">(X)</p>
+            <StarRating rating={book?.total_rating ?? 3} />
+            <p className="text-xl font-semibold">
+              ({book?.total_reviews_count})
+            </p>
           </div>
         </li>
         <li

@@ -4,9 +4,15 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import star from "../../../../../../public/dashboard/book/star";
 
-export default function AddRating() {
+export default function AddRating({
+  rating,
+  setRating,
+}: {
+  rating: number;
+  setRating: React.Dispatch<React.SetStateAction<number>>;
+}) {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [rating, setRating] = useState(0);
+
   const [hoveredRating, setHoveredRating] = useState(0);
 
   const handleClick = () => {

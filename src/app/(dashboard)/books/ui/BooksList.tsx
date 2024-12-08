@@ -20,9 +20,15 @@ export default function BooksList() {
   const books = data.data?.data?.data;
   if (books?.length === 0)
     return (
-      <div className="flex h-[30rem] w-full flex-col items-center justify-center text-2xl">
-        <Image src="/empty-book.svg" alt="book" width={200} height={200} />
-        <h1>لا يوجد كتب</h1>
+      <div className="flex h-[40rem] w-full flex-col items-center justify-center gap-10 text-2xl">
+        <Image
+          src="/dashboard/books/no-books.png"
+          alt="book"
+          width={800}
+          quality={100}
+          height={300}
+        />
+        <h1 className="mr-5 font-semibold">لا يوجد كتب</h1>
       </div>
     );
   const pages = data.data?.data?.meta.total_pages ?? 0;

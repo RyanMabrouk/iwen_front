@@ -33,6 +33,7 @@ export default function MainPicSwiper({
     selectedImage,
     ...pictures.filter((pic) => pic.id !== selectedImage.id),
   ];
+
   return (
     <div className="relative flex h-[27rem] w-[22rem] flex-col items-center justify-center">
       <ArrowLeft
@@ -50,18 +51,27 @@ export default function MainPicSwiper({
           prevEl: ".custom-swiper-books-prev",
           nextEl: ".custom-swiper-books-next",
         }}
-        slides={initialTable?.map((picture) => (
+        slides={initialTable?.map((picture, i) => (
           <div
-            key={picture.id}
+            key={picture?.id ?? i}
             className="relative m-auto flex h-[27rem] w-[20rem] items-center justify-center rounded-md border-2 border-gray-200 bg-white max-lg:flex-row"
           >
             <div className="relative h-4/6 w-8/12">
-              <Image
-                src={picture.src}
-                fill
-                alt={`Picture ${picture.id}`}
-                objectFit="cover"
-              />
+              {picture !== undefined && picture.src !== "" ? (
+                <Image
+                  src={picture.src}
+                  fill
+                  alt={`Picture ${picture?.id ?? i}`}
+                  objectFit="cover"
+                />
+              ) : (
+                <Image
+                  src="/empty-book.svg"
+                  fill
+                  alt={`Picture ${picture?.id ?? i}`}
+                  objectFit="cover"
+                />
+              )}
             </div>
             <button
               onClick={() => setLiked((prev) => !prev)}
