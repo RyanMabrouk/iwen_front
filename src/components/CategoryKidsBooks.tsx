@@ -23,7 +23,7 @@ export default function CategoryKidsBooks() {
   const { data: books } = useBooks({ limit: 10 });
 
   return (
-    <div className="relative space-y-12 bg-white px-6 pt-14">
+    <div className="relative mb-12 space-y-12 bg-white px-6 pt-14">
       <div className="pointer-events-none absolute inset-0 top-12 flex w-full items-start justify-between">
         <Image
           src="/boykid.png"
