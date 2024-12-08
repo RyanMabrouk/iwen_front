@@ -1,12 +1,15 @@
-import Image from "next/image";
 import React from "react";
 import MainPic from "./MainPic";
 import SidePics from "./SidePics";
+import { useWindowSize } from "@/hooks/useWindowSize";
+
+import MainPicSwiper from "./MainPicSwiper";
 
 export default function Pictures({ images }: { images: string[] }) {
+  const { width } = useWindowSize();
   const [pictures, setPictures] = React.useState(
     images.map((pic, i) => ({
-      id: i,
+      id: i + 69,
       src: pic,
       isSelected: i == 0,
     })),
@@ -28,11 +31,21 @@ export default function Pictures({ images }: { images: string[] }) {
   };
   return (
     <div dir="rtl" className="flex items-stretch gap-3 max-lg:flex-col">
-      <MainPic
-        liked={liked}
-        setLiked={setLiked}
-        selectedImage={selectedImage}
-      />
+      {width !== undefined && width > 640 ? (
+        <MainPic
+          liked={liked}
+          setLiked={setLiked}
+          selectedImage={selectedImage}
+        />
+      ) : (
+        <MainPicSwiper
+          liked={liked}
+          setLiked={setLiked}
+          pictures={pictures}
+          selectedImage={selectedImage ?? pictures[0]}
+          set={set}
+        />
+      )}
       <SidePics pictures={pictures} set={set} />
     </div>
   );

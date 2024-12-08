@@ -28,7 +28,7 @@ export default function AuthorInfo() {
       >
         <div
           dir="rtl"
-          className="m-3 h-auto w-1/2 flex-grow border p-4 max-lg:w-full"
+          className="m-3 h-auto w-fit flex-grow border p-4 max-lg:w-full"
           style={{ background: "#FCFCFD", borderColor: "#E7E9EB" }}
         >
           <div dir="rtl" className="mb-3 flex items-center gap-2">
@@ -42,12 +42,6 @@ export default function AuthorInfo() {
             </div>
             <h2 className="font-semibold">{book.writer.name ?? "no name"}</h2>
           </div>
-          <p className="">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, quod
-            nihil. Molestiae perferendis doloremque eum ullam deleniti similique
-            cumque illo aspernatur dolorum, qui, sapiente est ab cupiditate ipsa
-            iste tenetur.
-          </p>
         </div>
         <div
           key="recommended books"

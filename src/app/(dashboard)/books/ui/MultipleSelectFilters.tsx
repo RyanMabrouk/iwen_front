@@ -61,7 +61,7 @@ export default function MultipleSelectFilters() {
       setOpen: setOpenCategory,
     },
 
-    {
+    /* {
       label: "الفئة الفرعية",
       button: "اختر الفئة الفرعية",
       command: "اختر الفئة الفرعية",
@@ -72,7 +72,7 @@ export default function MultipleSelectFilters() {
       notFound: "لم يتم العثور على فئة فرعية",
       open: openSubcategory,
       setOpen: setOpenSubcategory,
-    },
+    }, */
   ];
   return (
     <>

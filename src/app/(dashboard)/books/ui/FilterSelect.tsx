@@ -53,10 +53,13 @@ export function FilterSelect({ onClose }: FilterSelectProps) {
           className="[&_.range-slider__range]:bg-color1 [&_[role=slider]]:border-black [&_[role=slider]]:bg-color2 [&_[role=slider]]:focus:ring-color1"
           color="#27a098"
         /> */}
-        <PriceRangeFilter priceRange={priceRange} setPriceRange={setPriceRange}/>
+        <PriceRangeFilter
+          priceRange={priceRange}
+          setPriceRange={setPriceRange}
+        />
         <div className="flex justify-between text-sm">
-          <span>${priceRange[0]}</span>
-          <span>${priceRange[1]}</span>
+          <span dir="rtl">{priceRange[0]} د.م</span>
+          <span dir="rtl">{priceRange[1]} د.م</span>
         </div>
       </div>
 

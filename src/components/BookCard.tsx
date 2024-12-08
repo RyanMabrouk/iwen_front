@@ -79,7 +79,7 @@ export default function BookCard({
     <div
       dir="rtl"
       className={cn(
-        "relative h-[20rem] w-[13rem] overflow-hidden rounded-2xl border bg-white shadow-md transition-all",
+        "relative h-[20rem] w-[13rem] rounded-2xl border bg-white shadow-md transition-all",
         className,
       )}
     >

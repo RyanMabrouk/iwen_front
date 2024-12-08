@@ -29,7 +29,6 @@ export function BooksSortings() {
       <Select dir="rtl" value={sortings} onValueChange={setSortings}>
         <SelectTrigger className="w-[220px] font-semibold">
           <SelectValue placeholder="الترتيب حسب" />
-          <SortAsc className="h-5 w-5" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>

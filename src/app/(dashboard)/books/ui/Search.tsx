@@ -46,7 +46,7 @@ export default function Search() {
               dir="rtl"
               className="w-[20rem] bg-inherit p-3 outline-none"
               type="text"
-              placeholder="إبحث في متجرنا ..."
+              placeholder="إبحث عن كتاب ..."
             />
           </div>
           <button

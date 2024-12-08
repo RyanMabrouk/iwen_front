@@ -52,14 +52,14 @@ export default function SingleSelectFilters() {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   }[] = [
     {
-      label: "اسم الكاتب",
-      button: "اختر الكاتب",
-      command: "اختر الكاتب",
-      search: "ابحث عن الكاتب",
+      label: "اسم المؤلف",
+      button: "اختر المؤلف",
+      command: "اختر المؤلف",
+      search: "ابحث عن المؤلف",
       selected: writer,
       table: writers,
       setter: setWriter,
-      notFound: "لم يتم العثور على كاتب",
+      notFound: "لم يتم العثور على مؤلف",
       open: openWriter,
       setOpen: setOpenWriter,
     },
@@ -119,6 +119,7 @@ export default function SingleSelectFilters() {
                     {filter?.table?.map((e) => (
                       <CommandItem
                         key={e?.id}
+                        className=""
                         onSelect={(value) => {
                           filter.setter({
                             id: e?.id,
@@ -127,7 +128,9 @@ export default function SingleSelectFilters() {
                           filter.setOpen(false);
                         }}
                       >
-                        {e.name}
+                        <h1 className="font-semibold transition-all duration-200 hover:text-color1">
+                          {e.name}
+                        </h1>
                       </CommandItem>
                     ))}
                   </CommandGroup>

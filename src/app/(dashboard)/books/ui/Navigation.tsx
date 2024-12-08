@@ -3,7 +3,7 @@
 import React from "react";
 
 import ViewPreference from "./ViewPreference";
-import Sortings from "./Sortings";
+import BookViews from "./Sortings";
 import BooksFilters from "./BooksFilters";
 import { BooksSortings } from "./BookSortings";
 
@@ -16,7 +16,7 @@ export default function Navigation() {
           <BooksFilters />
           <BooksSortings />
         </div>
-        <Sortings />
+        <BookViews />
       </div>
     </nav>
   );

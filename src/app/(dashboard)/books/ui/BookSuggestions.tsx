@@ -21,7 +21,7 @@ export default function BookSuggestions({
   }
 
   return (
-    <div className="absolute z-10 mt-1 w-full rounded-md bg-white shadow-lg">
+    <div className="absolute z-20 mt-1 w-full rounded-md bg-white shadow-lg">
       <ul className="max-h-60 overflow-auto py-1 text-base">
         {books.map((book) => (
           <li

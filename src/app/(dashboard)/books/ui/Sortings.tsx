@@ -3,30 +3,37 @@ import { SortingType } from "../page";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useBooksProvider } from "../provider/BooksProvider";
 import Link from "next/link";
+import useCurrentBooks from "../hooks/useCurrentBooks";
 
-export default function Sortings() {
+export default function BookViews() {
   const { view, changeView } = useBooksProvider();
   const { numberOfBooks } = useBooksProvider();
+  const data = useCurrentBooks();
+  if (data.isLoading) return null;
   const options = [
     {
       id: 1,
       name: "الأكثر مبيعا",
       view: "mostSold",
+      results: view === "mostSold" ? data.data?.data?.meta.total_count : 0,
     },
     {
       id: 2,
-      name: "كتب جديدة (10)",
+      name: "كتب جديدة",
       view: "newest",
+      results: view === "newest" ? data.data?.data?.meta.total_count : 0,
     },
     {
       id: 3,
-      name: "تخفيض على السعر (19)",
+      name: "تخفيض على السعر",
       view: "discount",
+      results: view === "discount" ? data.data?.data?.meta.total_count : 0,
     },
     {
       id: 4,
       name: "كل الكتب",
       view: "all",
+      results: view === "all" ? data.data?.data?.meta.total_count : 0,
     },
   ];
   return (
@@ -51,7 +58,10 @@ export default function Sortings() {
               }}
               className="cursor-pointer text-nowrap border-b-2 border-white transition-all duration-200 hover:border-emerald-500"
             >
-              {option.name}
+              <div className="flex items-center gap-1">
+                <h2>{option.name}</h2>
+                <h2>({option.results})</h2>
+              </div>
             </li>
           </Link>
         ))}
