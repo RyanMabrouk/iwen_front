@@ -7,7 +7,6 @@ import Image from "next/image";
 import CategoryKidsBooks from "@/components/CategoryKidsBooks";
 import Banners from "@/components/main/banners/Banners";
 import Link from "next/link";
-import Socials from "../contact/ui/socials";
 export default async function Page() {
   return (
     <div className="mb-12 h-full">
@@ -18,7 +17,7 @@ export default async function Page() {
         <Offers />
         <Trusted />
       </div>
-      <div className=" z-50 relative bg-bgcolor1 px-16">
+      <div className="relative z-50 bg-bgcolor1 px-16">
         <Image
           src="/SectionBook.png"
           height={100}

@@ -1,13 +1,18 @@
-import { FACEBOOK_URl, INSTAGRAM_URl, PHONE_NUMBER, TWITTER_URl } from "@/constants/Links";
+import {
+  FACEBOOK_URl,
+  INSTAGRAM_URl,
+  PHONE_NUMBER,
+  TWITTER_URl,
+} from "@/constants/Links";
 import { Facebook, Instagram, WhatsApp, X } from "@mui/icons-material";
 import React from "react";
 
 export default function Socials() {
   return (
-    <div className="fixed top-1/3 max-sm:hidden  z-[9999] left-0 transform -translate-y-1/2 flex flex-col space-y-3 rounded-r-lg">
+    <div className="absolute left-0 top-[48svh] z-[9999] flex -translate-y-1/2 transform flex-col space-y-3 rounded-r-lg max-sm:hidden">
       <a
         href={PHONE_NUMBER}
-        className="w-10 h-10 p-6 hover:pl-10 rounded-l-md flex items-center justify-center bg-color2 text-white rounded-full hover:scale-110 transition-all duration-300 ease-in-out"
+        className="flex h-10 w-10 items-center justify-center rounded-full rounded-l-md bg-color2 p-6 text-white transition-all duration-300 ease-in-out hover:scale-110 hover:pl-10"
       >
         <WhatsApp className="h-8 w-8" />
       </a>
@@ -15,7 +20,7 @@ export default function Socials() {
         href={FACEBOOK_URl}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-10 h-10 p-6 hover:pl-10 rounded-l-md flex items-center justify-center bg-color2 text-white rounded-full hover:scale-110 transition-all duration-300 ease-in-out"
+        className="flex h-10 w-10 items-center justify-center rounded-full rounded-l-md bg-color2 p-6 text-white transition-all duration-300 ease-in-out hover:scale-110 hover:pl-10"
       >
         <Facebook className="h-8 w-8" />
       </a>
@@ -23,7 +28,7 @@ export default function Socials() {
         href={INSTAGRAM_URl}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-10 h-10 p-6 hover:pl-10 rounded-l-md flex items-center justify-center bg-color2 text-white rounded-full hover:scale-110 transition-all duration-300 ease-in-out"
+        className="flex h-10 w-10 items-center justify-center rounded-full rounded-l-md bg-color2 p-6 text-white transition-all duration-300 ease-in-out hover:scale-110 hover:pl-10"
       >
         <Instagram className="h-8 w-8" />
       </a>
@@ -31,7 +36,7 @@ export default function Socials() {
         href={TWITTER_URl}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-10 h-10 p-6 hover:pl-10 rounded-l-md flex items-center justify-center bg-color2 text-white rounded-full hover:scale-110 transition-all duration-300 ease-in-out"
+        className="flex h-10 w-10 items-center justify-center rounded-full rounded-l-md bg-color2 p-6 text-white transition-all duration-300 ease-in-out hover:scale-110 hover:pl-10"
       >
         <X className="h-7 w-7" />
       </a>
