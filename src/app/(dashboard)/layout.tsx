@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       }
     >
       <Header />
-      <div className="flex h-full flex-col overflow-x-hidden">{children}</div>
+      <div className="flex h-full flex-col">{children}</div>
       <Footer />
     </Suspense>
   );

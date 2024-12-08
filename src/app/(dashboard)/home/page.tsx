@@ -9,7 +9,7 @@ import Banners from "@/components/main/banners/Banners";
 import Link from "next/link";
 export default async function Page() {
   return (
-    <div className="mb-12">
+    <div className="mb-12 h-full">
       <Banners />
       <CategoryBooksSection />
       <div className="w-full pb-60">

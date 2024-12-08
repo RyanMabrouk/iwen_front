@@ -5,18 +5,21 @@ import React from "react";
 
 export default function ContactInfo() {
   return (
-    <div className="flex bg-white p-2 sm:p-5 shadow-md rounded-md flex-col gap-3 text-color2" dir="rtl">
-      <div className="flex items-center gap-2">
-        <LocateIcon className="h-4 w-4" />
-        {ADDRESS}
+    <div
+      className="flex flex-col gap-3 rounded-md bg-bgcolor1 text-lg font-medium text-color2 shadow-md sm:p-5"
+      dir="rtl"
+    >
+      <div className="flex flex-row items-center gap-2">
+        <LocateIcon className="h-6 w-6 text-color2" />
+        <span className="-mb-1"> {ADDRESS}</span>
       </div>
-      <div className="flex items-center gap-2">
-        <Phone className="h-4 w-4" />
-        {PHONE_NUMBER}
+      <div className="flex flex-row items-center gap-2">
+        <Phone className="h-6 w-6 text-color2" />
+        <span className="-mb-1"> {PHONE_NUMBER}</span>
       </div>
-      <div className="flex items-center gap-2">
-        <Email className="h-4 w-4" />
-        {EMAIL}
+      <div className="flex flex-row items-center gap-2">
+        <Email className="h-6 w-6 text-color2" />
+        <span className="-mb-1">{EMAIL} </span>
       </div>
     </div>
   );
