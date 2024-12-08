@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function comment() {
+export default function Comment() {
   return (
     <svg
       width="24"

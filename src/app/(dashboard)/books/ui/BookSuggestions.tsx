@@ -8,12 +8,14 @@ interface BookSuggestionsProps {
   books: IBookPopulated[];
   onSuggestionClick: (bookTitle: string) => void;
   onFocus: (bool: boolean) => void;
+  close: () => void;
 }
 
 export default function BookSuggestions({
   onFocus,
   books,
   onSuggestionClick,
+  close,
 }: BookSuggestionsProps) {
   const router = useRouter();
   if (books.length === 0) {
@@ -21,7 +23,7 @@ export default function BookSuggestions({
   }
 
   return (
-    <div className="absolute z-20 mt-1 w-full rounded-md bg-white shadow-lg">
+    <div className="absolute z-30 mt-1 w-full rounded-md bg-white shadow-lg">
       <ul className="max-h-60 overflow-auto py-1 text-base">
         {books.map((book) => (
           <li
@@ -35,6 +37,7 @@ export default function BookSuggestions({
               className="flex w-full items-center gap-3"
               onClick={() => {
                 onSuggestionClick(book.title);
+                close();
                 router.push(`/books/${book.id}`);
               }}
             >

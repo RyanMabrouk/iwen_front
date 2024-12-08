@@ -14,6 +14,7 @@ import { Tables } from "@/types/database.types";
 export default function BookListElement({ book }: { book: IBookPopulated }) {
   const { addToCart, removeFromCart, data } = useCart();
   const quantity = data?.find((item) => item.id === book.id)?.quantity ?? 0;
+  const [isHovering, setIsHovering] = React.useState(false);
 
   const handleAddToCart = () => {
     addToCart(book as Tables<"books">);
@@ -40,7 +41,7 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
             width={1000}
             height={1000}
           />
-          <div className="relative z-20 h-full w-full">
+          <div className="relative z-20 h-full w-full [&_.swiper-pagination-bullet-active]:bg-primary-400">
             {book.images_urls && book.images_urls.length > 0 ? (
               <CustomSwiper
                 className="h-full w-[80%] [&_.swiper-pagination-bullets]:mt-5"
@@ -85,20 +86,25 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
                 pagination
               />
             ) : (
-              <Image
-                src="/empty-book.svg"
-                alt="كتاب بدون صورة"
-                layout="fill"
-                objectFit="contain"
-                className="z-[100] p-10 transition-transform duration-300 ease-in-out group-hover:scale-110"
-              />
+              <Link href={`/books/${book.id}`}>
+                <Image
+                  src="/empty-book.svg"
+                  alt="كتاب بدون صورة"
+                  layout="fill"
+                  objectFit="contain"
+                  className="z-[100] p-10 transition-transform duration-300 ease-in-out group-hover:scale-110"
+                />
+              </Link>
             )}
           </div>
         </div>
         <div className="flex h-full flex-grow flex-col gap-2 py-10 text-xl">
-          <h3 className="max-w-[30rem] text-2xl font-semibold text-gray-800 transition-colors duration-300 ease-in-out group-hover:text-color1">
+          <Link
+            href={`/books/${book.id}`}
+            className="max-w-[30rem] text-2xl font-semibold text-gray-800 transition-colors duration-300 ease-in-out group-hover:text-color1"
+          >
             {book.title}
-          </h3>
+          </Link>
           <div className="flex items-center gap-2">
             <p className="text-gray-600 transition-colors duration-300 ease-in-out group-hover:text-gray-800">
               المؤلف:
@@ -129,42 +135,50 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
           )}
         </div>
       </div>
-      <div dir="ltr" className="flex h-full flex-1 items-end justify-start p-4">
+      <div
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        dir="ltr"
+        className="flex h-full flex-1 items-end justify-start p-4"
+      >
         <div className="flex flex-col items-center gap-2">
           <button
             onClick={handleAddToCart}
-            className="flex flex-row-reverse items-center gap-2 rounded-md border border-color2 p-3 shadow-md transition-all duration-300 hover:bg-color2 hover:text-white hover:ring-2 hover:ring-color2 hover:ring-offset-4"
+            disabled={quantity >= (book as Tables<"books">).stock}
+            className={`${quantity >= (book as Tables<"books">).stock && "cursor-not-allowed"} flex flex-row-reverse items-center gap-2 rounded-md border border-color2 p-3 shadow-md transition-all duration-300 hover:bg-color2 hover:text-white`}
           >
             <Cart color="#FFFFFF" />
             <h1 className="text-xl">أضف إلى السلة</h1>
           </button>
           <AnimatePresence>
-            {quantity > 0 && (
+            {(quantity > 0 || isHovering) && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                className="mt-2 flex gap-2"
+                className="mt-2 flex items-center gap-2"
               >
                 <button
                   onClick={() => addToCart(book as Tables<"books">)}
-                  className={`rounded-md bg-green-500 px-3 py-1 text-white transition-colors hover:bg-green-600 ${
-                    quantity >= (book as Tables<"books">).stock
-                      ? "cursor-not-allowed opacity-50"
-                      : ""
+                  className={`h-fit rounded-lg border border-primary-500 p-2 text-primary-400 transition-all hover:bg-black/5 ${
+                    quantity >= book.stock
+                      ? "cursor-not-allowed"
+                      : "cursor-pointer"
                   }`}
                   disabled={quantity >= (book as Tables<"books">).stock}
                 >
                   <Plus size={16} />
                 </button>
+
                 <span className="flex items-center justify-center rounded-md bg-gray-200 px-3 py-1">
                   {quantity}
                 </span>
-
                 <button
                   onClick={() => removeFromCart(book.id)}
-                  className="rounded-md bg-red-500 px-3 py-1 text-white transition-colors hover:bg-red-600"
+                  className={`h-fit rounded-lg border border-primary-500 p-2 text-primary-400 transition-all hover:bg-black/5 ${
+                    quantity !== 0 ? "visible" : "invisible"
+                  } ${quantity <= 1 && "cursor-pointer"} `}
                 >
                   <Minus size={16} />
                 </button>

@@ -18,7 +18,7 @@ export default function Search() {
     limit: 5,
     filters: {
       "books.title": [
-        { operator: "like", value: name.length > 3 ? "%" + name + "%" : "" },
+        { operator: "like", value: name.includes(" ") ? "%" + name + "%" : "" },
       ],
     },
   });
@@ -70,6 +70,7 @@ export default function Search() {
             onFocus={(bool: boolean) => setIsHovering(bool)}
             books={suggestions.data?.data?.data ?? []}
             onSuggestionClick={handleSuggestionClick}
+            close={() => setShowSuggestions(false)}
           />
         )}
       </div>

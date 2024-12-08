@@ -6,6 +6,7 @@ import { cover_typesEndpoints } from "@/endpoints/coverTypes";
 import { eventsEndpoints } from "@/endpoints/eventsEndpoints";
 import { ordersEndpoints } from "@/endpoints/ordersRoutes";
 import { publishHousesEndpoints } from "@/endpoints/publishHouses";
+import { reviewsEndpoints } from "@/endpoints/reviewsRoutes";
 import { subCategoriesEndpoints } from "@/endpoints/subCategories";
 import { usersEndpoints } from "@/endpoints/users";
 import { wishlistEndpoints } from "@/endpoints/wishlistRoutes";
@@ -23,7 +24,8 @@ const resources = {
   orders: ordersEndpoints,
   events: eventsEndpoints,
   banners: bannersEndpoints,
-  wishlist: wishlistEndpoints
+  wishlist: wishlistEndpoints,
+  reviews: reviewsEndpoints,
 } as const;
 export type IResource = keyof typeof resources;
 export default function getEndpoint<

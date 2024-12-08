@@ -64,7 +64,7 @@ export default function BookCard({
         </div>
       )}
 
-      <div className="group relative flex h-[65%] cursor-pointer flex-row items-center justify-center overflow-clip">
+      <div className="group relative flex h-[65%] cursor-pointer flex-row items-center justify-center overflow-clip [&_.swiper-pagination-bullet-active]:bg-primary-400">
         <Image
           src="/acs.png"
           className="absolute -left-7 -top-6 -rotate-12 opacity-30"

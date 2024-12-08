@@ -1,18 +1,23 @@
 import React from "react";
 import { PageType } from "./BookInfo";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useBookProvider } from "../provider/BookProvider";
 
 export default function InfoNav({
   selectedTab,
   setSelectedTab,
 }: {
   selectedTab: PageType;
-  setSelectedTab: (value : PageType) => void;
+  setSelectedTab: (value: PageType) => void;
 }) {
+  const { book } = useBookProvider();
   const navItems: { id: PageType; title: string }[] = [
     { id: "main", title: "المعلومات الأساسيات" },
     { id: "details", title: "التفاصيل" },
-    { id: "comments", title: "تعاليق القارئين (X)" },
+    {
+      id: "comments",
+      title: "تعاليق القارئين (" + book?.total_reviews_count + ")",
+    },
     { id: "author", title: "تقديم المؤلف" },
     { id: "about", title: "نبذة عن الكتاب" },
   ];

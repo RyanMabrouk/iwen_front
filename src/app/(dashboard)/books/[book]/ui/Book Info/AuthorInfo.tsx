@@ -63,11 +63,16 @@ export default function AuthorInfo() {
                   key={book.id}
                 >
                   <div className="relative h-12 w-10">
-                    <Image
-                      src={book.images_urls[0] ?? ""}
-                      alt={book.title}
-                      fill
-                    />
+                    {book.images_urls !== undefined &&
+                    book.images_urls.length > 0 ? (
+                      <Image
+                        src={book.images_urls[0] ?? ""}
+                        alt={book.title}
+                        fill
+                      />
+                    ) : (
+                      <Image src="/empty-book.svg" alt={book.title} fill />
+                    )}
                   </div>
                   <div dir="rtl">
                     <h3 dir="rtl" className="font-semibold">
