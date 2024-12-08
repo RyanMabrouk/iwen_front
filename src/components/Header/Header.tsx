@@ -28,9 +28,9 @@ export default function Header() {
           <SearchBar className="lg:max-w-[607px]" />
           <Logo />
         </div>
-        <div className="mx-auto flex w-full items-center max-lg:justify-between lg:max-w-[382px] lg:justify-start">
+        <div className="mx-auto flex w-full items-center justify-start gap-12 max-lg:justify-between lg:w-fit">
           <Select text="العربية" className="w-full px-1.5 text-white" />
-          <div className="flex w-full max-w-[228px] gap-5 max-sm:gap-2">
+          <div className="flex w-full items-end justify-end gap-5 max-sm:gap-2 lg:items-start lg:justify-start">
             <CartButton />
             <HeaderLoginButton />
           </div>

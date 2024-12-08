@@ -8,7 +8,7 @@ export default function Trusted() {
       className="mt-[3rem] flex flex-col items-center gap-10 sm:gap-20"
     >
       <span className="text-3xl font-bold">موثوقين من قبل</span>
-      <div className="grid grid-cols-2 items-center justify-center gap-5 px-5 sm:grid-cols-3 sm:gap-[6rem] md:grid-cols-5">
+      <div className="grid grid-cols-1 items-center justify-center gap-5 px-5 sm:grid-cols-1 sm:gap-[6rem] md:grid-cols-5">
         {Array(5)
           .fill(null)
           .map((_, i) => (

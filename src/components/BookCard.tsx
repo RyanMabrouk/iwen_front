@@ -75,6 +75,12 @@ export default function BookCard({
       toast.info("هذا الكتاب غير موجود في قائمة الرغبات");
     },
   });
+
+  const isDiscounted = !!book.discount;
+  const isOutOfStock = book.stock === 0;
+  const isNewBook =
+    new Date(book.created_at) >=
+    new Date(new Date().setMonth(new Date().getMonth() - 1));
   return (
     <div
       dir="rtl"
@@ -83,7 +89,7 @@ export default function BookCard({
         className,
       )}
     >
-      {!!book.discount && (
+      {isDiscounted && !isOutOfStock && !isNewBook && (
         <div className="absolute left-3 top-4 z-10 rounded-full bg-primary-400 px-2.5 py-1 text-sm font-medium text-white">
           تخفيض{" "}
           {book.discount_type === "percentage"
@@ -91,9 +97,14 @@ export default function BookCard({
             : book.discount + " د.م"}{" "}
         </div>
       )}
-      {book.stock === 0 && (
+      {isOutOfStock && (
         <div className="absolute left-3 top-4 z-10 rounded-full bg-red-500 px-2.5 py-1 text-sm font-medium text-white">
           نفذت الكمية
+        </div>
+      )}
+      {!isOutOfStock && isNewBook && (
+        <div className="absolute left-3 top-4 z-10 rounded-full bg-[#2774A0] px-2.5 py-1 text-sm font-medium text-white">
+          جديد{" "}
         </div>
       )}
 

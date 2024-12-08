@@ -17,7 +17,7 @@ export default function PaginationExample({
   };
 
   return (
-    <div className="bg-color flex flex-col items-center py-4">
+    <div className="bg-color flex flex-col items-center py-4 my-6">
       <ThemeProvider theme={theme}>
         <Pagination
           count={numberOfPages}
