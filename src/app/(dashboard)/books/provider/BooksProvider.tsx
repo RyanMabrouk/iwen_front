@@ -5,6 +5,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { WindowSize, useWindowSize } from "@/hooks/useWindowSize";
 
 interface BooksProviderProps {
+  search: string;
+  setSearch: (value: string) => void;
   view: string;
   setView: (value: string) => void;
   numberOfBooks: string;
@@ -50,6 +52,7 @@ export default function BooksProvider({
   const [writer, setWriter] = useStateToUrl("writer", "");
   const [priceRange, setPriceRange] = useStateToUrl("priceRange", "");
   const [sortings, setSortings] = useStateToUrl("sortings", "");
+  const [search, setSearch] = useStateToUrl("search", "");
   const size = useWindowSize();
   useEffect(() => {
     if (
@@ -77,6 +80,8 @@ export default function BooksProvider({
   return (
     <BooksContext.Provider
       value={{
+        search,
+        setSearch,
         sortings,
         setSortings,
         view,
@@ -134,5 +139,7 @@ export function useBooksProvider() {
     setSubcategories: context.setSubcategories!,
     sortings: context.sortings!,
     setSortings: context.setSortings!,
+    search: context.search!,
+    setSearch: context.setSearch!,
   };
 }

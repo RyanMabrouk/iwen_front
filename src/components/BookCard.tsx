@@ -23,18 +23,18 @@ export default function BookCard({
   writer,
   images,
   className,
-  is_in_wishlist,
+  liked,
   ...book
 }: Tables<"books"> & {
   fill?: boolean;
-  is_in_wishlist?: boolean;
+  liked?: boolean;
   className?: string;
   writer?: string;
   images?: string[];
 }) {
   const queryClient = useQueryClient();
   const { toast } = useToast();
-  const [isLiked, setIsLiked] = useState(is_in_wishlist);
+  const [isLiked, setIsLiked] = useState(liked);
   const addUrl = getEndpoint({
     resource: "wishlist",
     action: "createWishlist",
@@ -77,6 +77,9 @@ export default function BookCard({
       toast.info("هذا الكتاب غير موجود في قائمة الرغبات");
     },
   });
+  const handleLike = () => {
+    setIsLiked((prev) => !prev);
+  };
 
   const isDiscounted = !!book.discount;
   const isOutOfStock = book.stock === 0;
@@ -185,7 +188,7 @@ export default function BookCard({
             } else {
               addToWishlistMutation.mutate();
             }
-            setIsLiked((prev) => !prev);
+            handleLike();
           }}
         >
           {isLiked ? (

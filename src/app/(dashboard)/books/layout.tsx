@@ -1,11 +1,12 @@
 import React from "react";
 import NavBook from "./ui/NavBook";
+import BooksProvider from "./provider/BooksProvider";
 
 export default function Page({ children }: { children: React.ReactNode }) {
   return (
-    <div>
+    <BooksProvider>
       <NavBook />
       {children}
-    </div>
+    </BooksProvider>
   );
 }

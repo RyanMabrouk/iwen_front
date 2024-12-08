@@ -12,6 +12,7 @@ export default function useCurrentBooks() {
     subcategories,
     writer,
     sortings,
+    search,
   } = useBooksProvider();
   const extra_filters = {
     ...(Array.isArray(categories.split("%")) &&
@@ -32,6 +33,10 @@ export default function useCurrentBooks() {
     page: parseInt(page),
     ...(Object.keys(extra_filters).length > 0 && { extra_filters }),
     filters: {
+      ...(search !== undefined &&
+        search !== "" && {
+          "books.title": [{ operator: "like", value: "%" + search + "%" }],
+        }),
       ...(view === "newest"
         ? { "books.created_at": [{ operator: ">=", value: formattedDate }] }
         : view === "discount"

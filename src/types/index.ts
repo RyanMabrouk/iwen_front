@@ -98,6 +98,7 @@ export interface IBookPopulated extends Tables<"books"> {
   corner: Tables<"corners"> | null;
   total_rating: number;
   total_reviews_count: number;
+  is_in_wishlist: boolean;
 }
 
 export interface ICartBook extends Tables<"books"> {

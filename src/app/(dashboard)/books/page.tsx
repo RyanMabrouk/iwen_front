@@ -23,12 +23,10 @@ export type FilterType = {
 export default function Page() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <BooksProvider>
         <div className="flex flex-col gap-2">
           <Navigation />
           <BooksList />
         </div>
-      </BooksProvider>
     </Suspense>
   );
 }

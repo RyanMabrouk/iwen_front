@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import arrows_right from "../../../../../public/dashboard/book/arrows_right";
 import filter from "../../../../../public/dashboard/book/filter";
-import search from "../../../../../public/dashboard/book/search";
 import useBooks from "@/hooks/data/books/useBooks";
 import BookSuggestions from "./BookSuggestions";
+import { useBooksProvider } from "../provider/BooksProvider";
+import SearchIcon from "../../../../../public/dashboard/book/search";
+import { useRouter } from "next/navigation";
 
 export default function Search() {
-  const [name, setName] = useState("");
+  const { search, setSearch } = useBooksProvider();
+  const [name, setName] = useState(search);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const router = useRouter();
 
   const suggestions = useBooks({
     limit: 5,
@@ -23,8 +27,10 @@ export default function Search() {
     setName(bookTitle);
   };
 
-  const handleFilterClick = () => {};
-  console.log(showSuggestions);
+  const handleFilterClick = () => {
+    setSearch(name);
+    router.push(`/books?search=${name}`);
+  };
 
   return (
     <div className="flex items-center gap-4">
@@ -38,7 +44,9 @@ export default function Search() {
       >
         <div className="flex items-center overflow-hidden rounded-md">
           <div className="flex" style={{ background: "#E4EFEF" }}>
-            <button className="p-3">{search("#A8A8A8", "20", "20")}</button>
+            <button className="p-3">
+              <SearchIcon color="#A8A8A8" width="20" height="20" />
+            </button>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}

@@ -60,7 +60,7 @@ export default function BookViews() {
             >
               <div className="flex items-center gap-1">
                 <h2>{option.name}</h2>
-                <h2>({option.results})</h2>
+                {option.results !== 0 && <h2>({option.results})</h2>}
               </div>
             </li>
           </Link>

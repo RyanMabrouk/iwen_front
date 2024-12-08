@@ -1,6 +1,14 @@
 import React from "react";
 
-export default function serach(color: string, width = "24", height = "24") {
+export default function SearchIcon({
+  color,
+  height = "24",
+  width = "24",
+}: {
+  color: string;
+  width: string;
+  height: string;
+}) {
   return (
     <svg
       width={width}
