@@ -1,5 +1,4 @@
 import React from "react";
-import useBooks from "@/hooks/data/books/useBooks";
 import BookPage from "./BookPage";
 import { Spinner } from "@/app/ui/Spinner";
 import BookCard from "@/components/BookCard";
@@ -32,14 +31,15 @@ export default function BooksList() {
       {numberOfBooks !== "1" ? (
         <div
           dir="rtl"
-          className={`grid w-fit max-sm:grid-cols-2 grid-cols-${numberOfBooks}`}
+          className={`grid w-fit max-sm:grid-cols-2 grid-cols-${numberOfBooks} ${numberOfBooks === "4" && "w-full"} `}
         >
           {books?.map((book, i) => (
             <div
               key={i}
-              className={`py-3 transition-all duration-300 max-sm:px-5 ${numberOfBooks === "6" ? "px-4" : numberOfBooks === "4" ? "px-5" : numberOfBooks === "3" ? "px-16 py-4 max-lg:px-5" : "px-20 max-md:px-10"}`}
+              className={`flex items-center justify-center py-3 transition-all duration-300 max-sm:px-5 ${numberOfBooks === "6" ? "px-4" : numberOfBooks === "4" ? "w-full px-5" : numberOfBooks === "3" ? "px-16 py-4 max-lg:px-5" : "px-20 max-md:px-10"}`}
             >
               <BookCard
+                fill={true}
                 images={
                   book.images_urls.length > 0 ? book.images_urls : undefined
                 }

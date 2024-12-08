@@ -4,8 +4,8 @@ import { useBooksProvider } from "../provider/BooksProvider";
 export default function ViewPreference({ className }: { className?: string }) {
   const { numberOfBooks: bookNumber, setNumberOfBooks: setBooks } =
     useBooksProvider();
-  const choices1 = ["4", "6", "1"];
-  const choices2 = ["2", "3", "1"];
+  const choices1 = ["6", "4", "1"];
+  const choices2 = ["3", "2", "1"];
   return (
     <div
       className={`flex items-center gap-2 text-nowrap max-lg:flex-col-reverse ${className}`}

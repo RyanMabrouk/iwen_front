@@ -47,8 +47,8 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
             )}
           </div>
         </div>
-        <div className="flex h-full flex-grow flex-col gap-2 py-10 text-2xl">
-          <h3 className="text-xl font-semibold text-gray-800 transition-colors duration-300 ease-in-out group-hover:text-blue-600">
+        <div className="flex h-full flex-grow flex-col gap-2 py-10 text-xl">
+          <h3 className="text-2xl font-semibold text-gray-800 transition-colors duration-300 ease-in-out group-hover:text-color1">
             {book.title}
           </h3>
           <div className="flex items-center gap-2">
@@ -60,12 +60,12 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
           <div className="flex items-center gap-2">
             <h1>السعر: </h1>
             <p className="font-medium text-green-600 transition-colors duration-300 ease-in-out group-hover:text-green-700">
-              {book.price} ريال
+              {book.price} د.م
             </p>
           </div>
           {book.share_house?.name && (
             <div className="flex items-center gap-2">
-              <h1>الناشر: </h1>
+              <h1>دار النشر: </h1>
               <p className="text-gray-600 transition-colors duration-300 ease-in-out group-hover:text-gray-800">
                 {book.share_house.name}
               </p>

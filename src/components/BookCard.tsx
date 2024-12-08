@@ -19,12 +19,14 @@ import Link from "next/link";
 import TooltipGeneric from "@/app/ui/InsightGeneric";
 
 export default function BookCard({
+  fill = false,
   writer,
   images,
   className,
   is_in_wishlist,
   ...book
 }: Tables<"books"> & {
+  fill?: boolean;
   is_in_wishlist?: boolean;
   className?: string;
   writer?: string;
@@ -85,7 +87,7 @@ export default function BookCard({
     <div
       dir="rtl"
       className={cn(
-        "relative h-[20rem] w-[13rem] rounded-2xl border bg-white shadow-md transition-all",
+        `relative h-[20rem] w-[13rem] rounded-2xl border bg-white shadow-md transition-all ${fill ? "h-[23rem] w-full" : ""}`,
         className,
       )}
     >
