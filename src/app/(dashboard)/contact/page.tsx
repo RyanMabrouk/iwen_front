@@ -5,9 +5,9 @@ import ContactInfo from "./ui/contactInfo";
 
 export default function Page() {
   return (
-    <div dir="rtl" className="flex flex-col px-4 sm:px-10">
+    <div dir="rtl" className="flex flex-col  sm:px-10">
       <Discover />
-      <div className="my-12 flex flex-col justify-center gap-10 sm:flex-row">
+      <div className="my-12 px-4 flex flex-col justify-center gap-10 sm:flex-row">
         <Form />
         <div className="flex w-full flex-col gap-4">
           <ContactInfo />
@@ -18,6 +18,7 @@ export default function Page() {
             src="https://www.openstreetmap.org/export/embed.html?bbox=-7.629833221435548%2C32.99549079274747%2C-7.609748840332032%2C33.007637822018836&amp;layer=mapnik&amp;marker=33.00156451644311%2C-7.619791030883789"
           ></iframe>
         </div>
+        
       </div>
     </div>
   );

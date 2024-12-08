@@ -97,9 +97,11 @@ export default function CategoryBooksSection() {
                 slidesPerView={1}
                 spaceBetween={20}
                 breakpoints={{
-                  1024: { slidesPerView: 5 },
-                  768: { slidesPerView: 2 },
-                  640: { slidesPerView: 1 },
+                  1200: { slidesPerView: 5 },
+                  1024: { slidesPerView: 4 },
+                  768: { slidesPerView: 3 },
+                  600: { slidesPerView: 2 },
+                  500: { slidesPerView: 1 },
                 }}
                 className="h-full w-full"
               />
