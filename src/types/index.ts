@@ -73,8 +73,22 @@ export interface IBookPayload {
   structured_data: FormDataEntryValue | null;
   is_in_wishlist: boolean;
 }
+
+export type BookSummary = Pick<
+  Tables<"books">,
+  | "id"
+  | "title"
+  | "slug"
+  | "images_urls"
+  | "price"
+  | "price_after_discount"
+  | "discount"
+  | "discount_type"
+  | "price_dollar"
+>;
+
 export interface IBookPopulated extends Tables<"books"> {
-  writer_books: Tables<"books">[];
+  writer_books: BookSummary[];
   recommended_books: IBookPopulated[];
   categories: Tables<"categories">[];
   subcategories: Tables<"subcategories">[];
@@ -82,6 +96,8 @@ export interface IBookPopulated extends Tables<"books"> {
   writer: Tables<"writers"> | null;
   share_house: Tables<"share_houses"> | null;
   corner: Tables<"corners"> | null;
+  total_rating: number;
+  total_reviews_count: number;
 }
 
 export interface ICartBook extends Tables<"books"> {
