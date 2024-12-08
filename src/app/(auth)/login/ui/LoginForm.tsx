@@ -1,22 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePage } from "../../../../provider/PageProvider";
 import useLogin from "../../../../hooks/auth/useLogin";
 
-
 export default function LoginForm() {
-  const [emailSelected, setEmailSelected] = React.useState<boolean>(false);
-  const [email, setEmail] = React.useState<string>("");
-  const [password, setPassword] = React.useState<boolean>(false);
-  const [showPassword, setShowPassword] = React.useState<boolean>(false);
+  const [emailSelected, setEmailSelected] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const { setPage } = usePage();
   const { mutate } = useLogin();
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    mutate(formData);
+  };
+
   return (
     <form
-      action={mutate}
+      onSubmit={handleSubmit}
       className="flex w-full flex-col items-end justify-between gap-1 p-2 max-md:p-0"
     >
       <label htmlFor="email">البريد الإلكتروني*</label>

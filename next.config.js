@@ -3,6 +3,11 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV !== "development", // Remove console.log in production
   },
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["localhost:*", "jh8q0n9l-3000.uks1.devtunnels.ms"],
+    },
+  },
   swcMinify: true,
   logging: {
     fetches: {
@@ -55,7 +60,6 @@ const nextConfig = {
   },
   webpack: (config) => {
     config.externals = [...config.externals, { canvas: "canvas" }];
-    // resolve configuration
     config.resolve = {
       ...config.resolve,
       alias: {
@@ -67,9 +71,4 @@ const nextConfig = {
   },
 };
 
-// const withPWA = require("next-pwa")({
-//   dest: "public/PWA",
-// });
-
-module.exports =
-  process.env.NODE_ENV === "development" ? nextConfig : nextConfig; // withPWA(nextConfig);
+module.exports = nextConfig;

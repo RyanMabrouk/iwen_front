@@ -1,7 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import SelectWithBorder from "./main/SelectWithBorder";
-import CategoryIcon from "./icons/CategoryIcon";
 import BookCard from "./BookCard";
 import ArrowLeft from "./icons/ArrowLeft";
 import Image from "next/image";
@@ -44,7 +42,7 @@ export default function CategoryKidsBooks() {
       </div>
 
       <h1 className="relative z-10 mx-auto w-fit text-3xl font-bold">
-        ركن الأطفال
+        قسم الأطفال
       </h1>
 
       <div className="mx-auto w-full max-w-[1400px] space-y-12">

@@ -9,7 +9,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { FilterSelect } from "./FilterSelect";
-import { FilterType } from "../page";
 import { FilterProvider } from "../provider/FilterProvider";
 
 export default function BooksFilters() {

@@ -2,16 +2,26 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import useChangePassword from "../../../../hooks/auth/useChangePassword";
+import useChangePasswordMutaion from "../../../../hooks/auth/useChangePassword";
 
 export default function ChangePasswordForm() {
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [newPasswordFocused, setNewPasswordFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const { mutate } = useChangePassword();
+  const { mutate } = useChangePasswordMutaion();
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    mutate(formData);
+  };
+
   return (
-    <form action={mutate} className="flex flex-col items-end gap-2 py-5">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-end gap-2 py-5"
+    >
       <h1 className="text-right text-xl font-semibold">
         إعادة تعيين كلمة المرور
       </h1>

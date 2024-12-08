@@ -1,30 +1,29 @@
 "use client";
 import CustomSwiper from "@/app/ui/Swiper";
 import useBanners from "@/hooks/data/banners/useBanners";
+import { useWindowSize } from "@/hooks/useWindowSize";
 import Image from "next/image";
-import React, { useState } from "react";
-
-type Banner = {
-  url: string;
-};
+import React from "react";
 
 export default function Banners() {
-  const { data: banners } = useBanners() as unknown as {
-    data: { data: { url: string }[] };
-  };
-
+  const { data: banners } = useBanners();
+  const windowSize = useWindowSize();
   return (
-    <div className="relative sm:px-6 sm:py-24 lg:px-8 lg:py-28 [&_.swiper-pagination-bullet-active]:bg-primary-200">
+    <div className="relative sm:px-6 sm:py-24 lg:px-8 lg:py-12 [&_.swiper-pagination-bullet-active]:bg-primary-400">
       <CustomSwiper
-        slides={(banners?.data || []).map((banner: Banner, index: number) => (
+        slides={(banners?.data ?? []).map((banner, index: number) => (
           <Image
             key={index}
-            src={banner.url || ""}
+            src={
+              windowSize.width && windowSize.width <= 1024
+                ? (banner?.phone_url ?? "")
+                : (banner?.url ?? "")
+            }
             alt=""
             layout="responsive"
             width={200}
             height={500}
-            className="mx-auto w-full max-w-[100%] rounded-xl object-cover sm:h-[350px] sm:max-w-[100%]"
+            className="z-0 mx-auto h-fit w-full max-w-[100%] rounded-xl object-cover sm:h-[350px] sm:max-w-[95%]"
           />
         ))}
         initialSlide={0}

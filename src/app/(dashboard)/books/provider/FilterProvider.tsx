@@ -1,10 +1,11 @@
+"use client";
 import useCategories from "@/hooks/data/books/categories/useCategories";
 import useCorners from "@/hooks/data/books/corners/useCorners";
 import useSubCategories from "@/hooks/data/books/subCategories/useSubCategories";
 import useShareHouses from "@/hooks/data/books/useShareHouses";
 import useWriters from "@/hooks/data/books/writers/useWriters";
 import useURL from "@/hooks/useURL";
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 type FilterState = {
   writers?: { id: string; name: string }[];
@@ -131,7 +132,7 @@ export function FilterProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useFilterProvider() {
-  const context = React.useContext(FilterContext);
+  const context = useContext(FilterContext);
   if (context === undefined) {
     throw new Error("useFilterProvider must be used within a FilterProvider");
   }

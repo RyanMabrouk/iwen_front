@@ -1,8 +1,8 @@
+"use client";
 import React from "react";
 import InfoNav from "./InfoNav";
 import InfoContent from "./InfoContent";
 import PriceInfo from "./PriceInfo";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useStateToUrl } from "@/helpers/stateToUrl";
 
 export type PageType = "main" | "details" | "comments" | "author" | "about";

@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import { Tajawal } from "next/font/google";
 import "./globals.css";
 import Hydration from "@/provider/MainHydration";
-import { ToastContainer, ToastProvider } from "@/hooks/useToast";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Store from "@/provider/QCStore";
 import React from "react";
-import Footer from "./(dashboard)/ui/Footer";
+import { ToastContainer, ToastProvider } from "@/hooks/useToast";
 
 const tajawal = Tajawal({
   weight: ["200", "300", "400", "500", "700", "800", "900"],
@@ -29,11 +28,7 @@ export const metadata: Metadata = {
   ],
 };
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -41,15 +36,13 @@ export default async function RootLayout({
       </head>
       <body className={tajawal.className + " min-h-screen"}>
         <Analytics />
-        <SpeedInsights />
+        <SpeedInsights />{" "}
         <Store>
           <Hydration>
+            {" "}
             <ToastProvider>
               <ToastContainer />
-              <main>
-                {children}
-                <Footer />
-              </main>
+              <main>{children}</main>{" "}
             </ToastProvider>
           </Hydration>
         </Store>

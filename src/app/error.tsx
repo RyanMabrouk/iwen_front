@@ -1,7 +1,8 @@
-"use client"; // Error components must be Client Components
+"use client";
 import { Player } from "@lottiefiles/react-lottie-player";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useEffect } from "react";
+
 export default function Error({
   error,
   reset,
@@ -9,7 +10,6 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  const Router = useRouter();
   useEffect(() => {
     // Log the error to an error reporting service
     console.error("ui error :" + error);
@@ -23,12 +23,12 @@ export default function Error({
         autoplay
       />
       <h2 className="text-xl font-semibold">Something went wrong!</h2>
-      <button
+      <Link
+        href="/"
         className="text-lg text-blue-500 transition-all ease-linear hover:text-blue-500 hover:underline"
-        onClick={() => Router.back()}
       >
         Go back
-      </button>
+      </Link>
     </div>
   );
 }

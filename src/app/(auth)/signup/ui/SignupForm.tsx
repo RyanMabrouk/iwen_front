@@ -18,9 +18,16 @@ export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { mutate: signUp } = useSignUp(setAccountCreated);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    signUp(formData);
   };
 
   const renderInput = (
@@ -118,7 +125,7 @@ export default function SignUpForm() {
   if (!accountCreated)
     return (
       <form
-        action={signUp}
+        onSubmit={handleSubmit}
         className="flex h-full w-full flex-col items-end gap-1"
       >
         {renderInput(

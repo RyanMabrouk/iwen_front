@@ -9,7 +9,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import signOut from "@/actions/auth/signout";
 import { useRouter } from "next/navigation"; // Client-side navigation
 
-export function HeaderLoginButton() {
+export default function HeaderLoginButton() {
   const { data: user } = useCurrentUser();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -48,7 +48,7 @@ export function HeaderLoginButton() {
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (window && document) {
       if (isDropdownOpen) {
         document.addEventListener("mousedown", handleClickOutside);
       } else {
@@ -76,7 +76,7 @@ export function HeaderLoginButton() {
           />
         </button>
         {isDropdownOpen && (
-          <div className="absolute right-0 z-[1000] mt-2 w-32 origin-top scale-100 transform rounded-md bg-white font-medium opacity-100 shadow-lg transition duration-200 ease-out">
+          <div className="absolute right-0 z-50 mt-2 w-32 origin-top scale-100 transform rounded-md bg-white font-medium opacity-100 shadow-lg transition duration-200 ease-out">
             <Link
               href="/profile"
               onClick={() => {
@@ -89,7 +89,7 @@ export function HeaderLoginButton() {
             </Link>
             <button
               onClick={handleLogout}
-              className="w-full cursor-pointer rounded-b-md px-4 py-2 text-right text-gray-800 transition hover:bg-gray-100"
+              className="z-50 w-full cursor-pointer rounded-b-md px-4 py-2 text-right text-gray-800 transition hover:bg-gray-100"
             >
               خروج
             </button>

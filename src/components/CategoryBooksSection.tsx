@@ -1,18 +1,20 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
-import SelectWithBorder from "./main/SelectWithBorder";
+import React, { useState } from "react";
+const SelectWithBorder = dynamic(() => import("./main/SelectWithBorder"), {
+  ssr: false,
+});
 import CategoryIcon from "./icons/CategoryIcon";
 import BookCard from "./BookCard";
 import ArrowLeft from "./icons/ArrowLeft";
 import CustomSwiper from "./ui/swiper";
-import useCategories from "@/hooks/data/books/categories/useCategories";
 import ArrowRight from "./icons/ArrowRight";
 import EmptyBox from "./icons/EmptyBox";
-import Events from "./Events";
-import { IEventPopulated } from "@/hooks/data/events/eventQuery";
 import useEvents from "@/hooks/data/events/useEvents";
 import useEvent from "@/hooks/data/events/useEvent";
+import dynamic from "next/dynamic";
+import Events from "./Events";
+import { Tables } from "@/types/database.types";
 
 export default function CategoryBooksSection() {
   const [activeEvent, setActiveEvent] = useState(0);
@@ -22,22 +24,23 @@ export default function CategoryBooksSection() {
   const { data: active_event_populated } = useEvent({
     eventId: active_event?.id || "",
   });
-  const { data: categories } = useCategories();
+  const categories = active_event_populated?.data?.books.reduce((acc, book) => {
+    return [...acc, ...book.categories];
+  }, [] as Tables<"categories">[]);
 
   return (
     <div className="relative bg-[#E7F6F5]/30 px-6 py-14">
       <div className="mx-auto w-full max-w-[1400px] space-y-12">
         <div className="flex h-fit w-full items-center justify-between gap-10 max-xl:flex-col">
           <SelectWithBorder
-            defaultStatus
             text="الفئات"
             icon={<CategoryIcon size={18} />}
             content={[
               { id: null, name: "عرض الكل" },
-              ...(categories?.data?.map((category) => ({
+              ...(categories?.map((category) => ({
                 id: category.id,
                 name: category.name,
-              })) || []),
+              })) ?? []),
             ]}
             onChange={(categoryId) => {
               setActiveCategoryId(categoryId);

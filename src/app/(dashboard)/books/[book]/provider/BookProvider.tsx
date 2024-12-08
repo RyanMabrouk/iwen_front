@@ -1,7 +1,7 @@
 "use client";
 
 import { IBookPopulated } from "@/types";
-import React, { createContext} from "react";
+import React, { createContext, useContext } from "react";
 
 type BookContextType = {
   book: IBookPopulated | null;
@@ -22,7 +22,7 @@ export function BookProvider({
 }
 
 export function useBookProvider() {
-  const context = React.useContext(BookContext);
+  const context = useContext(BookContext);
   if (!context) {
     throw new Error("useCounter must be used within a PageProvider");
   }

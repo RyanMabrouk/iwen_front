@@ -1,11 +1,16 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import SearchBar from "../main/SearchBar";
 import Logo from "../main/Logo";
 import Select from "../main/Select";
-import { HeaderLoginButton } from "./HeaderLoginButton";
+const HeaderLoginButton = dynamic(() => import("./HeaderLoginButton"), {
+  ssr: false,
+});
+import dynamic from "next/dynamic";
 import { HeaderPhoneMenu } from "./HeaderPhoneMenu";
 import CartButton from "./CartButton";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -23,9 +28,9 @@ export default function Header() {
           <SearchBar className="lg:max-w-[607px]" />
           <Logo />
         </div>
-        <div className="mx-auto flex w-full items-center max-lg:justify-between lg:max-w-[382px] lg:justify-start">
+        <div className="mx-auto flex w-full items-center justify-start gap-12 max-lg:justify-between lg:w-fit">
           <Select text="العربية" className="w-full px-1.5 text-white" />
-          <div className="flex w-full max-w-[228px] gap-5 max-sm:gap-2">
+          <div className="flex w-full items-end justify-end gap-5 max-sm:gap-2 lg:items-start lg:justify-start">
             <CartButton />
             <HeaderLoginButton />
           </div>
@@ -35,14 +40,17 @@ export default function Header() {
         <HeaderPhoneMenu />
         <div>
           <div className="mx-auto flex w-fit items-center max-sm:hidden max-sm:w-full max-sm:flex-col max-sm:items-end">
-            {["إستكشف جديدنا", "منتجات مميزة", "عروض خاصة"].map((text, idx) => (
-              <div
-                key={idx}
-                className="flex cursor-pointer justify-center px-8 py-5 transition-all duration-200 hover:bg-primary-300 max-sm:w-full"
-              >
-                <span className="text-lg">{text}</span>
-              </div>
-            ))}
+            {["كتب تونسية", "كتب مغربية ", "جميع المنتوجات", "عروض خاصة"].map(
+              (text, idx) => (
+                <Link
+                  href="/books"
+                  key={idx}
+                  className="flex cursor-pointer justify-center px-8 py-5 transition-all duration-200 hover:bg-primary-300 max-sm:w-full"
+                >
+                  <span className="text-lg">{text}</span>
+                </Link>
+              ),
+            )}
           </div>
         </div>
       </div>

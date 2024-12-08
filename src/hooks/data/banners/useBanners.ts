@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import { bannersQuery } from "./bannersQuery";
 import { useQuery } from "@tanstack/react-query";
 

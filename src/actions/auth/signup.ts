@@ -1,7 +1,6 @@
 "use server";
 import { createClient } from "@/lib/supabase";
 import { headers } from "next/headers";
-import { AuthResponse } from "@supabase/supabase-js";
 
 export default async function signUp({
   email,
@@ -10,7 +9,7 @@ export default async function signUp({
   email: string;
   password: string;
 }): Promise<{
-  data: AuthResponse["data"] | null;
+  data:any | null;
   error: { message: string; type: string } | null;
 }> {
   const headersList = headers();

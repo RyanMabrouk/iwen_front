@@ -1,6 +1,5 @@
 "use server";
 import axios from "axios";
-import { cookies } from "next/headers";
 import { IError } from "@/types";
 import { createClient } from "@/lib/supabase";
 export type CRUDMethod = "GET" | "POST" | "PATCH" | "DELETE";
@@ -49,7 +48,7 @@ export default async function sendRequest<
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
       const backendError: IError<IPayload> = error.response?.data;
-      if (backendError.errors) {
+      if (backendError?.errors) {
         return {
           data: null,
           error: error.message,

@@ -3,11 +3,16 @@ import React from "react";
 import PrimaryButton from "./main/buttons/PrimaryButton";
 import CustomSwiper from "./ui/swiper";
 import ArrowLeft from "./icons/ArrowLeft";
+import Image from "next/image";
 
 export default function Offers() {
   return (
-    <div className="mx-auto flex w-full flex-wrap items-center justify-center gap-8 px-6 py-8 sm:gap-10 sm:px-6 sm:py-12 lg:gap-32 lg:px-10 lg:py-16">
+    <div
+      className="mx-auto flex w-full flex-wrap items-center justify-center gap-8 px-6 py-8 sm:gap-10 sm:px-6 sm:py-12 lg:gap-32 lg:px-10 lg:py-16"
+      dir="rtl"
+    >
       <CustomSwiper
+        className="[&_.swiper-pagination-bullet-active]:bg-primary-400"
         navigation={{
           prevEl: ".btn_swiper_arrow_left",
           nextEl: ".btn_swiper_arrow_right",
@@ -15,7 +20,7 @@ export default function Offers() {
         slides={Array.from({ length: 2 }).map((_, i) => (
           <div
             key={i}
-            className="mx-auto flex w-full flex-wrap items-center justify-center gap-8 sm:gap-10 lg:gap-[125px]"
+            className="mx-auto flex w-full flex-row-reverse flex-wrap items-center justify-center gap-8 sm:gap-10 lg:gap-[125px]"
           >
             <div className="w-full max-w-[480px] space-y-4 sm:space-y-8 lg:space-y-20">
               <div className="space-y-2">
@@ -32,18 +37,26 @@ export default function Offers() {
               <div className="space-y-4">
                 <div className="flex flex-col text-base text-gray-400 sm:text-lg">
                   <span>السعر قبل العرض</span>
-                  <span>120.000 TND</span>
+                  <span> 120.000د.م </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <PrimaryButton>تمتع بالعرض</PrimaryButton>
                   <span className="flex gap-4 text-2xl sm:gap-[18px] sm:text-3xl">
                     <span>فقط</span>
-                    <span>80.000 MAD</span>
+                    <span> 80.000د.م </span>
                   </span>
                 </div>
               </div>
             </div>
-            <div className="h-[300px] w-full max-w-[443px] rounded-[20px] bg-black sm:h-[350px] lg:h-[495px]"></div>
+            <div className="h-[300px] w-full max-w-[443px] rounded-[20px] bg-black sm:h-[350px] lg:h-[495px]">
+              <Image
+                src="/books_offer.svg"
+                height={495}
+                width={443}
+                className="rounded-[20px]"
+                alt=""
+              />
+            </div>
           </div>
         ))}
         initialSlide={0}
@@ -56,7 +69,6 @@ export default function Offers() {
           delay: 5000,
           disableOnInteraction: true,
         }}
-        className=""
       />
     </div>
   );

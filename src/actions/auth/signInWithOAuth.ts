@@ -1,19 +1,12 @@
 "use server";
 import { createClient } from "@/lib/supabase";
 import { headers } from "next/headers";
-import { Provider } from "@supabase/supabase-js";
 
 export default async function signInWithOAuth({
   provider,
 }: {
-  provider: Provider;
-}): Promise<{
-  data: {
-    provider: Provider;
-    url: string;
-  } | null;
-  error: { message: string; type: string } | null;
-}> {
+  provider: "google" | "facebook";
+}) {
   const supabase = createClient();
 
   const headersList = headers();

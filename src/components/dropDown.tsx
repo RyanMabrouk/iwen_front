@@ -68,7 +68,7 @@ export default function Dropdown<T extends string | number>({
         setIsOpen(false);
       }
     };
-    if (typeof window !== "undefined") {
+    if (window && document) {
       if (isOpen) {
         document.addEventListener("mousedown", handleClickOutside);
       } else {

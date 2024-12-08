@@ -1,10 +1,7 @@
-import React, { Suspense } from "react";
+"use client";
+import React from "react";
 import Token from "./ui/Token";
 
-export default function page() {
-  return (
-    <Suspense>
-      <Token />
-    </Suspense>
-  );
+export default function Page() {
+  return <Token />;
 }

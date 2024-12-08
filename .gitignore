@@ -45,3 +45,5 @@ sw.*
 workbox-*
 swe-worker-*
 supabase
+# Sentry Config File
+.env.sentry-build-plugin
