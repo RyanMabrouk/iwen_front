@@ -21,66 +21,17 @@ import TooltipGeneric from "@/app/ui/InsightGeneric";
 export default function BookCard({
   fill = false,
   writer,
-  images,
+  images_urls,
   className,
-  liked,
+  is_in_wishlist,
   ...book
 }: Tables<"books"> & {
   fill?: boolean;
-  liked?: boolean;
+  is_in_wishlist: boolean;
   className?: string;
-  writer?: string;
-  images?: string[];
+  writer: string;
+  images_urls: string[];
 }) {
-  const queryClient = useQueryClient();
-  const { toast } = useToast();
-  const [isLiked, setIsLiked] = useState(liked);
-  const addUrl = getEndpoint({
-    resource: "wishlist",
-    action: "createWishlist",
-  });
-  const deleteUrl = getEndpoint({
-    resource: "wishlist",
-    action: "deleteWishlist",
-  });
-  const addToWishlistMutation = useMutation({
-    mutationFn: async () => {
-      const { error, validationErrors } = await sendRequest<
-        { book_id: string },
-        { book_id: string }
-      >({
-        method: "POST",
-        url: addUrl(),
-        payload: { book_id: book.id },
-      });
-      if (error || validationErrors) {
-        throw new Error("Validation error");
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["wishlist"] });
-      toast.info("تمت الإضافة إلى قائمة الرغبات");
-    },
-    onError: () => {
-      toast.info("هذا الكتاب موجود بالفعل في قائمة الرغبات");
-    },
-  });
-  const removeFromWishlistMutation = useMutation({
-    mutationFn: async () => {
-      await sendRequest({ method: "DELETE", url: deleteUrl(book.id) });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["wishlist"] });
-      toast.info("تمت الإزالة من قائمة الرغبات");
-    },
-    onError: (error) => {
-      toast.info("هذا الكتاب غير موجود في قائمة الرغبات");
-    },
-  });
-  const handleLike = () => {
-    setIsLiked((prev) => !prev);
-  };
-
   const isDiscounted = !!book.discount;
   const isOutOfStock = book.stock === 0;
   const isNewBook =
@@ -145,67 +96,47 @@ export default function BookCard({
           }}
           loop
           slides={
-            images?.map((image, i) => (
-              <Link
-                href={`/books/${book.id}`}
-                key={i}
-                className="group flex h-full w-full items-center justify-center p-7"
-              >
-                <Image
-                  src={image}
-                  className="h-full w-full object-scale-down transition-all duration-200"
-                  alt=""
-                  width={500}
-                  height={500}
-                />
-              </Link>
-            )) ?? [
-              <Link
-                href={`/books/${book.id}`}
-                className="group flex h-full w-full items-center justify-center p-7"
-                key={0}
-              >
-                <Image
-                  src="/empty-book.svg"
-                  className="-mb-12 h-full w-full object-scale-down transition-all duration-200"
-                  alt="Book"
-                  width={1000}
-                  height={1000}
-                />
-              </Link>,
-            ]
+            images_urls.length > 0
+              ? images_urls?.map((image, i) => (
+                  <Link
+                    href={`/books/${book.id}`}
+                    key={i}
+                    className="group flex h-full w-full items-center justify-center p-7"
+                  >
+                    <Image
+                      src={image}
+                      className="h-full w-full object-scale-down transition-all duration-200"
+                      alt=""
+                      width={500}
+                      height={500}
+                    />
+                  </Link>
+                ))
+              : [
+                  <Link
+                    href={`/books/${book.id}`}
+                    className="group flex h-full w-full items-center justify-center p-7"
+                    key={0}
+                  >
+                    <Image
+                      src="/empty-book.svg"
+                      className="-mb-12 h-full w-full object-scale-down transition-all duration-200"
+                      alt="Book"
+                      width={1000}
+                      height={1000}
+                    />
+                  </Link>,
+                ]
           }
           initialSlide={0}
           slidesPerView={1}
           pagination
         />
         <div className="absolute h-48 w-48 rounded-[100%] bg-primary-500/10 blur-lg transition-all"></div>
-        <div
-          className="group absolute right-6 top-6 z-10 cursor-pointer"
-          onClick={() => {
-            if (isLiked) {
-              removeFromWishlistMutation.mutate();
-            } else {
-              addToWishlistMutation.mutate();
-            }
-            handleLike();
-          }}
-        >
-          {isLiked ? (
-            <FilledHeart
-              size={20}
-              className="text-red-500 transition-colors duration-500"
-            />
-          ) : (
-            <Heart
-              className="text-gray-400 transition-all hover:text-red-500"
-              size={20}
-            />
-          )}
-        </div>
+        <WishListHeart liked={is_in_wishlist} book={book} />
       </div>
       <div className="flex flex-row-reverse items-center justify-between p-3">
-        <CartButtons book={book} />
+        <CartButtons book={{ ...book, images_urls }} />
         <div className="flex w-full justify-between">
           <div className="flex flex-col justify-between">
             <div className="flex flex-col items-start gap-1">
@@ -236,6 +167,91 @@ export default function BookCard({
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+export function WishListHeart({
+  liked,
+  book,
+}: {
+  liked: boolean;
+  book: {
+    id: string;
+  };
+}) {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+  const [isLiked, setIsLiked] = useState(liked);
+
+  const addToWishlistMutation = useMutation({
+    mutationFn: async () => {
+      const addUrl = getEndpoint({
+        resource: "wishlist",
+        action: "createWishlist",
+      });
+      const { error, validationErrors } = await sendRequest<
+        { book_id: string },
+        { book_id: string }
+      >({
+        method: "POST",
+        url: addUrl(),
+        payload: { book_id: book.id },
+      });
+      if (error || validationErrors) {
+        throw new Error("Validation error");
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["wishlist"] });
+      toast.info("تمت الإضافة إلى قائمة الرغبات");
+    },
+    onError: () => {
+      toast.info("هذا الكتاب موجود بالفعل في قائمة الرغبات");
+    },
+  });
+  const removeFromWishlistMutation = useMutation({
+    mutationFn: async () => {
+      const deleteUrl = getEndpoint({
+        resource: "wishlist",
+        action: "deleteWishlist",
+      });
+      await sendRequest({ method: "DELETE", url: deleteUrl(book.id) });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["wishlist"] });
+      toast.info("تمت الإزالة من قائمة الرغبات");
+    },
+    onError: (error) => {
+      toast.info("هذا الكتاب غير موجود في قائمة الرغبات");
+    },
+  });
+  const handleLike = () => {
+    setIsLiked((prev) => !prev);
+  };
+  return (
+    <div
+      className="group absolute right-6 top-6 z-10 cursor-pointer"
+      onClick={() => {
+        if (isLiked) {
+          removeFromWishlistMutation.mutate();
+        } else {
+          addToWishlistMutation.mutate();
+        }
+        handleLike();
+      }}
+    >
+      {isLiked ? (
+        <FilledHeart
+          size={20}
+          className="text-red-500 transition-colors duration-500"
+        />
+      ) : (
+        <Heart
+          className="text-gray-400 transition-all hover:text-red-500"
+          size={20}
+        />
+      )}
     </div>
   );
 }

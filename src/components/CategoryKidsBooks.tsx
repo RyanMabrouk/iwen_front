@@ -111,7 +111,10 @@ export default function CategoryKidsBooks() {
                       key={book.id}
                       className="group flex h-full w-full items-center justify-center p-4"
                     >
-                      <BookCard {...book} writer={book.writer?.name} />
+                      <BookCard
+                        {...book}
+                        writer={book.writer?.name ?? "كاتب غير معروف"}
+                      />
                     </div>
                   ))}
                   slidesPerView={1}
@@ -130,9 +133,7 @@ export default function CategoryKidsBooks() {
                   <BookCard
                     key={book.id}
                     {...book}
-                    writer={book.writer?.name}
-                    stock={book.stock}
-                    images={book.images_urls}
+                    writer={book.writer?.name ?? "كاتب غير معروف"}
                   />
                 ))}
               </div>

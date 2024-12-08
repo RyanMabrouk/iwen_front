@@ -40,10 +40,6 @@ export default function BooksList() {
             >
               <BookCard
                 fill={true}
-                liked={book.is_in_wishlist}
-                images={
-                  book.images_urls.length > 0 ? book.images_urls : undefined
-                }
                 {...book}
                 writer={book.writer?.name ?? ""}
               />

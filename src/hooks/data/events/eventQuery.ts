@@ -5,6 +5,7 @@ import { Tables } from "@/types/database.types";
 interface IBook extends Tables<"books"> {
   categories: Tables<"categories">[];
   writer: Tables<"writers">;
+  is_in_wishlist: boolean;
 }
 
 export interface IEventPopulated extends Tables<"events"> {

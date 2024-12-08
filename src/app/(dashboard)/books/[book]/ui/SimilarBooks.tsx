@@ -38,7 +38,10 @@ export default function SimilarBooks({
               key={book.id}
               className="group flex h-full w-full items-center justify-center p-4"
             >
-              <BookCard {...book} writer={book.writer?.name} />
+              <BookCard
+                {...book}
+                writer={book.writer?.name ?? "كاتب غير معروف"}
+              />
             </div>
           ))}
           slidesPerView={2}
