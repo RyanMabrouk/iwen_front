@@ -1,7 +1,9 @@
 import useBooks from "@/hooks/data/books/useBooks";
 import { useBooksProvider } from "../provider/BooksProvider";
+import { parse } from "path";
 
 export default function useCurrentBooks() {
+  const maxValue = 2100;
   const {
     view,
     numberOfBooks,
@@ -61,20 +63,22 @@ export default function useCurrentBooks() {
       ...(priceRange !== undefined &&
       priceRange !== "" &&
       maxPrice !== null &&
-      minPrice !== null
+      parseInt(maxPrice) < maxValue &&
+      minPrice !== null &&
+      parseInt(minPrice) > 0
         ? {
             "books.price": [
-              { operator: ">", value: minPrice },
-              { operator: "<", value: maxPrice },
+              { operator: ">=", value: minPrice },
+              { operator: "<=", value: maxPrice },
             ],
           }
-        : maxPrice !== null
+        : maxPrice !== null && parseInt(maxPrice) < maxValue
           ? {
-              "books.price": [{ operator: "<", value: maxPrice }],
+              "books.price": [{ operator: "<=", value: maxPrice }],
             }
-          : minPrice !== null
+          : minPrice !== null && parseInt(minPrice) > 0
             ? {
-                "books.price": [{ operator: ">", value: minPrice }],
+                "books.price": [{ operator: ">=", value: minPrice }],
               }
             : {}),
     },

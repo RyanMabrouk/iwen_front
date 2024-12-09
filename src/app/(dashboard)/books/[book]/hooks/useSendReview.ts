@@ -7,7 +7,6 @@ export default function useSendReview() {
     mutationFn: sendReview,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
-      console.log("Review sent");
     },
     onError: (error) => console.log(error),
   });

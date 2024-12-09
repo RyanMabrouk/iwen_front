@@ -14,12 +14,14 @@ type FilterSelectProps = {
 };
 
 export function FilterSelect({ onClose }: FilterSelectProps) {
+  const maxValue = 2100;
   const { update, getValue } = useURL();
   const { writer, corner, shareHouse, category, subcategory } =
     useFilterProvider();
   const [priceRange, setPriceRange] = useState<[number, number]>(
     (getValue("priceRange")?.split("%") as unknown as [number, number]) ?? [
-      0, 2000,
+      0,
+      maxValue,
     ],
   );
 
@@ -47,7 +49,7 @@ export function FilterSelect({ onClose }: FilterSelectProps) {
         <Label>السعر</Label>
         {/* <Slider
           min={0}
-          max={2000}
+          max={maxValue}
           step={1}
           value={priceRange}
           onValueChange={(value: [number, number]) => setPriceRange(value)}

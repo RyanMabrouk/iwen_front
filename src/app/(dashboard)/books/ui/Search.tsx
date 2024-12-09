@@ -18,7 +18,7 @@ export default function Search() {
     limit: 5,
     filters: {
       "books.title": [
-        { operator: "like", value: name.includes(" ") ? "%" + name + "%" : "" },
+        { operator: "like", value: name.length > 0 ? "%" + name + "%" : "" },
       ],
     },
   });

@@ -20,6 +20,7 @@ export default function AddComment({
       </button>
       <h1 className="text-2xl">|</h1>
       <input
+        onKeyDown={(e) => e.key === "Enter" && trigger()}
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         type="text"

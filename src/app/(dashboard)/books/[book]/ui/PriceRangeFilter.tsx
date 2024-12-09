@@ -13,6 +13,7 @@ export default function PriceRangeFilter({
 }) {
   const minPriceSearchParams = useSearchParams().get("minPrice");
   const maxPriceSearchParams = useSearchParams().get("maxPrice");
+  const maxValue = 2100;
 
   useEffect(() => {
     if (
@@ -37,8 +38,8 @@ export default function PriceRangeFilter({
           setPriceRange(newValue as [number, number]);
         }}
         value={priceRange}
-        defaultValue={[0, 2000]}
-        max={2000}
+        defaultValue={[0, maxValue]}
+        max={maxValue}
         min={0}
         valueLabelDisplay="auto"
         getAriaValueText={(value) => String(value)}
@@ -63,7 +64,7 @@ export default function PriceRangeFilter({
           className="focus:outline-color8 h-[2rem] w-full rounded-sm border border-gray-500 text-center"
           onChange={(e) => {
             const newValue = Math.min(
-              2000,
+              maxValue,
               Math.max(Number(e.target.value), priceRange[0]),
             );
             setPriceRange([priceRange[0], newValue]);

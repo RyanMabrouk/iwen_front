@@ -46,7 +46,6 @@ export default function MainPicSwiper({
       />
       <CustomSwiper
         loop
-        onClick={() => console.log("slide")}
         navigation={{
           prevEl: ".custom-swiper-books-prev",
           nextEl: ".custom-swiper-books-next",

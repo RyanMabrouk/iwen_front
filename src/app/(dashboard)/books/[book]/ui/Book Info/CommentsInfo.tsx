@@ -6,11 +6,16 @@ import { Spinner } from "@/app/ui/Spinner";
 import StarRating from "../StarRating";
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import useSendReview from "../../../hooks/useSendReview";
+import useSendReview from "../../hooks/useSendReview";
 import { useBookProvider } from "../../provider/BookProvider";
 import useReviews from "@/hooks/data/reviews/useReviews";
+import { CommentOptions } from "../CommentOptions";
+import useEditReview from "../../hooks/useEditReview";
+import useDeleteReview from "../../hooks/useDeleteReview";
 
 export default function CommentsInfo() {
+  const { mutation: editReview } = useEditReview();
+  const { mutation: deleteReview } = useDeleteReview();
   const [isClosed, setIsClosed] = React.useState(false);
   const [rating, setRating] = React.useState(0);
   const [comment, setComment] = React.useState("");
@@ -32,6 +37,7 @@ export default function CommentsInfo() {
   const realReviews = reviewsData.data?.data
     ?.filter((review) => review.book_id === book.id)
     .map((review) => ({
+      id: review.id,
       name: review.user.first_name + " " + review.user.last_name,
       content: review.content,
       rating: review.rating,
@@ -39,9 +45,9 @@ export default function CommentsInfo() {
         review.user.avatar !== undefined && review.user.avatar !== ""
           ? review.user.avatar
           : "/dashboard/book/profile.jpg",
+      user_id: review.user_id,
     }));
-  console.log(reviewsData.data?.data);
-  console.log(realReviews);
+
   const dummyReviews: {
     name: string;
     content: string;
@@ -98,7 +104,7 @@ export default function CommentsInfo() {
           className={`flex w-full flex-col gap-1 ${isLogged ? "h-[230px]" : "h-[250px]"}`}
         >
           {realReviews?.map((review) => (
-            <div key={review.content}>
+            <div className="relative" key={review.content}>
               <div
                 key={review.name}
                 className="flex w-full flex-col items-center"
@@ -118,6 +124,21 @@ export default function CommentsInfo() {
                     <h1 className="font-semibold">{review.name}</h1>
                   </div>
                   <div className="flex flex-row-reverse items-center gap-2">
+                    {isLogged === review.user_id && (
+                      <CommentOptions
+                        onDelete={() => {
+                          console.log("initiating delete");
+                          deleteReview.mutate(review.id);
+                        }}
+                        onEdit={() => {
+                          console.log("initiating edit");
+                          editReview.mutate({
+                            id: review.id,
+                            data: { content: comment, rating },
+                          });
+                        }}
+                      />
+                    )}
                     <StarRating rating={review.rating} />
                     <h2 dir="ltr" className="font-semibold">
                       {review.rating} / 5
@@ -129,6 +150,7 @@ export default function CommentsInfo() {
                   {review.content}
                 </p>
               </div>
+
               <div className="mx-auto h-0.5 w-[90%] bg-gray-200"></div>
             </div>
           ))}
