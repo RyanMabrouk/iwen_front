@@ -28,8 +28,16 @@ export default function useCurrentBooks() {
   const currentDate = new Date();
   currentDate.setDate(currentDate.getDate() - 7);
   const formattedDate = currentDate.toISOString().split("T")[0];
+  const minPrice =
+    priceRange !== undefined && priceRange !== ""
+      ? priceRange?.split("%")[0]
+      : null;
+  const maxPrice =
+    priceRange !== undefined && priceRange !== ""
+      ? priceRange?.split("%")[1]
+      : null;
   return useBooks({
-    limit: parseInt(numberOfBooks) * 3,
+    limit: numberOfBooks !== "1" ? parseInt(numberOfBooks) * 3 : 20,
     page: parseInt(page),
     ...(Object.keys(extra_filters).length > 0 && { extra_filters }),
     filters: {
@@ -51,12 +59,24 @@ export default function useCurrentBooks() {
           "books.share_house_id": [{ operator: "=", value: shareHouse }],
         }),
       ...(priceRange !== undefined &&
-        priceRange !== "" && {
-          "books.price": [
-            { operator: ">", value: priceRange.split("%")[0] },
-            { operator: "<", value: priceRange.split("%")[1] },
-          ],
-        }),
+      priceRange !== "" &&
+      maxPrice !== null &&
+      minPrice !== null
+        ? {
+            "books.price": [
+              { operator: ">", value: minPrice },
+              { operator: "<", value: maxPrice },
+            ],
+          }
+        : maxPrice !== null
+          ? {
+              "books.price": [{ operator: "<", value: maxPrice }],
+            }
+          : minPrice !== null
+            ? {
+                "books.price": [{ operator: ">", value: minPrice }],
+              }
+            : {}),
     },
     ...(sortings !== undefined &&
       sortings !== "" && {

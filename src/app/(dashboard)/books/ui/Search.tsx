@@ -49,6 +49,11 @@ export default function Search() {
             </button>
             <input
               value={name}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleFilterClick();
+                }
+              }}
               onChange={(e) => setName(e.target.value)}
               onFocus={() => setShowSuggestions(true)}
               dir="rtl"

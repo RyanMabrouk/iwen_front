@@ -3,27 +3,26 @@
 import { IBookPopulated } from "@/types";
 import Image from "next/image";
 import React from "react";
-import Cart from "../../../../../public/dashboard/Cart";
 import Link from "next/link";
 import CustomSwiper from "@/components/ui/swiper";
-import { motion, AnimatePresence } from "framer-motion";
 import { Minus, Plus } from "lucide-react";
 import useCart from "@/hooks/cart/useCart";
 import { Tables } from "@/types/database.types";
+import { cn } from "@/lib/utils";
+import TooltipGeneric from "@/app/ui/InsightGeneric";
+import { WishListHeart } from "@/components/BookCard";
 
 export default function BookListElement({ book }: { book: IBookPopulated }) {
-  const { addToCart, removeFromCart, data } = useCart();
-  const quantity = data?.find((item) => item.id === book.id)?.quantity ?? 0;
-  const [isHovering, setIsHovering] = React.useState(false);
-
-  const handleAddToCart = () => {
-    addToCart(book as Tables<"books">);
-  };
+  const isDiscounted = !!book.discount;
+  const isOutOfStock = book.stock === 0;
+  const isNewBook =
+    new Date(book.created_at) >=
+    new Date(new Date().setMonth(new Date().getMonth() - 1));
 
   return (
     <div
       dir="rtl"
-      className="group flex items-center gap-4 overflow-hidden rounded-md border border-gray-200 p-4 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-md"
+      className="group flex items-center gap-4 overflow-hidden rounded-md border border-gray-200 bg-color7 p-4 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-md"
     >
       <div className="flex items-center gap-4">
         <div className="relative flex h-[20rem] w-[15rem] flex-shrink-0 items-center justify-center overflow-hidden rounded-md transition-transform duration-300 ease-in-out group-hover:scale-105">
@@ -41,10 +40,10 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
             width={1000}
             height={1000}
           />
-          <div className="relative z-20 h-full w-full [&_.swiper-pagination-bullet-active]:bg-primary-400">
+          <div className="relative z-20 flex h-full w-full items-center [&_.swiper-pagination-bullet-active]:bg-primary-400">
             {book.images_urls && book.images_urls.length > 0 ? (
               <CustomSwiper
-                className="h-full w-[80%] [&_.swiper-pagination-bullets]:mt-5"
+                className="h-fit w-[80%] [&_.swiper-pagination-bullets]:mt-5"
                 navigation={{
                   prevEl: `${".btn_swiper_arrow_left" + book.id}`,
                   nextEl: `${".btn_swiper_arrow_right" + book.id}`,
@@ -55,20 +54,20 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
                     <Link
                       href={`/books/${book.id}`}
                       key={i}
-                      className="group z-20 flex h-full w-full items-center justify-center p-7"
+                      className="group z-20 flex h-[14rem] w-full items-center justify-center"
                     >
                       <Image
                         src={image}
-                        className="h-full w-full object-scale-down transition-all duration-200"
+                        className="h-[70%] w-[70%] object-scale-down transition-all duration-200"
                         alt=""
-                        width={500}
-                        height={500}
+                        width={250}
+                        height={250}
                       />
                     </Link>
                   )) ?? [
                     <Link
                       href={`/books/${book.id}`}
-                      className="group z-20 flex h-full w-full items-center justify-center p-7"
+                      className="group z-20 flex h-[14rem] w-full items-center justify-center p-7"
                       key={0}
                     >
                       <Image
@@ -97,25 +96,61 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
               </Link>
             )}
           </div>
+          <WishListHeart size={25} liked={book.is_in_wishlist} book={book} />
         </div>
         <div className="flex h-full flex-grow flex-col gap-2 py-10 text-xl">
+          <div className="mb-2 flex items-center gap-2">
+            {isDiscounted && !isOutOfStock && !isNewBook && (
+              <div className="rounded-full bg-primary-400 px-2.5 py-1 text-sm font-medium text-white">
+                تخفيض{" "}
+                {book.discount_type === "percentage"
+                  ? book.discount + "%"
+                  : book.discount + " د.م"}{" "}
+              </div>
+            )}
+            {isOutOfStock && (
+              <div className="rounded-full bg-red-500 px-2.5 py-1 text-sm font-medium text-white">
+                نفذت الكمية
+              </div>
+            )}
+            {!isOutOfStock && isNewBook && (
+              <div className="rounded-full bg-[#2774A0] px-2.5 py-1 text-sm font-medium text-white">
+                جديد{" "}
+              </div>
+            )}
+          </div>
           <Link
             href={`/books/${book.id}`}
             className="max-w-[30rem] text-2xl font-semibold text-gray-800 transition-colors duration-300 ease-in-out group-hover:text-color1"
           >
-            {book.title}
+            <TooltipGeneric tip={book.title}>
+              <h1 className="line-clamp-1 text-right text-xl font-medium">
+                {book.title}
+              </h1>
+            </TooltipGeneric>
           </Link>
           <div className="flex items-center gap-2">
             <p className="text-gray-600 transition-colors duration-300 ease-in-out group-hover:text-gray-800">
               المؤلف:
             </p>
-            <h1>{book.writer?.name}</h1>
+            <TooltipGeneric tip={book.writer?.name ?? ""}>
+              <h1 className="line-clamp-1 text-base text-gray-600">
+                {book.writer?.name ?? "كاتب غير معروف"}
+              </h1>
+            </TooltipGeneric>
           </div>
           <div className="flex items-center gap-2">
             <h1>السعر: </h1>
-            <p className="font-medium text-green-600 transition-colors duration-300 ease-in-out group-hover:text-green-700">
-              {book.price} د.م
-            </p>
+            <div className="flex flex-row gap-2">
+              <span className="py-2.5 text-lg font-normal text-primary-500">
+                {book.price_after_discount} د.م
+              </span>
+              {!!book.discount && (
+                <del className="py-2.5 text-lg font-normal text-primary-500">
+                  {book.price} د.م
+                </del>
+              )}
+            </div>
           </div>
           {book.share_house?.name && (
             <div className="flex items-center gap-2">
@@ -135,58 +170,47 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
           )}
         </div>
       </div>
-      <div
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-        dir="ltr"
-        className="flex h-full flex-1 items-end justify-start p-4"
-      >
-        <div className="flex flex-col items-center gap-2">
-          <button
-            onClick={handleAddToCart}
-            disabled={quantity >= (book as Tables<"books">).stock}
-            className={`${quantity >= (book as Tables<"books">).stock && "cursor-not-allowed"} flex flex-row-reverse items-center gap-2 rounded-md border border-color2 p-3 shadow-md transition-all duration-300 hover:bg-color2 hover:text-white`}
-          >
-            <Cart color="#FFFFFF" />
-            <h1 className="text-xl">أضف إلى السلة</h1>
-          </button>
-          <AnimatePresence>
-            {(quantity > 0 || isHovering) && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="mt-2 flex items-center gap-2"
-              >
-                <button
-                  onClick={() => addToCart(book as Tables<"books">)}
-                  className={`h-fit rounded-lg border border-primary-500 p-2 text-primary-400 transition-all hover:bg-black/5 ${
-                    quantity >= book.stock
-                      ? "cursor-not-allowed"
-                      : "cursor-pointer"
-                  }`}
-                  disabled={quantity >= (book as Tables<"books">).stock}
-                >
-                  <Plus size={16} />
-                </button>
-
-                <span className="flex items-center justify-center rounded-md bg-gray-200 px-3 py-1">
-                  {quantity}
-                </span>
-                <button
-                  onClick={() => removeFromCart(book.id)}
-                  className={`h-fit rounded-lg border border-primary-500 p-2 text-primary-400 transition-all hover:bg-black/5 ${
-                    quantity !== 0 ? "visible" : "invisible"
-                  } ${quantity <= 1 && "cursor-pointer"} `}
-                >
-                  <Minus size={16} />
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+      <div dir="ltr" className="flex h-full flex-1 items-end justify-start p-4">
+        <CartButtons book={book as Tables<"books">} />
       </div>
+    </div>
+  );
+}
+
+function CartButtons({ book }: { book: Tables<"books"> }) {
+  const { addToCart, removeFromCart, data } = useCart();
+  const quantity = data?.find((item) => item.id === book.id)?.quantity ?? 0;
+  return (
+    <div className="z-[10] flex items-center justify-between gap-3">
+      <button
+        className={cn(
+          "h-fit rounded-lg border border-primary-500 p-2 text-primary-400 transition-all hover:bg-black/5",
+          quantity >= book.stock ? "cursor-not-allowed" : "cursor-pointer",
+        )}
+        onClick={() => {
+          if (quantity >= book.stock) return;
+          addToCart(book);
+        }}
+      >
+        <Plus size={16} />
+      </button>
+
+      <span className="min-w-[1.5rem] rounded-md border border-color1 px-3 py-0.5 text-center text-lg font-medium">
+        {quantity}
+      </span>
+      <button
+        className={cn(
+          "h-fit rounded-lg border border-primary-500 p-2 text-primary-400 transition-all hover:bg-black/5",
+          quantity === 0 ? "invisible" : "visible",
+          quantity < 1 ? "cursor-not-allowed" : "cursor-pointer",
+        )}
+        onClick={() => {
+          if (quantity < 1) return;
+          removeFromCart(book.id);
+        }}
+      >
+        <Minus size={16} />
+      </button>
     </div>
   );
 }

@@ -172,9 +172,11 @@ export default function BookCard({
 }
 
 export function WishListHeart({
+  size = 20,
   liked,
   book,
 }: {
+  size?: number;
   liked: boolean;
   book: {
     id: string;
@@ -231,7 +233,7 @@ export function WishListHeart({
   };
   return (
     <div
-      className="group absolute right-6 top-6 z-10 cursor-pointer"
+      className="group absolute right-6 top-6 z-20 cursor-pointer"
       onClick={() => {
         if (isLiked) {
           removeFromWishlistMutation.mutate();
@@ -243,13 +245,13 @@ export function WishListHeart({
     >
       {isLiked ? (
         <FilledHeart
-          size={20}
+          size={size}
           className="text-red-500 transition-colors duration-500"
         />
       ) : (
         <Heart
           className="text-gray-400 transition-all hover:text-red-500"
-          size={20}
+          size={size}
         />
       )}
     </div>

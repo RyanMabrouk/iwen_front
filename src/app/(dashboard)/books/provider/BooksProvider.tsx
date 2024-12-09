@@ -3,6 +3,7 @@
 import { useStateToUrl } from "@/helpers/stateToUrl";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { WindowSize, useWindowSize } from "@/hooks/useWindowSize";
+import { parse } from "path";
 
 interface BooksProviderProps {
   search: string;
@@ -59,12 +60,14 @@ export default function BooksProvider({
       size !== undefined &&
       size.width !== undefined &&
       size.width < 1280 &&
+      parseInt(numberOfBooks) !== 1 &&
       parseInt(numberOfBooks) > 3
     ) {
       setNumberOfBooks("3");
     } else if (
       size !== undefined &&
       size.width !== undefined &&
+      parseInt(numberOfBooks) !== 1 &&
       size.width > 1280 &&
       parseInt(numberOfBooks) < 4
     ) {
