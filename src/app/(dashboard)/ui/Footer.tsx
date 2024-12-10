@@ -36,7 +36,9 @@ export default function Footer() {
                 {user.data.first_name + " " + user.data.last_name}
               </div>
               <Image
-                src={user.data.avatar ?? "/noAvatar.png"}
+                src={
+                  !!user.data.avatar ? user.data.avatar : "/default_avatar.png"
+                }
                 alt={user.data.last_name ?? ""}
                 width={40}
                 height={40}
@@ -92,10 +94,8 @@ export default function Footer() {
       </div>
       <div className="h-[1px] w-full bg-white"></div>
       <div className="my-4 flex w-full flex-row-reverse items-start justify-start gap-2 px-6 text-lg text-white">
-        <span> جميع الحقوق محفوظة للموقع من انتاج شركة </span>
-        <a href="https://www.evowave.tech/" target="_blank">
-          Evowave
-        </a>
+        <span> جميع الحقوق محفوظة للموقع من إنتاج شركة </span>
+        <strong>دار إيوان</strong>
       </div>
       <Image
         src={"/Group2.svg"}

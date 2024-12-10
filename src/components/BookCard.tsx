@@ -96,7 +96,7 @@ export default function BookCard({
           }}
           loop
           slides={
-            images_urls.length > 0
+            images_urls.length > 1
               ? images_urls?.map((image, i) => (
                   <Link
                     href={`/books/${book.id}`}
@@ -119,7 +119,7 @@ export default function BookCard({
                     key={0}
                   >
                     <Image
-                      src="/empty-book.svg"
+                      src={images_urls[0] ? images_urls[0] : "/empty-book.svg"}
                       className="-mb-12 h-full w-full object-scale-down transition-all duration-200"
                       alt="Book"
                       width={1000}

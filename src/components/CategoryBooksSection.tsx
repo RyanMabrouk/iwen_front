@@ -25,7 +25,12 @@ export default function CategoryBooksSection() {
     eventId: active_event?.id || "",
   });
   const categories = active_event_populated?.data?.books.reduce((acc, book) => {
-    return [...acc, ...book.categories];
+    book.categories.forEach((category) => {
+      if (!acc.some((cat) => cat.id === category.id)) {
+        acc.push(category);
+      }
+    });
+    return acc;
   }, [] as Tables<"categories">[]);
 
   return (
