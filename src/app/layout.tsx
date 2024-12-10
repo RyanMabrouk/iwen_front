@@ -38,8 +38,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Analytics />
         <SpeedInsights />{" "}
         <Store>
+          {/* @ts-ignore bug */}
           <Hydration>
-            {" "}
             <ToastProvider>
               <ToastContainer />
               <main>{children}</main>{" "}
