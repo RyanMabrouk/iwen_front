@@ -30,7 +30,10 @@ export default function Pictures({ images }: { images: string[] }) {
     );
   };
   return (
-    <div dir="rtl" className="flex items-stretch gap-3 max-lg:flex-col">
+    <div
+      dir="rtl"
+      className="flex items-stretch gap-3 max-lg:flex-col max-sm:items-center"
+    >
       {width !== undefined && width > 640 ? (
         <MainPic
           liked={liked}

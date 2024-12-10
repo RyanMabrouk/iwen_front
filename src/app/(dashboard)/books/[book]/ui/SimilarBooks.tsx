@@ -16,8 +16,8 @@ export default function SimilarBooks({
   }
 
   return (
-    <div dir="rtl" className="flex flex-col gap-3 p-5">
-      <h1 className="mr-8 font-semibold">كتب مشابهة أخرى</h1>
+    <div dir="rtl" className="flex flex-col gap-3 p-5 max-sm:w-screen">
+      <h1 className="mr-8 font-semibold text-black">كتب مشابهة أخرى</h1>
       <div className="relative">
         <ArrowLeft
           size={40}
@@ -48,8 +48,8 @@ export default function SimilarBooks({
           spaceBetween={20}
           breakpoints={{
             1024: { slidesPerView: 5 },
-            768: { slidesPerView: 2 },
-            640: { slidesPerView: 1 },
+            768: { slidesPerView: 3 },
+            640: { slidesPerView: 2 },
           }}
           className="h-full w-full"
         />

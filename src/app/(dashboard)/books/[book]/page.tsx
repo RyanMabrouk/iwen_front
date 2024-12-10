@@ -24,7 +24,7 @@ export default function Page({
 
   return (
     <BookProvider book={bookData.data?.data ?? null}>
-      <div className="h-full w-full">
+      <div className="h-full w-full max-sm:flex max-sm:flex-col max-sm:items-center">
         <BookInfo />
         <hr className="my-5 border border-black" />
         <SimilarBooks books={bookData.data?.data?.recommended_books ?? null} />
