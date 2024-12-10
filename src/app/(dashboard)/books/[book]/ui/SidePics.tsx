@@ -19,7 +19,7 @@ export default function SidePics({
           <button
             key={pic.id}
             onClick={() => set(pic.src)}
-            className={`relative flex-grow overflow-hidden rounded-md bg-white transition-all duration-200 hover:shadow-md`}
+            className={`relative flex-grow overflow-hidden rounded-md bg-color3 transition-all duration-200 hover:shadow-md`}
           >
             <Image src={pic.src} className="px-2 py-3" alt="placeholder" fill />
           </button>
@@ -31,7 +31,7 @@ export default function SidePics({
               <button
                 key={pic.id}
                 onClick={() => set(pic.src)}
-                className={`relative flex-grow overflow-hidden rounded-md bg-white transition-all duration-200 hover:shadow-md`}
+                className={`relative flex-grow overflow-hidden rounded-md bg-color3 transition-all duration-200 hover:shadow-md`}
               >
                 <Image
                   src={pic.src}

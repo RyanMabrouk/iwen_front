@@ -59,7 +59,7 @@ export default function BookInfo() {
   }; */
   return (
     <div
-      className="flex h-fit items-stretch justify-center gap-3 p-5 transition-all duration-300 max-sm:flex-col-reverse"
+      className="flex h-fit items-stretch justify-center gap-3 p-5 transition-all duration-300 max-sm:w-screen max-sm:flex-col-reverse max-sm:items-center"
       /* style={{ background: "#E4EFEF" }} */
     >
       <MainInfo />
