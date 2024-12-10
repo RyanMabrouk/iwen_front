@@ -125,7 +125,7 @@ export default function MultipleSelectFilters() {
                         onSelect={() => {
                           filter.setter((prev) =>
                             prev.some((item) => item.id === e.id)
-                              ? prev.filter((item) => item.id !== e.id)
+                              ? prev?.filter((item) => item.id !== e.id)
                               : [...prev, { id: e.id, name: e.name }],
                           );
                         }}

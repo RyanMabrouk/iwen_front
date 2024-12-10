@@ -52,7 +52,7 @@ function addToCart(book: Tables<"books">) {
 }
 function removeFromCart(book_id: string) {
   const cart = getFromLocalstorage<ICartBook[]>("cart") ?? [];
-  const updatedCart = cart.reduce<ICartBook[]>((acc, item) => {
+  const updatedCart = cart?.reduce<ICartBook[]>((acc, item) => {
     if (item.id === book_id) {
       if (item.quantity > 1) {
         acc.push({ ...item, quantity: item.quantity - 1 });
