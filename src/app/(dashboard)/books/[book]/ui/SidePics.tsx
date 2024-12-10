@@ -12,7 +12,7 @@ export default function SidePics({
   }[];
   set: (src: string) => void;
 }) {
-  const neededPictures = pictures.filter((e) => !e.isSelected);
+  const neededPictures = pictures?.filter((e) => !e.isSelected);
   const content =
     neededPictures.length >= 4
       ? neededPictures.slice(0, 4).map((pic) => (

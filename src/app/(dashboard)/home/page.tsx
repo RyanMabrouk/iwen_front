@@ -15,7 +15,7 @@ export default async function Page() {
       <CategoryBooksSection />
       <div className="w-full pb-60">
         <Offers />
-        <Trusted />
+        {/* <Trusted /> */}
       </div>
       <div className="relative z-50 bg-bgcolor1 px-16">
         <Image
@@ -27,9 +27,11 @@ export default async function Page() {
         />
         <div className="space-y-9 pb-24 pt-52 max-lg:pt-40">
           <div className="flex flex-col items-center text-center text-3xl">
-            <span>يمكنك الأن </span>
+            <span>اختر كتابك</span>
             <span className="text-center font-medium">
-              التمتع بخاصية قراءة الكتاب على الموقع مباشرة
+              {
+                " إكتشف الآن تشكيلتنا الواسعة من الكتب، واختر ما يناسب ذوقك من بين آلاف العناوين المميزة"
+              }
             </span>
           </div>
           <div className="mx-auto w-fit">

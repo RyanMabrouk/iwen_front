@@ -1,6 +1,9 @@
+import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import useBooks from "@/hooks/data/books/useBooks";
 import { useBooksProvider } from "../provider/BooksProvider";
-import { parse } from "path";
+import { useEffect } from "react";
+import { booksQuery, QueryBooksArgs } from "@/hooks/data/books/booksQuery";
+import { useAmp } from "next/amp";
 
 export default function useCurrentBooks() {
   const maxValue = 2100;
@@ -38,7 +41,7 @@ export default function useCurrentBooks() {
     priceRange !== undefined && priceRange !== ""
       ? priceRange?.split("%")[1]
       : null;
-  return useBooks({
+  const args: QueryBooksArgs = {
     limit: numberOfBooks !== "1" ? parseInt(numberOfBooks) * 3 : 20,
     page: parseInt(page),
     ...(Object.keys(extra_filters).length > 0 && { extra_filters }),
@@ -97,5 +100,22 @@ export default function useCurrentBooks() {
                     ? { order: "desc", orderBy: "books.created_at" }
                     : undefined,
       }),
-  });
+  };
+  const queryClient = useQueryClient();
+  const books = useBooks(args);
+  useEffect(() => {
+    if (books.data?.data?.meta.has_next_page) {
+      const nextArgs = { ...args, page: Number(page) + 1 };
+      queryClient.prefetchQuery(booksQuery(nextArgs));
+    }
+    if (books.data?.data?.meta.has_previous_page) {
+      const prevArgs = { ...args, page: Number(page) - 1 };
+      queryClient.prefetchQuery(booksQuery(prevArgs));
+    }
+  }, [
+    books.data?.data?.meta.page,
+    books.data?.data?.meta.total_pages,
+    books.data?.data?.meta.has_next_page,
+  ]);
+  return books;
 }

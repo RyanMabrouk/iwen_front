@@ -45,11 +45,13 @@ export default function SimilarBooks({
             </div>
           ))}
           slidesPerView={2}
-          spaceBetween={20}
+          spaceBetween={5}
           breakpoints={{
-            1024: { slidesPerView: 5 },
-            768: { slidesPerView: 3 },
-            640: { slidesPerView: 2 },
+            1600: { slidesPerView: 6 },
+            1200: { slidesPerView: 5 },
+            900: { slidesPerView: 4 },
+            500: { slidesPerView: 2 },
+            0: { slidesPerView: 1 },
           }}
           className="h-full w-full"
         />

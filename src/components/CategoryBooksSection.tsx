@@ -24,9 +24,17 @@ export default function CategoryBooksSection() {
   const { data: active_event_populated } = useEvent({
     eventId: active_event?.id || "",
   });
-  const categories = active_event_populated?.data?.books.reduce((acc, book) => {
-    return [...acc, ...book.categories];
-  }, [] as Tables<"categories">[]);
+  const categories = active_event_populated?.data?.books?.reduce(
+    (acc, book) => {
+      book.categories.forEach((category) => {
+        if (!acc.some((cat) => cat.id === category.id)) {
+          acc.push(category);
+        }
+      });
+      return acc;
+    },
+    [] as Tables<"categories">[],
+  );
 
   return (
     <div className="relative bg-[#E7F6F5]/30 px-6 py-14">
@@ -53,7 +61,7 @@ export default function CategoryBooksSection() {
 
         <div className="relative">
           {active_event_populated?.data &&
-          active_event_populated.data.books.filter((book) =>
+          active_event_populated.data.books?.filter((book) =>
             activeCategoryId
               ? book.categories.some(
                   (category) => category.id === activeCategoryId,
@@ -79,7 +87,7 @@ export default function CategoryBooksSection() {
                   nextEl: ".custom-swiper-books-next",
                 }}
                 slides={active_event_populated.data?.books
-                  .filter((book) =>
+                  ?.filter((book) =>
                     activeCategoryId
                       ? book.categories.some(
                           (category) => category.id === activeCategoryId,

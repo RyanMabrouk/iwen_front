@@ -31,7 +31,7 @@ export default function MainPicSwiper({
 }: MainPicSwiperProps) {
   const initialTable = [
     selectedImage,
-    ...pictures.filter((pic) => pic.id !== selectedImage.id),
+    ...pictures?.filter((pic) => pic.id !== selectedImage.id),
   ];
 
   return (
