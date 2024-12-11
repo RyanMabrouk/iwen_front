@@ -89,7 +89,6 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
                 <Image
                   src="/empty-book.svg"
                   alt="كتاب بدون صورة"
-                  layout="fill"
                   objectFit="contain"
                   className="z-[100] p-10 transition-transform duration-300 ease-in-out group-hover:scale-110"
                 />

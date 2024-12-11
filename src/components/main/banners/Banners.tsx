@@ -23,7 +23,6 @@ export default function Banners() {
                   : (banner?.url ?? "")
               }
               alt=""
-              layout="responsive"
               width={200}
               height={500}
               className="z-0 mx-auto h-fit w-full max-w-[100%] cursor-pointer rounded-xl object-cover sm:h-[350px] sm:max-w-[95%]"
