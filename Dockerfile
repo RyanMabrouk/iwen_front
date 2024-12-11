@@ -13,15 +13,28 @@ RUN --mount=type=cache,target=/root/.pnpm-store \
 
 FROM deps AS build
 COPY . .
-ENV NODE_ENV production
+ENV NODE_ENV=production
 RUN NODE_OPTIONS="--max-old-space-size=4096" pnpm run build && rm -rf node_modules
 
 FROM base AS final
-ENV NODE_ENV production
+ENV NODE_ENV=production
+
+# Ensure the .pnpm-store directory has the correct permissions
 RUN mkdir -p /home/node/.pnpm-store && chown -R node:node /home/node/.pnpm-store
-USER node
-COPY package.json pnpm-lock.yaml ./
+
+# Switch to root to change permissions
+USER root
+
+# Copy built files before changing permissions
+COPY --from=build /usr/src/app/.next ./.next
 COPY --from=deps /usr/src/app/node_modules ./node_modules
-COPY --from=build /usr/src/app/. ./.
+COPY package.json pnpm-lock.yaml ./
+
+# Change ownership and set permissions
+RUN chown -R node:node .next && chmod -R 755 .next
+
+# Switch back to non-root user
+USER node
+
 EXPOSE 3000
-CMD pnpm start
+CMD ["pnpm", "start"]
