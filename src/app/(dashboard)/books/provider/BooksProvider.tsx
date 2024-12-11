@@ -6,6 +6,8 @@ import { WindowSize, useWindowSize } from "@/hooks/useWindowSize";
 import { parse } from "path";
 
 interface BooksProviderProps {
+  asc: string;
+  setAsc: (value: string) => void;
   search: string;
   setSearch: (value: string) => void;
   view: string;
@@ -54,14 +56,14 @@ export default function BooksProvider({
   const [priceRange, setPriceRange] = useStateToUrl("priceRange", "");
   const [sortings, setSortings] = useStateToUrl("sortings", "");
   const [search, setSearch] = useStateToUrl("search", "");
+  const [asc, setAsc] = useStateToUrl("asc", "1");
   const size = useWindowSize();
   useEffect(() => {
     if (
       size !== undefined &&
       size.width !== undefined &&
       size.width < 1280 &&
-      parseInt(numberOfBooks) !== 1 &&
-      parseInt(numberOfBooks) > 3
+      (parseInt(numberOfBooks) > 3 || parseInt(numberOfBooks) === 1)
     ) {
       setNumberOfBooks("3");
     } else if (
@@ -83,6 +85,8 @@ export default function BooksProvider({
   return (
     <BooksContext.Provider
       value={{
+        asc,
+        setAsc,
         search,
         setSearch,
         sortings,
@@ -120,6 +124,8 @@ export function useBooksProvider() {
     throw new Error("useBooksProvider must be used within a BooksProvider");
   }
   return {
+    asc: context.asc!,
+    setAsc: context.setAsc!,
     view: context.view!,
     setView: context.setView!,
     numberOfBooks: context.numberOfBooks!,

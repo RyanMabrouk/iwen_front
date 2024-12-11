@@ -12,5 +12,12 @@ export default async function editReview(
 ) {
   "use server";
   const url = getEndpoint({ resource: "reviews", action: "editReview" });
-  return await sendRequest({ url: url(id), method: "POST", payload: data });
+
+  const result = await sendRequest({
+    url: url(id),
+    method: "PATCH",
+    payload: data,
+  });
+  console.log("result :", result);
+  return result;
 }

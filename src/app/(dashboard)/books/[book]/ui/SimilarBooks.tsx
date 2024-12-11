@@ -12,7 +12,7 @@ export default function SimilarBooks({
   books: IBookPopulated[] | null;
 }) {
   if (!books || books.length === 0) {
-    return null; // Don't render anything if there are no books
+    return null;
   }
 
   return (

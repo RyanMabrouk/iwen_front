@@ -5,7 +5,7 @@ export default function ViewPreference({ className }: { className?: string }) {
   const { numberOfBooks: bookNumber, setNumberOfBooks: setBooks } =
     useBooksProvider();
   const choices1 = ["6", "4", "1"];
-  const choices2 = ["3", "2", "1"];
+  const choices2 = ["3", "2"];
 
   const renderLines = (choice: string) => {
     const count: number = parseInt(choice);

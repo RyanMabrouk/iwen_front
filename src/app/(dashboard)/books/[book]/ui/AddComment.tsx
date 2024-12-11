@@ -25,7 +25,7 @@ export default function AddComment({
         onChange={(e) => setComment(e.target.value)}
         type="text"
         placeholder="أضف تعليقك هنا  ...  "
-        className="py-3 outline-none"
+        className="flex-1 py-3 outline-none"
       />
     </div>
   );

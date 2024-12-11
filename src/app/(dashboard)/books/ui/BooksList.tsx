@@ -33,7 +33,7 @@ export default function BooksList() {
     );
   const pages = data.data?.data?.meta.total_pages ?? 0;
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center bg-color3 py-5">
       {numberOfBooks !== "1" ? (
         <div
           dir="rtl"
