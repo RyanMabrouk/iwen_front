@@ -11,5 +11,14 @@ export default async function sendReview(data: {
 }) {
   "use server";
   const url = getEndpoint({ resource: "reviews", action: "createReview" });
-  return await sendRequest({ url: url(), method: "POST", payload: data });
+  if (data.content === "" || data.rating === 0) {
+    throw new Error("لا يمكن إرسال المراجعة فارغة أو بتقييم صفر");
+  }
+  const result = await sendRequest({
+    url: url(),
+    method: "POST",
+    payload: data,
+  });
+  console.log(result);
+  return result;
 }

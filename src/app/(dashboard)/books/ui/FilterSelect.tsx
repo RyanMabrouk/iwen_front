@@ -39,6 +39,7 @@ export function FilterSelect({ onClose }: FilterSelectProps) {
         value: subcategory.map((s) => s.id).join("%") as string,
       },
       { name: "priceRange", value: priceRange.join("%") as string },
+      { name: "page", value: "1" },
     ]);
     onClose();
   };

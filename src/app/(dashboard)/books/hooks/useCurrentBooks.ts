@@ -18,6 +18,7 @@ export default function useCurrentBooks() {
     writer,
     sortings,
     search,
+    asc,
   } = useBooksProvider();
   const extra_filters = {
     ...(Array.isArray(categories.split("%")) &&
@@ -42,7 +43,7 @@ export default function useCurrentBooks() {
       ? priceRange?.split("%")[1]
       : null;
   const args: QueryBooksArgs = {
-    limit: numberOfBooks !== "1" ? parseInt(numberOfBooks) * 3 : 20,
+    limit: numberOfBooks !== "1" ? parseInt(numberOfBooks) * 3 : 12,
     page: parseInt(page),
     ...(Object.keys(extra_filters).length > 0 && { extra_filters }),
     filters: {
@@ -89,16 +90,23 @@ export default function useCurrentBooks() {
       sortings !== "" && {
         sort:
           sortings === "alphabetical"
-            ? { order: "asc", orderBy: "books.title" }
+            ? { order: asc === "1" ? "asc" : "desc", orderBy: "books.title" }
             : sortings === "discount"
-              ? { order: "desc", orderBy: "books.discount" }
-              : sortings === "price-asc"
-                ? { order: "asc", orderBy: "books.price" }
-                : sortings === "price-desc"
-                  ? { order: "desc", orderBy: "books.price" }
-                  : sortings === "date"
-                    ? { order: "desc", orderBy: "books.created_at" }
-                    : undefined,
+              ? {
+                  order: asc === "1" ? "asc" : "desc",
+                  orderBy: "books.discount",
+                }
+              : sortings === "price"
+                ? {
+                    order: asc === "1" ? "asc" : "desc",
+                    orderBy: "books.price",
+                  }
+                : sortings === "date"
+                  ? {
+                      order: asc === "1" ? "asc" : "desc",
+                      orderBy: "books.created_at",
+                    }
+                  : undefined,
       }),
   };
   const queryClient = useQueryClient();
