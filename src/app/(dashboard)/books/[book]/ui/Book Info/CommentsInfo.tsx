@@ -134,7 +134,8 @@ export default function CommentsInfo() {
                       src={review?.image ?? "/dashboard/book/profile.jpg"}
                       className="mr-3 rounded-full"
                       alt="book"
-                      fill
+                      width={40}
+                      height={40}
                     />
                     <h1 className="absolute right-16 text-nowrap font-semibold">
                       {review.name}
@@ -148,7 +149,7 @@ export default function CommentsInfo() {
                       />
                     )}
                     <StarRating rating={review.rating} />
-                    <h2 dir="ltr" className="font-semibold">
+                    <h2 dir="ltr" className="font-semibold -mb-2">
                       {review.rating} / 5
                     </h2>
                   </div>

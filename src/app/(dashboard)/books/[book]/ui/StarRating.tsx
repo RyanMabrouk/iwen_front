@@ -7,7 +7,7 @@ export default function StarRating({ rating }: { rating: number }) {
     return i < ratingValue;
   });
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center justify-center gap-1">
       {stars.map((filled, id) => star(filled, id.toString()))}
     </div>
   );
