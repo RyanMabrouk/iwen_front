@@ -11,7 +11,6 @@ export default async function Page() {
   return (
     <div className="mb-12 h-full">
       <Banners />
-
       <CategoryBooksSection />
       <div className="w-full pb-60">
         <Offers />
