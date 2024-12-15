@@ -46,46 +46,64 @@ export default function useCurrentBooks() {
     limit: numberOfBooks !== "1" ? parseInt(numberOfBooks) * 3 : 12,
     page: parseInt(page),
     ...(Object.keys(extra_filters).length > 0 && { extra_filters }),
-    filters: {
-      ...(search !== undefined &&
-        search !== "" && {
-          "books.title": [{ operator: "like", value: "%" + search + "%" }],
-        }),
-      ...(view === "newest"
-        ? { "books.created_at": [{ operator: ">=", value: formattedDate }] }
-        : view === "discount"
-          ? { "books.discount": [{ operator: ">", value: "0" }] }
-          : {}),
-      ...(writer !== undefined &&
-        writer !== "" && {
-          "books.writer_id": [{ operator: "=", value: writer.split("%")[0] }],
-        }),
-      ...(shareHouse !== undefined &&
-        shareHouse !== "" && {
-          "books.share_house_id": [{ operator: "=", value: shareHouse }],
-        }),
-      ...(priceRange !== undefined &&
-      priceRange !== "" &&
-      maxPrice !== null &&
-      parseInt(maxPrice) < maxValue &&
-      minPrice !== null &&
-      parseInt(minPrice) > 0
+    filters:
+      search !== "" ||
+      view !== "all" ||
+      writer !== "" ||
+      shareHouse !== "" ||
+      priceRange !== ""
         ? {
-            "books.price": [
-              { operator: ">=", value: minPrice },
-              { operator: "<=", value: maxPrice },
-            ],
+            ...(search !== undefined &&
+              search !== "" && {
+                "books.title": [
+                  {
+                    operator: "like",
+                    value: "%" + search + "%",
+                  },
+                ],
+              }),
+            ...(view === "newest"
+              ? {
+                  "books.created_at": [
+                    { operator: ">=", value: formattedDate },
+                  ],
+                }
+              : view === "discount"
+                ? { "books.discount": [{ operator: ">", value: "0" }] }
+                : {}),
+            ...(writer !== undefined &&
+              writer !== "" && {
+                "books.writer_id": [
+                  { operator: "=", value: writer.split("%")[0] },
+                ],
+              }),
+            ...(shareHouse !== undefined &&
+              shareHouse !== "" && {
+                "books.share_house_id": [{ operator: "=", value: shareHouse }],
+              }),
+            ...(priceRange !== undefined &&
+            priceRange !== "" &&
+            maxPrice !== null &&
+            parseInt(maxPrice) < maxValue &&
+            minPrice !== null &&
+            parseInt(minPrice) > 0
+              ? {
+                  "books.price": [
+                    { operator: ">=", value: minPrice },
+                    { operator: "<=", value: maxPrice },
+                  ],
+                }
+              : maxPrice !== null && parseInt(maxPrice) < maxValue
+                ? {
+                    "books.price": [{ operator: "<=", value: maxPrice }],
+                  }
+                : minPrice !== null && parseInt(minPrice) > 0
+                  ? {
+                      "books.price": [{ operator: ">=", value: minPrice }],
+                    }
+                  : {}),
           }
-        : maxPrice !== null && parseInt(maxPrice) < maxValue
-          ? {
-              "books.price": [{ operator: "<=", value: maxPrice }],
-            }
-          : minPrice !== null && parseInt(minPrice) > 0
-            ? {
-                "books.price": [{ operator: ">=", value: minPrice }],
-              }
-            : {}),
-    },
+        : undefined,
     ...(sortings !== undefined &&
       sortings !== "" && {
         sort:

@@ -1,4 +1,5 @@
 "use client";
+import { URLState } from "@/app/(dashboard)/books/provider/BooksProvider";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function useURL() {
@@ -6,7 +7,7 @@ function useURL() {
   const pathname = usePathname();
   const newSearchParams = new URLSearchParams(searchParams);
   const router = useRouter();
-  const update = (values: { name: string; value: string }[]) => {
+  const update = (values: { name: URLState; value: string }[]) => {
     values.forEach((value) => {
       value.value
         ? newSearchParams.set(value.name, value.value)

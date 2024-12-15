@@ -1,8 +1,13 @@
 "use client";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import createCompletePathName from "./createCompletePathName";
+import { URLState } from "@/app/(dashboard)/books/provider/BooksProvider";
+import { ValueOf } from "next/dist/shared/lib/constants";
 
-export function useStateToUrl(name: string, defaultValue: string) {
+export function useStateToUrl<T extends keyof URLState>(
+  name: T,
+  defaultValue: URLState[T],
+) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();

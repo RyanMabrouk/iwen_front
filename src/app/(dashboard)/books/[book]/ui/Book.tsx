@@ -1,12 +1,7 @@
 "use client";
-import { Tables } from "@/types/database.types";
 import React from "react";
 import MainInfo from "./BookInfo";
 import Pictures from "./Pictures";
-import useBooks from "@/hooks/data/books/useBooks";
-import { IBookPopulated } from "@/types";
-import { useRouter } from "next/navigation";
-import useBook from "@/hooks/data/books/useBook";
 import { useBookProvider } from "../provider/BookProvider";
 
 export default function BookInfo() {
