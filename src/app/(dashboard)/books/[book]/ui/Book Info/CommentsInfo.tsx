@@ -148,7 +148,7 @@ export default function CommentsInfo() {
                       />
                     )}
                     <StarRating rating={review.rating} />
-                    <h2 dir="ltr" className="font-semibold">
+                    <h2 dir="ltr" className="font-semibold -mb-2">
                       {review.rating} / 5
                     </h2>
                   </div>

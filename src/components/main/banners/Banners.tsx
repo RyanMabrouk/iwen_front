@@ -11,10 +11,13 @@ export default function Banners() {
   const { data: banners } = useBanners();
   const windowSize = useWindowSize();
   return (
-    <div className="relative sm:px-6 sm:py-24 lg:px-8 lg:py-12 [&_.swiper-pagination-bullet-active]:bg-primary-400">
+    <div className="relative mb-12 sm:px-6 sm:py-24 lg:px-8 lg:py-12 [&_.swiper-pagination-bullet-active]:bg-primary-400">
       <CustomSwiper
         slides={(banners?.data ?? []).map((banner, index: number) => (
-          <Link href={`/books/${banner?.book_id}`}>
+          <Link
+            href={`/books/${banner?.book_id}`}
+            className="flex h-full w-full items-center justify-center"
+          >
             <Image
               key={index}
               src={
@@ -23,10 +26,9 @@ export default function Banners() {
                   : (banner?.url ?? "")
               }
               alt=""
-              layout="responsive"
-              width={200}
-              height={500}
-              className="z-0 mx-auto h-fit w-full max-w-[100%] cursor-pointer rounded-xl object-cover sm:h-[350px] sm:max-w-[95%]"
+              width={1500}
+              height={1500}
+              className="z-0 h-full w-full cursor-pointer rounded-xl sm:max-w-[95%]"
             />
           </Link>
         ))}

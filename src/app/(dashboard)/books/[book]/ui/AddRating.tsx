@@ -52,7 +52,7 @@ export default function AddRating({
             ) : (
               <>
                 {star(true, "1")}
-                <h1>اختر تقييمك</h1>
+                <h1 className="-mb-1">اختر تقييمك</h1>
               </>
             )}
           </motion.div>

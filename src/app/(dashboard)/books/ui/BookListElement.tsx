@@ -11,6 +11,8 @@ import { Tables } from "@/types/database.types";
 import { cn } from "@/lib/utils";
 import TooltipGeneric from "@/app/ui/InsightGeneric";
 import { WishListHeart } from "@/components/BookCard";
+import ArrowLeft from "@/components/icons/ArrowLeft";
+import ArrowRight from "@/components/icons/ArrowRight";
 
 export default function BookListElement({ book }: { book: IBookPopulated }) {
   const isDiscounted = !!book.discount;
@@ -25,7 +27,7 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
       className="group flex items-center gap-4 overflow-hidden rounded-md border border-gray-200 bg-color7 p-4 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-md"
     >
       <div className="flex items-center gap-4">
-        <div className="relative flex h-[20rem] w-[15rem] flex-shrink-0 items-center justify-center overflow-hidden rounded-md transition-transform duration-300 ease-in-out group-hover:scale-105">
+        <div className="relative flex h-[20rem] w-[15rem] items-center justify-center rounded-md transition-transform duration-300 ease-in-out group-hover:scale-105">
           <Image
             src="/acs.png"
             className="absolute -left-7 -top-6 z-10 -rotate-12 opacity-30 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
@@ -41,6 +43,14 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
             height={1000}
           />
           <div className="relative z-20 flex h-full w-full items-center [&_.swiper-pagination-bullet-active]:bg-primary-400">
+            <ArrowLeft
+              size={22}
+              className={`${"btn_swiper_arrow_left" + book.id} absolute left-[0%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
+            />
+            <ArrowRight
+              size={22}
+              className={`${"btn_swiper_arrow_right" + book.id} absolute right-[0%] top-1/2 z-20 -translate-y-1/2 cursor-pointer text-gray-500`}
+            />
             {book.images_urls && book.images_urls.length > 0 ? (
               <CustomSwiper
                 className="h-fit w-[80%] [&_.swiper-pagination-bullets]:mt-5"
@@ -54,7 +64,7 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
                     <Link
                       href={`/books/${book.id}`}
                       key={i}
-                      className="group z-20 flex h-[14rem] w-full items-center justify-center"
+                      className="group z-20 flex h-[15rem] w-full items-center justify-center"
                     >
                       <Image
                         src={image}
@@ -89,7 +99,6 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
                 <Image
                   src="/empty-book.svg"
                   alt="كتاب بدون صورة"
-                  layout="fill"
                   objectFit="contain"
                   className="z-[100] p-10 transition-transform duration-300 ease-in-out group-hover:scale-110"
                 />
@@ -170,7 +179,10 @@ export default function BookListElement({ book }: { book: IBookPopulated }) {
           )}
         </div>
       </div>
-      <div dir="ltr" className="flex h-full flex-1 items-end justify-start p-4">
+      <div
+        dir="ltr"
+        className="flex h-full w-fit flex-1 items-end justify-start p-4"
+      >
         <CartButtons book={book as Tables<"books">} />
       </div>
     </div>
@@ -195,9 +207,9 @@ function CartButtons({ book }: { book: Tables<"books"> }) {
         <Plus size={16} />
       </button>
 
-      <span className="min-w-[1.5rem] rounded-md border border-color1 px-3 py-0.5 text-center text-lg font-medium">
-        {quantity}
-      </span>
+      <div className="relative min-w-[1.5rem] rounded-md border border-color1 px-3 py-0.5 text-center text-lg font-medium">
+        <span className="-mb-3">{quantity}</span>
+      </div>
       <button
         className={cn(
           "h-fit rounded-lg border border-primary-500 p-2 text-primary-400 transition-all hover:bg-black/5",

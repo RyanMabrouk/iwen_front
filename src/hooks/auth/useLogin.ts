@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
 import handleLogIn from "@/app/(auth)/handlers/auth/handleLogin";
@@ -6,6 +6,7 @@ import handleLogIn from "@/app/(auth)/handlers/auth/handleLogin";
 export default function useLogin() {
   const { toast } = useToast();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (formData: FormData) =>
@@ -14,6 +15,7 @@ export default function useLogin() {
         password: formData.get("password") as string,
       }),
     onSuccess: () => {
+      queryClient.invalidateQueries();
       toast.success("تم تسجيل الدخول بنجاح");
       router.push("/home");
     },

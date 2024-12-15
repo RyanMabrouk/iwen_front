@@ -44,7 +44,6 @@ export default function SidePicture() {
           height={100}
           className="h-full w-[20px] md:hidden"
           alt="Decorative lines"
-          layout="responsive"
         />
         <Image
           src="/auth/lines2.png"
@@ -53,7 +52,6 @@ export default function SidePicture() {
           height={100}
           className="absolute bottom-0 hidden md:block"
           alt="Decorative lines"
-          layout="responsive"
         />
       </div>
     </div>

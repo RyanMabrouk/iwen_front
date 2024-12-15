@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/useToast";
 import handleSignUp from "@/app/(auth)/handlers/auth/handleSignUp";
 
@@ -6,9 +6,11 @@ export default function useSignUp(
   setter: React.Dispatch<React.SetStateAction<boolean>>,
 ) {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: handleSignUp,
     onSuccess: () => {
+      queryClient.invalidateQueries();
       toast.success("تم إنشاء الحساب بنجاح", "success : ");
       setter(true);
     },
