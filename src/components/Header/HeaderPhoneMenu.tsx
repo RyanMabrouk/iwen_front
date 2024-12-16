@@ -1,8 +1,10 @@
 "use client";
 import { useRef, useState } from "react";
 import { Menu } from "lucide-react";
+import { Route } from "./Header";
+import Link from "next/link";
 
-export function HeaderPhoneMenu() {
+export function HeaderPhoneMenu({ routes }: { routes: Route[] }) {
   const [open, setOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   return (
@@ -24,14 +26,17 @@ export function HeaderPhoneMenu() {
       >
         <div ref={contentRef}>
           <div className="mx-auto flex w-fit items-center max-sm:w-full max-sm:flex-col max-sm:items-end">
-            {["إستكشف جديدنا", "منتجات مميزة", "عروض خاصة"].map((text, idx) => (
-              <div
-                key={idx}
-                className="flex cursor-pointer justify-center px-8 py-5 transition-all duration-200 hover:bg-primary-300 max-sm:w-full"
-              >
-                <span className="text-lg">{text}</span>
-              </div>
-            ))}
+            {routes.map((route, idx) => {
+              return (
+                <Link
+                  href={route.href}
+                  key={idx}
+                  className="flex cursor-pointer justify-center px-8 py-5 transition-all duration-200 hover:bg-primary-300 max-sm:w-full"
+                >
+                  <span className="text-lg">{route.text}</span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
