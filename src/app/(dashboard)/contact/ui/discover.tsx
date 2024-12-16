@@ -21,6 +21,7 @@ export default function Discover() {
         width={1000}
         height={1000}
         className="m-full h-full min-h-[20svh] object-cover max-sm:w-full"
+        priority
       />
     </div>
   );

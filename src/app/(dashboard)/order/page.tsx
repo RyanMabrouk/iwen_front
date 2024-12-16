@@ -245,6 +245,7 @@ export default function Page() {
                 height={300}
                 width={300}
                 alt=""
+                priority
                 className="-mt-4 mb-6 h-full w-full max-w-[60svw] object-cover"
               />
               <Link href="/purchaseHistory">

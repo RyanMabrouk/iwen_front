@@ -3,15 +3,6 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV !== "development", // Remove console.log in production
   },
-  experimental: {
-    serverActions: {
-      allowedOrigins: [
-        "localhost:3000",
-        "localhost:3001",
-        "jh8q0n9l-3000.uks1.devtunnels.ms",
-      ],
-    },
-  },
   swcMinify: true,
   logging: {
     fetches: {
