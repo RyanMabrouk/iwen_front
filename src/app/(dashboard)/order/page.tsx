@@ -14,10 +14,11 @@ import { useToast } from "@/hooks/useToast";
 import { moroccanStates } from "@/helpers/data/data";
 import { Enums } from "@/types/database.types";
 import useCart from "@/hooks/cart/useCart";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import PrimaryButton from "@/components/main/buttons/PrimaryButton";
 import Link from "next/link";
-
+import useOffer from "@/hooks/data/offers/useOffer";
+import success_order from "../../../../public/success_order.svg";
 interface ICreateOrderPayload {
   name: string;
   email: string;
@@ -26,10 +27,17 @@ interface ICreateOrderPayload {
   city: string;
   postal_code: string;
   payment_method: string;
+}
+
+interface ICreateOrderFromCartPayload extends ICreateOrderPayload {
   books: {
     id: string;
     quantity: number;
   }[];
+}
+
+interface ICreateOrderFromOfferPayload extends ICreateOrderPayload {
+  offer_id: string;
 }
 
 const phoneNumberSchema = z
@@ -41,6 +49,8 @@ export default function Page() {
   const [successFullySubmitted, setSuccessFullySubmitted] = useState(false);
   const { data: user, isLoading: userIsLoading } = useCurrentUser();
   const cart = useCart();
+  const offer_id = useSearchParams().get("offer_id");
+  const { data: offer } = useOffer(offer_id ?? "");
   const [selectedState, setSelectedState] = useState<string>("");
   const [selectedCity, setSelectedCity] = useState<string>("");
   const [paymentMethod, setPaymentMethod] =
@@ -48,6 +58,15 @@ export default function Page() {
   const [errors, setErrors] = useState<
     IValidationErrors<ICreateOrderPayload> | null | undefined
   >();
+
+  const price_after_discount =
+    (offer ? offer.price_after_offer : cart.total) ?? 0;
+  const price_before_discount = offer
+    ? offer.price_before_offer
+    : cart.total_before_discount;
+  const delivery_fee = price_after_discount > 100 ? 0 : 10;
+
+  const books = offer?.books ?? cart.data ?? [];
 
   useEffect(() => {
     if (user?.data?.state) {
@@ -61,17 +80,12 @@ export default function Page() {
     }
   }, [user?.data?.city]);
 
-  const updateMutation = useMutation({
+  const orderFromCartMutation = useMutation({
     mutationFn: async (formData: FormData) => {
       const phone_number = String(formData.get("phone_number"));
       const name = String(formData.get("first_name"));
       const address = String(formData.get("address1"));
       const postal_code = String(formData.get("postalCode"));
-      const books =
-        cart.data?.map((book) => ({
-          id: book.id,
-          quantity: book.quantity,
-        })) ?? [];
 
       const payload = {
         name,
@@ -81,10 +95,17 @@ export default function Page() {
         city: selectedCity,
         postal_code,
         payment_method: paymentMethod,
-        books,
+        books:
+          cart.data?.map((book) => ({
+            id: book.id,
+            quantity: book.quantity,
+          })) ?? [],
       };
 
-      const url = getEndpoint({ resource: "orders", action: "createOrder" });
+      const url = getEndpoint({
+        resource: "orders",
+        action: "createOrderFromCart",
+      });
 
       try {
         phoneNumberSchema.parse(phone_number);
@@ -96,7 +117,7 @@ export default function Page() {
       }
       const { error, validationErrors } = await sendRequest<
         never,
-        ICreateOrderPayload
+        ICreateOrderFromCartPayload
       >({
         method: "POST",
         url: url(),
@@ -111,17 +132,81 @@ export default function Page() {
     onSuccess: () => {
       cart.clearCart();
       setSuccessFullySubmitted(true);
-      toast.success("تم تحديث الملف الشخصي بنجاح");
+      toast.success("تم إرسال الطلب بنجاح");
     },
     onError: (error) => {
-      toast.error(error.message || "حدث خطأ أثناء معالجة الطلب");
+      toast.error(
+        error.message || "حدث خطأ أثناء معالجة الطلب الرجاء التثبت من معطياتك",
+      );
+    },
+  });
+
+  const orderFromOfferMutation = useMutation({
+    mutationFn: async (formData: FormData) => {
+      const phone_number = String(formData.get("phone_number"));
+      const name = String(formData.get("first_name"));
+      const address = String(formData.get("address1"));
+      const postal_code = String(formData.get("postalCode"));
+
+      const payload = {
+        name,
+        email: user?.data?.email,
+        phone_number,
+        address,
+        city: selectedCity,
+        postal_code,
+        payment_method: paymentMethod,
+        offer_id,
+      };
+
+      const url = getEndpoint({
+        resource: "orders",
+        action: "createOrderFromOffer",
+      });
+
+      try {
+        phoneNumberSchema.parse(phone_number);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          throw new Error(error.errors[0]?.message);
+        }
+        throw new Error("");
+      }
+      const { error, validationErrors } = await sendRequest<
+        never,
+        ICreateOrderFromOfferPayload
+      >({
+        method: "POST",
+        url: url(),
+        payload: payload,
+      });
+
+      if (error) {
+        setErrors(validationErrors);
+        throw new Error("");
+      }
+    },
+    onSuccess: () => {
+      cart.clearCart();
+      setSuccessFullySubmitted(true);
+      toast.success("تم إرسال الطلب بنجاح");
+    },
+    onError: (error) => {
+      toast.error(
+        error.message || "حدث خطأ أثناء معالجة الطلب الرجاء التثبت من معطياتك",
+      );
     },
   });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    updateMutation.mutate(formData);
+    if (offer) {
+      orderFromOfferMutation.mutate(formData);
+    }
+    {
+      orderFromCartMutation.mutate(formData);
+    }
   };
 
   const payment_methods = [
@@ -156,7 +241,7 @@ export default function Page() {
           {successFullySubmitted ? (
             <div className="flex flex-col items-center justify-center">
               <Image
-                src={"/success_order.svg"}
+                src={success_order}
                 height={300}
                 width={300}
                 alt=""
@@ -190,7 +275,7 @@ export default function Page() {
                   errors={errors?.name}
                   label="الإسم"
                   name="first_name"
-                  placeholder="صدقي"
+                  placeholder="الإسم"
                   defaultValue={user?.data?.first_name}
                   required
                   icon={<User className="h-4 w-4" />}
@@ -324,7 +409,7 @@ export default function Page() {
               </div>
               <div className="mt-12 text-lg font-semibold">تأكيد الشراء</div>
               <div className="flex max-w-[60svw] flex-1 flex-row flex-wrap gap-4">
-                {cart.data?.map((book, i) => (
+                {books.map((book, i) => (
                   <div
                     key={book.id}
                     className="flex max-w-[40%] flex-row items-start gap-3 rounded-md bg-color7 px-3 py-2"
@@ -345,7 +430,7 @@ export default function Page() {
                           >
                             {book.title}
                           </span>
-                          <span>({book.quantity}x)</span>
+                          <span>({book.quantity ?? 1}x)</span>
                         </span>
 
                         <span className="text-lg font-medium">
@@ -366,15 +451,15 @@ export default function Page() {
               <div className="my-8 flex flex-row items-center gap-6">
                 <div className="flex w-full flex-row items-center justify-between rounded-md bg-color7 px-12 py-6 text-center text-lg text-black">
                   <span className="text-lg">توصيل</span>
-                  <span>{8} د.م</span>
+                  <span>{delivery_fee} د.م</span>
                 </div>
                 <div className="flex w-full flex-row items-center justify-between rounded-md bg-color7 px-12 py-6 text-center text-lg text-black">
                   <span className="text-lg">الإجمالي الفرعي</span>
-                  <del>{cart.total_before_discount} د.م</del>
+                  <del>{price_before_discount} د.م</del>
                 </div>
                 <div className="flex w-full flex-row items-center justify-between rounded-md bg-color7 px-12 py-6 text-center text-lg font-semibold text-color1">
                   <span className="text-lg">المبلغ النهائي</span>
-                  <span>{(cart.total ?? 0) + 8} د.م</span>
+                  <span>{price_after_discount + 8} د.م</span>
                 </div>
               </div>
 
@@ -393,10 +478,16 @@ export default function Page() {
                 </span>
                 <button
                   type="submit"
-                  disabled={updateMutation.isPending}
+                  disabled={
+                    orderFromCartMutation.isPending ||
+                    orderFromOfferMutation.isPending
+                  }
                   className="rounded-md bg-color2 p-2 px-4 text-lg text-white opacity-100 hover:opacity-50"
                 >
-                  {updateMutation.isPending ? "جاري الطلب..." : "تأكيد الطلب"}
+                  {orderFromCartMutation.isPending ||
+                  orderFromOfferMutation.isPending
+                    ? "جاري الطلب..."
+                    : "تأكيد الطلب"}
                 </button>
               </div>
             </form>
@@ -410,13 +501,13 @@ export default function Page() {
             width={300}
             height={300}
           />
-          <Image
+          {/* <Image
             src="/phone_number.svg"
             alt="book"
             className="-mt-4 rounded-lg"
             width={300}
             height={300}
-          />
+          /> */}
         </div>
       </div>
     </div>

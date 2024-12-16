@@ -2,10 +2,12 @@
 import React from "react";
 import PrimaryButton from "./main/buttons/PrimaryButton";
 import CustomSwiper from "./ui/swiper";
-import ArrowLeft from "./icons/ArrowLeft";
 import Image from "next/image";
+import useOffers from "@/hooks/data/offers/useOffers";
+import Link from "next/link";
 
 export default function Offers() {
+  const { data: offers } = useOffers();
   return (
     <div
       className="mx-auto flex w-full flex-wrap items-center justify-center gap-8 px-6 py-8 sm:gap-10 sm:px-6 sm:py-12 lg:gap-32 lg:px-10 lg:py-16"
@@ -17,48 +19,47 @@ export default function Offers() {
           prevEl: ".btn_swiper_arrow_left",
           nextEl: ".btn_swiper_arrow_right",
         }}
-        slides={Array.from({ length: 2 }).map((_, i) => (
-          <div
-            key={i}
-            className="mx-auto flex w-full flex-row-reverse flex-wrap items-center justify-center gap-8 sm:gap-10 lg:gap-[125px]"
-          >
-            <div className="w-full max-w-[480px] space-y-4 sm:space-y-8 lg:space-y-20">
-              <div className="space-y-2">
-                <h1 className="flex flex-col py-2 text-2xl sm:text-3xl">
-                  <span className="font-bold">إحصل على ثلات كتب</span>
-                  <span>بسعر كتابين فقط </span>
-                </h1>
-                <p className="text-base sm:text-lg">
-                  كتاب رؤوس المسائل (المسائل الخلافية بين الحنفية والشافعية)
-                  للزمخشري، دراسة وتحقيق: عبد الله نذير أحمد. الزمخشري إمام كبير
-                  في الحديث، والتفسير، والنحو، والبلاغة.
-                </p>
+        slides={
+          offers?.data?.map((offer, i) => (
+            <div
+              key={i}
+              className="mx-auto flex w-full flex-row-reverse flex-wrap items-center justify-center gap-8 sm:gap-10 lg:gap-[125px]"
+            >
+              <div className="w-full max-w-[480px] space-y-4 sm:space-y-8 lg:space-y-20">
+                <div className="space-y-2">
+                  <h1 className="flex flex-col py-2 text-2xl sm:text-3xl">
+                    {offer.title}
+                  </h1>
+                  <p className="text-base sm:text-lg">{offer.description} </p>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex flex-col text-base text-gray-400 sm:text-lg">
+                    <span>السعر قبل العرض</span>
+                    <span> {offer.price_before_offer}د.م </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Link href={`/order?offer_id=${offer.id}`}>
+                      <PrimaryButton>تمتع بالعرض</PrimaryButton>
+                    </Link>
+                    <span className="flex flex-row-reverse gap-4 text-2xl sm:gap-[18px] sm:text-3xl">
+                      <span>فقط</span>
+                      <span> {offer.price_after_offer}د.م </span>
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div className="space-y-4">
-                <div className="flex flex-col text-base text-gray-400 sm:text-lg">
-                  <span>السعر قبل العرض</span>
-                  <span> 120.000د.م </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <PrimaryButton>تمتع بالعرض</PrimaryButton>
-                  <span className="flex gap-4 text-2xl sm:gap-[18px] sm:text-3xl">
-                    <span>فقط</span>
-                    <span> 80.000د.م </span>
-                  </span>
-                </div>
+              <div className="h-[300px] w-full max-w-[443px] rounded-[20px] bg-black sm:h-[350px] lg:h-[495px]">
+                <Image
+                  src={offer.image_url}
+                  height={495}
+                  width={443}
+                  className="rounded-[20px]"
+                  alt=""
+                />
               </div>
             </div>
-            <div className="h-[300px] w-full max-w-[443px] rounded-[20px] bg-black sm:h-[350px] lg:h-[495px]">
-              <Image
-                src="/books_offer.svg"
-                height={495}
-                width={443}
-                className="rounded-[20px]"
-                alt=""
-              />
-            </div>
-          </div>
-        ))}
+          )) ?? []
+        }
         initialSlide={0}
         slidesPerView={1}
         pagination
