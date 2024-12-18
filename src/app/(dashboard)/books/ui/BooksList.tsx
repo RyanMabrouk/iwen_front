@@ -17,6 +17,7 @@ export default function BooksList() {
         <Spinner />
       </div>
     );
+  console.log("data = ", data.data?.data?.data);
   const books = data.data?.data?.data.filter((book) => {
     console.log(book.writer?.nationality);
     return nationality === "all"
@@ -51,7 +52,9 @@ export default function BooksList() {
               className={`flex items-center justify-center py-3 transition-all duration-300 max-sm:px-5 ${numberOfBooks === "6" ? "px-4" : numberOfBooks === "4" ? "w-full px-5" : numberOfBooks === "3" ? "px-7 py-4 max-lg:px-5" : "px-20 max-md:px-10"}`}
             >
               <BookCard
-                nationality={"tunisian" as "tunisian" | "moroccan" | "all"}
+                nationality={
+                  book.writer?.nationality as "tunisian" | "moroccan" | "all"
+                }
                 fill={true}
                 {...book}
                 writer={book.writer?.name ?? ""}
@@ -63,7 +66,9 @@ export default function BooksList() {
         <div className="ml-auto grid w-fit grid-cols-1 gap-5 px-20">
           {books?.map((book, i) => (
             <BookListElement
-              nationality={"tunisian" as "all" | "tunisian" | "moroccan"}
+              nationality={
+                book.writer?.nationality as "all" | "tunisian" | "moroccan"
+              }
               book={book}
             />
           ))}

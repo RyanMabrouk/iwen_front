@@ -27,7 +27,6 @@ yarn-error.log*
 
 # local env files
 .env*.local
-.env
 
 # vercel
 .vercel
@@ -47,3 +46,4 @@ swe-worker-*
 supabase
 # Sentry Config File
 .env.sentry-build-plugin
+config.bat
