@@ -43,7 +43,7 @@ export default function BooksList() {
       {numberOfBooks !== "1" ? (
         <div
           dir="rtl"
-          className={`grid w-fit max-sm:grid-cols-2 ${numberOfBooks === "4" ? "w-full grid-cols-4" : numberOfBooks === "6" ? "grid-cols-6" : numberOfBooks === "3" ? "grid-cols-3" : numberOfBooks === "2" ? "grid-cols-2" : "grid-cols-1"} `}
+          className={`grid w-full max-sm:grid-cols-2 ${numberOfBooks === "4" ? "grid-cols-4" : numberOfBooks === "6" ? "grid-cols-6" : numberOfBooks === "3" ? "grid-cols-3" : numberOfBooks === "2" ? "grid-cols-2" : "grid-cols-1"} `}
         >
           {books?.map((book, i) => (
             <div
@@ -51,9 +51,7 @@ export default function BooksList() {
               className={`flex items-center justify-center py-3 transition-all duration-300 max-sm:px-5 ${numberOfBooks === "6" ? "px-4" : numberOfBooks === "4" ? "w-full px-5" : numberOfBooks === "3" ? "px-7 py-4 max-lg:px-5" : "px-20 max-md:px-10"}`}
             >
               <BookCard
-                nationality={
-                  book.writer?.nationality as "tunisian" | "moroccan" | "all"
-                }
+                nationality={"tunisian" as "tunisian" | "moroccan" | "all"}
                 fill={true}
                 {...book}
                 writer={book.writer?.name ?? ""}
@@ -63,7 +61,12 @@ export default function BooksList() {
         </div>
       ) : (
         <div className="ml-auto grid w-fit grid-cols-1 gap-5 px-20">
-          {books?.map((book, i) => <BookListElement book={book} />)}
+          {books?.map((book, i) => (
+            <BookListElement
+              nationality={"tunisian" as "all" | "tunisian" | "moroccan"}
+              book={book}
+            />
+          ))}
         </div>
       )}
       <BookPage numberOfPages={pages} />

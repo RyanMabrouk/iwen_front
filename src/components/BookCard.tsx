@@ -66,7 +66,7 @@ export default function BookCard({
         </div>
       )}
       {nationality === "tunisian" && (
-        <div className="absolute left-1 top-[200px] z-10 rounded-full bg-transparent px-2.5 py-1 text-sm font-medium text-white">
+        <div className="absolute left-1 top-[195px] z-10 rounded-full bg-transparent px-2.5 py-1 text-sm font-medium text-white">
           <Image
             src="/dashboard/books/tunisia.png"
             alt="tunisia"
@@ -76,7 +76,7 @@ export default function BookCard({
         </div>
       )}
       {nationality === "moroccan" && (
-        <div className="absolute left-1 top-[200px] z-10 rounded-full bg-transparent px-2.5 py-1 text-sm font-medium text-white">
+        <div className="absolute left-1 top-[195px] z-10 rounded-full bg-transparent px-2.5 py-1 text-sm font-medium text-white">
           <Image
             src="/dashboard/books/morocco.png"
             alt="morcco"
