@@ -48,7 +48,7 @@ export interface URLState {
   sortings: "alphabetical" | "price" | "discount" | "date" | "none";
   search: string;
   asc: "0" | "1";
-  nationality: "tunisian" | "moroccan";
+  nationality: "tunisian" | "moroccan" | "all";
 }
 
 const BooksContext = createContext<BooksProviderProps | undefined>(undefined);
@@ -64,7 +64,7 @@ export default function BooksProvider({
   );
   const [nationality, setNationality] = useStateToUrl<"nationality">(
     "nationality",
-    "tunisian",
+    "all",
   );
   const [view, setView] = useStateToUrl<"view">("view", "all");
   const [page, setPage] = useStateToUrl<"page">("page", "1");

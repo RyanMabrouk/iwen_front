@@ -1,16 +1,15 @@
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import useBooks from "@/hooks/data/books/useBooks";
 import { useBooksProvider } from "../provider/BooksProvider";
 import { useEffect } from "react";
 import { booksQuery, QueryBooksArgs } from "@/hooks/data/books/booksQuery";
-import { useAmp } from "next/amp";
 
 export default function useCurrentBooks() {
   const maxValue = 2100;
   const {
     view,
     numberOfBooks,
-    page,
+    page: pageNumber,
     priceRange,
     shareHouse,
     categories,
@@ -42,70 +41,63 @@ export default function useCurrentBooks() {
     priceRange !== undefined && priceRange !== ""
       ? priceRange?.split("%")[1]
       : null;
+  const limit = numberOfBooks !== "1" ? parseInt(numberOfBooks) * 3 : 12;
+  const page = parseInt(pageNumber);
+
   const args: QueryBooksArgs = {
-    limit: numberOfBooks !== "1" ? parseInt(numberOfBooks) * 3 : 12,
-    page: parseInt(page),
+    limit,
+    page,
     ...(Object.keys(extra_filters).length > 0 && { extra_filters }),
-    filters:
-      search !== "" ||
-      view !== "all" ||
-      writer !== "" ||
-      shareHouse !== "" ||
-      priceRange !== ""
+    filters: {
+      ...(search !== undefined &&
+        search !== "" && {
+          "books.title": [
+            {
+              operator: "like",
+              value: "%" + search + "%",
+            },
+          ],
+        }),
+      ...(view === "newest"
         ? {
-            ...(search !== undefined &&
-              search !== "" && {
-                "books.title": [
-                  {
-                    operator: "like",
-                    value: "%" + search + "%",
-                  },
-                ],
-              }),
-            ...(view === "newest"
-              ? {
-                  "books.created_at": [
-                    { operator: ">=", value: formattedDate },
-                  ],
-                }
-              : view === "discount"
-                ? { "books.discount": [{ operator: ">", value: "0" }] }
-                : {}),
-            ...(writer !== undefined &&
-              writer !== "" && {
-                "books.writer_id": [
-                  { operator: "=", value: writer.split("%")[0] },
-                ],
-              }),
-            ...(shareHouse !== undefined &&
-              shareHouse !== "" && {
-                "books.share_house_id": [{ operator: "=", value: shareHouse }],
-              }),
-            ...(priceRange !== undefined &&
-            priceRange !== "" &&
-            maxPrice !== null &&
-            parseInt(maxPrice) < maxValue &&
-            minPrice !== null &&
-            parseInt(minPrice) > 0
-              ? {
-                  "books.price": [
-                    { operator: ">=", value: minPrice },
-                    { operator: "<=", value: maxPrice },
-                  ],
-                }
-              : maxPrice !== null && parseInt(maxPrice) < maxValue
-                ? {
-                    "books.price": [{ operator: "<=", value: maxPrice }],
-                  }
-                : minPrice !== null && parseInt(minPrice) > 0
-                  ? {
-                      "books.price": [{ operator: ">=", value: minPrice }],
-                    }
-                  : {}),
+            "books.created_at": [{ operator: ">=", value: formattedDate }],
           }
-        : undefined,
+        : view === "discount"
+          ? { "books.discount": [{ operator: ">", value: "0" }] }
+          : {}),
+      ...(writer !== undefined &&
+        writer !== "" && {
+          "books.writer_id": [{ operator: "=", value: writer.split("%")[0] }],
+        }),
+      ...(shareHouse !== undefined &&
+        shareHouse !== "" && {
+          "books.share_house_id": [{ operator: "=", value: shareHouse }],
+        }),
+      ...(priceRange !== undefined &&
+      priceRange !== "" &&
+      maxPrice !== null &&
+      parseInt(maxPrice) < maxValue &&
+      minPrice !== null &&
+      parseInt(minPrice) > 0
+        ? {
+            "books.price": [
+              { operator: ">=", value: minPrice },
+              { operator: "<=", value: maxPrice },
+            ],
+          }
+        : maxPrice !== null && parseInt(maxPrice) < maxValue
+          ? {
+              "books.price": [{ operator: "<=", value: maxPrice }],
+            }
+          : minPrice !== null && parseInt(minPrice) > 0
+            ? {
+                "books.price": [{ operator: ">=", value: minPrice }],
+              }
+            : {}),
+    },
     ...(sortings !== undefined &&
-      sortings !== "" && {
+      sortings !== "" &&
+      sortings !== "none" && {
         sort:
           sortings === "alphabetical"
             ? { order: asc === "1" ? "asc" : "desc", orderBy: "books.title" }
@@ -119,23 +111,21 @@ export default function useCurrentBooks() {
                     order: asc === "1" ? "asc" : "desc",
                     orderBy: "books.price",
                   }
-                : sortings === "date"
-                  ? {
-                      order: asc === "1" ? "asc" : "desc",
-                      orderBy: "books.created_at",
-                    }
-                  : undefined,
+                : {
+                    order: asc === "1" ? "asc" : "desc",
+                    orderBy: "books.created_at",
+                  },
       }),
   };
   const queryClient = useQueryClient();
   const books = useBooks(args);
   useEffect(() => {
     if (books.data?.data?.meta.has_next_page) {
-      const nextArgs = { ...args, page: Number(page) + 1 };
+      const nextArgs = { ...args, page: Number(pageNumber) + 1 };
       queryClient.prefetchQuery(booksQuery(nextArgs));
     }
     if (books.data?.data?.meta.has_previous_page) {
-      const prevArgs = { ...args, page: Number(page) - 1 };
+      const prevArgs = { ...args, page: Number(pageNumber) - 1 };
       queryClient.prefetchQuery(booksQuery(prevArgs));
     }
   }, [

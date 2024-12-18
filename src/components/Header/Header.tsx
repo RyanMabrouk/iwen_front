@@ -27,11 +27,11 @@ export type Route = {
 export default function Header() {
   const routes: Route[] = [
     {
-      href: "/books",
+      href: "/books?nationality=tunisian",
       text: "كتب تونسية",
     },
     {
-      href: "/books",
+      href: "/books?nationality=moroccan",
       text: "كتب مغربية",
     },
     {

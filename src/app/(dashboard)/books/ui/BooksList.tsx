@@ -8,8 +8,8 @@ import useCurrentBooks from "../hooks/useCurrentBooks";
 import Image from "next/image";
 
 export default function BooksList() {
-  const { numberOfBooks } = useBooksProvider();
-
+  const { numberOfBooks, nationality } = useBooksProvider();
+  console.log("nationality = ", nationality);
   const data = useCurrentBooks();
   if (data.isLoading)
     return (
@@ -17,7 +17,13 @@ export default function BooksList() {
         <Spinner />
       </div>
     );
-  const books = data.data?.data?.data;
+  const books = data.data?.data?.data.filter((book) => {
+    console.log(book.writer?.nationality);
+    return nationality === "all"
+      ? true
+      : nationality === book.writer?.nationality;
+  });
+
   if (books?.length === 0)
     return (
       <div className="flex h-[40rem] w-full flex-col items-center justify-center gap-10 text-2xl">
@@ -45,6 +51,9 @@ export default function BooksList() {
               className={`flex items-center justify-center py-3 transition-all duration-300 max-sm:px-5 ${numberOfBooks === "6" ? "px-4" : numberOfBooks === "4" ? "w-full px-5" : numberOfBooks === "3" ? "px-7 py-4 max-lg:px-5" : "px-20 max-md:px-10"}`}
             >
               <BookCard
+                nationality={
+                  book.writer?.nationality as "tunisian" | "moroccan" | "all"
+                }
                 fill={true}
                 {...book}
                 writer={book.writer?.name ?? ""}

@@ -10,11 +10,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useBooksProvider } from "../provider/BooksProvider";
+import { URLState, useBooksProvider } from "../provider/BooksProvider";
 import useURL from "@/hooks/useURL";
 import Image from "next/image";
 
-const sortOptions = [
+const sortOptions: { value: URLState["sortings"]; label: string }[] = [
   { value: "alphabetical", label: "أبجدياً" },
   { value: "discount", label: "الخصم" },
   { value: "price", label: "السعر" },
@@ -49,10 +49,7 @@ export function BooksSortings() {
           className={`cursor-pointer rounded-full border-2 border-color1 p-1 transition-all duration-200 hover:shadow-lg ${asc === "0" ? "rotate-180" : ""}`}
         />
         <SelectTrigger className="w-[220px] font-semibold">
-          <SelectValue
-            placeholder="الترتيب حسب"
-            className="outline-none ring-0 ring-transparent"
-          />
+          <SelectValue placeholder="الترتيب حسب" className="outline-none" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>

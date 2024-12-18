@@ -3,7 +3,8 @@ import React, { Suspense } from "react";
 import Navigation from "./ui/Navigation";
 import BooksList from "./ui/BooksList";
 
-import BooksProvider from "./provider/BooksProvider";
+import { useBookProvider } from "./[book]/provider/BookProvider";
+import { useBooksProvider } from "./provider/BooksProvider";
 
 export type SortingType = "mostSold" | "newest" | "discount" | "all";
 export type GenreType = "test" | "test2";
@@ -21,12 +22,20 @@ export type FilterType = {
 };
 
 export default function Page() {
+  const { nationality } = useBooksProvider();
   return (
     <Suspense fallback={<div>Loading...</div>}>
-        <div className="flex flex-col gap-2">
-          <Navigation />
-          <BooksList />
-        </div>
+      <div className="flex flex-col items-center gap-2">
+        <Navigation />
+        <h1 className="w-fit border-b-2 px-7 text-2xl font-semibold text-color1">
+          {nationality === "tunisian"
+            ? "كتب تونسية "
+            : nationality === "moroccan"
+              ? "كتب مغربية"
+              : "جميع الكتب"}
+        </h1>
+        <BooksList />
+      </div>
     </Suspense>
   );
 }
