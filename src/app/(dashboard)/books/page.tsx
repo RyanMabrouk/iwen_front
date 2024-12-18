@@ -27,7 +27,7 @@ export default function Page() {
     <Suspense fallback={<div>Loading...</div>}>
       <div className="flex flex-col items-center gap-2">
         <Navigation />
-        <h1 className="w-fit border-b-2 px-7 text-2xl font-semibold text-color1">
+        <h1 className="mt-6 w-fit border-b-2 px-7 text-3xl font-semibold text-color1">
           {nationality === "tunisian"
             ? "كتب تونسية "
             : nationality === "moroccan"

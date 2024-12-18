@@ -3,8 +3,6 @@ import React from "react";
 import BookInfo from "./ui/Book";
 import SimilarBooks from "./ui/SimilarBooks";
 import useBook from "@/hooks/data/books/useBook";
-import useWriters from "@/hooks/data/books/writers/useWriters";
-import { Tables } from "@/types/database.types";
 import { BookProvider } from "./provider/BookProvider";
 import { Spinner } from "@/app/ui/Spinner";
 
