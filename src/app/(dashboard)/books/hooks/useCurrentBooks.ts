@@ -18,8 +18,14 @@ export default function useCurrentBooks() {
     sortings,
     search,
     asc,
+    nationality,
   } = useBooksProvider();
   const extra_filters = {
+    ...(nationality !== undefined &&
+      nationality !== null &&
+      nationality !== "all" && {
+        writer_nationality: nationality === "tunisian" ? "تونسي" : "مغربي",
+      }),
     ...(Array.isArray(categories.split("%")) &&
       categories.split("%").length > 0 && {
         categories_ids: categories.split("%"),

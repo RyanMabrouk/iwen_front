@@ -14,13 +14,7 @@ import { WishListHeart } from "@/components/BookCard";
 import ArrowLeft from "@/components/icons/ArrowLeft";
 import ArrowRight from "@/components/icons/ArrowRight";
 
-export default function BookListElement({
-  book,
-  nationality = "all",
-}: {
-  book: IBookPopulated;
-  nationality?: "all" | "tunisian" | "moroccan";
-}) {
+export default function BookListElement({ book }: { book: IBookPopulated }) {
   const isDiscounted = !!book.discount;
   const isOutOfStock = book.stock === 0;
   const isNewBook =
@@ -32,26 +26,6 @@ export default function BookListElement({
       dir="rtl"
       className="group relative flex items-center gap-4 overflow-hidden rounded-md border border-gray-200 bg-color7 p-4 transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-md"
     >
-      {nationality === "tunisian" && (
-        <div className="absolute left-[10px] top-[10px] z-10 rounded-full bg-transparent px-2.5 py-1 text-sm font-medium text-white">
-          <Image
-            src="/dashboard/books/tunisia.png"
-            alt="tunisia"
-            width={50}
-            height={50}
-          />
-        </div>
-      )}
-      {nationality === "moroccan" && (
-        <div className="absolute left-[10px] top-[10px] z-10 rounded-full bg-transparent px-2.5 py-1 text-sm font-medium text-white">
-          <Image
-            src="/dashboard/books/morocco.png"
-            alt="morcco"
-            width={50}
-            height={50}
-          />
-        </div>
-      )}
       <div className="flex items-center gap-4">
         <div className="relative flex h-[20rem] w-[15rem] items-center justify-center rounded-md transition-transform duration-300 ease-in-out group-hover:scale-105">
           <Image

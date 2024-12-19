@@ -20,7 +20,6 @@ import TooltipGeneric from "@/app/ui/InsightGeneric";
 
 export default function BookCard({
   fill = false,
-  nationality = "all",
   writer,
   images_urls,
   className,
@@ -28,7 +27,6 @@ export default function BookCard({
   ...book
 }: Tables<"books"> & {
   fill?: boolean;
-  nationality?: "tunisian" | "moroccan" | "all";
   is_in_wishlist?: boolean;
   className?: string;
   writer?: string;
@@ -63,26 +61,6 @@ export default function BookCard({
       {!isOutOfStock && isNewBook && (
         <div className="absolute left-3 top-4 z-10 rounded-full bg-[#2774A0] px-2.5 py-1 text-sm font-medium text-white">
           جديد{" "}
-        </div>
-      )}
-      {nationality === "tunisian" && (
-        <div className="absolute left-1 top-[195px] z-10 rounded-full bg-transparent px-2.5 py-1 text-sm font-medium text-white">
-          <Image
-            src="/dashboard/books/tunisia.png"
-            alt="tunisia"
-            width={30}
-            height={30}
-          />
-        </div>
-      )}
-      {nationality === "moroccan" && (
-        <div className="absolute left-1 top-[195px] z-10 rounded-full bg-transparent px-2.5 py-1 text-sm font-medium text-white">
-          <Image
-            src="/dashboard/books/morocco.png"
-            alt="morcco"
-            width={30}
-            height={30}
-          />
         </div>
       )}
 

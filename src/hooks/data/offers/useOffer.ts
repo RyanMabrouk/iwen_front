@@ -9,7 +9,7 @@ export default function useOffer(id: string) {
     data: query.data
       ? {
           ...query.data?.data,
-          books: query.data?.data?.books.map((book) => ({
+          books: query.data?.data?.books?.map((book) => ({
             ...book,
             quantity: 1,
           })),

@@ -26,14 +26,14 @@ export default function Page() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="flex flex-col items-center gap-2">
-        <Navigation />
-        <h1 className="mt-6 w-fit border-b-2 px-7 text-3xl font-semibold text-color1">
+        <h1 className="mt-6 w-fit border-b-4 px-7 py-2 text-3xl font-semibold text-color1">
           {nationality === "tunisian"
             ? "كتب تونسية "
             : nationality === "moroccan"
               ? "كتب مغربية"
               : "جميع الكتب"}
         </h1>
+        <Navigation />
         <BooksList />
       </div>
     </Suspense>
