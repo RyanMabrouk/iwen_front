@@ -24,15 +24,18 @@ export default function useCurrentBooks() {
     ...(nationality !== undefined &&
       nationality !== null &&
       nationality !== "all" && {
-        writer_nationality: nationality === "tunisian" ? "تونسي" : "مغربي",
+        writer_nationality:
+          nationality === "tunisian" ? ("تونسي" as const) : ("مغربي" as const),
       }),
     ...(Array.isArray(categories.split("%")) &&
-      categories.split("%").length > 0 && {
-        categories_ids: categories.split("%"),
+      categories.split("%").length > 0 &&
+      categories.split("%").filter((e) => e).length > 1 && {
+        categories_ids: categories.split("%").filter((e) => e),
       }),
     ...(Array.isArray(subcategories.split("%")) &&
-      subcategories.split("%").length > 0 && {
-        subcategories_ids: subcategories.split("%"),
+      subcategories.split("%").length > 0 &&
+      subcategories.split("%").filter((e) => e).length > 1 && {
+        subcategories_ids: subcategories.split("%").filter((e) => e),
       }),
     ...(view === "mostSold" && { most_sold: "desc" as const }),
   };
