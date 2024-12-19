@@ -79,7 +79,7 @@ export default function PackPage({
           className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         >
           {data.books.slice(0, 4).map((book) => (
-            <BookCard key={book.id} nationality={"all"} fill={true} {...book} />
+            <BookCard key={book.id} fill={true} {...book} />
           ))}
         </div>
         {/* <h2 className="mb-4 text-2xl font-semibold">
