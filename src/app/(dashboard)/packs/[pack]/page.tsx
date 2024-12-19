@@ -8,14 +8,13 @@ import BookCard from "@/components/BookCard";
 import BookListElement from "../../books/ui/BookListElement";
 import { IBookPopulated } from "@/types";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function PackPage({
   params: { pack },
 }: {
   params: { pack: string };
 }) {
-  const router = useRouter();
   const packData = useOffer(pack);
 
   if (packData.isLoading) {
@@ -37,11 +36,6 @@ export default function PackPage({
     );
   }
 
-  const handlePurchase = () => {
-    // Implement purchase logic here
-    console.log("شراء الباقة:", data.id);
-  };
-
   return (
     <div className="rtl flex min-h-screen w-full flex-col items-center bg-color7 p-4">
       <div className="w-full max-w-6xl">
@@ -50,16 +44,16 @@ export default function PackPage({
             dir="rtl"
             className="flex flex-col justify-between rounded-md p-5"
           >
-            <div>
+            <div className="mt-3 flex flex-col items-start justify-between">
               <h1 className="mb-2 text-3xl font-bold">{data.title}</h1>
               <p className="mb-4 text-lg">{data.description}</p>
             </div>
-            <button
-              onClick={handlePurchase}
-              className="w-fit items-start rounded-md bg-color1 p-3 text-center text-2xl font-semibold text-white transition-all duration-300 hover:bg-color2 hover:shadow-lg"
+            <Link
+              href={`/order?offer_id=${data.id}`}
+              className="w-fit items-start rounded-md bg-color1 p-3 text-center text-lg font-semibold text-white transition-all duration-300 hover:bg-color2 hover:shadow-lg"
             >
               شراء الباقة
-            </button>
+            </Link>
           </div>
           <Image
             src={data.image_url ?? ""}
@@ -85,17 +79,10 @@ export default function PackPage({
           className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         >
           {data.books.slice(0, 4).map((book) => (
-            <BookCard
-              key={book.id}
-              is_in_wishlist={false}
-              nationality={"all" as "tunisian" | "moroccan" | "all"}
-              fill={true}
-              {...book}
-              writer="none"
-            />
+            <BookCard key={book.id} nationality={"all"} fill={true} {...book} />
           ))}
         </div>
-        <h2 className="mb-4 text-2xl font-semibold">
+        {/* <h2 className="mb-4 text-2xl font-semibold">
           جميع الكتب في هذه الباقة
         </h2>
         <div className="space-y-4">
@@ -117,7 +104,7 @@ export default function PackPage({
               nationality={"all" as "all" | "tunisian" | "moroccan"}
             />
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );

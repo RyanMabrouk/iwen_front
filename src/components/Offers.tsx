@@ -38,7 +38,7 @@ export default function Offers() {
                     <span> {offer.price_before_offer}د.م </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <Link href={`/order?offer_id=${offer.id}`}>
+                    <Link href={`/packs/${offer.id}`}>
                       <PrimaryButton>تمتع بالعرض</PrimaryButton>
                     </Link>
                     <span className="flex flex-row-reverse gap-4 text-2xl sm:gap-[18px] sm:text-3xl">
