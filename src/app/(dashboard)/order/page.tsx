@@ -138,7 +138,7 @@ export default function CheckoutPage() {
 
       if (error) {
         setErrors(validationErrors);
-        throw new Error("");
+        throw new Error(error);
       }
     },
     onSuccess: () => {
@@ -196,7 +196,7 @@ export default function CheckoutPage() {
 
       if (error) {
         setErrors(validationErrors);
-        throw new Error("");
+        throw new Error(error);
       }
     },
     onSuccess: () => {

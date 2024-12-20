@@ -55,7 +55,11 @@ export default async function sendRequest<
           validationErrors: backendError.errors,
         };
       } else {
-        return { data: null, error: error.message, validationErrors: null };
+        return {
+          data: null,
+          error: backendError.message,
+          validationErrors: null,
+        };
       }
     } else {
       return { data: null, error: error.message, validationErrors: null };
