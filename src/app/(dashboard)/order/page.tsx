@@ -57,6 +57,7 @@ export default function CheckoutPage() {
   const cart = useCart();
   const searchParams = useSearchParams();
   const offer_id = searchParams.get("offer_id");
+  const offer_quantity = Number(searchParams.get("quantity"));
   const { data: offer } = useOffer(offer_id ?? "");
   const [selectedState, setSelectedState] = useState<string>("");
   const [selectedCity, setSelectedCity] = useState<string>("");
@@ -67,13 +68,17 @@ export default function CheckoutPage() {
   >();
 
   const price_after_discount =
-    (offer ? offer.price_after_offer : cart.total) ?? 0;
+    (offer ? Number(offer.price_after_offer) * offer_quantity : cart.total) ??
+    0;
   const price_before_discount = offer
-    ? offer.price_before_offer
+    ? Number(offer.price_before_offer) * offer_quantity
     : cart.total_before_discount;
   const delivery_fee = price_after_discount > 100 ? 0 : 10;
 
-  const books = offer?.books ?? cart.data ?? [];
+  const books =
+    offer?.books?.map((e) => ({ ...e, quantity: offer_quantity })) ??
+    cart.data ??
+    [];
 
   useEffect(() => {
     if (user?.data?.state) {
@@ -164,6 +169,7 @@ export default function CheckoutPage() {
         postal_code,
         payment_method: paymentMethod,
         offer_id,
+        quantity: offer_quantity ?? 1,
       };
 
       const url = getEndpoint({

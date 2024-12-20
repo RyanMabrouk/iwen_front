@@ -9,12 +9,14 @@ import BookListElement from "../../books/ui/BookListElement";
 import { IBookPopulated } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { Minus, Plus } from "lucide-react";
 
 export default function PackPage({
   params: { pack },
 }: {
   params: { pack: string };
 }) {
+  const [quantity, setQuantity] = React.useState(1);
   const packData = useOffer(pack);
 
   if (packData.isLoading) {
@@ -48,8 +50,37 @@ export default function PackPage({
               <h1 className="mb-2 text-3xl font-bold">{data.title}</h1>
               <p className="mb-4 text-lg">{data.description}</p>
             </div>
+            <div
+              className={`z-[10] -mt-2 mb-4 flex w-20 flex-row items-center justify-between gap-3`}
+            >
+              <div
+                role="button"
+                className={`h-fit rounded-lg border border-primary-500 p-1 text-primary-400 transition-all hover:bg-black/5 ${"visible"} ${quantity <= 1 ? "cursor-not-allowed" : "cursor-pointer"} `}
+                onClick={() => {
+                  if (quantity <= 1) return;
+                  setQuantity(quantity - 1);
+                }}
+              >
+                <Minus />
+              </div>
+              <span className={`visible -mb-1 text-lg font-medium`}>
+                {quantity}
+              </span>
+              <div
+                role="button"
+                className={`h-fit rounded-lg border border-primary-500 p-1 text-primary-400 transition-all hover:bg-black/5 ${
+                  quantity > 99 ? "cursor-not-allowed" : "cursor-pointer"
+                }`}
+                onClick={() => {
+                  if (quantity > 99) return;
+                  setQuantity(quantity + 1);
+                }}
+              >
+                <Plus />
+              </div>
+            </div>
             <Link
-              href={`/order?offer_id=${data.id}`}
+              href={`/order?offer_id=${data.id}&quantity=${quantity}`}
               className="w-fit items-start rounded-md bg-color1 p-3 text-center text-lg font-semibold text-white transition-all duration-300 hover:bg-color2 hover:shadow-lg"
             >
               شراء الباقة
