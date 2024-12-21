@@ -7,9 +7,10 @@ export default function useDeleteReview() {
   const { toast } = useToast();
   const mutation = useMutation({
     mutationFn: async (id: string) => await deleteReview(id),
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast.success("تم الحذف بنجاح");
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
+      queryClient.invalidateQueries({ queryKey: ["books"] });
     },
     onError: (error) => toast.error(error.message),
   });

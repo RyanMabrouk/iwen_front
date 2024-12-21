@@ -7,9 +7,12 @@ export default function useSendReview() {
   const { toast } = useToast();
   const data = useMutation({
     mutationFn: sendReview,
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast.success("تم إرسال المراجعة بنجاح");
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
+      queryClient.invalidateQueries({
+        queryKey: ["books", data.data?.book_id],
+      });
     },
     onError: (error) => toast.error(error.message),
   });

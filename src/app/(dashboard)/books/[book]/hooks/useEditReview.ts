@@ -10,9 +10,13 @@ export default function useEditReview() {
       id: string;
       data: { content: string; rating: number };
     }) => await editReview(args.id, args.data),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log(data);
       toast.success("تم تعديل المراجعة بنجاح", "success");
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
+      queryClient.invalidateQueries({
+        queryKey: ["books", data.data?.book_id],
+      });
     },
     onError: (error) => toast.error(error.message),
   });
