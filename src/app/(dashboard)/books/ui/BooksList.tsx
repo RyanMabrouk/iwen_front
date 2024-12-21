@@ -16,7 +16,6 @@ export default function BooksList() {
         <Spinner />
       </div>
     );
-  console.log("data = ", data.data?.data?.data);
   const books = data.data?.data?.data;
 
   if (books?.length === 0)

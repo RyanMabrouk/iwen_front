@@ -3,12 +3,12 @@ import React from "react";
 import InfoNav from "./InfoNav";
 import InfoContent from "./InfoContent";
 import PriceInfo from "./PriceInfo";
-import { useBooksProvider } from "../../provider/BooksProvider";
+import { useBookProvider } from "../provider/BookProvider";
 
 export type PageType = "main" | "details" | "comments" | "author" | "about";
 
 export default function MainInfo() {
-  const { view: selectedTab, setView: setSelectedTab } = useBooksProvider();
+  const { view: selectedTab, setView: setSelectedTab } = useBookProvider();
   return (
     <div className="flex h-auto w-[45rem] flex-col justify-between gap-3 max-sm:max-h-screen max-sm:w-screen max-sm:max-w-screen-sm">
       <div

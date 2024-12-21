@@ -13,11 +13,10 @@ export default async function editReview(
   "use server";
   const url = getEndpoint({ resource: "reviews", action: "editReview" });
 
-  const result = await sendRequest({
+  const result = await sendRequest<{ book_id: string }>({
     url: url(id),
     method: "PATCH",
     payload: data,
   });
-  console.log("result :", result);
   return result;
 }
