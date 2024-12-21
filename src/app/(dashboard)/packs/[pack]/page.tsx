@@ -41,10 +41,10 @@ export default function PackPage({
   return (
     <div className="rtl flex min-h-screen w-full flex-col items-center bg-color7 p-4">
       <div className="w-full max-w-6xl">
-        <div className="mb-8 flex flex-col items-stretch justify-between gap-5 rounded-md md:flex-row">
+        <div className="mb-8 flex w-full flex-col-reverse items-center justify-start gap-5 rounded-md md:flex-row">
           <div
             dir="rtl"
-            className="flex flex-col justify-between rounded-md p-5"
+            className="flex w-full flex-col justify-between rounded-md p-5"
           >
             <div className="mt-3 flex flex-col items-start justify-between">
               <h1 className="mb-2 text-3xl font-bold">{data.title}</h1>
