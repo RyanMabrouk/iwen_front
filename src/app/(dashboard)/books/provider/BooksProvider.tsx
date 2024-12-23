@@ -37,7 +37,7 @@ interface BooksProviderProps {
 
 export interface URLState {
   booksPerLine: "1" | "2" | "3" | "4" | "6";
-  view: "main" | "details" | "comments" | "author" | "about" | "all";
+  view: "main" | "details" | "comments" | "author" | "about";
   page: string;
   categories: string;
   subcategories: string;

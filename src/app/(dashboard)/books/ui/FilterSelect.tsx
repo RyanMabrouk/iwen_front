@@ -28,8 +28,11 @@ export function FilterSelect({ onClose }: FilterSelectProps) {
   const handleApply = () => {
     update([
       { name: "writer", value: writer.id ? writer.id + "%" + writer.name : "" },
-      { name: "shareHouse", value: shareHouse.id ?? "" },
-      { name: "corner", value: corner.id ?? "" },
+      {
+        name: "shareHouse",
+        value: shareHouse.id ? shareHouse.id + "%" + shareHouse.name : "",
+      },
+      { name: "corner", value: corner.id ? corner.id + "%" + corner.name : "" },
       {
         name: "categories",
         value: category.map((c) => c.id).join("%") as string,
