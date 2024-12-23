@@ -1,16 +1,13 @@
 import React from "react";
-import { PageType } from "./BookInfo";
-import { useBookProvider } from "../provider/BookProvider";
+import { PageType, useBookProvider } from "../provider/BookProvider";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
-export default function InfoNav({
-  selectedTab,
-  setSelectedTab,
-}: {
-  selectedTab: PageType;
-  setSelectedTab: (value: PageType) => void;
-}) {
-  const { book } = useBookProvider();
+export default function InfoNav() {
+  const {
+    book,
+    view: selectedTab,
+    setView: setSelectedTab,
+  } = useBookProvider();
   const navItems: { id: PageType; title: string }[] = [
     { id: "main", title: "المعلومات الأساسيات" },
     { id: "details", title: "التفاصيل" },

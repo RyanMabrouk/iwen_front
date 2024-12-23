@@ -66,7 +66,7 @@ export default function BooksProvider({
     "nationality",
     "all",
   );
-  const [view, setView] = useStateToUrl<"view">("view", "all");
+  const [view, setView] = useStateToUrl<"view">("view", "main");
   const [page, setPage] = useStateToUrl<"page">("page", "1");
   const [categories, setCategories] = useStateToUrl<"categories">(
     "categories",

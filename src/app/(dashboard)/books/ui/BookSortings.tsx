@@ -49,7 +49,8 @@ export function BooksSortings() {
           className={`cursor-pointer rounded-full border-2 border-color1 p-1 transition-all duration-200 hover:shadow-lg ${asc === "0" ? "rotate-180" : ""}`}
         />
         <SelectTrigger className="w-[220px] font-semibold">
-          <SelectValue placeholder="الترتيب حسب" className="outline-none" />
+          <SelectValue placeholder="" className="bg-red-500 outline-none" />
+          <h1 className="ml-auto">خيارات الترتيب</h1>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
