@@ -5,8 +5,6 @@ import InfoContent from "./InfoContent";
 import PriceInfo from "./PriceInfo";
 import { useBookProvider } from "../provider/BookProvider";
 
-export type PageType = "main" | "details" | "comments" | "author" | "about";
-
 export default function MainInfo() {
   const { view: selectedTab, setView: setSelectedTab } = useBookProvider();
   return (
@@ -15,11 +13,8 @@ export default function MainInfo() {
         dir="rtl"
         className="flex flex-grow flex-col items-stretch gap-2 rounded-md border-2 border-gray-200 bg-white p-3"
       >
-        <InfoNav
-          selectedTab={selectedTab as PageType}
-          setSelectedTab={setSelectedTab}
-        />
-        <InfoContent selectedTab={selectedTab as PageType} />
+        <InfoNav />
+        <InfoContent selectedTab={selectedTab} />
       </div>
       <PriceInfo />
     </div>
