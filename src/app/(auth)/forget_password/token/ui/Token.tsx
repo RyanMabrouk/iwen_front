@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import useSendOTP from "../../../../../hooks/auth/useSendOTP";
 import useVerifyOTP from "../../../../../hooks/auth/useVerifyOTP";
-import { useCounter } from "@/provider/auth/CounterProvider";
+import { useCounter } from "@/app/(auth)/provider/CounterProvider";
 
 export default function Token() {
   const [verificationCode, setVerificationCode] = useState([

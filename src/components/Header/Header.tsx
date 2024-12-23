@@ -63,7 +63,7 @@ export default function Header() {
 
       <div className="flex items-center justify-between gap-8 px-20 py-6 max-lg:flex-col max-lg:px-4 lg:flex-row-reverse">
         <div className="flex w-full items-center justify-end gap-10 max-lg:flex-col-reverse max-lg:gap-6">
-          <SearchBar className="lg:max-w-[607px]" />
+          {/* <SearchBar className="lg:max-w-[607px]" /> */}
           <Logo />
         </div>
         <div className="mx-auto flex w-full items-center justify-start gap-12 max-lg:justify-between lg:w-fit">

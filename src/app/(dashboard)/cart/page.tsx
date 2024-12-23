@@ -244,17 +244,24 @@ function MobileCart({
 
 function EmptyCart() {
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
+    <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden">
       <Image
         src="/cart/empty-cart.svg"
-        alt="Empty Cart"
-        width={300}
-        height={300}
+        alt=""
+        width={1000}
+        height={1000}
+        className="-mr-10 h-full w-full object-contain max-[1000px]:scale-[180%] max-[500px]:scale-[300%]"
       />
-      <h2 className="mb-4 mt-8 text-2xl font-bold">سلة التسوق فارغة</h2>
-      <Link href="/books">
-        <Button className="flex items-center">
-          <span className="ml-2">مواصلة التسوّق</span>
+      {/* <h2 className="mb-4 mt-8 text-2xl font-bold">سلة التسوق فارغة</h2> */}
+      <Link
+        href="/books"
+        className="absolute bottom-[22%] flex items-center justify-center -mr-2"
+      >
+        <PrimaryButton
+          variant="primary"
+          className="flex flex-row-reverse items-center"
+        >
+          <span className="">مواصلة التسوّق</span>
           <Image
             src="/double-arrow-right-white.svg"
             alt=""
@@ -262,7 +269,7 @@ function EmptyCart() {
             height={25}
             className="rotate-180"
           />
-        </Button>
+        </PrimaryButton>
       </Link>
     </div>
   );

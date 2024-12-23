@@ -4,7 +4,7 @@ import Offers from "@/components/Offers";
 import Trusted from "@/components/Trusted";
 import React from "react";
 import Image from "next/image";
-import CategoryKidsBooks from "@/components/CategoryKidsBooks";
+import CornerSwiper from "@/components/CornerSwiper";
 import Banners from "@/components/main/banners/Banners";
 import Link from "next/link";
 export default async function Page() {
@@ -40,7 +40,7 @@ export default async function Page() {
           </div>
         </div>
       </div>
-      <CategoryKidsBooks />
+      <CornerSwiper />
 
       {/* <NewAuthors /> */}
     </div>

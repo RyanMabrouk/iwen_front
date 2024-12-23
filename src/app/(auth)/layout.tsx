@@ -3,7 +3,7 @@ import React, { Suspense } from "react";
 import Image from "next/image";
 import SidePicture from "./ui/SidePicture";
 import FormContainer from "./ui/FormContainer";
-import { PageProvider } from "../../provider/PageProvider";
+import { PageProvider } from "./provider/PageProvider";
 import { Player } from "@lottiefiles/react-lottie-player";
 import Footer from "@/components/Footer";
 
