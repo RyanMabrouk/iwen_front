@@ -103,7 +103,7 @@ export default function CornerSwiper() {
           </div>
         </div>
 
-        <div className="relative">
+        <div dir="rtl" className="relative">
           {books?.data && books.data.data.length > 0 ? (
             books.data.data.length > 4 ? (
               <>
