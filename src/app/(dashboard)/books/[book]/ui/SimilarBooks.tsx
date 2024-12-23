@@ -16,7 +16,10 @@ export default function SimilarBooks({
   }
 
   return (
-    <div dir="rtl" className="flex flex-col gap-3 p-5 max-sm:w-screen">
+    <div
+      dir="rtl"
+      className="mb-10 flex flex-col gap-3 bg-bgcolor1 p-5 max-sm:w-screen"
+    >
       <h1 className="mr-8 font-semibold text-black">كتب مشابهة أخرى</h1>
       <div className="relative">
         <ArrowLeft

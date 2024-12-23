@@ -19,7 +19,7 @@ export default function PriceInfo() {
         className="flex max-lg:flex-col max-lg:items-center max-md:flex-row"
       >
         <p>السعر :</p>
-        <h1 className="font-semibold"> 120.000 MAD</h1>{" "}
+        <h1 className="font-semibold"> 120.000 د.م</h1>{" "}
       </div>
       <div className="flex items-center gap-2">
         <div
@@ -35,7 +35,7 @@ export default function PriceInfo() {
           <Plus />
         </div>
         <div className="rounded-md border border-color1 px-3 py-1 text-primary-500">
-          {quantity}
+          <span className="pt-2">{quantity}</span>
         </div>
         <div
           role="button"

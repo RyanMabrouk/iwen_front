@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useBookProvider } from "../../provider/BookProvider";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import Link from "next/link";
 
 export default function AuthorInfo() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -56,7 +57,8 @@ export default function AuthorInfo() {
           <ScrollArea className="w-full flex-grow rounded-md border">
             <div className="flex flex-1 flex-col gap-1 p-3">
               {book.writer_books.map((book) => (
-                <div
+                <Link
+                  href={`/books/${book.id}`}
                   dir="rtl"
                   className="flex items-center gap-2 rounded-md border bg-white p-2"
                   style={{ borderColor: "#E7E9EB" }}
@@ -80,11 +82,9 @@ export default function AuthorInfo() {
                         ? book.title
                         : book.title.slice(0, 18) + "..."}
                     </h3>
-                    <h4 style={{ color: "#27A098" }}>
-                      السعر ({book.price} د.م)
-                    </h4>
+                    <h4 style={{ color: "#27A098" }}>السعر {book.price} د.م</h4>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </ScrollArea>

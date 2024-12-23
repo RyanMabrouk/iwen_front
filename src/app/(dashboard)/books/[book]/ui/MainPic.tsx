@@ -20,17 +20,19 @@ export default function MainPic({
 }) {
   const { book } = useBookProvider();
   return (
-    <div className="relative flex h-[27rem] w-[20rem] items-center justify-center rounded-md border-2 border-gray-200 bg-white max-lg:flex-row">
-      <div className="relative h-4/6 w-8/12">
+    <div className="h-fir relative flex w-fit items-center justify-center rounded-md border-2 border-gray-200 bg-white max-lg:flex-row">
+      <div className="relative w-[80%] p-4">
         <Image
           src={selectedImage?.src ?? "/empty-book.svg"}
-          fill
+          className="h-[27rem] object-scale-down"
+          height={500}
+          width={500}
           alt="picture"
         />
       </div>
       <button
         onClick={() => setLiked((e) => !e)}
-        className="absolute right-5 top-5 transition-all duration-200"
+        className="absolute -right-3 -top-3 transition-all duration-200"
       >
         <WishListHeart
           size={30}

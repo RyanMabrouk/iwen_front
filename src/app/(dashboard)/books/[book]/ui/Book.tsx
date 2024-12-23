@@ -6,57 +6,8 @@ import { useBookProvider } from "../provider/BookProvider";
 
 export default function BookInfo() {
   const { book } = useBookProvider();
-  /* const dummyData: IBookPopulated = {
-    canonical: "",
-    cover_type_id: null,
-    created_at: "",
-    description: "",
-    discount: 0,
-    discount_type: "percentage",
-    editor: "",
-    id: "",
-    images_urls: [
-      "/dashboard/book/picture.png",
-      "/dashboard/book/pic1.jpg",
-      "/dashboard/book/pic2.png",
-      "/dashboard/book/pic3.jpg",
-      "/dashboard/book/pic4.jpg",
-    ],
-    isbn: "",
-    meta_description: "",
-    meta_image: "",
-    meta_keywords: [],
-    meta_title: "",
-    page_count: 0,
-    price: 0,
-    price_after_discount: 0,
-    release_year: null,
-    share_house_id: null,
-    slug: "",
-    status: null,
-    stock: 0,
-    structured_data: "",
-    title: "",
-    updated_at: "",
-    weight: 0,
-    writer_id: null,
-    corner_id: null,
-    number_of_volumes: 0,
-    price_dollar: 0,
-    categories: [],
-    subcategories: [],
-    cover_type: null,
-    writer: null,
-    share_house: null,
-    corner: null,
-    writer_books: [],
-    recommended_books: [],
-  }; */
   return (
-    <div
-      className="flex h-fit items-stretch justify-center gap-3 p-5 transition-all duration-300 max-sm:w-screen max-sm:flex-col-reverse max-sm:items-center"
-      /* style={{ background: "#E4EFEF" }} */
-    >
+    <div className="flex h-fit items-stretch justify-center gap-3 bg-bgcolor1 p-5 transition-all duration-300 max-sm:w-screen max-sm:flex-col-reverse max-sm:items-center">
       <MainInfo />
       <Pictures images={book?.images_urls ?? []} />
     </div>
