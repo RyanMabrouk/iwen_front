@@ -23,7 +23,7 @@ export default function DetailedInfo() {
     },
     {
       key: "الحجم :",
-      value: "XXX",
+      value: "غير متوفر",
     },
     {
       key: "نوع الغلاف :",
@@ -31,7 +31,7 @@ export default function DetailedInfo() {
     },
     {
       key: "رقم الكتاب :",
-      value: book?.isbn,
+      value: book !== null && book?.isbn !== "" ? book?.isbn : "غير متوفر",
     },
   ];
   return (

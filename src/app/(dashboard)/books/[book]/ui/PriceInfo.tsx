@@ -35,7 +35,7 @@ export default function PriceInfo() {
           <Plus />
         </div>
         <div className="rounded-md border border-color1 px-3 py-1 text-primary-500">
-          <span className="pt-2">{quantity}</span>
+          {quantity}
         </div>
         <div
           role="button"
