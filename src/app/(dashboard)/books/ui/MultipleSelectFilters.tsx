@@ -114,6 +114,7 @@ export default function MultipleSelectFilters() {
                     {filter.table.map((e) => (
                       <CommandItem
                         key={e.id}
+                        className="cursor-pointer"
                         onSelect={() => {
                           filter.setter((prev) =>
                             prev.some((item) => item.id === e.id)

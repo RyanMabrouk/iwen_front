@@ -8,7 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 export default function MainInfo() {
   const { book } = useBookProvider();
   return (
-    <ScrollArea dir="rtl" className="h-[200px] max-h-[200px] w-full">
+    <ScrollArea dir="rtl" className="h-fit max-h-[300px] w-full">
       <ul className="mb-10 flex flex-col items-start gap-2 p-3">
         <li dir="rtl">
           <strong>إسم المؤلف :</strong> {book?.writer?.name}
@@ -37,15 +37,16 @@ export default function MainInfo() {
         </li>
       </ul>
       <div dir="rtl" className="flex gap-2 p-3 max-md:flex-col">
-        <p className="text-nowrap">متوفر بخاصية القراءة على الموقع</p>
-        <button>
+        {/*         <p className="text-nowrap">متوفر بخاصية القراءة على الموقع</p>
+         */}{" "}
+        {/*  <button>
           <Image
             src="/dashboard/book/e-book.svg"
             alt="e-book"
             height={25}
             width={25}
           />
-        </button>
+        </button> */}
       </div>
     </ScrollArea>
   );

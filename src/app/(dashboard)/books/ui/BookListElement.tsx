@@ -209,7 +209,7 @@ function CartButtons({ book }: { book: Tables<"books"> }) {
       </button>
 
       <div className="relative min-w-[1.5rem] rounded-md border border-color1 px-3 py-0.5 text-center text-lg font-medium">
-        <span className="-mb-3">{quantity}</span>
+        {quantity}
       </div>
       <button
         className={cn(
