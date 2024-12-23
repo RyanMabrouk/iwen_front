@@ -99,9 +99,9 @@ export default function PackPage({
           <h2 className="mb-4 font-semibold">تفاصيل الباقة</h2>
           <div dir="rtl" className="mb-2 flex items-center gap-1 text-gray-400">
             السعر قبل العرض:{" "}
-            <p className="line-through">{data.price_before_offer} د.ت</p>
+            <p className="line-through">{data.price_before_offer} د.م</p>
           </div>
-          <p className="mb-2">السعر بعد العرض: {data.price_after_offer} د.ت</p>
+          <p className="mb-2">السعر بعد العرض: {data.price_after_offer} د.م</p>
         </div>
 
         <h2 className="mb-4 text-2xl font-semibold">الكتب المميزة</h2>

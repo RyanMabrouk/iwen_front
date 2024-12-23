@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePage } from "../../../../provider/PageProvider";
+import { usePage } from "../../provider/PageProvider";
 import useLogin from "../../../../hooks/auth/useLogin";
 
 export default function LoginForm() {
