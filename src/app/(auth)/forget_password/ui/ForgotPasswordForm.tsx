@@ -3,7 +3,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import useForgotPassword from "../../../../hooks/auth/useForgotPassword";
-import { useCounter } from "@/provider/auth/CounterProvider";
+import { useCounter } from "@/app/(auth)/provider/CounterProvider";
 
 export default function ForgotPasswordForm() {
   const [emailSelected, setEmailSelected] = useState<boolean>(false);

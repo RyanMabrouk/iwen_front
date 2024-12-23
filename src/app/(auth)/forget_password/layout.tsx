@@ -1,4 +1,4 @@
-import { CounterProvider } from "@/provider/auth/CounterProvider";
+import { CounterProvider } from "@/app/(auth)/provider/CounterProvider";
 import React from "react";
 
 export default function layout({ children }: { children: React.ReactNode }) {
