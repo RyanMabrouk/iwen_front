@@ -18,17 +18,9 @@ import {
 import { useFilterProvider } from "../provider/FilterProvider";
 
 export default function MultipleSelectFilters() {
-  const {
-    categories,
-    subcategories,
-    category,
-    subcategory,
-    setCategory,
-    setSubcategory,
-  } = useFilterProvider();
+  const { categories, category, setCategory } = useFilterProvider();
 
   const [openCategory, setOpenCategory] = useState(false);
-  const [openSubcategory, setOpenSubcategory] = useState(false);
   const multipleFilters: {
     label: string;
     button: string;

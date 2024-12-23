@@ -10,6 +10,7 @@ export default function useCurrentBooks() {
     view,
     numberOfBooks,
     page: pageNumber,
+    corner,
     priceRange,
     shareHouse,
     categories,
@@ -20,6 +21,16 @@ export default function useCurrentBooks() {
     asc,
     nationality,
   } = useBooksProvider();
+  console.log(
+    "categories",
+    categories,
+    "\nis array",
+    Array.isArray(categories.split("%")),
+    "\nlength",
+    categories.split("%").length,
+    "\nfiltered lenght",
+    categories.split("%").filter((e) => e).length,
+  );
   const extra_filters = {
     ...(nationality !== undefined &&
       nationality !== null &&
@@ -29,16 +40,17 @@ export default function useCurrentBooks() {
       }),
     ...(Array.isArray(categories.split("%")) &&
       categories.split("%").length > 0 &&
-      categories.split("%").filter((e) => e).length > 1 && {
+      categories.split("%").filter((e) => e).length > 0 && {
         categories_ids: categories.split("%").filter((e) => e),
       }),
     ...(Array.isArray(subcategories.split("%")) &&
       subcategories.split("%").length > 0 &&
-      subcategories.split("%").filter((e) => e).length > 1 && {
+      subcategories.split("%").filter((e) => e).length > 0 && {
         subcategories_ids: subcategories.split("%").filter((e) => e),
       }),
     ...(view === "mostSold" && { most_sold: "desc" as const }),
   };
+  console.log("extra_filters", extra_filters);
   const currentDate = new Date();
   currentDate.setDate(currentDate.getDate() - 7);
   const formattedDate = currentDate.toISOString().split("T")[0];
@@ -78,9 +90,15 @@ export default function useCurrentBooks() {
         writer !== "" && {
           "books.writer_id": [{ operator: "=", value: writer.split("%")[0] }],
         }),
+      ...(corner !== undefined &&
+        corner !== "" && {
+          "books.corner_id": [{ operator: "=", value: corner.split("%")[0] }],
+        }),
       ...(shareHouse !== undefined &&
         shareHouse !== "" && {
-          "books.share_house_id": [{ operator: "=", value: shareHouse }],
+          "books.share_house_id": [
+            { operator: "=", value: shareHouse.split("%")[0] },
+          ],
         }),
       ...(priceRange !== undefined &&
       priceRange !== "" &&
@@ -89,7 +107,7 @@ export default function useCurrentBooks() {
       minPrice !== null &&
       parseInt(minPrice) > 0
         ? {
-            "books.price": [
+            "books.price_after_discount": [
               { operator: ">=", value: minPrice },
               { operator: "<=", value: maxPrice },
             ],
