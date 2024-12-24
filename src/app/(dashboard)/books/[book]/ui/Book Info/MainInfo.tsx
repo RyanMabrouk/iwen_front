@@ -22,7 +22,7 @@ export default function MainInfo() {
         <li dir="rtl" className="flex items-center gap-2 max-md:flex-col">
           <strong>تقييمات القارئين :</strong>
           <div className="flex items-center gap-1">
-            <StarRating rating={book?.total_rating ?? 3} />
+            <StarRating rating={book?.total_rating ?? 0} />
             <p className="text-xl font-semibold">
               ({book?.total_reviews_count})
             </p>

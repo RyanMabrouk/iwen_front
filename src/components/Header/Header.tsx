@@ -36,7 +36,7 @@ export default function Header() {
     },
     {
       href: "/books",
-      text: "جميع المنتوجات",
+      text: "جميع الكتب",
     },
     {
       href: createNewPathname({
