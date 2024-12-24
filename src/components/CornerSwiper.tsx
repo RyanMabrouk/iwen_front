@@ -49,7 +49,7 @@ export default function CornerSwiper() {
   }
 
   return (
-    <div className="relative mb-12 space-y-12 bg-white px-6 pt-14">
+    <div className="relative mb-12 min-h-[40rem] space-y-12 bg-white px-6 pt-14">
       <div className="pointer-events-none absolute inset-0 top-12 flex w-full items-start justify-between">
         <Image
           src="/right-img.svg"
