@@ -22,7 +22,7 @@ export default function BooksList() {
 
   if (books?.length === 0)
     return (
-      <div className="flex h-[40rem] w-full flex-col items-center justify-center gap-10 text-2xl">
+      <div className="flex h-[40rem] w-screen flex-col items-center justify-center gap-10 overflow-y-hidden text-2xl">
         <Image
           src="/dashboard/books/no-books.png"
           alt="book"
@@ -36,16 +36,16 @@ export default function BooksList() {
   const pages = data.data?.data?.meta.total_pages ?? 0;
 
   return (
-    <div className="flex w-full flex-col items-center bg-color3 py-5">
+    <div className="flex w-screen flex-col items-center overflow-y-hidden bg-color3 py-5">
       {numberOfBooks !== "1" ? (
         <div
           dir="rtl"
-          className={`grid w-full gap-2 max-sm:grid-cols-2 ${numberOfBooks === "4" ? "grid-cols-4" : numberOfBooks === "6" ? "grid-cols-6" : numberOfBooks === "3" ? "grid-cols-3" : numberOfBooks === "2" ? "grid-cols-2" : "grid-cols-1"} `}
+          className={`grid w-fit gap-2 overflow-hidden max-sm:grid-cols-2 ${numberOfBooks === "4" ? "grid-cols-4" : numberOfBooks === "6" ? "grid-cols-6" : numberOfBooks === "3" ? "grid-cols-3" : numberOfBooks === "2" ? "grid-cols-2" : "grid-cols-1"} `}
         >
           {books?.map((book, i) => (
             <div
               key={i}
-              className={`flex items-center justify-center transition-all duration-300 ${""}`}
+              className={`flex items-center justify-center transition-all duration-300`}
             >
               <BookCard
                 fill={true}
@@ -56,7 +56,7 @@ export default function BooksList() {
           ))}
         </div>
       ) : (
-        <div className="ml-auto grid w-fit grid-cols-1 gap-5 px-20">
+        <div className="ml-auto grid grid-cols-1 gap-5 overflow-y-hidden px-20">
           {books?.map((book, i) => <BookListElement book={book} />)}
         </div>
       )}

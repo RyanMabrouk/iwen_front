@@ -25,7 +25,7 @@ export default function Page() {
   const { nationality } = useBooksProvider();
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-2 overflow-y-hidden">
         <h1 className="mt-6 w-fit border-b-4 px-7 py-2 text-3xl font-semibold text-color1">
           {nationality === "tunisian"
             ? "كتب تونسية "
