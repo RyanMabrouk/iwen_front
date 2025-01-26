@@ -5,6 +5,6 @@ import sendRequest from "@/services/sendRequest";
 
 export default async function deleteReview(id: string) {
   const url = getEndpoint({ resource: "reviews", action: "deleteReview" });
-  console.log(url(id));
-  return await sendRequest({ url: url(id), method: "GET" });
+  const result = await sendRequest({ url: url(id), method: "DELETE" });
+  return result;
 }

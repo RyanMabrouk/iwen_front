@@ -2,6 +2,8 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useBookProvider } from "../../provider/BookProvider";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import Link from "next/link";
+import TooltipGeneric from "@/app/ui/InsightGeneric";
 
 export default function AuthorInfo() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -26,9 +28,9 @@ export default function AuthorInfo() {
       <div
         dir="rtl"
         key="author"
-        className="flex w-full max-w-[40rem] gap-3 max-lg:max-h-[12rem] max-lg:flex-col max-lg:items-center max-md:min-h-[200px]"
+        className="flex w-full gap-3 bg-color3 max-lg:max-h-[12rem] max-lg:flex-col max-lg:items-center max-md:min-h-[200px]"
       >
-        <div
+        {/*  <div
           dir="rtl"
           className="m-3 h-auto w-fit flex-grow border p-4 max-lg:w-full"
           style={{ background: "#FCFCFD", borderColor: "#E7E9EB" }}
@@ -44,7 +46,7 @@ export default function AuthorInfo() {
             </div>
             <h2 className="font-semibold">{book.writer.name ?? "no name"}</h2>
           </div>
-        </div>
+        </div> */}
         <div
           key="recommended books"
           className="m-3 flex h-[17rem] w-1/2 flex-grow flex-col gap-2 border p-4 max-lg:w-full max-lg:bg-color3"
@@ -56,13 +58,14 @@ export default function AuthorInfo() {
           <ScrollArea className="w-full flex-grow rounded-md border">
             <div className="flex flex-1 flex-col gap-1 p-3">
               {book.writer_books.map((book) => (
-                <div
+                <Link
+                  href={`/books/${book.id}`}
                   dir="rtl"
                   className="flex items-center gap-2 rounded-md border bg-white p-2"
                   style={{ borderColor: "#E7E9EB" }}
                   key={book.id}
                 >
-                  <div className="relative h-12 w-10">
+                  <div className="relative h-20 w-14">
                     {book.images_urls !== undefined &&
                     book.images_urls.length > 0 ? (
                       <Image
@@ -75,16 +78,16 @@ export default function AuthorInfo() {
                     )}
                   </div>
                   <div dir="rtl">
-                    <h3 dir="rtl" className="font-semibold">
-                      {book.title.length < 18
-                        ? book.title
-                        : book.title.slice(0, 18) + "..."}
-                    </h3>
-                    <h4 style={{ color: "#27A098" }}>
-                      السعر ({book.price} د.م)
-                    </h4>
+                    <TooltipGeneric tip={book.title}>
+                      <h3 dir="rtl" className="font-semibold">
+                        {book.title.length < 54
+                          ? book.title
+                          : book.title.slice(0, 54) + "..."}
+                      </h3>
+                    </TooltipGeneric>
+                    <h4 style={{ color: "#27A098" }}>السعر {book.price} د.م</h4>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </ScrollArea>

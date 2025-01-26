@@ -11,8 +11,46 @@ import dynamic from "next/dynamic";
 import { HeaderPhoneMenu } from "./HeaderPhoneMenu";
 import CartButton from "./CartButton";
 import Link from "next/link";
+import createNewPathname from "@/helpers/createNewPathname";
+
+export type Route = {
+  href: string;
+  params?: [
+    {
+      name: string;
+      value: any;
+    },
+  ];
+  text: string;
+};
 
 export default function Header() {
+  const routes: Route[] = [
+    {
+      href: "/books?nationality=tunisian",
+      text: "كتب تونسية",
+    },
+    {
+      href: "/books?nationality=moroccan",
+      text: "كتب مغربية",
+    },
+    {
+      href: "/books",
+      text: "جميع الكتب",
+    },
+    {
+      href: createNewPathname({
+        currentPathname: "/books",
+        values: [
+          {
+            name: "view",
+            value: "discount",
+          },
+        ],
+      }),
+      text: "عروض خاصة",
+    },
+  ];
   return (
     <div className="relative w-full overflow-hidden bg-primary-500 shadow-lg shadow-primary-500/15">
       <Image
@@ -25,7 +63,7 @@ export default function Header() {
 
       <div className="flex items-center justify-between gap-8 px-20 py-6 max-lg:flex-col max-lg:px-4 lg:flex-row-reverse">
         <div className="flex w-full items-center justify-end gap-10 max-lg:flex-col-reverse max-lg:gap-6">
-          <SearchBar className="lg:max-w-[607px]" />
+          {/* <SearchBar className="lg:max-w-[607px]" /> */}
           <Logo />
         </div>
         <div className="mx-auto flex w-full items-center justify-start gap-12 max-lg:justify-between lg:w-fit">
@@ -37,20 +75,20 @@ export default function Header() {
         </div>
       </div>
       <div className="bg-primary-100">
-        <HeaderPhoneMenu />
+        <HeaderPhoneMenu routes={routes} />
         <div>
           <div className="mx-auto flex w-fit items-center max-sm:hidden max-sm:w-full max-sm:flex-col max-sm:items-end">
-            {["كتب تونسية", "كتب مغربية ", "جميع المنتوجات", "عروض خاصة"].map(
-              (text, idx) => (
+            {routes.map((route, idx) => {
+              return (
                 <Link
-                  href="/books"
+                  href={route.href}
                   key={idx}
                   className="flex cursor-pointer justify-center px-8 py-5 transition-all duration-200 hover:bg-primary-300 max-sm:w-full"
                 >
-                  <span className="text-lg">{text}</span>
+                  <span className="text-lg">{route.text}</span>
                 </Link>
-              ),
-            )}
+              );
+            })}
           </div>
         </div>
       </div>

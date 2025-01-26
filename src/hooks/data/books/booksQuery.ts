@@ -14,6 +14,7 @@ export interface QueryBooksArgs
     most_sold?: "asc" | "desc";
     subcategories_ids?: string[];
     categories_ids?: string[];
+    writer_nationality?: "تونسي" | "مغربي";
   };
 }
 

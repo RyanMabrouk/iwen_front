@@ -18,17 +18,9 @@ import {
 import { useFilterProvider } from "../provider/FilterProvider";
 
 export default function MultipleSelectFilters() {
-  const {
-    categories,
-    subcategories,
-    category,
-    subcategory,
-    setCategory,
-    setSubcategory,
-  } = useFilterProvider();
+  const { categories, category, setCategory } = useFilterProvider();
 
   const [openCategory, setOpenCategory] = useState(false);
-  const [openSubcategory, setOpenSubcategory] = useState(false);
   const multipleFilters: {
     label: string;
     button: string;
@@ -122,6 +114,7 @@ export default function MultipleSelectFilters() {
                     {filter.table.map((e) => (
                       <CommandItem
                         key={e.id}
+                        className="cursor-pointer"
                         onSelect={() => {
                           filter.setter((prev) =>
                             prev.some((item) => item.id === e.id)

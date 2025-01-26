@@ -19,18 +19,43 @@ export default function MainPic({
     | undefined;
 }) {
   const { book } = useBookProvider();
+  const isDiscounted = !!book?.discount;
+  const isOutOfStock = book?.stock === 0;
+  const isNewBook =
+    new Date(book?.created_at ?? new Date()) >=
+    new Date(new Date().setMonth(new Date().getMonth() - 1));
   return (
-    <div className="relative flex h-[27rem] w-[20rem] items-center justify-center rounded-md border-2 border-gray-200 bg-white max-lg:flex-row">
-      <div className="relative h-4/6 w-8/12">
+    <div className="h-fir relative flex w-fit items-center justify-center rounded-md border-2 border-gray-200 bg-white max-lg:flex-row">
+      <div className="relative w-[80%] p-4">
         <Image
           src={selectedImage?.src ?? "/empty-book.svg"}
-          fill
+          className="h-[27rem] object-scale-down"
+          height={500}
+          width={500}
           alt="picture"
         />
       </div>
+      {isDiscounted && !isOutOfStock && !isNewBook && (
+        <div className="absolute left-3 top-4 z-10 rounded-full bg-primary-400 px-2.5 py-1 text-sm font-medium text-white">
+          تخفيض{" "}
+          {book.discount_type === "percentage"
+            ? book.discount + "%"
+            : book.discount + " د.م"}{" "}
+        </div>
+      )}
+      {isOutOfStock && (
+        <div className="absolute left-3 top-4 z-10 rounded-full bg-red-500 px-2.5 py-1 text-sm font-medium text-white">
+          نفذت الكمية
+        </div>
+      )}
+      {!isOutOfStock && isNewBook && (
+        <div className="absolute left-3 top-4 z-10 rounded-full bg-[#2774A0] px-2.5 py-1 text-sm font-medium text-white">
+          جديد{" "}
+        </div>
+      )}
       <button
         onClick={() => setLiked((e) => !e)}
-        className="absolute right-5 top-5 transition-all duration-200"
+        className="absolute -right-3 -top-3 transition-all duration-200"
       >
         <WishListHeart
           size={30}

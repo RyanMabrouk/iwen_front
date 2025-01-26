@@ -3,6 +3,7 @@ export const ordersEndpoints = {
   getOrderId: (id: string) => `/orders/${id}`,
   getOrders: () => `/orders`,
   updateOrder: (id: string) => `/orders/${id}`,
-  createOrder: () => `/orders`,
+  createOrderFromCart: () => `/orders`,
+  createOrderFromOffer: () => `/orders/offer`,
   deleteOrder: (id: string) => `/orders/${id}`,
 };

@@ -119,7 +119,7 @@ export default function SingleSelectFilters() {
                     {filter?.table?.map((e) => (
                       <CommandItem
                         key={e?.id}
-                        className=""
+                        className="cursor-pointer"
                         onSelect={(value) => {
                           filter.setter({
                             id: e?.id,

@@ -3,8 +3,6 @@ import React from "react";
 import BookInfo from "./ui/Book";
 import SimilarBooks from "./ui/SimilarBooks";
 import useBook from "@/hooks/data/books/useBook";
-import useWriters from "@/hooks/data/books/writers/useWriters";
-import { Tables } from "@/types/database.types";
 import { BookProvider } from "./provider/BookProvider";
 import { Spinner } from "@/app/ui/Spinner";
 
@@ -24,9 +22,9 @@ export default function Page({
 
   return (
     <BookProvider book={bookData.data?.data ?? null}>
-      <div className="h-full w-full">
+      <div className="h-full w-full bg-bgcolor1 max-sm:flex max-sm:flex-col max-sm:items-center">
         <BookInfo />
-        <hr className="my-5 border border-black" />
+        <hr className="mx-14 my-5 h-[2px] bg-black" />
         <SimilarBooks books={bookData.data?.data?.recommended_books ?? null} />
       </div>
     </BookProvider>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import authorsContact from "../../../../../public/authorsContact.svg";
 
 export default function Discover() {
   return (
@@ -15,11 +16,12 @@ export default function Discover() {
         </div>
       </div>
       <Image
-        src={"/authorsContact.svg"}
-        alt="authorsContact"
+        src={authorsContact}
+        alt=""
         width={1000}
         height={1000}
         className="m-full h-full min-h-[20svh] object-cover max-sm:w-full"
+        priority
       />
     </div>
   );

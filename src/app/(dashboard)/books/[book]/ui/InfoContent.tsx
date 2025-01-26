@@ -4,13 +4,10 @@ import DetailedInfo from "./Book Info/DetailedInfo";
 import CommentsInfo from "./Book Info/CommentsInfo";
 import AuthorInfo from "./Book Info/AuthorInfo";
 import DescriptionInfo from "./Book Info/AboutInfo";
-import { PageType } from "./BookInfo";
+import { useBookProvider } from "../provider/BookProvider";
 
-export default function InfoContent({
-  selectedTab,
-}: {
-  selectedTab: PageType;
-}) {
+export default function InfoContent() {
+  const { view: selectedTab } = useBookProvider();
   switch (selectedTab) {
     case "main":
       return <MainInfo />;

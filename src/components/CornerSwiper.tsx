@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BookCard from "./BookCard";
 import ArrowLeft from "./icons/ArrowLeft";
 import Image from "next/image";
@@ -8,32 +8,58 @@ import ArrowRight from "./icons/ArrowRight";
 import CustomSwiper from "./ui/swiper";
 import EmptyBox from "./icons/EmptyBox";
 import Link from "next/link";
+import useCorners from "@/hooks/data/books/corners/useCorners";
+import { useQueryClient } from "@tanstack/react-query";
+import { booksQuery } from "@/hooks/data/books/booksQuery";
 
-const categories = [
-  { label: "الأكثر مبيعا" },
-  { label: "كتب جديدة" },
-  { label: "تخفيض على السعر" },
-  { label: "عروض خاصة بمناسبة رمضان المبارك" },
-];
-
-export default function CategoryKidsBooks() {
-  const [activeCategory, setActiveCategory] = useState(0);
+export default function CornerSwiper() {
+  const [activeCorner, setActiveCorner] = useState(0);
   const [isPrevDisabled, setIsPrevDisabled] = useState(true);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
-  const { data: books } = useBooks({ limit: 10 });
+  const { data: corners } = useCorners();
+  const { data: books } = useBooks({
+    filters: {
+      "books.corner_id": [
+        {
+          operator: "=",
+          value: corners?.data?.[activeCorner].id ?? "",
+        },
+      ],
+    },
+  });
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (corners?.data?.length) {
+      setActiveCorner(0);
+    }
+
+    corners?.data?.forEach((corner, index) => {
+      queryClient.prefetchQuery(
+        booksQuery({
+          filters: { "books.corner_id": [{ operator: "=", value: corner.id }] },
+        }),
+      );
+    });
+  }, [corners?.data?.length]);
+
+  if (!corners || !books) {
+    return null;
+  }
 
   return (
-    <div className="relative mb-12 space-y-12 bg-white px-6 pt-14">
+    <div className="relative mb-12 min-h-[40rem] space-y-12 bg-white px-6 pt-14">
       <div className="pointer-events-none absolute inset-0 top-12 flex w-full items-start justify-between">
         <Image
-          src="/boykid.png"
+          src="/right-img.svg"
           className="w-full max-w-[20%]"
           alt="Boy Kid"
           width={500}
           height={500}
         />
         <Image
-          src="/girlkid.png"
+          src="/left-img.svg"
           className="w-full max-w-[20%]"
           alt="Girl Kid"
           width={500}
@@ -42,30 +68,33 @@ export default function CategoryKidsBooks() {
       </div>
 
       <h1 className="relative z-10 mx-auto w-fit text-3xl font-bold">
-        قسم الأطفال
+        قسم {corners.data?.[activeCorner].name}
       </h1>
 
       <div className="mx-auto w-full max-w-[1400px] space-y-12">
         <div className="flex h-fit w-full items-center justify-between gap-10 max-xl:flex-col">
           <div className="scrollbar scrollbar-thin scrollbar-thumb-primary-500 scrollbar-track-gray-200 dir-[rtl] relative h-[60px] w-full overflow-x-auto">
             <div className="flex min-w-max flex-row-reverse gap-[25px] whitespace-nowrap">
-              {categories.map((category, index) => (
+              {corners?.data?.map((corner, index) => (
                 <div key={index}>
                   <h2
                     id={index.toString()}
                     className={`cursor-pointer p-2.5 text-xl transition-colors ${
-                      activeCategory === index
+                      activeCorner === index
                         ? "font-semibold text-primary-500"
                         : "font-normal"
                     }`}
-                    onClick={() => setActiveCategory(index)}
+                    onClick={() => setActiveCorner(index)}
                   >
-                    {category.label}
-                    {index !== activeCategory && (
-                      <span className="text-xl"> (09)</span>
+                    {corner.name}
+                    {index === activeCorner && (
+                      <span className="text-xl">
+                        {" "}
+                        ({books.data?.meta.total_count})
+                      </span>
                     )}
                   </h2>
-                  {index === activeCategory && (
+                  {index === activeCorner && (
                     <div className="h-0.5 bg-primary-500"></div>
                   )}
                 </div>
@@ -74,7 +103,7 @@ export default function CategoryKidsBooks() {
           </div>
         </div>
 
-        <div className="relative">
+        <div dir="rtl" className="relative">
           {books?.data && books.data.data.length > 0 ? (
             books.data.data.length > 4 ? (
               <>
@@ -149,7 +178,10 @@ export default function CategoryKidsBooks() {
         </div>
 
         <Link
-          href={"/books"}
+          href={{
+            pathname: "/books",
+            query: { corner: corners.data?.[activeCorner].id },
+          }}
           className="absolute left-[2%] top-[21%] mx-auto flex w-fit cursor-pointer items-center gap-2 bg-white px-4 text-gray-700 hover:text-color1 hover:underline max-[1100px]:hidden"
         >
           <span className="flex">

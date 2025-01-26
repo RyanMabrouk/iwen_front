@@ -99,7 +99,7 @@ export default function Form() {
           errors={errors?.first_name}
           label="الإسم"
           name="first_name"
-          placeholder="صدقي"
+          placeholder="الإسم"
           defaultValue={user?.data?.first_name}
           required
           icon={<User className="h-4 w-4" />}
@@ -108,7 +108,7 @@ export default function Form() {
           errors={errors?.last_name}
           label="اللقب"
           name="last_name"
-          placeholder="تليجة"
+          placeholder="اللقب"
           defaultValue={user?.data?.last_name}
           required
           icon={<User className="h-4 w-4" />}

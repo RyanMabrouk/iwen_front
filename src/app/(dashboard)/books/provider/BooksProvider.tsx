@@ -1,11 +1,14 @@
 "use client";
 
 import { useStateToUrl } from "@/helpers/stateToUrl";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { WindowSize, useWindowSize } from "@/hooks/useWindowSize";
-import { parse } from "path";
 
 interface BooksProviderProps {
+  nationality: string;
+
+  asc: string;
+  setAsc: (value: string) => void;
   search: string;
   setSearch: (value: string) => void;
   view: string;
@@ -32,36 +35,67 @@ interface BooksProviderProps {
   setSortings: (value: string) => void;
 }
 
-// Create a context for the BooksProvider
+export interface URLState {
+  booksPerLine: "1" | "2" | "3" | "4" | "6";
+  view: "main" | "details" | "comments" | "author" | "about";
+  page: string;
+  categories: string;
+  subcategories: string;
+  corner: string;
+  shareHouse: string;
+  writer: string;
+  priceRange: string;
+  sortings: "alphabetical" | "price" | "discount" | "date" | "none";
+  search: string;
+  asc: "0" | "1";
+  nationality: "tunisian" | "moroccan" | "all";
+}
+
 const BooksContext = createContext<BooksProviderProps | undefined>(undefined);
 
-// Custom hook to access the BooksProvider values
-
-// BooksProvider component
 export default function BooksProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [numberOfBooks, setNumberOfBooks] = useStateToUrl("booksPerLine", "6");
-  const [view, setView] = useStateToUrl("view", "all");
-  const [page, setPage] = useStateToUrl("page", "1");
-  const [categories, setCategories] = useStateToUrl("categories", "");
-  const [subcategories, setSubcategories] = useStateToUrl("subcategories", "");
-  const [corner, setCorner] = useStateToUrl("corner", "");
-  const [shareHouse, setShareHouse] = useStateToUrl("shareHouse", "");
-  const [writer, setWriter] = useStateToUrl("writer", "");
-  const [priceRange, setPriceRange] = useStateToUrl("priceRange", "");
-  const [sortings, setSortings] = useStateToUrl("sortings", "");
-  const [search, setSearch] = useStateToUrl("search", "");
+  const [numberOfBooks, setNumberOfBooks] = useStateToUrl<"booksPerLine">(
+    "booksPerLine",
+    "6",
+  );
+  const [nationality, setNationality] = useStateToUrl<"nationality">(
+    "nationality",
+    "all",
+  );
+  const [view, setView] = useStateToUrl<"view">("view", "main");
+  const [page, setPage] = useStateToUrl<"page">("page", "1");
+  const [categories, setCategories] = useStateToUrl<"categories">(
+    "categories",
+    "",
+  );
+  const [subcategories, setSubcategories] = useStateToUrl<"subcategories">(
+    "subcategories",
+    "",
+  );
+  const [corner, setCorner] = useStateToUrl<"corner">("corner", "");
+  const [shareHouse, setShareHouse] = useStateToUrl<"shareHouse">(
+    "shareHouse",
+    "",
+  );
+  const [writer, setWriter] = useStateToUrl<"writer">("writer", "");
+  const [priceRange, setPriceRange] = useStateToUrl<"priceRange">(
+    "priceRange",
+    "",
+  );
+  const [sortings, setSortings] = useStateToUrl<"sortings">("sortings", "none");
+  const [search, setSearch] = useStateToUrl<"search">("search", "");
+  const [asc, setAsc] = useStateToUrl<"asc">("asc", "1");
   const size = useWindowSize();
   useEffect(() => {
     if (
       size !== undefined &&
       size.width !== undefined &&
       size.width < 1280 &&
-      parseInt(numberOfBooks) !== 1 &&
-      parseInt(numberOfBooks) > 3
+      (parseInt(numberOfBooks) > 3 || parseInt(numberOfBooks) === 1)
     ) {
       setNumberOfBooks("3");
     } else if (
@@ -83,6 +117,10 @@ export default function BooksProvider({
   return (
     <BooksContext.Provider
       value={{
+        nationality,
+
+        asc,
+        setAsc,
         search,
         setSearch,
         sortings,
@@ -120,6 +158,9 @@ export function useBooksProvider() {
     throw new Error("useBooksProvider must be used within a BooksProvider");
   }
   return {
+    nationality: context.nationality!,
+    asc: context.asc!,
+    setAsc: context.setAsc!,
     view: context.view!,
     setView: context.setView!,
     numberOfBooks: context.numberOfBooks!,

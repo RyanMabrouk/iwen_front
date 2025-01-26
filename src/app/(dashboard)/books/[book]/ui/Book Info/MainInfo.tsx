@@ -3,11 +3,12 @@ import StarRating from "../StarRating";
 import Image from "next/image";
 import { useBookProvider } from "../../provider/BookProvider";
 import check from "../../../../../../../public/dashboard/book/check";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function MainInfo() {
   const { book } = useBookProvider();
   return (
-    <div className="max-h-[200px] w-full">
+    <ScrollArea dir="rtl" className="h-fit max-h-[300px] w-full">
       <ul className="mb-10 flex flex-col items-start gap-2 p-3">
         <li dir="rtl">
           <strong>إسم المؤلف :</strong> {book?.writer?.name}
@@ -20,9 +21,8 @@ export default function MainInfo() {
         </li>
         <li dir="rtl" className="flex items-center gap-2 max-md:flex-col">
           <strong>تقييمات القارئين :</strong>
-
           <div className="flex items-center gap-1">
-            <StarRating rating={book?.total_rating ?? 3} />
+            <StarRating rating={book?.total_rating ?? 0} />
             <p className="text-xl font-semibold">
               ({book?.total_reviews_count})
             </p>
@@ -37,16 +37,17 @@ export default function MainInfo() {
         </li>
       </ul>
       <div dir="rtl" className="flex gap-2 p-3 max-md:flex-col">
-        <p className="text-nowrap">متوفر بخاصية القراءة على الموقع</p>
-        <button>
+        {/*         <p className="text-nowrap">متوفر بخاصية القراءة على الموقع</p>
+         */}{" "}
+        {/*  <button>
           <Image
             src="/dashboard/book/e-book.svg"
             alt="e-book"
             height={25}
             width={25}
           />
-        </button>
+        </button> */}
       </div>
-    </div>
+    </ScrollArea>
   );
 }

@@ -27,9 +27,9 @@ export default function BookCard({
   ...book
 }: Tables<"books"> & {
   fill?: boolean;
-  is_in_wishlist: boolean;
+  is_in_wishlist?: boolean;
   className?: string;
-  writer: string;
+  writer?: string;
   images_urls: string[];
 }) {
   const isDiscounted = !!book.discount;
@@ -133,7 +133,9 @@ export default function BookCard({
           pagination
         />
         <div className="absolute h-48 w-48 rounded-[100%] bg-primary-500/10 blur-lg transition-all"></div>
-        <WishListHeart liked={is_in_wishlist} book={book} />
+        {is_in_wishlist !== undefined && (
+          <WishListHeart liked={is_in_wishlist} book={book} />
+        )}
       </div>
       <div className="flex flex-row-reverse items-center justify-between p-3">
         <CartButtons book={{ ...book, images_urls }} />
@@ -148,11 +150,13 @@ export default function BookCard({
                   {book.title}
                 </h1>
               </TooltipGeneric>
-              <TooltipGeneric tip={writer ?? ""}>
-                <h1 className="line-clamp-1 text-sm text-gray-600">
-                  {writer ?? "كاتب غير معروف"}
-                </h1>
-              </TooltipGeneric>
+              {writer !== undefined && (
+                <TooltipGeneric tip={writer ?? ""}>
+                  <h1 className="line-clamp-1 text-sm text-gray-600">
+                    {writer ?? "كاتب غير معروف"}
+                  </h1>
+                </TooltipGeneric>
+              )}
             </div>
             <div className="flex flex-row gap-2">
               <span className="py-2.5 text-lg font-normal text-primary-500">

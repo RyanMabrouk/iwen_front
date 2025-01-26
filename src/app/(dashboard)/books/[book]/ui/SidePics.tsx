@@ -19,7 +19,7 @@ export default function SidePics({
           <button
             key={pic.id}
             onClick={() => set(pic.src)}
-            className={`relative flex-grow overflow-hidden rounded-md bg-white transition-all duration-200 hover:shadow-md`}
+            className={`relative min-w-[5rem] flex-grow overflow-hidden rounded-md bg-color3 transition-all duration-200 hover:shadow-md`}
           >
             <Image src={pic.src} className="px-2 py-3" alt="placeholder" fill />
           </button>
@@ -31,14 +31,9 @@ export default function SidePics({
               <button
                 key={pic.id}
                 onClick={() => set(pic.src)}
-                className={`relative flex-grow overflow-hidden rounded-md bg-white transition-all duration-200 hover:shadow-md`}
+                className={`relative min-w-[5rem] flex-grow overflow-hidden rounded-md bg-color3 transition-all duration-200 hover:shadow-md`}
               >
-                <Image
-                  src={pic.src}
-                  className="px-2 py-3"
-                  alt="placeholder"
-                  fill
-                />
+                <Image src={pic.src} className="" alt="placeholder" fill />
               </button>
             ) : (
               <div key={i + 1}></div>
@@ -46,7 +41,7 @@ export default function SidePics({
           );
   if (pictures.length === 1) return <div></div>;
   return (
-    <div className="grid w-[5rem] grid-cols-1 items-stretch justify-between gap-5 px-2 max-lg:h-[5rem] max-lg:w-[20rem] max-lg:grid-cols-4 max-lg:grid-rows-1 max-lg:p-0">
+    <div className="grid w-[6rem] grid-cols-1 items-stretch justify-between gap-5 px-1 max-lg:h-[5rem] max-lg:w-[20rem] max-lg:grid-cols-4 max-lg:grid-rows-1 max-lg:p-0">
       {...content}
     </div>
   );
