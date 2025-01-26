@@ -68,10 +68,10 @@ export default function CheckoutPage() {
   >();
 
   const price_after_discount =
-    (offer ? Number(offer.price_after_offer) * offer_quantity : cart.total) ??
+    (offer_id && offer ? Number(offer.price_after_offer) * offer_quantity : cart.total) ??
     0;
-  const price_before_discount = offer
-    ? Number(offer.price_before_offer) * offer_quantity
+  const price_before_discount = offer_id
+    ? Number(offer?.price_before_offer ?? 0) * offer_quantity
     : cart.total_before_discount;
   const delivery_fee = price_after_discount > 100 ? 0 : 10;
 
