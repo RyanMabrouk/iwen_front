@@ -4,7 +4,6 @@ import useBanners from "@/hooks/data/banners/useBanners";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import Image from "next/image";
 import React from "react";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 
 export default function Banners() {
@@ -27,7 +26,7 @@ export default function Banners() {
               }
               alt=""
               width={1500}
-              height={1500}
+              height={600}
               className="z-0 h-full w-full cursor-pointer rounded-xl sm:max-w-[95%]"
             />
           </Link>
