@@ -57,7 +57,6 @@ export default function CheckoutPage() {
   const cart = useCart();
   const searchParams = useSearchParams();
   const offer_id = searchParams.get("offer_id");
-  console.log("🚀 ~ CheckoutPage ~ offer_id:", offer_id)
   const offer_quantity = Number(searchParams.get("quantity"));
   const { data: offer } = useOffer(offer_id ?? "");
   const [selectedState, setSelectedState] = useState<string>("");
