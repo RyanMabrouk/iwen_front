@@ -37,7 +37,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${bookData?.title} - ${bookData?.writer?.name} | دار إيوان`,
+    title: `${bookData?.title}`,
     description: bookData?.description ?? "اكتشف المزيد عن هذا الكتاب في دار إيوان.",
     keywords: [
       bookData?.title ?? "",
