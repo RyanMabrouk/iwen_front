@@ -6,8 +6,10 @@ import PrimaryButton from "@/components/main/buttons/PrimaryButton";
 import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/cart/useCart";
 import { IBookPopulated } from "@/types";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
 
 export default function CartPage() {
   const cart = useCart();

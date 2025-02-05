@@ -3,6 +3,11 @@ import Header from "./ui/header";
 import NavZone from "./ui/navZone";
 import getUser from "@/api/getUser";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "الحساب الشخصي"
+}
 export default async function Layout({
   children,
 }: {

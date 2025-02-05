@@ -15,17 +15,92 @@ const tajawal = Tajawal({
 });
 
 export const metadata: Metadata = {
-  title: "",
-  description: "",
+  title: {
+    default: "دار إيوان | مكتبتك الموثوقة",
+    template: " دار إيوان | %s",
+  },
+  description:
+    "دار إيوان هي مكتبتك الموثوقة التي توفر مجموعة واسعة من الكتب باللغة العربية وغيرها. اكتشف مجموعتنا الغنية وابحث عن كتابك التالي.",
   generator: "Next.js",
   manifest: "/manifest.json",
-  keywords: [],
+  keywords: [
+    "دار إيوان",
+    "دار ايوان",
+    "iwann",
+    "iwen",
+    "iwan",
+    "iwenn",
+    "dar iwan",
+    "dar iwen",
+    "dar iwann",
+    "dar al iwann",
+    "dar al iwen",
+    "dar al iwan",
+    "dar al iwenn",
+    "dar-al-iwann",
+    "dar-al-iwen",
+    "dar-al-iwan",
+    "dar-al-iwenn",
+    "دار الإيوان",
+    "دار إيوان للنشر",
+    "دار إيوان للنشر والتوزيع",
+    "دار ايوان للنشر والتوزيع",
+    "مكتبة",
+    "كتب",
+    "كتاب",
+    "روايات",
+    "قراءة",
+    "متجر كتب",
+    "شراء كتب",
+    "بيع كتب",
+    "متجر كتب عربي",
+  ],
   authors: [
     {
-      name: "",
-      url: "",
+      name: "دار إيوان",
+      url: "https://www.dar-iwan.shop",
     },
   ],
+  creator: "دار إيوان",
+  publisher: "دار إيوان للنشر",
+  applicationName: "دار إيوان",
+  robots: "index, follow",
+  themeColor: "#ffffff",
+  colorScheme: "light",
+  openGraph: {
+    title: "دار إيوان | مكتبتك الموثوقة",
+    description:
+      "اكتشف عالم الكتب مع دار إيوان. تصفح مجموعتنا الغنية وابحث عن كتابك المفضل.",
+    url: "https://www.dar-iwan.shop/home",
+    siteName: "دار إيوان",
+    images: [
+      {
+        url: "/op-iwen.png",
+        width: 1200,
+        height: 630,
+        alt: "دار إيوان - مكتبتك الموثوقة",
+      },
+    ],
+    type: "website",
+    locale: "ar_AR",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@dar_iwan",
+    creator: "@dar_iwan",
+    title: "دار إيوان | مكتبتك الموثوقة",
+    description:
+      "استكشف مجموعة دار إيوان الغنية من الكتب باللغة العربية. ابحث عن كتابك القادم الآن.",
+    images: ["/op-iwen.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  alternates: {
+    canonical: "https://www.dar-iwan.shop/home",
+  },
+  metadataBase: new URL("https://www.dar-iwan.shop"),
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
