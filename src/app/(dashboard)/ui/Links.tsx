@@ -35,7 +35,7 @@ export default function Links() {
     })) ?? [];
   return (
     <div dir="rtl" className="flex flex-col gap-3">
-      <span className="-mb-3 w-full items-center justify-center text-center text-xl">
+      <span className="-mb-3 w-full font-bold items-center justify-center text-center text-xl">
         {"من نحن ؟"}
       </span>
       <span className="grid grid-cols-3 gap-6 p-4 text-center text-base text-white sm:grid-cols-3 md:grid-cols-5">
@@ -45,7 +45,7 @@ export default function Links() {
           </Link>
         ))}
       </span>
-      <span className="-mb-3 w-full items-center justify-center text-center text-xl">
+      <span className="-mb-3 w-full font-bold items-center justify-center text-center text-xl">
         إكتشف مواضيعنا
       </span>
       <span className="grid grid-cols-2 gap-6 p-4 text-center text-base text-white sm:grid-cols-3 md:grid-cols-5">
