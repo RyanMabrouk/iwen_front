@@ -27,7 +27,6 @@ const booksQuery = (args: QueryBooksArgs) => ({
   },
 });
 export { booksQuery, getBooks };
-
 async function getBooks(args: QueryBooksArgs) {
   const url = getEndpoint({ resource: "books", action: "getBooks" });
   const searchParams = Object.keys(args).map((key) => ({

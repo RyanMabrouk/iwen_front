@@ -8,6 +8,11 @@ import Store from "@/provider/QCStore";
 import React from "react";
 import { ToastContainer, ToastProvider } from "@/hooks/useToast";
 
+import type { Viewport } from 'next'
+ 
+export const viewport: Viewport = {
+  themeColor: 'white',
+}
 const tajawal = Tajawal({
   weight: ["200", "300", "400", "500", "700", "800", "900"],
   subsets: ["arabic"],
@@ -65,8 +70,6 @@ export const metadata: Metadata = {
   publisher: "دار إيوان للنشر",
   applicationName: "دار إيوان",
   robots: "index, follow",
-  themeColor: "#ffffff",
-  colorScheme: "light",
   openGraph: {
     title: "دار إيوان | مكتبتك الموثوقة",
     description:
