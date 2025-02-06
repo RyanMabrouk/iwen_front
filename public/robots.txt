@@ -1,0 +1,20 @@
+# *
+User-agent: *
+Allow: /
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+
+# *
+User-agent: *
+Disallow: /admin
+Disallow: /dashboard
+
+# Host
+Host: https://www.dar-iwan.shop
+
+# Sitemaps
+Sitemap: https://www.dar-iwan.shop/sitemap.xml
+Sitemap: https://www.dar-iwan.shop/books-sitemap.xml
+Sitemap: https://www.dar-iwan.shop/sitemap-0.xml
