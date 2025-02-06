@@ -8,11 +8,14 @@ import Store from "@/provider/QCStore";
 import React from "react";
 import { ToastContainer, ToastProvider } from "@/hooks/useToast";
 
-import type { Viewport } from 'next'
- 
+import type { Viewport } from "next";
+
 export const viewport: Viewport = {
-  themeColor: 'white',
-}
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "white",
+};
+
 const tajawal = Tajawal({
   weight: ["200", "300", "400", "500", "700", "800", "900"],
   subsets: ["arabic"],
@@ -78,7 +81,7 @@ export const metadata: Metadata = {
     siteName: "دار إيوان",
     images: [
       {
-        url: "/op-iwen.png",
+        url: "https://www.dar-iwan.shop/op-iwen.png",
         width: 1200,
         height: 630,
         alt: "دار إيوان - مكتبتك الموثوقة",
@@ -94,7 +97,7 @@ export const metadata: Metadata = {
     title: "دار إيوان | مكتبتك الموثوقة",
     description:
       "استكشف مجموعة دار إيوان الغنية من الكتب باللغة العربية. ابحث عن كتابك القادم الآن.",
-    images: ["/op-iwen.png"],
+    images: ["https://www.dar-iwan.shop/op-iwen.png"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -110,8 +113,32 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "دار إيوان",
+              url: "https://www.dar-iwan.shop",
+              logo: "https://www.dar-iwan.shop/op-iwen.png",
+              description:
+                "دار إيوان هي مكتبتك الموثوقة التي توفر مجموعة واسعة من الكتب باللغة العربية وغيرها.",
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+216 26187939",
+                contactType: "Customer Service",
+              },
+              sameAs: [
+                "https://www.linkedin.com/company/dar-iwan",
+                "https://www.facebook.com/dar.iwan",
+                "https://twitter.com/dar_iwan",
+              ],
+            }),
+          }}
+        />
       </head>
+
       <body className={tajawal.className + " min-h-screen"}>
         <Analytics />
         <SpeedInsights />{" "}
