@@ -99,10 +99,6 @@ export const metadata: Metadata = {
       "استكشف مجموعة دار إيوان الغنية من الكتب باللغة العربية. ابحث عن كتابك القادم الآن.",
     images: ["https://www.dar-iwan.shop/op-iwen.png"],
   },
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
   alternates: {
     canonical: "https://www.dar-iwan.shop/home",
   },
@@ -121,7 +117,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               "@type": "Organization",
               name: "دار إيوان",
               url: "https://www.dar-iwan.shop",
-              logo: "https://www.dar-iwan.shop/op-iwen.png",
               description:
                 "دار إيوان هي مكتبتك الموثوقة التي توفر مجموعة واسعة من الكتب باللغة العربية وغيرها.",
               contactPoint: {
