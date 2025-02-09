@@ -1,51 +1,27 @@
-import { getBooks } from "@/hooks/data/books/booksQuery";
-import { IBookPopulated } from "@/types";
+import getEndpoint from "@/services/getEndpoint";
+import sendRequest from "@/services/sendRequest";
 
-const siteUrl = "https://www.dar-iwan.shop"; // Replace with your actual site URL
+const siteUrl = "https://www.dar-iwan.shop";
 const defaultPriority = 0.8;
 const defaultFrequency = "daily";
 
-// Fetch all books
-async function fetchBooks(page: number, limit: number) {
-  const { data, error } = await getBooks({ page, limit });
-  console.log("🚀 ~ fetchBooks ~ data:", data)
-  console.log("🚀 ~ fetchBooks ~ error1:", error)
-  if (error) {
-    console.log("🚀 ~ fetchBooks ~ error2:", error)
-    console.error("Error fetching books:", error);
-    return [];
-  }
-  return data?.data ?? [];
+// Fetch all book slugs
+async function fetchSlugs() {
+  const url = getEndpoint({ resource: "books", action: "getSlugs" });
+  return await sendRequest<{ slug: string }[]>({ method: "GET", url: url() });
 }
-
-// Main GET function to generate sitemap
 export async function GET() {
   try {
-    let books: IBookPopulated[] = [];
-    let page = 1;
-    let hasMore = true;
+    const slugs = await fetchSlugs();
+    console.log("🚀 ~ GET ~ slugs:", slugs.data);
 
-    while (hasMore) {
-      const fetchedBooks = await fetchBooks(page, 8); // Fetch books in chunks of 100
-      console.log("🚀 ~ GET ~ fetchedBooks:", fetchedBooks)
-      if (fetchedBooks.length === 0) {
-        hasMore = false;
-      } else {
-        books = [...books, ...fetchedBooks];
-        page++;
-      }
-    }
-
-    if (books.length === 0) {
-      console.log("🚀 ~ GET ~ books:", books)
+    if (!slugs || slugs.data?.length === 0) {
       return new Response("No books found to generate sitemap", {
         status: 404,
       });
     }
-
-    // Build the URLs for the sitemap
-    const urls = books.map((book) => {
-      const bookUrl = `${siteUrl}/books/${book.id}`;
+    const urls = slugs.data?.map(({ slug }) => {
+      const bookUrl = `${siteUrl}/books/${slug}`;
       return `<url>
                 <loc>${bookUrl}</loc>
                 <changefreq>${defaultFrequency}</changefreq>
@@ -55,10 +31,9 @@ export async function GET() {
 
     // Construct the sitemap XML
     const sitemap = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-                        ${urls.join("")}
-                      </urlset>`;
+                      ${urls?.join("")}
+                    </urlset>`;
 
-    // Return the response with the generated sitemap
     return new Response(sitemap, {
       status: 200,
       headers: {

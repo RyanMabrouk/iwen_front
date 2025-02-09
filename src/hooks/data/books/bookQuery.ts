@@ -2,15 +2,15 @@ import sendRequest from "@/services/sendRequest";
 import getEndpoint from "@/services/getEndpoint";
 import { IBookPopulated } from "@/types";
 
-const bookQuery = (bookId: string) => ({
-  queryKey: ["books", bookId],
+const bookQuery = (bookSlug: string) => ({
+  queryKey: ["books", bookSlug],
   queryFn: async () => {
-    const url = getEndpoint({ resource: "books", action: "getBookId" });
+    const url = getEndpoint({ resource: "books", action: "getBookSlug" });
     return await sendRequest<IBookPopulated>({
       method: "GET",
-      url: url(bookId),
+      url: url(bookSlug),
     });
   },
-  enabled: bookId !== null,
+  enabled: bookSlug !== null,
 });
 export { bookQuery };

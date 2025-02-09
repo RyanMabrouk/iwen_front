@@ -99,7 +99,7 @@ export default function BookCard({
             images_urls.length > 1
               ? images_urls?.map((image, i) => (
                   <Link
-                    href={`/books/${book.id}`}
+                    href={`/books/${book.slug}`}
                     key={i}
                     className="group flex h-full w-full items-center justify-center p-7"
                   >
@@ -114,7 +114,7 @@ export default function BookCard({
                 ))
               : [
                   <Link
-                    href={`/books/${book.id}`}
+                    href={`/books/${book.slug}`}
                     className="group flex h-full w-full items-center justify-center p-7"
                     key={0}
                   >

@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { bookQuery } from "./bookQuery";
 
-export default function useBook(bookId: string) {
-  const query = useQuery(bookQuery(bookId));
+export default function useBook(bookSlug: string) {
+  const query = useQuery(bookQuery(bookSlug));
   return query;
 }

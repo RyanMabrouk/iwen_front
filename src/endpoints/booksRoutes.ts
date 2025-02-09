@@ -1,5 +1,7 @@
 export const booksEndpoints = {
   getBookId: (id: string) => `/books/${id}`,
+  getBookSlug: (slug: string) => `/books/slug/${slug}`,
+  getSlugs: () => `/books/slugs`,
   getBooks: () => `/books`,
   updateBook: (id: string) => `/books/${id}`,
   createBook: () => `/books`,
@@ -12,4 +14,5 @@ export const booksEndpoints = {
     `/books/${id}/categories/${category_id}`,
   removeSubCategory: (id: string, subcategory_id: string) =>
     `/books/${id}/subcategories/${subcategory_id}`,
+
 };
