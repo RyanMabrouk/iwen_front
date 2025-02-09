@@ -3,10 +3,7 @@
 import { Spinner } from "@/app/ui/Spinner";
 import useOffer from "@/hooks/data/offers/useOffer";
 import React from "react";
-import { useRouter } from "next/navigation";
 import BookCard from "@/components/BookCard";
-import BookListElement from "../../books/ui/BookListElement";
-import { IBookPopulated } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus } from "lucide-react";
