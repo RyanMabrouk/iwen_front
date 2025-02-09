@@ -25,10 +25,6 @@ import PaymentMethodSelection from "./ui/PaymentMethodSelection";
 import OrderConfirmation from "./ui/OrderConfirmation";
 import OrderSummary from "./ui/OrderSummary";
 
-const phoneNumberSchema = z
-  .string()
-  .regex(/^0\d{9}$/, "رقم الهاتف يجب أن يبدأ ب0 ويحتوي على 10 أرقام");
-
 interface ICreateOrderPayload {
   name: string;
   email: string;
@@ -68,8 +64,9 @@ export default function CheckoutPage() {
   >();
 
   const price_after_discount =
-    (offer_id && offer ? Number(offer.price_after_offer) * offer_quantity : cart.total) ??
-    0;
+    (offer_id && offer
+      ? Number(offer.price_after_offer) * offer_quantity
+      : cart.total) ?? 0;
   const price_before_discount = offer_id
     ? Number(offer?.price_before_offer ?? 0) * offer_quantity
     : cart.total_before_discount;
@@ -119,14 +116,6 @@ export default function CheckoutPage() {
         action: "createOrderFromCart",
       });
 
-      try {
-        phoneNumberSchema.parse(phone_number);
-      } catch (error) {
-        if (error instanceof z.ZodError) {
-          throw new Error(error.errors[0]?.message);
-        }
-        throw new Error("");
-      }
       const { error, validationErrors } = await sendRequest<
         never,
         ICreateOrderFromCartPayload
@@ -177,14 +166,6 @@ export default function CheckoutPage() {
         action: "createOrderFromOffer",
       });
 
-      try {
-        phoneNumberSchema.parse(phone_number);
-      } catch (error) {
-        if (error instanceof z.ZodError) {
-          throw new Error(error.errors[0]?.message);
-        }
-        throw new Error("");
-      }
       const { error, validationErrors } = await sendRequest<
         never,
         ICreateOrderFromOfferPayload
