@@ -2,15 +2,22 @@ import type { Metadata } from "next";
 import { Tajawal } from "next/font/google";
 import "./globals.css";
 import Hydration from "@/provider/MainHydration";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/react";
 import Store from "@/provider/QCStore";
 import React from "react";
-import { ToastContainer, ToastProvider } from "@/hooks/useToast";
-
+import dynamic from "next/dynamic";
 import type { Viewport } from "next";
-import getSession from "@/api/getSession";
-
+const SpeedInsights = dynamic(() =>
+  import("@vercel/speed-insights/next").then((mod) => mod.SpeedInsights),
+);
+const Analytics = dynamic(() =>
+  import("@vercel/analytics/react").then((mod) => mod.Analytics),
+);
+const ToastProvider = dynamic(() =>
+  import("@/hooks/useToast").then((mod) => mod.ToastProvider),
+);
+const ToastContainer = dynamic(() =>
+  import("@/hooks/useToast").then((mod) => mod.ToastContainer),
+);
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,

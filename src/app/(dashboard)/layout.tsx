@@ -2,7 +2,8 @@
 import Header from "@/components/Header/Header";
 import { Player } from "@lottiefiles/react-lottie-player";
 import React, { Suspense } from "react";
-import Footer from "./ui/Footer";
+import dynamic from "next/dynamic";
+const Footer = dynamic(() => import("./ui/Footer"));
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

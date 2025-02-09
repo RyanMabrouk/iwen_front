@@ -1,12 +1,18 @@
-import CategoryBooksSection from "@/components/CategoryBooksSection";
-import PrimaryButton from "@/components/main/buttons/PrimaryButton";
-import Offers from "@/components/Offers";
+import dynamic from "next/dynamic";
+import Banners from "@/components/main/banners/Banners"; // load statically
 import React from "react";
 import Image from "next/image";
-import CornerSwiper from "@/components/CornerSwiper";
-import Banners from "@/components/main/banners/Banners";
 import Link from "next/link";
-import Socials from "./contact/ui/socials";
+const CategoryBooksSection = dynamic(
+  () => import("@/components/CategoryBooksSection"),
+);
+const PrimaryButton = dynamic(
+  () => import("@/components/main/buttons/PrimaryButton"),
+);
+const Offers = dynamic(() => import("@/components/Offers"));
+const Socials = dynamic(() => import("./contact/ui/socials"));
+const CornerSwiper = dynamic(() => import("@/components/CornerSwiper"));
+
 export default async function Page() {
   return (
     <div className="flex h-full flex-col">
@@ -30,9 +36,9 @@ export default async function Page() {
             <div className="flex flex-col items-center text-center text-3xl">
               <span>اختر كتابك</span>
               <span className="text-center font-medium">
-                {
-                  " إكتشف الآن تشكيلتنا الواسعة من الكتب، واختر ما يناسب ذوقك من بين آلاف العناوين المميزة"
-                }
+                {" "}
+                إكتشف الآن تشكيلتنا الواسعة من الكتب، واختر ما يناسب ذوقك من بين
+                آلاف العناوين المميزة
               </span>
             </div>
             <div className="mx-auto w-fit">
@@ -43,9 +49,8 @@ export default async function Page() {
           </div>
         </div>
         <CornerSwiper />
-
         {/* <NewAuthors /> */}
-      </div>{" "}
+      </div>
     </div>
   );
 }
