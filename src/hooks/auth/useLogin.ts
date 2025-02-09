@@ -17,7 +17,7 @@ export default function useLogin() {
     onSuccess: () => {
       queryClient.invalidateQueries();
       toast.success("تم تسجيل الدخول بنجاح");
-      router.push("/home");
+      router.push("/");
     },
     onError: (error: Error) => {
       try {

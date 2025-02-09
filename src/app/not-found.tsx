@@ -36,7 +36,7 @@ function NotFound() {
               ربما تم نقل الصفحة التي تبحث عنها، أو أعيدت تسميتها أو ربما لم تكن
               موجودة على الإطلاق
             </p>
-            <Link href={"/home"}>
+            <Link href={"/"}>
               <PrimaryButton className="mx-auto flex items-center gap-4">
                 <TimePast size="16" />
                 <span>الذهاب للصفحة الرئيسية</span>

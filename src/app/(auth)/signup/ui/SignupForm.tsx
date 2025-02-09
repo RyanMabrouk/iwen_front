@@ -176,7 +176,7 @@ export default function SignUpForm() {
           تهانينا ! تم إنشاء حسابك بنجاح
         </p>
         <Link
-          href="/home"
+          href="/"
           style={{ background: "#27A098" }}
           className="text-md mt-10 w-full rounded-md p-3 text-center font-semibold text-white"
         >

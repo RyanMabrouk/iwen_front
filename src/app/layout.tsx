@@ -9,6 +9,7 @@ import React from "react";
 import { ToastContainer, ToastProvider } from "@/hooks/useToast";
 
 import type { Viewport } from "next";
+import getSession from "@/api/getSession";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -77,11 +78,11 @@ export const metadata: Metadata = {
     title: "دار إيوان | مكتبتك الموثوقة",
     description:
       "اكتشف عالم الكتب مع دار إيوان. تصفح مجموعتنا الغنية وابحث عن كتابك المفضل.",
-    url: "https://www.dar-iwan.shop/home",
+    url: "https://www.dar-iwan.shop",
     siteName: "دار إيوان",
     images: [
       {
-        url: "https://www.dar-iwan.shop/op-iwen.png",
+        url: "https://www.dar-iwan.shop/icon.ico",
         width: 1200,
         height: 630,
         alt: "دار إيوان - مكتبتك الموثوقة",
@@ -97,10 +98,10 @@ export const metadata: Metadata = {
     title: "دار إيوان | مكتبتك الموثوقة",
     description:
       "استكشف مجموعة دار إيوان الغنية من الكتب باللغة العربية. ابحث عن كتابك القادم الآن.",
-    images: ["https://www.dar-iwan.shop/op-iwen.png"],
+    images: ["https://www.dar-iwan.shop/icon.ico"],
   },
   alternates: {
-    canonical: "https://www.dar-iwan.shop/home",
+    canonical: "https://www.dar-iwan.shop",
   },
   metadataBase: new URL("https://www.dar-iwan.shop"),
 };

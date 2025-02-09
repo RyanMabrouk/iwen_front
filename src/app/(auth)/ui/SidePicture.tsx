@@ -11,7 +11,7 @@ export default function SidePicture() {
       style={{ background: "#27A098" }}
     >
       <Link
-        href="/home"
+        href="/"
         className="absolute right-0 top-0 z-10 bg-inherit p-2"
         aria-label="Close"
       >

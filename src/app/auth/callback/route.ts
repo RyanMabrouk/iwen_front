@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     }
     const supabase = createClient();
     await supabase.auth.exchangeCodeForSession(code);
-    const redirectUrl = `${requestUrl.protocol}//${requestUrl.host}/home`;
+    const redirectUrl = `${requestUrl.protocol}//${requestUrl.host}/`;
     return NextResponse.redirect(redirectUrl);
   } catch (error) {
     return NextResponse.redirect(`${requestUrl.origin}`);

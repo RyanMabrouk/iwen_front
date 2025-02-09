@@ -5,6 +5,6 @@ import getUser from "@/api/getUser";
 
 export default async function Page() {
   const { data } = await getUser();
-  if (data.user) redirect("/home");
+  if (data.user) redirect("/");
   return <LoginForm />;
 }
