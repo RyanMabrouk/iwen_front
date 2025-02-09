@@ -195,7 +195,7 @@ export default function CheckoutPage() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    if (offer) {
+    if (offer_id) {
       orderFromOfferMutation.mutate(formData);
     } else {
       orderFromCartMutation.mutate(formData);

@@ -19,6 +19,8 @@ export default async function sendRequest<
   error: string | null;
   validationErrors: IError<IPayload>["errors"] | null;
 }> {
+  console.log("🚀 ~ payload:", payload);
+
   const options = {
     method: method,
     url: url,
@@ -48,6 +50,7 @@ export default async function sendRequest<
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
       const backendError: IError<IPayload> = error.response?.data;
+      console.log("🚀 ~ backendError:", backendError);
       if (backendError?.errors) {
         return {
           data: null,
