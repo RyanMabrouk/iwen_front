@@ -6,6 +6,7 @@ import Store from "@/provider/QCStore";
 import React from "react";
 import dynamic from "next/dynamic";
 import type { Viewport } from "next";
+import Script from "next/script";
 const SpeedInsights = dynamic(() =>
   import("@vercel/speed-insights/next").then((mod) => mod.SpeedInsights),
 );
@@ -119,7 +120,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
 
-        <script
+        <Script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
