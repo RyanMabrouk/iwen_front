@@ -32,7 +32,7 @@ const tajawal = Tajawal({
 
 export const metadata: Metadata = {
   title: {
-    default: "دار إيوان | مكتبتك الموثوقة",
+    default: "دار إيوان",
     template: " دار إيوان | %s",
   },
   description:
