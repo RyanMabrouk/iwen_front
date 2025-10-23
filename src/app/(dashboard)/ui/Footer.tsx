@@ -69,7 +69,7 @@ export default function Footer() {
         </div>
       </div>
       {/* Attribution Section */}
-      <div dir="rtl" className="bg-color1 px-8 pt-6">
+      <div dir="rtl" className="bg-color1 px-8 py-6">
         <div className="mb-4 flex items-center justify-center gap-3">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
           <div className="h-1.5 w-1.5 rounded-full bg-white/40"></div>
@@ -94,10 +94,6 @@ export default function Footer() {
               <span className="relative z-10">Evowave</span>
               <div className="absolute -bottom-1 right-0 h-0.5 w-0 bg-gradient-to-l from-blue-400 to-blue-300 transition-all duration-300 group-hover:w-full"></div>
             </a>
-          </div>
-
-          <div className="w-full ">
-            <img src="/group2.svg"  alt="Decorative divider" className="w-full h-8 opacity-80" />
           </div>
         </div>
       </div>
