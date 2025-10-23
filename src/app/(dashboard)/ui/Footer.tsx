@@ -97,7 +97,7 @@ export default function Footer() {
           </div>
 
           <div className="w-full ">
-            <Image src="/group2.svg" width={1920} height={30} alt="Decorative divider" className="w-full opacity-80" />
+            <img src="/group2.svg"  alt="Decorative divider" className="w-full h-8 opacity-80" />
           </div>
         </div>
       </div>
