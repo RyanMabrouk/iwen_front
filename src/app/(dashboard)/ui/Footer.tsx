@@ -86,7 +86,7 @@ export default function Footer() {
             </div>
             <span>من طرف</span>
             <a
-              href="https://evowave.tech"
+              href="https://evowave.dev"
               target="_blank"
               rel="noreferrer"
               className="relative font-semibold text-white transition-all duration-300 hover:text-blue-300"
